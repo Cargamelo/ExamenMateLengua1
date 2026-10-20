@@ -9,7 +9,7 @@ const key="ligasaber-2026-"+subject;
 let progress={history:[],misses:[],badges:[],lastDate:""};
 try{const saved=JSON.parse(localStorage.getItem(key)||"null");if(saved&&Array.isArray(saved.history))progress={...progress,...saved};}catch(e){}
 let soundEnabled=false, audioContext=null, view="home", topic="", mode="practice", difficulty=2, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
-let voiceList=[];let memoryState=null;let dictationDraft="";
+let voiceList=[];let memoryState=null;let dictationDraft="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini;const adaptive=AD.init(progress,modules.map(x=>x.id));const challengeSeq={};
 function refreshVoices(){if("speechSynthesis" in window)voiceList=window.speechSynthesis.getVoices()||[];}
 refreshVoices();
 if("speechSynthesis" in window && window.speechSynthesis.addEventListener)window.speechSynthesis.addEventListener("voiceschanged",refreshVoices);
@@ -46,31 +46,63 @@ function topBack(destination="home"){return '<div class="back-line">'+button(des
 function render(){if(view==="home")return renderHome();if(view==="topics")return renderTopics();if(view==="lesson")return renderLesson();if(view==="setup")return renderSetup();if(view==="quiz")return renderQuiz();if(view==="result")return renderResult();if(view==="progress")return renderProgress();if(view==="schedule")return renderSchedule();if(view==="material")return renderMaterialList();if(view==="dictation")return renderDictation();if(view==="expressive")return renderExpressive();if(view==="memory")return renderMemory();}
 function renderHome(){
 const art=isMath?"./assets/escena-matematicas.svg":"./assets/escena-lengua.svg";
-shell('<section class="hero-game"><div class="hero-copy"><div class="overline">✦ ¡TU AVENTURA EMPIEZA AQUÍ!</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><span class="pill-info">📅 '+META.exam+'</span></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"></section>'+
-'<section class="menu-grid" aria-label="Modos de juego">'+
-card("Aprender","Explicaciones y ejemplos visuales","💡","topics",'data-mode="learn"')+
-card("Practicar","Entrena por contenidos, a tu ritmo","🎯","topics",'data-mode="practice"')+
-card("Jugar","Misiones y desafíos para investigar","🎮","topics",'data-mode="games"')+
-card("Simulacro",isMath?"20 preguntas tipo prueba escrita":"Pruebas según cada actividad del cole","📝","exam")+
-card("Mis errores","Refuerza lo que más te cuesta","🛠️","errors")+
-card("Mi progreso","Aciertos, estrellas y contenidos","🏆","progress")+
-card("Plan de repaso","Qué practicar cada día antes de evaluar","🗓️","schedule")+
-card("Otra asignatura","Volver a Matemáticas y Lengua","🚀","leave")+
-'</section><p class="small-note" style="text-align:center">Sin cronómetro, sin anuncios. Cada intento es una oportunidad para aprender.</p>');
+const pending=AD.pending(adaptive).length,medals=adaptive.rewards?.completed||0;
+shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="overline">✦ TU NUEVA AVENTURA</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><div class="quest-summary"><span>⭐ '+stars()+' estrellas</span><span>🏅 '+medals+' misiones</span><span>🪙 '+(adaptive.rewards?.coins||0)+' monedas</span></div></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"></section>'+
+'<section class="adventure-actions" aria-label="Elegir aventura">'+
+'<button type="button" class="adventure-launch" data-action="topics">'+graphicIcon("jugar")+'<span><strong>JUGAR</strong><small>¡Explora los mundos y supera misiones!</small></span><span class="launch-arrow" aria-hidden="true">→</span></button>'+
+'<button type="button" class="adventure-repair" data-action="errors">'+graphicIcon("errores")+'<span><strong>MIS ERRORES</strong><small>'+(pending?pending+' pistas pendientes para investigar':'Un taller para seguir aprendiendo')+'</small></span><span class="launch-arrow" aria-hidden="true">→</span></button></section>'+
+'<div class="adventure-footer"><p>Sin cronómetro y sin niveles que configurar. Cada reto se adapta a lo que vas aprendiendo.</p>'+button("progress","Ver mis medallas y progreso","","quest-text-button")+'</div>');
 }
-function renderTopics(){shell(topBack()+'<h1 class="section-title">'+(mode==="learn"?"Elige lo que quieres aprender":mode==="games"?"Elige tu desafío":"¿Qué quieres practicar?")+'</h1><p class="section-lead">Puedes entrar en cualquier territorio. No hay niveles bloqueados.</p><section class="level-grid">'+modules.map(m=>{let stat=master(m.id);return '<button class="level-card" type="button" data-action="'+(mode==="learn"?"lesson":(m.id==="comprension"||m.id==="dictado"||m.id==="expresiva")?"material":"setup")+'" data-topic="'+m.id+'"><div class="level-icon">'+graphicIcon(m.id)+'</div><strong>'+esc(m.title)+'</strong><small>'+esc(m.sub)+'</small><div class="meter"><span style="width:'+stat.percent+'%"></span></div><small>'+(!stat.tried?"Sin practicar todavía":stat.solid?"Dominado · "+stat.percent+" %":stat.percent+" % de aciertos recientes")+'</small></button>'}).join("")+'</section>');}
-function renderLesson(){const m=topicById(topic);if(!m){go("home");return;}shell(topBack("topics")+'<h1 class="section-title">'+graphicIcon(m.id)+' '+esc(m.title)+'</h1><article class="paper lesson narrow">'+m.lesson+'<div class="action-row">'+button("setup","¡Ya lo entiendo! Practicar",'data-topic="'+topic+'"')+(["comprension","dictado","expresiva"].includes(topic)?button("material","Elegir una actividad",'data-topic="'+topic+'"',"secondary-btn"):"")+'</div></article>');}
-function renderSetup(){const m=topicById(topic);if(!m){go("home");return;}if(["comprension","dictado","expresiva"].includes(topic)){go("material");return;}shell(topBack("topics")+'<h1 class="section-title">'+graphicIcon(m.id)+' '+esc(m.title)+'</h1><div class="paper narrow"><p class="section-lead">Elige tu desafío. No hay límite de tiempo.</p><span class="mini-label">Dificultad</span><div class="filter-row">'+[1,2,3].map((d)=>button("set-difficulty",["","Fácil","Intermedio","Avanzado"][d],'data-difficulty="'+d+'"'+(difficulty===d?' aria-pressed="true"':""),difficulty===d?"primary-btn":"secondary-btn")).join("")+'</div><span class="mini-label" style="margin-top:23px">Duración</span><div class="action-row">'+button("start","⚡ 5 preguntas",'data-count="5"')+button("start","🎯 10 preguntas",'data-count="10"',"secondary-btn")+(mode==="games"&&(topic==="sinonimos"||topic==="antonimos")?button("memory-start","🃏 Memory de parejas","","secondary-btn"):"")+'</div><p class="small-note">Recuerda: las pistas explican cómo resolver los ejercicios.</p></div>');}
+function renderTopics(){
+const pending=AD.pending(adaptive);
+shell(topBack()+'<div class="map-heading"><span class="map-flag">✦ MAPA DE AVENTURAS</span><h1 class="section-title">Elige tu mundo</h1><p>Entra en un mundo y la misión comienza. ¡Puedes volver siempre que quieras!</p></div>'+
+'<section class="level-grid adventure-map">'+modules.map((m,i)=>{let stat=AD.status(adaptive,m.id),weak=pending.filter(x=>x.topic===m.id).length;return '<button class="level-card adventure-world" type="button" data-action="enter-world" data-topic="'+m.id+'"><span class="world-index">MUNDO '+(i+1)+'</span><div class="level-icon">'+graphicIcon(m.id)+'</div><strong>'+esc(m.title)+'</strong><small>'+esc(m.sub)+'</small><span class="world-rank">'+(stat.step>=3?"✦ Aventuras avanzadas":"✦ Aventuras intermedias")+(weak?" · "+weak+" pistas":"")+'</span><div class="meter"><span style="width:'+Math.max(5,stat.step/5*100)+'%"></span></div></button>'}).join("")+'</section>');
+}
+function renderLesson(){const m=topicById(topic);if(!m){go("home");return;}shell(topBack("topics")+'<h1 class="section-title">'+graphicIcon(m.id)+' '+esc(m.title)+'</h1><article class="paper lesson narrow">'+m.lesson+'<div class="action-row">'+button("enter-world","Continuar aventura",'data-topic="'+topic+'"')+'</div></article>');}
+function renderSetup(){enterWorld(topic);}
 function renderMaterialList(){let kind=topic,arr=kind==="comprension"?D.readings:kind==="dictado"?D.dictations:D.expressive;if(!arr){go("topics");return;}shell(topBack("topics")+'<h1 class="section-title">'+esc(topicById(kind).title)+'</h1><p class="section-lead">'+(kind==="comprension"?"Elige una lectura. Cada historia tiene seis preguntas.":kind==="dictado"?"Escucha por frases o deja que un adulto te dicte.":"Lee en voz alta. Después valora cómo te ha salido.")+'</p><div class="level-grid">'+arr.map((t,i)=>'<button type="button" class="level-card" data-action="pick-material" data-index="'+i+'"><div class="level-icon">'+graphicIcon(kind)+'</div><strong>'+esc(t.title)+'</strong><small>'+((i+1).toString()).padStart(2,"0")+' · '+(kind==="comprension"?"Seis preguntas":kind==="dictado"?"Dictado con corrección":"Lectura y autoevaluación")+'</small></button>').join("")+'</div>');}
 function renderProgress(){const n=progress.history.length,correct=progress.history.filter(x=>x.ok).length,pct=n?Math.round(correct/n*100):0,solid=modules.filter(m=>master(m.id).solid).length;
 shell(topBack()+'<h1 class="section-title">🏆 Mi progreso</h1><div class="stat-grid"><div class="stat"><strong>'+n+'</strong><small>Intentos</small></div><div class="stat"><strong>'+pct+' %</strong><small>Aciertos</small></div><div class="stat"><strong>'+solid+'/'+modules.length+'</strong><small>Territorios dominados</small></div></div><div class="paper"><h2>Mis territorios</h2>'+modules.map(m=>{const s=master(m.id);return '<div style="margin:15px 0"><div class="progress-row"><strong>'+graphicIcon(m.id)+' '+esc(m.title)+'</strong><span>'+s.percent+' %</span></div><div class="meter"><span style="width:'+s.percent+'%"></span></div><small>'+(!s.tried?"Aún no practicado":s.solid?"¡Buen dominio!":"Continúa practicando")+'</small></div>'}).join("")+'<p class="small-note">Dominio orientativo: al menos 5 ejercicios y 80 % de aciertos recientes. No es una nota del colegio.</p></div><div class="action-row">'+button("errors","Repasar mis errores")+button("reset-confirm","Reiniciar mi progreso","","secondary-btn")+'</div>');}
 function renderSchedule(){const days=[["20–21 octubre","Descubre todos los contenidos y comprueba cuáles te cuestan."],["22–23 octubre","Practica los apartados en los que has cometido errores."],["24–25 octubre","Repaso general y simulacros de Matemáticas y teoría de Lengua."],["26 octubre","Preguntas de teoría de Lengua. Repaso breve de Matemáticas."],["27 octubre","Prueba escrita de Matemáticas. Actividades de Lengua."],["28 octubre","Lengua: comprensión lectora, escritura y puntuación."],["29 octubre","Comprensión lectora. Prepara el dictado."],["30 octubre","Dictado de Lengua."]];shell(topBack()+'<h1 class="section-title">🗓️ Plan de repaso</h1><div class="paper narrow"><p>Una propuesta para estudiar en sesiones cortas, sin agobios. Puedes jugar cualquier día a cualquier contenido.</p>'+days.map(([date,t])=>'<div class="result-item"><b>'+date+'</b>'+t+'</div>').join("")+'</div>');}
-function record(q,ok,usedHints){progress.history.push({topic:q.topic,variant:q.variant||"",ok:!!ok,hint:usedHints,date:Date.now()});if(progress.history.length>500)progress.history=progress.history.slice(-500);if(!ok){progress.misses.push({topic:q.topic,variant:q.variant||"",time:Date.now()});if(progress.misses.length>60)progress.misses=progress.misses.slice(-60);}else{let i=progress.misses.findIndex(m=>m.topic===q.topic&&m.variant===(q.variant||""));if(i>=0)progress.misses.splice(i,1);}persist();}
+function record(q,ok,usedHints){
+const status=AD.status(adaptive,q.topic);
+const info=AD.track(adaptive,q,ok,usedHints);
+progress.history.push({topic:q.topic,variant:q.variant||"",concept:info.concept,step:status.step,ok:!!ok,hint:usedHints,date:Date.now()});
+if(progress.history.length>500)progress.history=progress.history.slice(-500);
+if(!ok){progress.misses.push({topic:q.topic,variant:q.variant||"",concept:info.concept,time:Date.now()});if(progress.misses.length>120)progress.misses=progress.misses.slice(-120);}
+else{const i=progress.misses.findIndex(m=>m.topic===q.topic&&m.concept===info.concept);if(i>=0)progress.misses.splice(i,1);}
+persist();return info;
+}
 function exam(){if(isMath){difficulty=2;mode="test";const qs=[];for(const m of modules)qs.push(...generate(m.id,4));startQuiz(qs,"Simulacro de Matemáticas");return;}
 view="exam-lang";shell(topBack()+'<h1 class="section-title">📝 Evaluación de Lengua</h1><p class="section-lead">En clase se evaluarán contenidos distintos a lo largo de la semana. Elige el apartado que quieres preparar.</p><div class="menu-grid">'+card("Teoría","Sinónimos, antónimos y comunicación","🧠","lang-test",'data-kind="teoria"')+card("Actividades","Ejercicios variados y puntuación","✏️","lang-test",'data-kind="actividades"')+card("Comprensión","Lectura y seis preguntas","📚","lang-test",'data-kind="comprension"')+card("Dictado","Escucha y escribe","🎧","lang-test",'data-kind="dictado"')+card("Lectura expresiva","Practica la lectura en voz alta","🎭","lang-test",'data-kind="expresiva"')+'</div>');}
 function startLangTest(kind){mode="test";difficulty=2;if(kind==="teoria"){const q=["sinonimos","antonimos","comunicacion"].flatMap(t=>generate(t,4));startQuiz(shuffle(q),"Teoría de Lengua");}else if(kind==="actividades"){const q=["sinonimos","antonimos","comunicacion","puntuacion"].flatMap(t=>generate(t,3));startQuiz(shuffle(q),"Actividades de Lengua");}else{topic={comprension:"comprension",dictado:"dictado",expresiva:"expresiva"}[kind];go("material");}}
-function errors(){const types=unique(progress.misses.map(m=>m.topic)).filter(t=>topicById(t));if(!types.length){shell(topBack()+'<h1 class="section-title">🛠️ Mis errores</h1><div class="paper narrow"><p>¡Por aquí no hay errores pendientes! Practica un poco y este espacio te ayudará con las preguntas más difíciles.</p>'+button("topics","Elegir ejercicio",'data-mode="practice"')+'</div>');return;}mode="errors";difficulty=2;const missed=shuffle(progress.misses.slice(-15));let qs=missed.map(m=>makeQuestion(m.topic,m.variant)).filter(Boolean);if(qs.length<5){for(const t of types)qs.push(...generate(t,3));}startQuiz(qs.slice(0,10),"Misiones de refuerzo");}
-function startQuiz(items,title){session={items,title:title||"Tu desafío",results:[]};questionIndex=0;answered=null;hintCount=0;response="";view="quiz";render();}
+function errors(){
+const pending=AD.pending(adaptive).filter(p=>topicById(p.topic));
+if(!pending.length){shell(topBack()+'<section class="paper narrow recovery-hub"><div class="recovery-symbol">🧰</div><h1 class="section-title">Taller de reparaciones</h1><p>No tienes pistas pendientes. Si algún reto cuesta, este taller guardará el concepto y preparará nuevos desafíos para comprenderlo.</p>'+button("topics","Volver al mapa")+'</section>');return;}
+const entries=unique(pending.map(p=>p.topic));
+shell(topBack()+'<section class="paper recovery-hub"><div class="recovery-symbol">'+(isMath?"⚙️":"🔍")+'</div><h1 class="section-title">'+(isMath?"Taller de reparaciones":"Laboratorio de pistas")+'</h1><p>Aquí investigamos las dificultades, sin castigos ni prisas. Para resolver una pista hay que demostrar varias veces que ya la dominas.</p><div class="repair-grid">'+entries.map(id=>{const m=topicById(id),needs=pending.filter(p=>p.topic===id);return '<button type="button" class="repair-item" data-action="review-world" data-topic="'+id+'">'+graphicIcon(id)+'<span><strong>'+esc(m.title)+'</strong><small>'+needs.length+' conceptos para practicar</small></span><span>→</span></button>'}).join("")+'</div></section>');
+}
+function enterWorld(id,review=false){
+ const m=topicById(id);if(!m)return;topic=id;mode=review?"errors":"games";
+ if(["comprension","dictado","expresiva"].includes(id)){go("material");return;}
+ session={title:(review?"Reparación · ":"Misión · ")+m.title,topic:id,review,adaptive:true,target:6,items:[],results:[]};
+ questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
+ session.items.push(nextChallenge(id,review));view="quiz";render();
+}
+function nextChallenge(id,review=false){
+const st=AD.status(adaptive,id);difficulty=st.tier;
+const map={numeros:["a","b","c"],descomponer:["a","b","c"],comparar:["b","a","c"],ordinales:["c","a","b"],operaciones:["a","b","c","d"],sinonimos:["a","b"],antonimos:["a","b"],comunicacion:["a","b"],puntuacion:["a","b","c"]};
+const arr=map[id]||["a"];let n=challengeSeq[id]||0;
+let force=arr[n%arr.length];
+if(review){const needs=AD.pending(adaptive).filter(x=>x.topic===id);if(needs.length&&n%2===0){const v=needs[n%needs.length].variant;if(arr.includes(v))force=v;}}
+challengeSeq[id]=n+1;
+const q=MINI.enrich(makeQuestion(id,force),D,st.step);
+if(!q)throw Error("No se pudo crear el reto de "+id);
+if(q.choices&&!q.mechanic)q.mechanic={type:"scene",values:q.choices};
+q.step=st.step;q.fingerprint=q.fingerprint||q.prompt+" "+(q.visual||"");
+miniState=MINI.begin(q);return q;
+}
+function startQuiz(items,title){session={items:items.map(q=>{const x=MINI.enrich(q,D,AD.status(adaptive,q.topic).step);if(x.choices&&!x.mechanic)x.mechanic={type:"scene",values:x.choices};return x;}),title:title||"Tu desafío",results:[],adaptive:false,target:items.length};questionIndex=0;answered=null;hintCount=0;response="";miniState=MINI.begin(session.items[0]);view="quiz";render();}
 function generate(id,count){const out=[],seen=new Set();let attempts=0;while(out.length<count&&attempts<500){attempts++;let q=makeQuestion(id);if(!q)break;let k=q.prompt+"|"+(q.visual||"")+"|"+q.correct;if(seen.has(k))continue;seen.add(k);out.push(q);}return out;}
 function sayQuestion(q){if(q.voice)speak(q.voice);else speak(q.prompt.replace(/<[^>]+>/g,""));}
 function renderQuiz(){if(!session||!session.items.length){go("home");return;}const q=session.items[questionIndex],count=session.items.length,m=topicById(q.topic),ready=answered!==null;
