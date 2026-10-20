@@ -67,7 +67,7 @@ function renderSchedule(){const days=[["20–21 octubre","Descubre todos los con
 function record(q,ok,usedHints){
 const status=AD.status(adaptive,q.topic);
 const info=AD.track(adaptive,q,ok,usedHints);
-progress.history.push({topic:q.topic,variant:q.variant||"",concept:info.concept,step:status.step,ok:!!ok,hint:usedHints,date:Date.now()});
+progress.history.push({topic:q.topic,variant:q.variant||"",concept:info.concept,step:status.step,ok:!!ok,hint:usedHints,fingerprint:String(q.fingerprint||q.prompt||"").slice(0,170),date:Date.now()});
 if(progress.history.length>500)progress.history=progress.history.slice(-500);
 if(!ok){progress.misses.push({topic:q.topic,variant:q.variant||"",concept:info.concept,time:Date.now()});if(progress.misses.length>120)progress.misses=progress.misses.slice(-120);}
 else{const i=progress.misses.findIndex(m=>m.topic===q.topic&&m.concept===info.concept);if(i>=0)progress.misses.splice(i,1);}
@@ -89,6 +89,12 @@ function enterWorld(id,review=false){
  questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
  session.items.push(nextChallenge(id,review));view="quiz";render();
 }
+function advancedTwoStep(){
+const stock=1000+rand(3000),arrival=200+rand(1300),borrow=150+rand(1100);
+const answer=stock+arrival-borrow;
+let q=qObj("operaciones","contexto","La biblioteca tenía "+fmt(stock)+" libros. Llegaron "+fmt(arrival)+" libros nuevos y se prestaron "+fmt(borrow)+". ¿Cuántos quedan?",fmt(answer),"📚  "+fmt(stock)+"   +   "+fmt(arrival)+"   −   "+fmt(borrow),null,"Primero sumamos: "+fmt(stock)+" + "+fmt(arrival)+" = "+fmt(stock+arrival)+". Después restamos "+fmt(borrow)+" y quedan "+fmt(answer)+".","Resuelve primero la llegada de libros.","Después resta los libros prestados. Comprueba el resultado.",true);
+q.concept="operaciones-dos-pasos";return q;
+}
 function nextChallenge(id,review=false){
 const st=AD.status(adaptive,id);difficulty=st.tier;
 const map={numeros:["a","b","c"],descomponer:["a","b","c"],comparar:["b","a","c"],ordinales:["c","a","b"],operaciones:["a","b","c","d"],sinonimos:["a","b"],antonimos:["a","b"],comunicacion:["a","b"],puntuacion:["a","b","c"]};
@@ -96,7 +102,11 @@ const arr=map[id]||["a"];let n=challengeSeq[id]||0;
 let force=arr[n%arr.length];
 if(review){const needs=AD.pending(adaptive).filter(x=>x.topic===id);if(needs.length&&n%2===0){const v=needs[n%needs.length].variant;if(arr.includes(v))force=v;}}
 challengeSeq[id]=n+1;
-const q=MINI.enrich(makeQuestion(id,force),D,st.step);
+let source=(id==="operaciones"&&st.step>=4&&n%3===2)?advancedTwoStep():makeQuestion(id,force);
+if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
+let tries=0;while(tries++<40&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
+}
+const q=MINI.enrich(source,D,st.step);
 if(!q)throw Error("No se pudo crear el reto de "+id);
 if(q.choices&&!q.mechanic)q.mechanic={type:"scene",values:q.choices};
 q.step=st.step;q.fingerprint=q.fingerprint||q.prompt+" "+(q.visual||"");
