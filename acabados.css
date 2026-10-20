@@ -1,0 +1,61 @@
+/* Identidad visual ilustrada · La Liga del Saber · octubre 2026
+   Contenido y motores de juego sin cambios pedagógicos. */
+:root{--medal-gold:#f9c66b}
+.adventure-icon{width:100%;height:100%;display:block;overflow:visible;flex:none;filter:drop-shadow(0 3px 3px #23476a20)}
+.home-v2 .world-art{overflow:hidden}
+.home-v2 .world-emblem{position:absolute;z-index:5;right:19px;top:15px;width:101px;height:101px;filter:drop-shadow(0 11px 13px #2342694d);transform:rotate(9deg);transition:transform .24s}
+.home-v2 .lang-world .world-emblem{transform:rotate(-10deg)}
+.home-v2 .world-card:hover .world-emblem{transform:rotate(0deg) scale(1.06)}
+.home-v2 .world-art:before{content:"";pointer-events:none;position:absolute;z-index:0;inset:0;background:radial-gradient(ellipse at 49% 49%,#fff8 0,transparent 61%);mix-blend-mode:screen}
+.home-v2 .world-art .world-number{font-weight:1000;border:2px solid #fff9;box-shadow:0 3px 0 #abc2df4b,0 7px 14px #33527820}
+.home-v2 .world-card{box-shadow:0 11px 0 #080f2833,0 30px 70px #060b2461,inset 0 1px 0 #fff}
+.home-v2 .world-button{position:relative;overflow:hidden}
+.home-v2 .world-button:after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,transparent 33%,#ffffff29 50%,transparent 68%);transform:translateX(-150%);transition:transform .45s}
+.home-v2 .world-card:hover .world-button:after{transform:translateX(150%)}
+.game .brand-logo{background:linear-gradient(140deg,#fff,#eaf5ff);border:2px solid #fff;box-shadow:0 4px 0 #bdd3e8,0 9px 17px #315a8f2b;display:grid;place-items:center;padding:0}
+.game.lang-game .brand-logo{background:linear-gradient(140deg,#fff,#faeeff);border-color:#fff}
+.game .brand-logo .brand-icon{width:51px;height:51px;max-width:none;filter:drop-shadow(0 2px 2px #213e6333)}
+.game .header-main-menu{position:relative;overflow:hidden;box-shadow:0 5px 0 #ba863b,0 12px 20px #a66f2c36,inset 0 2px 1px #fff8}
+.game .header-main-menu:after{content:"✦";font-size:.64rem;color:#bb8a3a;position:absolute;top:6px;right:8px}
+.game .header-main-menu .menu-glyph{display:grid;place-items:center;width:25px;height:25px;background:#fff9d6b3;border-radius:9px;border:1px solid #e6c278;box-shadow:inset 0 1px 0 #fff;font-weight:1000}
+.game .game-header{border:1px solid #fff;box-shadow:0 6px 0 #a9bee021,0 17px 33px #314d822a,inset 0 1px 0 #fff}
+.game.math-game .hero-game{background:linear-gradient(90deg,#e8fafff9 0,#e8faffee 28%,#dcf3ffd0 47%,#cbe9ff14 100%),url("./assets/fondo-cabecera-math.svg") center center / cover no-repeat,#dff4ff;border-color:#eaffff;box-shadow:0 8px 0 #9ec5d735,0 19px 39px #3b7a9a29}
+.game.lang-game .hero-game{background:linear-gradient(90deg,#fff5fff9 0,#fff4fff0 28%,#f6e8ffdc 49%,#ead7ff0a 100%),url("./assets/fondo-cabecera-lang.svg") center center / cover no-repeat,#f6e9ff;border-color:#fff4ff;box-shadow:0 8px 0 #cdafd73b,0 19px 39px #82559a2a}
+.game .hero-game:before{opacity:.25}
+.game .hero-game:after{content:"";pointer-events:none;position:absolute;z-index:0;inset:auto -4% -36% 37%;height:67%;border:2px solid #fff8;border-radius:50%;transform:rotate(-12deg)}
+.game .game-hero-art{right:-3%;bottom:-15%;width:min(55%,565px);height:128%;object-fit:contain;object-position:center;filter:drop-shadow(0 18px 16px #173e703b);transition:transform .35s ease}
+.game .hero-game:hover .game-hero-art{transform:translateY(-5px) scale(1.025)}
+.game .hero-copy{max-width:56%}
+.game .hero-game .overline{box-shadow:0 2px 0 #a2c6d54b}
+.game .hero-game h1{max-width:560px;color:var(--accent-deep);text-shadow:0 2px 0 #fff9,0 5px 17px #40628c14}
+.game.lang-game .hero-game h1{color:#6e328f}
+.game .hero-game .pill-info{display:inline-flex;align-items:center;gap:7px}
+.game .menu-card{min-height:218px;border-radius:26px;border:1px solid #fff;background:radial-gradient(circle at 79% 17%,#e6f5ff 0,transparent 30%),linear-gradient(150deg,#fff,#f8fbff);box-shadow:0 7px 0 #b5c7e54b,0 17px 28px #526aa21b,inset 0 2px 0 #fff}
+.game.lang-game .menu-card{background:radial-gradient(circle at 80% 17%,#f7e8ff 0,transparent 33%),linear-gradient(150deg,#fff,#fffcff)}
+.game .menu-card .card-icon{width:82px;height:82px;margin-bottom:3px;background:linear-gradient(145deg,#fff9,#f2f9ff);border:1px solid #fff;border-radius:25px;box-shadow:0 5px 0 #c9d5ea99,0 9px 17px #2b4f8121;display:grid;place-items:center;overflow:visible}
+.game .menu-card:nth-child(3n+2) .card-icon{background:linear-gradient(145deg,#fff,#f5eaff)}
+.game .menu-card:nth-child(3n+3) .card-icon{background:linear-gradient(145deg,#fff,#fff7e5)}
+.game .menu-card .card-icon svg{width:78px;height:78px}
+.game .menu-card strong{font-size:1.14rem;margin-top:2px;line-height:1.18}
+.game .menu-card span:last-child{font-size:.83rem;line-height:1.4;max-width:95%;padding-right:10px}
+.game .menu-card:after{bottom:15px;right:16px;border:1px solid #fff;background:#ebf4ff;color:#719ac1;box-shadow:0 3px 0 #cddaf0}
+.game .level-card{min-height:211px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;box-shadow:0 6px 0 #b9c9e44a,0 16px 28px #3b649a1b;background:radial-gradient(circle at 85% 11%,#e8f7ff 0,transparent 39%),linear-gradient(145deg,#fff,#f6fbff)}
+.game .level-card .level-icon{width:79px;height:79px;margin:0 0 8px;background:linear-gradient(145deg,#fff,#f0f9ff);border:1px solid #fff;border-radius:23px;box-shadow:0 4px 0 #bed3e5a3,0 8px 14px #45699524;display:grid;place-items:center}
+.game .level-card .level-icon svg{width:77px;height:77px}
+.game .level-card:nth-child(even) .level-icon{background:linear-gradient(145deg,#fff,#f8ebff)}
+.game .level-card:nth-child(3n) .level-icon{background:linear-gradient(145deg,#fff,#fff3de)}
+.game .level-card strong{font-size:1.12rem;line-height:1.27}
+.game .level-card .meter{margin-top:auto;width:100%;margin-bottom:0}
+.game .level-card small{line-height:1.3}
+.game .section-title .adventure-icon{display:inline-block;width:54px;height:54px;vertical-align:middle;margin-right:5px;filter:drop-shadow(0 5px 5px #274b782a)}
+.game .progress-row .adventure-icon{display:inline-block;vertical-align:middle;width:31px;height:31px}
+.game .q-steps .adventure-icon{display:inline-block;vertical-align:middle;width:36px;height:36px;margin-right:6px}
+.game .q-steps{display:inline-flex;align-items:center;gap:4px}
+.game .level-card:active,.game .menu-card:active{transform:translateY(2px)}
+@media(min-width:1100px){.game .hero-game{min-height:290px}.game .game-hero-art{bottom:-24%;height:150%}.game .menu-grid{gap:20px}}
+@media(max-width:1000px){.game .hero-copy{max-width:61%}.game .game-hero-art{width:48%;right:-2%;bottom:-11%;height:121%}}
+@media(max-width:800px){.home-v2 .world-emblem{width:82px;height:82px;right:8px;top:9px}.game .menu-card{min-height:204px}.game .menu-card .card-icon{width:75px;height:75px}.game .menu-card .card-icon svg{width:73px;height:73px}}
+@media(max-width:720px){.game .game-header{grid-template-columns:1fr;gap:9px;padding:12px;justify-items:center}.game .brand{grid-row:1;grid-column:1;justify-content:center;width:auto}.game .header-main-menu{grid-row:2;grid-column:1;justify-self:stretch;max-width:440px;width:100%;min-height:47px}.game .header-actions{grid-row:3;grid-column:1;justify-self:center;justify-content:center;width:100%;flex-wrap:wrap}.game .hero-copy{max-width:100%}.game .game-hero-art{width:min(65%,350px);height:210px;right:-7px;bottom:-33px}.game .hero-game{padding-bottom:147px;min-height:350px}.game.math-game .hero-game{background:linear-gradient(180deg,#e8fafffd 0,#e8faffed 34%,#e5f6ffd2 62%,#b7e5f961 100%),url("./assets/fondo-cabecera-math.svg") center / cover no-repeat,#dff4ff}.game.lang-game .hero-game{background:linear-gradient(180deg,#fff5fffb 0,#fff3ffed 34%,#f6e8ffcd 62%,#e3d1fb60 100%),url("./assets/fondo-cabecera-lang.svg") center / cover no-repeat,#f6e9ff}}
+@media(max-width:630px){.game .menu-card{min-height:189px}.game .menu-card .card-icon{width:70px;height:70px;border-radius:20px}.game .menu-card .card-icon svg{width:69px;height:69px}.game .menu-card span:last-child{max-width:100%;font-size:.76rem}.game .menu-card strong{font-size:1.04rem}.game .level-card{min-height:194px}.game .level-card .level-icon{width:72px;height:72px}.game .level-card .level-icon svg{width:70px;height:70px}.game .section-title .adventure-icon{width:43px;height:43px}.home-v2 .world-emblem{width:86px;height:86px;right:14px;top:13px}}
+@media(max-width:420px){.game .game-header{padding:11px}.game .header-actions{gap:7px}.game .brand strong{font-size:1rem}.game .brand-logo{width:47px;height:47px}.game .brand-logo .brand-icon{width:48px;height:48px}.game .hero-game{min-height:340px;padding:22px 17px 137px}.game .hero-game h1{font-size:clamp(1.9rem,8vw,2.4rem)}.game .game-hero-art{height:185px;right:-12px;bottom:-20px}.game .menu-card{min-height:182px;padding:15px 12px;border-radius:19px}.game .menu-card .card-icon{width:64px;height:64px}.game .menu-card .card-icon svg{width:63px;height:63px}.game .level-card{min-height:186px;padding:15px}.game .level-card .level-icon{width:66px;height:66px}.game .level-card .level-icon svg{width:65px;height:65px}}
+@media(prefers-reduced-motion:reduce){.home-v2 .world-emblem,.game .game-hero-art,.home-v2 .world-button:after{transition:none!important}.game .hero-game:hover .game-hero-art,.home-v2 .world-card:hover .world-emblem{transform:none!important}}
