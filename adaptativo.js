@@ -8,7 +8,7 @@ const normalize=s=>String(s||"").trim().toLocaleLowerCase("es");
 function concept(q){
  if(q.concept)return String(q.concept);
  const t=q.topic||"",v=q.variant||"";
- if(t==="descomponer")return /0/.test(q.prompt+" "+(q.visual||""))?"valor-posicional-ceros":"valor-posicional";
+ if(t==="descomponer")return /0/.test((q.prompt||"")+" "+(q.visual||"")+" "+(q.correct||""))?"valor-posicional-ceros":"valor-posicional";
  if(t==="numeros")return v==="a"?"escribir-cifras":v==="b"?"leer-numeros":"identificar-cifras";
  if(t==="comparar")return v==="b"?"ordenacion":v==="a"?"signos-comparacion":"mayor-menor";
  if(t==="ordinales")return v==="b"?"cardinales-ordinales":"orden-posiciones";
