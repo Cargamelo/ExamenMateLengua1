@@ -65,3 +65,11 @@
 .game .voice-indicator{border-radius:14px;background:linear-gradient(145deg,#edf8ff,#fff);border:1px solid #b9dcf4;color:#315d84;padding:11px 15px;font-size:.86rem;font-weight:850;min-height:48px;line-height:1.45}
 .game.lang-game .voice-indicator{background:linear-gradient(145deg,#f7eafa,#fff);border-color:#e7cbef;color:#724c89}
 .game .filter-row .secondary-btn,.game .filter-row .primary-btn{min-height:48px}
+
+/* Los objetos ya resueltos se muestran sin quedar activables mediante teclado */
+.game .quest-completion.activated button:disabled,.game .quest-completion.needs-repair button:disabled{opacity:1;filter:none;cursor:default;transform:none}
+.game .quest-completion.activated .quest-key:disabled,.game .quest-completion.needs-repair .quest-key:disabled{box-shadow:0 4px 0 #b9d6e9}
+.game .quest-completion.activated .quest-piece:disabled,.game .quest-completion.needs-repair .quest-piece:disabled{box-shadow:0 5px 0 #ddbc84}
+.game .icon-button{min-height:48px}
+.game .quest-word{display:inline-flex;align-items:center;min-height:48px}
+@media(max-width:420px){.game .icon-button{min-height:48px;padding:8px 9px}}
