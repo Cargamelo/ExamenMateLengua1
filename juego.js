@@ -147,6 +147,9 @@ function renderResult(){
  '<div class="action-row">'+(session.adaptive?button("continue-mission","▶ Otra misión en este mundo"):"")+
  button("topics","🗺️ Mapa de mundos","","secondary-btn")+button("errors","🧰 Mis errores","","secondary-btn")+'</div></section>');
 }
+const smallNames=["","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
+const tens=["","","veinte","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
+const hundreds=["","ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos","setecientos","ochocientos","novecientos"];
 function numberWords(n){if(n===0)return "cero";if(n>=1000){let th=Math.floor(n/1000),rest=n%1000;let pre=th===1?"mil":numberWords(th)+" mil";return pre+(rest?" "+numberWords(rest):"");}if(n===100)return "cien";if(n>=100){let h=Math.floor(n/100),rest=n%100;return hundreds[h]+(rest?" "+numberWords(rest):"");}if(n<30)return smallNames[n];let d=Math.floor(n/10),u=n%10;return tens[d]+(u?" y "+smallNames[u]:"");}
 function qObj(topic,variant,prompt,correct,visual="",choices=null,explanation="",hint1="",hint2="",numeric=false){return {topic,variant,prompt,correct:String(correct),visual,choices,explanation:explanation||("La respuesta es "+correct+"."),hint1:hint1||"Lee con calma y observa los detalles.",hint2:hint2||"Busca la información importante en la pregunta.",numeric};}
 function optionsFrom(correct,rest){return shuffle(unique([String(correct),...rest.map(String)]).slice(0,4));}
