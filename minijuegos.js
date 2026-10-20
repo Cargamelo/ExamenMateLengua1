@@ -16,17 +16,17 @@ function enrich(q,D,step=0){
 }
 const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[]});
 function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(["pick","left"].includes(act)?' draggable="true" data-drag-kind="'+(act==="pick"?"train":"links")+'" data-drag-index="'+esc(val)+'"':"")+(act==="right"?' data-drop-kind="links" data-drop-index="'+esc(val)+'"':"")+(disabled?" disabled":"")+'>'+esc(label)+'</button>';}
-function render(q,s){
+function render(q,s,complete=false){
  const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+({digits:"🔐",machine:"⚙️",train:"🚂",race:"🏁",links:"🧩",repair:"📜",scene:q.topic==="comprension"?"🔎":"✦"}[m.type]||"✦")+'</div>';
  if(["digits","machine"].includes(m.type)){
  const n=m.type==="digits"?4:m.target.length;
- out+='<div class="quest-slot-row">'+Array.from({length:n},(_,i)=>'<div class="quest-slot"><small>'+esc(m.labels?.[i]||"")+'</small><span>'+esc(s.digits[i]||"·")+'</span></div>').join("")+'</div><div class="quest-keypad">';
+ out+='<div class="quest-slot-row">'+Array.from({length:n},(_,i)=>'<div class="quest-slot'+(s.digits[i]?" filled":"")+'"><small>'+esc(m.labels?.[i]||"")+'</small><span>'+esc(s.digits[i]||"·")+'</span></div>').join("")+'</div><div class="quest-keypad">';
  for(const x of ["1","2","3","4","5","6","7","8","9","⌫","0","✓"])out+=btn(x==="⌫"?"erase":x==="✓"?"submit":"digit",x,x,"quest-key");
  out+='</div><p class="quest-instruction">Construye tu respuesta. Puedes borrar la última cifra.</p>';
  }else if(m.type==="train"){
- out+='<p class="quest-instruction">Engancha los vagones de menor a mayor.</p><div class="quest-rail">'+m.values.map((_,i)=>'<span class="quest-rail-slot" data-drop-kind="train" data-drop-index="'+i+'">'+esc(s.chosen[i]===undefined?"?":m.values[s.chosen[i]])+'</span>').join("")+'</div><div class="quest-pieces">'+m.values.map((v,i)=>btn("pick",i,v,"quest-piece",s.chosen.includes(i))).join("")+'</div>'+btn("undo",0,"↶ Deshacer","quest-text-button");
+ out+='<p class="quest-instruction">Engancha los vagones de menor a mayor.</p><div class="quest-rail">'+m.values.map((_,i)=>'<span class="quest-rail-slot'+(s.chosen[i]===undefined?"":" coupled")+'" data-drop-kind="train" data-drop-index="'+i+'">'+esc(s.chosen[i]===undefined?"?":m.values[s.chosen[i]])+'</span>').join("")+'</div><div class="quest-pieces">'+m.values.map((v,i)=>btn("pick",i,v,"quest-piece",s.chosen.includes(i))).join("")+'</div>'+btn("undo",0,"↶ Deshacer","quest-text-button");
  }else if(m.type==="race"){
- out+='<p class="quest-instruction">Toca al participante que ocupa esa posición.</p><div class="quest-racers">'+m.values.map((v,i)=>btn("choose",i,(i+1)+".º "+v,"quest-racer")).join("")+'</div>';
+ out+='<p class="quest-instruction">Toca al participante que ocupa esa posición.</p><div class="quest-racers">'+m.values.map((v,i)=>btn("choose",i,(i+1)+".º "+v,"quest-racer"+(complete&&String(v)===String(q.correct)?" winner":""))).join("")+'</div>';
  }else if(m.type==="links"){
  out+='<p class="quest-instruction">Toca una palabra de cada columna para unir la pareja.</p><div class="quest-links"><div class="quest-link-column">'+m.left.map((x,i)=>btn("left",i,x,"quest-link"+(s.left===i?" active":"")+(s.linked.some(p=>p[0]===i)?" found":""),s.linked.some(p=>p[0]===i))).join("")+'</div><div class="quest-link-column">'+m.right.map((x,i)=>btn("right",i,x,"quest-link"+(s.linked.some(p=>p[1]===i)?" found":""),s.linked.some(p=>p[1]===i))).join("")+'</div></div><p class="quest-instruction" role="status">Cristales: '+s.linked.length+'/'+m.pairs.length+''+(s.mistakes?" · Sigue investigando":"")+'</p>';
  }else if(m.type==="repair"){
@@ -34,7 +34,7 @@ function render(q,s){
  m.parts.forEach((x,i)=>{if(/^\s+$/.test(x)){out+=esc(x);return}out+=btn("toggle",i,s.repaired.includes(i)?x[0].toLocaleUpperCase("es")+x.slice(1):x,"quest-word"+(s.repaired.includes(i)?" selected":""))+" "});
  out+='</div>'+btn("verify",0,"Comprobar pergamino","primary-btn quest-verify");
  }else if(m.type==="scene"){
- out+='<p class="quest-instruction">Inspecciona los objetos y pulsa la respuesta.</p><div class="quest-artifacts">'+m.values.map((x,i)=>btn("choose",i,x,"quest-artifact-button")).join("")+'</div>';
+ out+='<p class="quest-instruction">Inspecciona los objetos y pulsa la respuesta.</p><div class="quest-artifacts">'+m.values.map((x,i)=>btn("choose",i,x,"quest-artifact-button"+(complete&&String(x)===String(q.correct)?" winner":""))).join("")+'</div>';
  }
  return out+'</div>';
 }
