@@ -228,7 +228,7 @@ function renderMemory(){if(!memoryState){go("home");return;}const m=memoryState,
 function flipMemory(i){const m=memoryState;if(!m||m.open.length>=2||m.open.includes(i)||m.matched.includes(m.cards[i]?.id))return;m.open.push(i);if(m.open.length===2){m.attempts++;const c=m.cards[m.open[0]],d=m.cards[m.open[1]];if(c.id===d.id&&c.side!==d.side){m.matched.push(c.id);m.message="¡Pareja encontrada! "+c.word+" y "+d.word+".";m.open=[];record({topic,variant:"memory"},true,0);if(m.matched.length===4)fx(true);else AV?.play("link");}else{m.message="Estas palabras no forman pareja. Observa y pulsa «Seguir intentando».";fx(false);}}renderMemory();}
 document.addEventListener("pointerdown",e=>{
  const el=e.target.closest?.('button,a.header-main-menu,a.brand');
- if(el&&!el.disabled)el.classList?.add?.("is-pressed");
+ if(el&&!el.disabled){el.classList?.add?.("is-pressed");if(el.matches?.(".header-main-menu, .brand"))AV?.play("portal");}
 },{passive:true});
 for(const type of ["pointerup","pointercancel","dragend"])document.addEventListener(type,e=>{
  const el=e.target.closest?.('button,a.header-main-menu,a.brand');
