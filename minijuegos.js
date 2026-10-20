@@ -36,7 +36,7 @@ function render(q,s,complete=false){
  }else if(m.type==="scene"){
  out+='<p class="quest-instruction">Inspecciona los objetos y pulsa la respuesta.</p><div class="quest-artifacts">'+m.values.map((x,i)=>btn("choose",i,x,"quest-artifact-button"+(complete&&String(x)===String(q.correct)?" winner":""))).join("")+'</div>';
  }
- if(complete)out=out.replace(/<button\b([^>]*)>/g,(full,attrs)=>/\bdisabled(?:\s|=|$)/.test(attrs)?full:"<button"+attrs+' disabled aria-disabled="true">');
+ if(complete)out=out.replace(/<button\b([^>]*)>/g,(full,attrs)=>"<button"+attrs+(/\bdisabled(?:\s|=|$)/.test(attrs)?"":" disabled")+' aria-disabled="true">');
  return out+'</div>';
 }
 function act(q,s,action,value){
