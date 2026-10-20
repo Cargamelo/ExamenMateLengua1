@@ -5,7 +5,7 @@ function enrich(q,D,step=0){
  if((t==="numeros"||t==="descomponer")&&v==="a"){m={type:"digits",target:q.correct.replace(/[.\s]/g,"").padStart(4,"0"),labels:["UM","C","D","U"]};q.concept=t==="numeros"?"escribir-cifras":m.target.includes("0")?"valor-posicional-ceros":"valor-posicional";q.prompt=t==="numeros"?"Abre la caja fuerte construyendo el número":"Construye con cifras el número de los bloques";}
  else if(t==="comparar"&&v==="b"){const a=q.visual.split(" · ");if(a.length===4)m={type:"train",values:a,correct:q.correct.split(" → ")};}
  else if(t==="ordinales"&&v==="c"){const a=q.visual.match(/(?:^|\s)\d+\.\s*([^\s]+)/gu)?.map(x=>x.replace(/^\s*\d+\.\s*/,""))||[];if(a.length===10)m={type:"race",values:a};}
- else if(t==="operaciones"){if(q.numeric||v==="c")m={type:"machine",target:q.correct.replace(/[.\s]/g,"")};q.concept=q.visual.includes("−")?"restas":"sumas";}
+ else if(t==="operaciones"){if(q.numeric||v==="c")m={type:"machine",target:q.correct.replace(/[.\s]/g,"")};q.concept=q.concept||(q.visual.includes("−")?"restas":"sumas");}
  else if(t==="sinonimos"||t==="antonimos"){const a=shuffle(t==="sinonimos"?D.synonyms:D.antonyms),pairs=[],used=new Set();for(const [x,y] of a){if(used.has(x)||used.has(y))continue;pairs.push([x,y]);used.add(x);used.add(y);if(pairs.length===(step>=5?5:step>=3?4:3))break;}if(pairs.length>=3){m={type:"links",pairs,left:pairs.map(x=>x[0]),right:shuffle(pairs.map(x=>x[1]))};q.prompt=t==="sinonimos"?"Une las palabras amigas":"Encuentra las parejas contrarias";q.correct=pairs.length+" parejas conectadas";q.explanation="Cada pareja tiene un significado "+(t==="sinonimos"?"parecido.":"contrario.");q.concept=t+"-parejas";q.fingerprint=pairs.map(p=>p.join("=")).join("|");}}
  else if(t==="puntuacion"&&v==="a"){const parts=q.visual.match(/\s+|\S+/g)||[],orig=q.correct.match(/\s+|\S+/g)||[];if(parts.length===orig.length){const target=[];parts.forEach((x,i)=>{if(x!==orig[i]&&/^[a-záéíóúñ]/u.test(x))target.push(i)});if(target.length){m={type:"repair",parts,target};q.prompt="Repara las mayúsculas del pergamino";q.concept="mayusculas";}}}
  else if(t==="comparar"&&v==="a")m={type:"scene",values:["<","=",">"]};
@@ -15,7 +15,7 @@ function enrich(q,D,step=0){
  q.mechanic=m;return q;
 }
 const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[]});
-function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(disabled?" disabled":"")+'>'+esc(label)+'</button>';}
+function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(["pick","left"].includes(act)?' draggable="true" data-drag-kind="'+(act==="pick"?"train":"links")+'" data-drag-index="'+esc(val)+'"':"")+(act==="right"?' data-drop-kind="links" data-drop-index="'+esc(val)+'"':"")+(disabled?" disabled":"")+'>'+esc(label)+'</button>';}
 function render(q,s){
  const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+({digits:"🔐",machine:"⚙️",train:"🚂",race:"🏁",links:"🧩",repair:"📜",scene:q.topic==="comprension"?"🔎":"✦"}[m.type]||"✦")+'</div>';
  if(["digits","machine"].includes(m.type)){
@@ -24,7 +24,7 @@ function render(q,s){
  for(const x of ["1","2","3","4","5","6","7","8","9","⌫","0","✓"])out+=btn(x==="⌫"?"erase":x==="✓"?"submit":"digit",x,x,"quest-key");
  out+='</div><p class="quest-instruction">Construye tu respuesta. Puedes borrar la última cifra.</p>';
  }else if(m.type==="train"){
- out+='<p class="quest-instruction">Engancha los vagones de menor a mayor.</p><div class="quest-rail">'+m.values.map((_,i)=>'<span class="quest-rail-slot">'+esc(s.chosen[i]===undefined?"?":m.values[s.chosen[i]])+'</span>').join("")+'</div><div class="quest-pieces">'+m.values.map((v,i)=>btn("pick",i,v,"quest-piece",s.chosen.includes(i))).join("")+'</div>'+btn("undo",0,"↶ Deshacer","quest-text-button");
+ out+='<p class="quest-instruction">Engancha los vagones de menor a mayor.</p><div class="quest-rail">'+m.values.map((_,i)=>'<span class="quest-rail-slot" data-drop-kind="train" data-drop-index="'+i+'">'+esc(s.chosen[i]===undefined?"?":m.values[s.chosen[i]])+'</span>').join("")+'</div><div class="quest-pieces">'+m.values.map((v,i)=>btn("pick",i,v,"quest-piece",s.chosen.includes(i))).join("")+'</div>'+btn("undo",0,"↶ Deshacer","quest-text-button");
  }else if(m.type==="race"){
  out+='<p class="quest-instruction">Toca al participante que ocupa esa posición.</p><div class="quest-racers">'+m.values.map((v,i)=>btn("choose",i,(i+1)+".º "+v,"quest-racer")).join("")+'</div>';
  }else if(m.type==="links"){
