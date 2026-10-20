@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 550" role="img" aria-labelledby="title">
+<title id="title">Libro mágico abierto, faroles, letras flotantes y pluma en un mundo de Lengua</title>
+<defs>
+<linearGradient id="sky" x2="1" y2="1"><stop stop-color="#9f8af7"/><stop offset=".58" stop-color="#cdb2ff"/><stop offset="1" stop-color="#f5d1fa"/></linearGradient>
+<linearGradient id="paper" x2="0" y2="1"><stop stop-color="#fffdf2"/><stop offset="1" stop-color="#f8ddb7"/></linearGradient>
+<linearGradient id="cover" x2="0" y2="1"><stop stop-color="#fa9ec4"/><stop offset="1" stop-color="#bb5b9e"/></linearGradient>
+<linearGradient id="ink" x2="0" y2="1"><stop stop-color="#9c71db"/><stop offset="1" stop-color="#4c388b"/></linearGradient>
+<linearGradient id="coin" x2="0" y2="1"><stop stop-color="#ffe89b"/><stop offset="1" stop-color="#faad60"/></linearGradient>
+<filter id="drop" x="-30%" y="-40%" width="170%" height="200%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#533070" flood-opacity=".29"/></filter>
+<filter id="blur"><feGaussianBlur stdDeviation="15"/></filter>
+</defs>
+<ellipse cx="460" cy="467" rx="325" ry="33" fill="#765da6" opacity=".22" filter="url(#blur)"/>
+<circle cx="718" cy="98" r="57" fill="#fff9cc" opacity=".65"/>
+<g opacity=".9" fill="#fff"><path d="M87 150q-5-32 28-37 10-33 38-27 24-1 34 25 43 1 39 39z"/><path d="M676 207q-6-32 29-36 15-32 43-15 36-1 41 27 23 6 13 24z"/></g>
+<g filter="url(#drop)">
+<path d="M190 359q104-34 270 31 179-65 279-31v76Q583 408 459 472 333 410 190 437z" fill="url(#cover)" stroke="#9e4e94" stroke-width="11" stroke-linejoin="round"/>
+<path d="M202 348q107-52 257 29 146-81 268-30v67q-143-21-266 45-118-69-259-43z" fill="#fff6e2" stroke="#e6c2bb" stroke-width="8" stroke-linejoin="round"/>
+<path d="M215 339q107-49 244 39v61q-119-64-244-45z" fill="url(#paper)"/><path d="M708 339q-114-42-249 39v61q118-66 249-45z" fill="url(#paper)"/>
+<path d="M459 377v76" stroke="#dba9ac" stroke-width="7"/>
+<path d="M245 356q68-16 151 20M251 377q69-14 139 20M521 376q73-38 162-23M523 401q89-32 159-21" fill="none" stroke="#c8b0bd" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+<path d="M263 397q54-3 107 20M543 420q57-21 124-20" fill="none" stroke="#e0c9c0" stroke-width="6" stroke-linecap="round"/>
+<path d="M454 379q-9-12-24-17" stroke="#fff8e7" stroke-width="7"/>
+</g>
+<g filter="url(#drop)">
+<g transform="translate(178 177) rotate(-13)"><rect x="-65" y="-57" width="129" height="116" rx="33" fill="#fff1fb" stroke="#ce88d8" stroke-width="9"/><text x="0" y="29" font-family="Georgia,serif" text-anchor="middle" fill="#833d9e" font-size="91" font-weight="bold">A</text><path d="M38 53l-9 24 26-16" fill="#fff1fb" stroke="#ce88d8" stroke-width="7" stroke-linejoin="round"/></g>
+<g transform="translate(733 189) rotate(11)"><rect x="-55" y="-54" width="115" height="109" rx="30" fill="#ffe7a5" stroke="#ffeebf" stroke-width="9"/><text x="1" y="28" font-family="Georgia,serif" text-anchor="middle" fill="#975775" font-size="90" font-weight="bold">?</text><path d="M-20 49l-5 22 24-21" fill="#ffe7a5" stroke="#ffeebf" stroke-width="7" stroke-linejoin="round"/></g>
+<g transform="translate(612 126) rotate(-6)"><circle r="46" fill="#f4a3b9" stroke="#ffe0ee" stroke-width="8"/><text x="0" y="24" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" fill="#fff" font-size="75">Z</text></g>
+</g>
+<g filter="url(#drop)">
+<path d="M527 308Q595 202 617 130q-61 38-104 138-28 62-55 117 38-42 69-77z" fill="#ffe7ba" stroke="#b56c95" stroke-width="6"/>
+<path d="M516 295q50-104 101-165-49 55-80 147z" fill="#fffaf2"/>
+<path d="M460 387q48-80 120-174" fill="none" stroke="#7c4d86" stroke-width="6"/>
+</g>
+<g fill="#fff6bd"><path d="M334 103l11 28 28 10-28 10-11 28-10-28-29-10 29-10z"/><path d="M802 302l8 22 23 8-23 8-8 23-8-23-23-8 23-8z"/></g>
+<g fill="#fff"><circle cx="277" cy="264" r="7"/><circle cx="680" cy="298" r="6"/><circle cx="639" cy="65" r="5"/><circle cx="390" cy="179" r="5"/><circle cx="136" cy="293" r="4"/></g>
+<g fill="none" stroke="#fff9de" stroke-width="5" stroke-linecap="round"><path d="M402 216q35-49 84-46"/><path d="M686 114q20 14 28 31"/></g>
+</svg>
