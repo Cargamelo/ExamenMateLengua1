@@ -31,7 +31,7 @@ function render(isMath,modules,stats,escape){
  }).join("");
  return '<section class="gameworld gameworld-'+theme+'" aria-label="Mapa ilustrado de '+(isMath?"Matemáticas":"Lengua")+'">'+
  '<div class="gameworld-sky" aria-hidden="true"><span class="sky-star sky-one">✧</span><span class="sky-star sky-two">✦</span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span></div>'+
- '<div class="map-artscape"><img class="map-ground-art" src="./assets/mapa-'+theme+'.svg" alt="" loading="eager" decoding="async" width="1100" height="'+(isMath?1400:1750)+'">'+
+ '<div class="map-artscape"><picture class="map-ground-picture"><source media="(max-width:700px)" srcset="./assets/mapa-mobile-'+theme+'.svg"><img class="map-ground-art" src="./assets/mapa-'+theme+'.svg" alt="" loading="eager" decoding="async" width="1100" height="'+(isMath?1400:1750)+'"></picture>'+
  '<div class="map-locations">'+stops+'</div>'+
  '<div class="map-character">'+character(isMath)+'<span class="map-guide-talk">'+(isMath?"¡Te esperaba! Elige un lugar para explorar.":"¡Hola, detective! ¿Qué misterio investigamos?")+'</span></div>'+
  '</div>'+
