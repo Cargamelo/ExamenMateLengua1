@@ -60,3 +60,8 @@
 .game .quest-slot.filled,.game .quest-rail-slot.coupled,.game .quest-link.active,.game .quest-reaction,.game .quest-completion.activated .quest-scene.quest-digits .quest-artifact::after,.game .quest-completion.activated .quest-scene.quest-machine .quest-artifact,.game .quest-completion.activated .quest-scene.quest-train .quest-rail,.game .quest-completion.activated .quest-scene.quest-train::after,.game .quest-completion.activated .quest-scene.quest-race .quest-racer.winner,.game .quest-completion.needs-repair .quest-scene,.game .fx-spark,.game .fx-mission-rays span,.game .quest-scene.quest-links:has(.quest-link.found)::after{animation:none!important;transition:none!important}
 .game .fx-starfield,.game .fx-mission-rays{display:none!important}
 }
+
+/* Indicaciones legibles cuando se solicita una locución */
+.game .voice-indicator{border-radius:14px;background:linear-gradient(145deg,#edf8ff,#fff);border:1px solid #b9dcf4;color:#315d84;padding:11px 15px;font-size:.86rem;font-weight:850;min-height:48px;line-height:1.45}
+.game.lang-game .voice-indicator{background:linear-gradient(145deg,#f7eafa,#fff);border-color:#e7cbef;color:#724c89}
+.game .filter-row .secondary-btn,.game .filter-row .primary-btn{min-height:48px}
