@@ -1,0 +1,62 @@
+
+/* Interfaz táctil con comportamiento de videojuego físico */
+.game button,.game a.header-main-menu,.game a.brand{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.game button:not(:disabled),.game a.header-main-menu{transform-origin:center center;transition:transform .15s cubic-bezier(.15,1.4,.35,1),filter .15s ease,box-shadow .15s ease,background-color .15s ease}
+.game button:focus-visible,.game a:focus-visible,.game input:focus-visible,.game textarea:focus-visible{outline:4px solid #f7b54d!important;outline-offset:3px;z-index:5}
+.game button:disabled{filter:saturate(.5);opacity:.7;cursor:not-allowed;box-shadow:0 2px 0 #cbd2d8;transform:none!important}
+.game button[aria-pressed="true"]{box-shadow:inset 0 3px 7px #2e4c7a37,0 3px 0 #a6bdd4;background:linear-gradient(180deg,#e9f8ff,#c3e8ff);border-color:#6bb8ee}
+.game .quest-link.active,.game .quest-word.selected{outline:3px solid #f4bc59;outline-offset:2px;filter:drop-shadow(0 0 6px #ffd77779)}
+.game button.is-pressed:not(:disabled),.game a.header-main-menu.is-pressed{transform:translateY(3px) scale(.975)!important;filter:brightness(.98);box-shadow:0 2px 0 #6886a452,inset 0 3px 8px #356c9f26!important}
+.game .adventure-actions button.is-pressed:not(:disabled){transform:translateY(6px) scale(.985)!important}
+.game .header-main-menu{min-width:155px;min-height:48px;text-align:center;cursor:pointer}
+.game .adventure-actions button,.game .level-card,.game .quest-key,.game .quest-piece,.game .quest-link,.game .quest-word,.game .quest-artifact-button,.game .quest-racer{position:relative}
+@media(hover:hover) and (pointer:fine){
+.game .quest-key:hover:not(:disabled),.game .quest-piece:hover:not(:disabled),.game .quest-racer:hover:not(:disabled),.game .quest-artifact-button:hover:not(:disabled){filter:brightness(1.09);transform:translateY(-3px)}
+.game .quest-link:hover:not(:disabled),.game .quest-word:hover:not(:disabled){filter:brightness(1.06)}
+}
+.game .quest-key{min-height:54px}
+.game .quest-piece,.game .quest-artifact-button,.game .quest-racer,.game .quest-link,.game .quest-word,.game .primary-btn,.game .secondary-btn,.game .tag-btn,.game .quest-text-button{min-height:48px}
+.game .quest-slot.filled{border-color:#b6f6da;background:linear-gradient(150deg,#fcfff1,#c2ffdf);box-shadow:0 5px 0 #72cfa8,0 0 16px #89f2bd5b;animation:fx-key-dock .24s cubic-bezier(.1,1.5,.4,1) both}
+.game .quest-slot.filled span{color:#216e5a}
+.game .quest-rail-slot.coupled{background:linear-gradient(160deg,#fffce7,#bce7ff);box-shadow:0 5px 0 #6abed2;animation:fx-key-dock .25s cubic-bezier(.1,1.5,.4,1) both}
+.game .quest-link.found{background:linear-gradient(155deg,#e8fff3,#b7edcd);box-shadow:0 5px 0 #69c09a,0 0 14px #6cd9a94a}
+.game .quest-scene.quest-links:has(.quest-link.found)::after{content:"✦";position:absolute;top:12px;right:20px;font-size:24px;color:#e7bd57;opacity:.75;animation:fx-twinkle 1.2s ease-in-out infinite}
+.game .quest-completion.activated .quest-scene.quest-digits .quest-artifact::after{content:"🔓";position:absolute;inset:0;display:grid;place-items:center;background:#e1f8ffe8;border:2px solid #fff;border-radius:50%;animation:fx-unlock .7s ease-out both}
+.game .quest-completion.activated .quest-scene.quest-machine .quest-artifact{animation:fx-gear-spin .8s cubic-bezier(.3,0,.4,1) both}
+.game .quest-completion.activated .quest-scene.quest-train .quest-rail{animation:fx-train-move .85s ease-out both}
+.game .quest-completion.activated .quest-scene.quest-train::after{content:"☁";position:absolute;right:15%;top:36%;font-size:37px;color:#fff;opacity:0;animation:fx-steam .8s ease-out both}
+.game .quest-completion.activated .quest-scene.quest-race .quest-racer.winner{background:linear-gradient(150deg,#fff9c8,#ffd774);border-color:#ffde78;box-shadow:0 6px 0 #e0ac49,0 0 20px #ffd66b;animation:fx-racer .7s ease-in-out both}
+.game .quest-completion.activated .quest-scene.quest-scene .quest-artifact-button.winner{background:linear-gradient(145deg,#ecfff6,#acf1d2);border-color:#7edbb6;box-shadow:0 5px 0 #70bf9c,0 0 20px #a4edca}
+.game .quest-completion.activated .quest-scene.quest-repair .quest-word-board{box-shadow:inset 0 0 23px #6bdfad8a}
+.game .quest-completion.activated .quest-scene.quest-repair::after{content:"✦ REPARADO";position:absolute;right:12px;top:12px;background:linear-gradient(145deg,#fff3cb,#efc76e);color:#77572c;font-size:12px;font-weight:1000;letter-spacing:.04em;padding:8px 13px;transform:rotate(8deg);border:2px solid #fff5d7;border-radius:12px;box-shadow:0 4px 0 #d1a458}
+.game .quest-completion.needs-repair .quest-scene{animation:fx-soft-no .32s ease-out 1}
+.game .quest-reaction{position:relative;isolation:isolate}
+.game .fx-starfield{position:absolute;inset:0;pointer-events:none;overflow:visible;z-index:0}
+.game .fx-spark{position:absolute;font-style:normal;left:50%;top:50%;font-size:22px;color:#f8be42;text-shadow:0 2px 6px #efad3a55;animation:fx-spark-fly .9s cubic-bezier(.15,.6,.45,1) both;will-change:transform,opacity}
+.game .fx-spark-1{--x:-130px;--y:-57px;animation-delay:.02s}.game .fx-spark-2{--x:-85px;--y:-98px;animation-delay:.1s}.game .fx-spark-3{--x:-25px;--y:-115px;animation-delay:.05s}.game .fx-spark-4{--x:32px;--y:-105px;animation-delay:.14s}.game .fx-spark-5{--x:111px;--y:-69px;animation-delay:.08s}.game .fx-spark-6{--x:86px;--y:-3px;animation-delay:.13s}.game .fx-spark-7{--x:-100px;--y:-2px;animation-delay:.03s}
+.game .fx-mission-rays{position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:28px 18px}
+.game .fx-mission-rays span{font-size:clamp(17px,3vw,32px);color:#eec05a;opacity:.68;animation:fx-mission-spark 1.4s ease-out both}
+.game .fx-mission-rays span:nth-child(2n){animation-delay:.18s;color:#e6a4a5}
+.game .mission-victory{position:relative;overflow:hidden}
+.game .mission-victory>*:not(.fx-mission-rays){position:relative;z-index:1}
+.game .pill-info,.game .quest-summary span{transition:background-color .2s,box-shadow .2s}
+.game .quest-reaction.win{animation:quest-pop .65s cubic-bezier(.15,1.25,.5,1) both}
+.game .quest-reaction.try{animation:fx-gentle-pulse .45s ease-out both}
+.game .quest-link.active{animation:fx-key-dock .2s ease-out both}
+.game .quest-artifact-button.winner,.game .quest-racer.winner{pointer-events:none}
+.game .icon-button[aria-pressed="true"]::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#2cb784;margin-left:5px;box-shadow:0 0 0 3px #2cb78422}
+@keyframes fx-key-dock{0%{transform:scale(.86)}65%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes fx-unlock{from{opacity:0;transform:scale(.5) rotate(-12deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes fx-gear-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes fx-train-move{0%{transform:translateX(0)}45%{transform:translateX(18px)}100%{transform:translateX(0)}}
+@keyframes fx-steam{0%{opacity:0;transform:translate(0,18px) scale(.5)}40%{opacity:.7}100%{opacity:0;transform:translate(26px,-50px) scale(1.4)}}
+@keyframes fx-racer{0%,100%{transform:translateY(0)}45%{transform:translateY(-16px)}}
+@keyframes fx-spark-fly{0%{opacity:0;transform:translate(0,12px) scale(.25) rotate(-18deg)}26%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.1) rotate(25deg)}}
+@keyframes fx-mission-spark{0%{opacity:0;transform:translateY(25px) scale(.4) rotate(-20deg)}40%{opacity:1}100%{opacity:.7;transform:translateY(0) scale(1) rotate(15deg)}}
+@keyframes fx-twinkle{0%,100%{opacity:.2;transform:scale(.9)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes fx-gentle-pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
+@keyframes fx-soft-no{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}65%{transform:translateX(3px)}}
+@media(prefers-reduced-motion:reduce){
+.game .quest-slot.filled,.game .quest-rail-slot.coupled,.game .quest-link.active,.game .quest-reaction,.game .quest-completion.activated .quest-scene.quest-digits .quest-artifact::after,.game .quest-completion.activated .quest-scene.quest-machine .quest-artifact,.game .quest-completion.activated .quest-scene.quest-train .quest-rail,.game .quest-completion.activated .quest-scene.quest-train::after,.game .quest-completion.activated .quest-scene.quest-race .quest-racer.winner,.game .quest-completion.needs-repair .quest-scene,.game .fx-spark,.game .fx-mission-rays span,.game .quest-scene.quest-links:has(.quest-link.found)::after{animation:none!important;transition:none!important}
+.game .fx-starfield,.game .fx-mission-rays{display:none!important}
+}
