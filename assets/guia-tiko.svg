@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 270" role="img" aria-labelledby="title"><title id="title">Tiko, robot explorador matemático original con mochila y antena brillante</title><defs><linearGradient id="body" x2="0" y2="1"><stop stop-color="#fff9ed"/><stop offset=".43" stop-color="#ffe4af"/><stop offset="1" stop-color="#dca975"/></linearGradient><linearGradient id="pink" x2="0" y2="1"><stop stop-color="#ffd3f0"/><stop offset="1" stop-color="#b579d1"/></linearGradient><linearGradient id="blue" x2="0" y2="1"><stop stop-color="#b8f5ff"/><stop offset="1" stop-color="#71aee9"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#23416c" flood-opacity=".26"/></filter></defs>
+<ellipse cx="119" cy="244" rx="69" ry="15" fill="#4b87a4" opacity=".18"/>
+<g filter="url(#s)">
+<path d="M63 152L32 168l11 46 22-15M176 151l30 20-13 42-20-18" fill="none" stroke="#d99d82" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><path d="M35 204l-10 13 15 8 19-5" fill="url(#body)" stroke="#ac8281" stroke-width="5"/><path d="M206 205l13 11-15 12-15-8" fill="url(#body)" stroke="#ac8281" stroke-width="5"/>
+<path d="M82 201l-10 38 30 5 18-29M142 215l13 31 26-9-6-34" fill="url(#blue)" stroke="#5c89ae" stroke-width="6" stroke-linejoin="round"/>
+<rect x="61" y="135" width="119" height="88" rx="29" fill="url(#blue)" stroke="#5c8da8" stroke-width="7"/>
+<path d="M63 185q49 20 115 0" stroke="#a8faff" stroke-width="6" fill="none"/>
+<rect x="173" y="146" width="27" height="53" rx="9" fill="#efaf8b" stroke="#aa837f" stroke-width="5"/>
+<rect x="46" y="45" width="149" height="111" rx="37" fill="url(#body)" stroke="#aa86a2" stroke-width="8"/>
+<rect x="61" y="70" width="119" height="65" rx="29" fill="#3a6f9e" stroke="#ffffffc9" stroke-width="5"/>
+<g fill="#fff"><ellipse cx="97" cy="101" rx="15" ry="19"/><ellipse cx="147" cy="101" rx="15" ry="19"/></g>
+<g fill="#45547d"><circle cx="101" cy="104" r="7"/><circle cx="143" cy="104" r="7"/></g>
+<path d="M106 127q17 18 33-1" fill="none" stroke="#ffca9a" stroke-width="6" stroke-linecap="round"/>
+<circle cx="80" cy="129" r="9" fill="#ffb8bb" opacity=".75"/><circle cx="164" cy="128" r="9" fill="#ffb8bb" opacity=".75"/>
+<path d="M117 45V23" stroke="#7e88ab" stroke-width="7" stroke-linecap="round"/><path d="M121 10l7 11-7 13-8-13z" fill="#ffdb72" stroke="#fff4c5" stroke-width="4"/>
+<path d="M77 158l44-13 42 14-8 38-34 15-35-15z" fill="#fff9dc" stroke="#648dad" stroke-width="5"/><text x="121" y="190" font-size="33" font-family="system-ui" text-anchor="middle" font-weight="900" fill="#6497bd">+</text>
+<path d="M74 244l23 4M157 250l24-5" stroke="#4e728f" stroke-width="10" stroke-linecap="round"/>
+</g>
+<g fill="#fffbd2"><path d="M208 51l5 16 17 5-17 5-5 16-5-16-17-5 17-5z"/><circle cx="35" cy="63" r="6"/></g></svg>
