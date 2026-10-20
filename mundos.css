@@ -9,7 +9,7 @@
 .gameworld-sky .cloud-one{top:10%;left:-9%}.gameworld-sky .cloud-two{top:53%;right:-9%;animation-delay:-8s}
 .map-artscape{position:relative;width:100%;aspect-ratio:1100/1400;isolation:isolate;overflow:hidden;border-radius:23px;background:#7dc4e0;box-shadow:inset 0 0 0 2px #fff8,0 16px 38px #316f8343}
 .gameworld-lang .map-artscape{aspect-ratio:1100/1750;background:#ad99dc}
-.map-ground-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:0;pointer-events:none}
+.map-ground-picture{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}.map-ground-art{width:100%;height:100%;object-fit:fill;pointer-events:none}
 .map-locations{position:absolute;inset:0;z-index:3}
 .map-location{position:absolute!important;left:var(--left);top:var(--top);transform:translate(-50%,-50%);width:23.5%;min-width:190px;max-width:256px;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;cursor:pointer;border:0!important;border-radius:24px;background:transparent!important;padding:0 7px 5px;box-shadow:none!important;filter:none!important;text-align:center;color:#2d4f6b;touch-action:manipulation;transition:transform .22s cubic-bezier(.2,1.4,.5,1),filter .2s ease!important}
 .map-location:before{content:"";position:absolute;z-index:-1;inset:8% 2% 16%;background:radial-gradient(ellipse,#fffdf2c5 0,transparent 72%);border-radius:50%;pointer-events:none;opacity:.66;transition:opacity .2s}
@@ -95,8 +95,7 @@
 .map-character{top:8px;right:8px;max-width:93%;align-items:center}
 .map-character .world-guide{width:105px;height:132px}.map-guide-talk{max-width:182px;font-size:.74rem}
 .map-voyage-intro{margin:15px 4px 6px}.map-voyage-intro .section-title{font-size:2rem}
-.map-ground-art{content:url("./assets/mapa-mobile-math.svg")}
-.gameworld-lang .map-ground-art{content:url("./assets/mapa-mobile-lang.svg")}
+
 .quest-place-scene{min-height:117px}.quest-place-art{height:115px;width:58%}.quest-guide-art{height:100px;width:83px}
 .quest-scene .quest-artifact{height:95px;width:118px}.quest-scene.quest-machine .quest-artifact,.quest-scene.quest-digits .quest-artifact{width:139px;height:115px}
 }
@@ -142,3 +141,9 @@
 .game .material-world .quest-guide-art{height:115px;width:88px}
 }
 @media(prefers-reduced-motion:reduce){.game .hero-companion,.quest-guide-reaction,.game .quest-place-scene:has(.guide-win) .quest-guide-art{animation:none!important}}
+
+/* El desplazamiento de pulsación conserva el punto de anclaje del edificio. */
+.game .map-location.is-pressed,.game .map-location:active:not(:disabled){transform:translate(-50%,-47%) scale(.97)!important}
+@media(max-width:700px){.game .map-location.is-pressed,.game .map-location:active:not(:disabled){transform:translateY(3px) scale(.97)!important}}
+@media(prefers-reduced-motion:reduce){.game .map-location.is-pressed{transform:translate(-50%,-50%)!important}}
+@media(max-width:700px) and (prefers-reduced-motion:reduce){.game .map-location.is-pressed{transform:none!important}}
