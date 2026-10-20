@@ -1,0 +1,111 @@
+/* LA LIGA DEL SABER · Mundos ilustrados originales, accesibles y escalables */
+.gameworld{position:relative;margin:18px auto 30px;padding:20px;border:3px solid #fff;border-radius:36px;background:linear-gradient(170deg,#b1e9ff,#dff8ff 20%,#c3e3ed);box-shadow:0 9px 0 #7bb6c34c,0 27px 60px #32678544;isolation:isolate;overflow:hidden}
+.gameworld-lang{background:linear-gradient(160deg,#e1ccff,#f9dffb 22%,#e9dbfa);box-shadow:0 9px 0 #b295c64d,0 24px 55px #775d9c3d}
+.gameworld:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 13% 11%,#fff9,transparent 35%);pointer-events:none}
+.gameworld-sky{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.gameworld-sky .sky-star{position:absolute;color:#fff3b5;font-size:28px;filter:drop-shadow(0 2px 4px #b98d47);animation:world-sparkle 4s ease-in-out infinite}
+.gameworld-sky .sky-one{left:15%;top:8%}.gameworld-sky .sky-two{right:13%;top:37%;animation-delay:-1.5s}
+.gameworld-sky .sky-cloud{position:absolute;width:145px;height:39px;border-radius:50px;background:#ffffff70;filter:blur(4px);animation:world-cloud 20s ease-in-out infinite alternate}
+.gameworld-sky .cloud-one{top:10%;left:-9%}.gameworld-sky .cloud-two{top:53%;right:-9%;animation-delay:-8s}
+.map-artscape{position:relative;width:100%;aspect-ratio:1100/1400;isolation:isolate;overflow:hidden;border-radius:23px;background:#7dc4e0;box-shadow:inset 0 0 0 2px #fff8,0 16px 38px #316f8343}
+.gameworld-lang .map-artscape{aspect-ratio:1100/1750;background:#ad99dc}
+.map-ground-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:0;pointer-events:none}
+.map-locations{position:absolute;inset:0;z-index:3}
+.map-location{position:absolute!important;left:var(--left);top:var(--top);transform:translate(-50%,-50%);width:23.5%;min-width:190px;max-width:256px;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;cursor:pointer;border:0!important;border-radius:24px;background:transparent!important;padding:0 7px 5px;box-shadow:none!important;filter:none!important;text-align:center;color:#2d4f6b;touch-action:manipulation;transition:transform .22s cubic-bezier(.2,1.4,.5,1),filter .2s ease!important}
+.map-location:before{content:"";position:absolute;z-index:-1;inset:8% 2% 16%;background:radial-gradient(ellipse,#fffdf2c5 0,transparent 72%);border-radius:50%;pointer-events:none;opacity:.66;transition:opacity .2s}
+.map-location:hover:not(:disabled){transform:translate(-50%,-54%) scale(1.065);filter:drop-shadow(0 14px 10px #285e7d46)!important}
+.map-location:focus-visible{outline:4px solid #ffd76c!important;outline-offset:5px;border-radius:25px;background:#fff6e6ad!important;z-index:8}
+.map-location.is-pressed,.map-location:active:not(:disabled){transform:translate(-50%,-47%) scale(.97)!important;filter:brightness(.95)!important}
+.map-building{display:block;position:relative;width:100%;height:auto;aspect-ratio:240/210;isolation:isolate;filter:drop-shadow(0 10px 6px #255f6b39)}
+.map-building-art{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;animation:world-building-idle 7s ease-in-out infinite;animation-delay:calc(var(--step)*-.83s)}
+.map-location:hover .map-building-art,.map-location:focus-visible .map-building-art{animation:world-building-react .6s ease-in-out infinite alternate}
+.map-play-symbol{position:absolute;right:5%;top:58%;display:grid;place-items:center;width:36px;height:36px;border:2px solid #fff9d9;border-radius:50%;background:linear-gradient(150deg,#fff4b4,#ffbe5d);box-shadow:0 3px 0 #c99444,0 8px 12px #976a3f5a;color:#885a21;font-size:13px;transform:rotate(-8deg)}
+.map-place-name{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;border:3px solid #fff7d8;border-radius:16px;padding:10px 8px 9px;color:#4d4f63;background:linear-gradient(180deg,#fffdf2,#ffedba);box-shadow:0 5px 0 #d5af79,0 10px 14px #705b4d42}
+.gameworld-lang .map-place-name{background:linear-gradient(180deg,#fff7ff,#eddafa);border-color:#fff6ff;box-shadow:0 5px 0 #ad90ba,0 10px 14px #66528d42}
+.map-place-name b{display:block;font-size:clamp(.84rem,1.55vw,1.07rem);line-height:1.15;font-weight:1000;text-wrap:balance}
+.map-place-name small{display:block;color:#668096;font-size:.7rem;font-weight:850;line-height:1.18}
+.gameworld-lang .map-place-name{color:#765589}.gameworld-lang .map-place-name small{color:#8e789d}
+.map-place-medal{position:absolute;right:6%;top:1%;display:grid;place-items:center;width:29px;height:29px;border:2px solid #fff9d7;border-radius:50%;background:linear-gradient(#ffe5a7,#f8b95d);color:#9b752b;font-size:17px;font-weight:1000;box-shadow:0 3px 0 #c28a45}
+.map-location:hover .map-place-medal{animation:world-sparkle .7s ease-in-out infinite}
+.map-character{position:absolute;z-index:2;right:7%;top:8%;display:flex;align-items:center;gap:0;max-width:36%;pointer-events:none}
+.map-character .world-guide{width:110px;height:145px;object-fit:contain;animation:world-character 4.2s ease-in-out infinite;filter:drop-shadow(0 11px 6px #436a7a40)}
+.map-guide-talk{display:block;max-width:157px;border:3px solid #fff;padding:12px 14px;border-radius:21px 20px 20px 6px;background:#fffaf2;box-shadow:0 6px 0 #bdc6b693;color:#617193;font-weight:900;font-size:.79rem;line-height:1.3}
+.gameworld-lang .map-guide-talk{background:#fff8fd;color:#8c6597}
+.map-access-note{text-align:center;font-size:.8rem;font-weight:800;color:#526c8d;padding:12px 10px 0;line-height:1.4;margin:0}
+.gameworld-lang .map-access-note{color:#785d90}
+.map-voyage-intro{text-align:center;margin:17px auto 10px;max-width:760px}
+.map-voyage-intro .map-flag{background:#fff5d8;color:#936840}
+.map-voyage-intro .section-title{margin:10px 0 5px;font-size:clamp(1.8rem,4vw,3rem)}
+.map-voyage-intro p{font-weight:800;color:#637c9b;line-height:1.45}
+.gameworld .map-location:disabled{opacity:.6}
+.quest-place-scene{position:relative;isolation:isolate;overflow:hidden;width:100%;min-height:140px;border-radius:20px 20px 8px 8px;border:2px solid #fff;background:radial-gradient(circle at 51% 46%,#fffcd6bd,transparent 57%),linear-gradient(140deg,#d8f1ff,#b7ddf0 52%,#99d4c6);box-shadow:0 5px 0 #bad3cf75;display:flex;align-items:center;justify-content:center;margin:0 0 17px}
+.lang-game .quest-place-scene{background:radial-gradient(circle at 48% 36%,#fffdf4af,transparent 58%),linear-gradient(140deg,#f5e6ff,#e7c6ef 52%,#cb9bd9)}
+.quest-place-art{position:relative;z-index:2;object-fit:contain;width:min(64%,205px);height:137px;filter:drop-shadow(0 8px 7px #27567e38);animation:world-building-idle 6s ease-in-out infinite}
+.quest-guide-art{position:absolute;z-index:3;right:0;bottom:-11px;width:100px;height:120px;object-fit:contain;filter:drop-shadow(0 6px 5px #364d7247)}
+.quest-place-halo{position:absolute;width:205px;height:148px;border-radius:50%;background:#ffffff78;filter:blur(22px)}
+.quest-place-title{position:absolute;z-index:4;left:8px;bottom:8px;color:#496887;font-size:.68rem;letter-spacing:.08em;font-weight:1000;background:#fffdf7dc;border:1px solid #fff;padding:6px 11px;border-radius:100px}
+.quest-scene{position:relative;isolation:isolate}
+.quest-scene:after{pointer-events:none}
+.quest-scene .quest-artifact{position:relative;width:150px;height:120px;margin:0 auto 6px}
+.quest-scene .quest-artifact img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 6px #27517f47)}
+.quest-scene.quest-machine .quest-artifact,.quest-scene.quest-digits .quest-artifact{width:175px;height:145px}
+.quest-scene.quest-links .quest-artifact{width:128px;height:115px}
+.quest-scene.quest-race .quest-artifact{width:155px;height:125px}
+.quest-scene.quest-repair .quest-artifact{width:155px;height:120px}
+.quest-scene.quest-scene .quest-artifact{width:150px;height:115px}
+.quest-scene.quest-train{background:linear-gradient(#c8edfa,#e9faff 64%,#a5d3b3 65%,#79c7a6 100%)!important}
+.quest-scene.quest-machine{background:radial-gradient(circle at 50% 23%,#ffeed8,#c4eaff 57%,#b0d7c5)!important}
+.quest-scene.quest-links{background:radial-gradient(circle at 50% 24%,#fff2da,#efd8ff 57%,#bed8d0)!important}
+.quest-scene.quest-repair{background:radial-gradient(circle at 50% 20%,#fff9e7,#f3dbc5 72%)!important}
+.quest-scene.quest-race{background:linear-gradient(#d8eaff,#e3f3ed 57%,#a0c4b5 58%,#aed8b1)!important}
+.quest-scene.quest-race .quest-racers{position:relative}
+.quest-scene.quest-race .quest-racers:before{content:"";position:absolute;inset:-7px 0;background:repeating-linear-gradient(180deg,transparent 0 15px,#ffffff80 16px 17px);pointer-events:none}
+.quest-scene.quest-scene .quest-artifacts{position:relative}
+.quest-scene.quest-scene .quest-artifact-button{border-radius:20px}
+.game .mission-stage{background:linear-gradient(155deg,#fffef8,#edfaff 60%,#e4f6f1);box-shadow:0 9px 0 #9bbed13d,0 22px 45px #396c9236}
+.lang-game .mission-stage{background:linear-gradient(145deg,#fffaf8,#f9edff 60%,#e9ddf6)}
+.game .mission-pane{background:linear-gradient(155deg,#fffef7,#f8f2e2);box-shadow:inset 0 0 19px #eddab358}
+.lang-game .mission-pane{background:linear-gradient(155deg,#fffcf7,#fbf4ed)}
+.game .quest-artifact{animation:world-character 5.2s ease-in-out infinite}
+.game .quest-completion.activated .quest-artifact{animation:world-celebrate .75s ease-out both}
+.game .quest-completion.activated .quest-place-art{filter:drop-shadow(0 0 11px #ffef9e)}
+@keyframes world-sparkle{0%,100%{opacity:.65;transform:scale(.88)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes world-cloud{from{transform:translateX(-10px)}to{transform:translateX(65px)}}
+@keyframes world-character{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes world-building-idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes world-building-react{from{transform:translateY(-4px) rotate(-1deg)}to{transform:translateY(-11px) rotate(1deg)}}
+@keyframes world-celebrate{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px) scale(1.1)}}
+@media(max-width:1020px){
+.map-location{min-width:155px;min-height:200px;width:25%;padding:0 4px}.map-play-symbol{width:31px;height:31px}.map-place-name{padding:8px 6px}.map-place-name b{font-size:.88rem}.map-character .world-guide{width:85px;height:115px}.map-guide-talk{font-size:.69rem;padding:9px;max-width:135px}
+}
+@media(max-width:700px){
+.gameworld{margin:15px -2px 25px;padding:9px;border-radius:24px}
+.map-artscape,.gameworld-lang .map-artscape{aspect-ratio:auto;min-height:0;height:auto;border-radius:17px;overflow:hidden}
+.map-ground-art{object-fit:fill}
+.map-locations{position:relative;display:flex;flex-direction:column;gap:4px;padding:142px 12px 56px;inset:auto;align-items:stretch}
+.map-location{position:relative!important;left:auto!important;top:auto!important;align-self:flex-start;transform:none!important;max-width:none;width:min(84%,340px);min-width:0;min-height:225px;gap:0;padding:0 4px 16px;margin:0;z-index:3}
+.map-location:nth-child(2n){align-self:flex-end}
+.map-location:focus-visible{outline-offset:0}
+.map-location:hover:not(:disabled){transform:translateY(-4px) scale(1.02)!important}
+.map-location.is-pressed,.map-location:active{transform:translateY(3px) scale(.97)!important}
+.map-building{height:160px;aspect-ratio:auto}.map-building-art{height:170px;width:100%}
+.map-place-name{max-width:280px;margin:-3px auto 0;min-height:50px;padding:8px 11px}
+.map-place-name b{font-size:.98rem}.map-place-name small{font-size:.76rem}
+.map-play-symbol{top:60%;right:15%}.map-place-medal{right:7%;top:1%}
+.map-character{top:8px;right:8px;max-width:93%;align-items:center}
+.map-character .world-guide{width:105px;height:132px}.map-guide-talk{max-width:182px;font-size:.74rem}
+.map-voyage-intro{margin:15px 4px 6px}.map-voyage-intro .section-title{font-size:2rem}
+.map-ground-art{content:url("./assets/mapa-mobile-math.svg")}
+.gameworld-lang .map-ground-art{content:url("./assets/mapa-mobile-lang.svg")}
+.quest-place-scene{min-height:117px}.quest-place-art{height:115px;width:58%}.quest-guide-art{height:100px;width:83px}
+.quest-scene .quest-artifact{height:95px;width:118px}.quest-scene.quest-machine .quest-artifact,.quest-scene.quest-digits .quest-artifact{width:139px;height:115px}
+}
+@media(max-width:390px){
+.map-locations{padding:137px 8px 42px}.map-location{width:90%;min-height:207px}.map-building{height:145px}.map-building-art{height:155px}.map-place-name b{font-size:.92rem}.map-place-name small{font-size:.68rem}.map-character .world-guide{width:92px}.map-guide-talk{font-size:.68rem;max-width:160px}
+}
+@media(prefers-reduced-motion:reduce){
+.gameworld-sky .sky-star,.gameworld-sky .sky-cloud,.map-building-art,.map-character .world-guide,.map-location .map-place-medal,.quest-place-art,.quest-scene .quest-artifact{animation:none!important}
+.map-location,.map-building-art{transition:none!important}
+.map-location:hover,.map-location:active,.map-location.is-pressed{transform:translate(-50%,-50%)!important}
+@media(max-width:700px){.map-location:hover,.map-location:active,.map-location.is-pressed{transform:none!important}}
+}
