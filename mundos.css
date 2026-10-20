@@ -109,3 +109,36 @@
 .map-location:hover,.map-location:active,.map-location.is-pressed{transform:translate(-50%,-50%)!important}
 @media(max-width:700px){.map-location:hover,.map-location:active,.map-location.is-pressed{transform:none!important}}
 }
+
+/* Guías originales y reacciones que siguen el resultado real del ejercicio */
+.game .hero-companion{position:absolute;z-index:4;right:1%;bottom:-10px;width:clamp(115px,15vw,184px);height:clamp(145px,19vw,225px);object-fit:contain;filter:drop-shadow(0 11px 7px #3150765c);pointer-events:none;animation:world-character 5.8s ease-in-out infinite}
+.lang-game .hero-companion{right:0}
+.game .hero-game .game-hero-art{right:6%}
+.quest-guide-reaction{position:absolute;top:10px;right:8px;max-width:45%;padding:7px 10px;background:#fffef5;border:2px solid #fff;border-radius:14px 14px 3px 14px;color:#447d68;font-size:.7rem;font-weight:1000;line-height:1.2;text-align:center;box-shadow:0 4px 9px #3d6e9b26;animation:world-guide-cheer .6s cubic-bezier(.1,1.4,.5,1) both;z-index:5}
+.quest-guide-reaction.guide-hint{color:#875f7f;background:#fff6f5;border-color:#fff}
+.game .quest-place-scene .quest-guide-art{transition:transform .2s}
+.game .quest-place-scene:has(.guide-win) .quest-guide-art{animation:world-celebrate .7s ease-out both}
+.game .quest-place-scene:has(.guide-hint) .quest-guide-art{transform:rotate(-7deg)}
+.game .map-location .map-building{pointer-events:none}
+.game .map-location .map-place-name{pointer-events:none}
+.game .map-access-note{background:#ffffff4a;border-radius:12px;padding:9px;margin:10px auto 0;max-width:740px}
+.game .material-world{max-width:810px;margin:11px 0 22px}
+.game .material-world .quest-place-scene{min-height:188px}
+.game .material-world .quest-place-art{height:175px;width:min(61%,260px)}
+.game .material-world .quest-guide-art{width:123px;height:155px}
+.game .material-world+.section-title{margin-top:14px}
+@keyframes world-guide-cheer{from{opacity:0;transform:translateY(14px) scale(.85)}to{opacity:1;transform:none}}
+@media(max-width:830px){
+.game .hero-companion{right:-4%;width:127px;height:165px}
+.game .hero-game .game-hero-art{right:8%}
+.game .map-location .map-building{filter:drop-shadow(0 5px 5px #255f6b32)}
+}
+@media(max-width:700px){
+.game .hero-companion{width:110px;height:133px;right:-4%;bottom:-10px}
+.game .hero-game .game-hero-art{right:0;bottom:-43px}
+.quest-guide-reaction{right:6px;top:8px;max-width:50%;font-size:.66rem}
+.game .material-world .quest-place-scene{min-height:140px}
+.game .material-world .quest-place-art{height:125px}
+.game .material-world .quest-guide-art{height:115px;width:88px}
+}
+@media(prefers-reduced-motion:reduce){.game .hero-companion,.quest-guide-reaction,.game .quest-place-scene:has(.guide-win) .quest-guide-art{animation:none!important}}
