@@ -8,7 +8,7 @@ const META=isMath?{brand:"Reino de los Números",subtitle:"MATEMÁTICAS · 3.º 
 const key="ligasaber-2026-"+subject;
 let progress={history:[],misses:[],badges:[],lastDate:""};
 try{const saved=JSON.parse(localStorage.getItem(key)||"null");if(saved&&Array.isArray(saved.history))progress={...progress,...saved};}catch(e){}
-let soundEnabled=false, audioContext=null, view="home", topic="", mode="practice", difficulty=2, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
+let soundEnabled=false, audioContext=null, view="home", topic="", mode="practice", difficulty=2, questionStep=0, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
 let voiceList=[];let memoryState=null;let dictationDraft="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini;const adaptive=AD.init(progress,modules.map(x=>x.id));const challengeSeq={};
 function refreshVoices(){if("speechSynthesis" in window)voiceList=window.speechSynthesis.getVoices()||[];}
 refreshVoices();
@@ -96,7 +96,7 @@ let q=qObj("operaciones","contexto","La biblioteca tenía "+fmt(stock)+" libros.
 q.concept="operaciones-dos-pasos";return q;
 }
 function nextChallenge(id,review=false){
-const st=AD.status(adaptive,id);difficulty=st.tier;
+const st=AD.status(adaptive,id);difficulty=st.tier;questionStep=st.step;
 const map={numeros:["a","b","c"],descomponer:["a","b","c"],comparar:["b","a","c"],ordinales:["c","a","b"],operaciones:["a","b","c","d"],sinonimos:["a","b"],antonimos:["a","b"],comunicacion:["a","b"],puntuacion:["a","b","c"]};
 const arr=map[id]||["a"];let n=challengeSeq[id]||0;
 let force=arr[n%arr.length];
@@ -164,7 +164,7 @@ function numberWords(n){if(n===0)return "cero";if(n>=1000){let th=Math.floor(n/1
 function qObj(topic,variant,prompt,correct,visual="",choices=null,explanation="",hint1="",hint2="",numeric=false){return {topic,variant,prompt,correct:String(correct),visual,choices,explanation:explanation||("La respuesta es "+correct+"."),hint1:hint1||"Lee con calma y observa los detalles.",hint2:hint2||"Busca la información importante en la pregunta.",numeric};}
 function optionsFrom(correct,rest){return shuffle(unique([String(correct),...rest.map(String)]).slice(0,4));}
 function numberDifficulty(){return difficulty===1?1000:difficulty===2?6000:10000;}
-function randNumber(){const max=numberDifficulty();if(difficulty===1)return rand(1000);if(difficulty===2)return 1000+rand(5000);return 1000+rand(9000);}
+function randNumber(){const max=numberDifficulty();if(difficulty===1)return rand(1000);if(difficulty===2)return 1000+rand(3000+Math.min(questionStep,2)*1700);return 1000+rand(9000);}
 function placeValue(n,place){return Math.floor(n/Math.pow(10,place))%10;}
 function decomp(n){return [3,2,1,0].map(p=>placeValue(n,p)*Math.pow(10,p)).filter(x=>x).map(fmt).join(" + ")||"0";}
 function vertical(a,b,sign){const fmtNum=n=>String(n).padStart(4," ");return sign+" "+fmtNum(a)+"\n  "+fmtNum(b)+"\n──────";}
@@ -181,7 +181,7 @@ let arr=unique([a,b,randNumber(),randNumber()]);while(arr.length<4){let x=randNu
 if(t==="ordinales"){const masc=["primero","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo"],fem=["primera","segunda","tercera","cuarta","quinta","sexta","séptima","octava","novena","décima"];let n=1+rand(10),female=rand(2)===0,words=female?fem:masc; if(variant==="a"){let opts=shuffle(unique([words[n-1],words[(n+1)%10],words[(n+3)%10],words[(n+6)%10]]));return qObj(t,variant,"¿Cómo se dice el puesto "+n+(female?".ª":".º")+"?",words[n-1],"",opts,"La posición "+n+(female?".ª":".º")+" es "+words[n-1]+".","Los ordinales indican una posición.");}
 if(variant==="b"){let cardinal=rand(2)===0,word=cardinal?["uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez"][n-1]:words[n-1];return qObj(t,variant,"La palabra «"+word+"» es un número…",cardinal?"cardinal":"ordinal","",["cardinal","ordinal"],"«"+word+"» "+(cardinal?"expresa una cantidad.":"indica una posición.") ,"¿Indica cuántos hay o qué lugar ocupa?");}
 let symbols=["🐢","🦊","🐸","🐰","🐼","🐨","🐻","🦉","🐯","🐙"],pos=1+rand(10);return qObj(t,variant,"En la fila, ¿qué animal ocupa el puesto "+words[pos-1]+"? (de izquierda a derecha)",symbols[pos-1],symbols.map((x,i)=>(i+1)+". "+x).join("   "),shuffle(symbols),"Cuenta los puestos desde la izquierda, empezando por uno.","El primero está más a la izquierda.");}
-if(t==="operaciones"){let a,b,sign=rand(2)===0?"+":"−";let lim=difficulty===1?1000:10000;if(sign==="+"){a=1+rand(Math.min(lim-1,4500));b=1+rand(Math.min(lim-a,3500));}else{a=1+rand(lim-1);b=rand(a+1);}const ans=sign==="+"?a+b:a-b;const vis=(variant==="b"||variant==="d")?vertical(a,b,sign):fmt(a)+" "+sign+" "+fmt(b)+" = ?";
+if(t==="operaciones"){let a,b,sign=rand(2)===0?"+":"−";let lim=difficulty===1?1000:difficulty===2?Math.min(10000,5500+questionStep*1300):10000;if(sign==="+"){a=1+rand(Math.min(lim-1,4500));b=1+rand(Math.min(lim-a,3500));}else{a=1+rand(lim-1);b=rand(a+1);}const ans=sign==="+"?a+b:a-b;const vis=(variant==="b"||variant==="d")?vertical(a,b,sign):fmt(a)+" "+sign+" "+fmt(b)+" = ?";
 const exp=fmt(a)+" "+sign+" "+fmt(b)+" = "+fmt(ans)+". "+(sign==="+"?"Suma por columnas desde las unidades y recuerda llevar cuando una columna llega a diez.":"Resta por columnas desde las unidades. Si no alcanza una cifra, reagrupa la columna de la izquierda.");
 if(variant==="c"){const alt=optionsFrom(fmt(ans),[ans+10,ans-10,ans+100,ans+1,ans-1].filter(x=>x>=0&&x<10000).map(fmt));return qObj(t,variant,"¿Cuál es el resultado correcto?",fmt(ans),vis,alt,exp,"Calcula desde la columna de las unidades.","Comprueba cada columna de derecha a izquierda.");}
 return qObj(t,variant,sign==="+"?"Resuelve esta suma":"Resuelve esta resta",fmt(ans),vis,null,exp,"Coloca unidades debajo de unidades y empieza por la derecha.",sign==="+"?"Cuando una columna da diez o más, lleva a la siguiente.":"Si falta cantidad para restar, cambia una decena por diez unidades.",true);}
