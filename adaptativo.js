@@ -44,7 +44,7 @@ function track(a,q,ok,hints=0){
  if(ok)cs.ok++;else cs.wrong++;
  let need=t.needs.find(x=>x.concept===c);
  const fingerprint=String(q.fingerprint||q.prompt||q.correct||q.variant||"").slice(0,160);
- if(!ok){if(!need){need={concept:c,variant:q.variant||"",total:0,solved:0,fingerprints:[],last:0};t.needs.push(need);}need.total++;need.solved=0;need.fingerprints=[];need.last=Date.now();}
+ if(!ok){if(!need){need={concept:c,variant:q.variant||"",total:0,solved:0,fingerprints:[],last:0};t.needs.push(need);}need.total++;need.solved=0;need.fingerprints=[];need.last=Date.now();need.sample={topic:q.topic,variant:q.variant||"",concept:c,prompt:String(q.prompt||"").slice(0,280),visual:String(q.visual||"").slice(0,350),correct:String(q.correct||"").slice(0,180)};}
  else if(need){if(!hints&&!need.fingerprints.includes(fingerprint)){need.solved++;need.fingerprints.push(fingerprint);cs.reviewed++;}if(need.solved>=3)t.needs=t.needs.filter(x=>x!==need);}
  const last=t.answers.slice(-8),good=last.filter(x=>x.ok&&x.hints===0).length/last.length;
  let changed=0;
