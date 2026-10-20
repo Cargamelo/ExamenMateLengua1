@@ -123,3 +123,13 @@
 @keyframes quest-train-go{0%{transform:translateX(0)}50%{transform:translateX(9px)}100%{transform:translateX(0)}}
 @keyframes quest-trophy-jump{0%{transform:translateY(0)}50%{transform:translateY(-17px) rotate(8deg)}100%{transform:none}}
 @media(prefers-reduced-motion:reduce){.game .quest-completion.activated .quest-scene,.game .quest-completion.activated::after,.game .quest-completion.activated .quest-rail,.game .quest-completion.activated .quest-artifact{animation:none!important}}
+
+/* Escenarios ambientales discretos: movimiento lento y sin repintados pesados */
+.game .quest-hero::before{animation:ambient-starlight 13s ease-in-out infinite}
+.game .quest-hero::after{animation:ambient-orbit 24s ease-in-out infinite alternate}
+.game .adventure-world .level-icon svg{transform-origin:50% 75%;animation:ambient-medal 6.5s ease-in-out infinite}
+.game .adventure-world:nth-child(2n) .level-icon svg{animation-delay:-2.6s}
+@keyframes ambient-starlight{0%,100%{opacity:.12;transform:translate3d(0,0,0)}50%{opacity:.34;transform:translate3d(7px,-4px,0)}}
+@keyframes ambient-orbit{from{transform:rotate(-12deg) translate3d(0,0,0)}to{transform:rotate(-9deg) translate3d(12px,-7px,0)}}
+@keyframes ambient-medal{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.game .quest-hero::before,.game .quest-hero::after,.game .adventure-world .level-icon svg{animation:none!important}}
