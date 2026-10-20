@@ -38,12 +38,12 @@ function render(isMath,modules,stats,escape){
  '<p class="map-access-note">Puedes pulsar los edificios del mapa o utilizar Tab y Entrar con un teclado. Todos los mundos están disponibles.</p>'+
  '</section>';
 }
-function scene(topic,isMath){
+function scene(topic,isMath,won=null){
 const p=places[topic],name=p?.name||"Misión de aventura";
 return '<div class="quest-place-scene" aria-hidden="true"><span class="quest-place-halo"></span>'+
   artwork(topic,"quest-place-art")+
   '<img class="quest-guide-art" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async">'+
-  '<span class="quest-place-title">'+name+'</span></div>';
+  '<span class="quest-place-title">'+name+'</span>'+(won===null?'':'<span class="quest-guide-reaction '+(won?'guide-win':'guide-hint')+'" role="status">'+(won?'¡Misión resuelta! ✦':'¡Vamos a buscar otra pista!')+'</span>')+'</div>';
 }
 window.AventuraMapas={render,scene,artwork,places,character};
 })();
