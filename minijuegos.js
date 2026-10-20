@@ -17,7 +17,7 @@ function enrich(q,D,step=0){
 const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[]});
 function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(["pick","left"].includes(act)?' draggable="true" data-drag-kind="'+(act==="pick"?"train":"links")+'" data-drag-index="'+esc(val)+'"':"")+(act==="right"?' data-drop-kind="links" data-drop-index="'+esc(val)+'"':"")+(disabled?" disabled":"")+'>'+esc(label)+'</button>';}
 function render(q,s,complete=false){
- const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+({digits:"🔐",machine:"⚙️",train:"🚂",race:"🏁",links:"🧩",repair:"📜",scene:q.topic==="comprension"?"🔎":"✦"}[m.type]||"✦")+'</div>';
+ const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+(window.AventuraMapas?window.AventuraMapas.artwork(q.topic,"quest-mini-art"):"✦")+'</div>';
  if(["digits","machine"].includes(m.type)){
  const n=m.type==="digits"?4:m.target.length;
  out+='<div class="quest-slot-row">'+Array.from({length:n},(_,i)=>'<div class="quest-slot'+(s.digits[i]?" filled":"")+'"><small>'+esc(m.labels?.[i]||"")+'</small><span>'+esc(s.digits[i]||"·")+'</span></div>').join("")+'</div><div class="quest-keypad">';
