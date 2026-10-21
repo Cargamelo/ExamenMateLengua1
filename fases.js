@@ -56,23 +56,42 @@ function init(progress,type){
   j={version:1,active:getStages(type)[0].id,completed:{},finalAwarded:false,previous:null};
   progress.stageJourney=j;
  }
- if(!getStage(type,j.active))j.active=getStages(type)[0].id;
+ j.active=firstPending(type,j)?.id||getStages(type)[getStages(type).length-1].id;
  return j;
 }
 const completedCount=(type,j)=>getStages(type).filter(s=>!!j.completed[s.id]).length;
-const status=(j,id)=>j.completed[id]?"completed":j.active===id?"active":"pending";
+/* Nunca dar acceso por el estado visual de un botón: el recorrido se comprueba en el motor. */
+function firstPending(type,j){
+ const stages=getStages(type);
+ return stages.find(s=>!j.completed[s.id])||null;
+}
+function canEnterStage(type,j,id){
+ const stage=getStage(type,id),pending=firstPending(type,j);
+ if(!stage||!j||!j.completed||!Array.isArray(getStages(type)))return false;
+ return !pending||stage.number<=pending.number;
+}
+function status(j,id,type){
+ const stages=type?getStages(type):[...getStages("math"),...getStages("lang")];
+ const stage=stages.find(s=>s.id===id);
+ const pending=stages.find(s=>!j.completed[s.id]);
+ if(!stage)return "locked";
+ if(pending&&stage.number>pending.number)return "locked";
+ return j.completed[id]?"completed":pending?.id===id?"active":"pending";
+}
 function activate(type,j,id){
- if(!getStage(type,id))return false;
- if(j.active!==id){j.previous=j.active;j.active=id;}
+ if(!canEnterStage(type,j,id))return false;
+ j.previous=j.active;
+ j.active=firstPending(type,j)?.id||id;
  return true;
 }
 function complete(type,j,id,score,total){
- const s=getStage(type,id);if(!s)return null;
+ const s=getStage(type,id);
+ if(!s||!canEnterStage(type,j,id))return null;
  const existed=!!j.completed[id],entry=j.completed[id]||{plays:0,best:0};
- entry.plays++;entry.best=Math.max(entry.best,score);entry.lastScore=score;entry.lastTotal=total;entry.lastAt=Date.now();
- j.completed[id]=entry;
- j.previous=id;
- const next=getStages(type)[s.number]||null;
+ entry.plays++;entry.best=Math.max(Number(entry.best)||0,score);
+ entry.lastScore=score;entry.lastTotal=total;entry.lastAt=Date.now();
+ j.completed[id]=entry;j.previous=id;
+ const next=firstPending(type,j);
  j.active=next?.id||id;
  const justAwarded=completedCount(type,j)===15&&!j.finalAwarded;
  if(justAwarded)j.finalAwarded=true;
@@ -96,5 +115,5 @@ function message(type,number,perfect=false,completed=0){
  ];
  return msgs[(number-1)%msgs.length];
 }
-window.AventuraFases={getStages,getStage,init,status,activate,complete,completedCount,message};
+window.AventuraFases={getStages,getStage,init,status,firstPending,canEnterStage,activate,complete,completedCount,message};
 })();
