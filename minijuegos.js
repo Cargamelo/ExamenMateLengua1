@@ -14,7 +14,7 @@ function enrich(q,D,step=0){
  else if(t==="comunicacion"||t==="comprension")m={type:"scene",values:q.choices||[]};
  q.mechanic=m;return q;
 }
-const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[]});
+const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[],pickedIndex:null});
 function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(["pick","left"].includes(act)?' draggable="true" data-drag-kind="'+(act==="pick"?"train":"links")+'" data-drag-index="'+esc(val)+'"':"")+(act==="right"?' data-drop-kind="links" data-drop-index="'+esc(val)+'"':"")+(disabled?" disabled":"")+'>'+esc(label)+'</button>';}
 function render(q,s,complete=false){
  const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+'<img class="quest-mini-art" src="./assets/objeto-'+m.type+'.svg" alt="" width="240" height="200" decoding="async">'+'</div>';
@@ -53,12 +53,12 @@ function act(q,s,action,value){
  }else if(m.type==="links"){
   if(action==="left"&&!s.linked.some(p=>p[0]===+value))s.left=+value;
   if(action==="right"&&s.left!==null){const j=+value,target=m.pairs[s.left][1];if(target===m.right[j])s.linked.push([s.left,j]);else s.mistakes++;s.left=null;}
-  if(s.linked.length===m.pairs.length)return {state:s,done:true,ok:s.mistakes===0,given:"3 parejas conectadas"};
+  if(s.linked.length===m.pairs.length)return {state:s,done:true,ok:s.mistakes===0,given:m.pairs.length+" parejas conectadas"};
  }else if(m.type==="repair"){
   if(action==="toggle"){const i=+value,k=s.repaired.indexOf(i);k<0?s.repaired.push(i):s.repaired.splice(k,1);}
   if(action==="verify"){const a=s.repaired.slice().sort((x,y)=>x-y),b=m.target.slice().sort((x,y)=>x-y);return {state:s,done:true,ok:a.join(",")===b.join(","),given:"Mayúsculas seleccionadas: "+a.length};}
  }else if(action==="choose"){
-  let given=String(m.values[+value]);return {state:s,done:true,ok:given===String(q.correct),given};
+  let given=String(m.values[+value]);s.pickedIndex=+value;return {state:s,done:true,ok:given===String(q.correct),given};
  }return {state:s};
 }
 window.AventuraMini={enrich,begin,render,act};
