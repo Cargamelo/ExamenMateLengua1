@@ -130,10 +130,24 @@ let source=(id==="operaciones"&&st.step>=4&&n%3===2)?advancedTwoStep():makeQuest
 if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
 let tries=0;while(tries++<40&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
 }
-const q=MINI.enrich(source,D,st.step);
-if(!q)throw Error("No se pudo crear el reto de "+id);
-if(q.choices&&!q.mechanic)q.mechanic={type:"scene",values:q.choices};
-q.step=st.step;q.fingerprint=q.fingerprint||q.prompt+" "+(q.visual||"");
+let q=null,key="";
+for(let attempt=0;attempt<120;attempt++){
+ q=MINI.enrich(source,D,st.step);
+ if(!q)throw Error("No se pudo crear el reto de "+id);
+ if(q.choices&&!q.mechanic)q.mechanic={type:"scene",values:q.choices};
+ key=String(q.fingerprint||[q.topic,q.variant,q.prompt,q.visual||"",q.correct].join("|"));
+ if(!session?.seen?.has(key))break;
+ // No contar como reto nuevo la misma pregunta con otras opciones.
+ const alternate=arr[(n+attempt+1)%arr.length];
+ source=(id==="operaciones"&&st.step>=4&&attempt%5===4)?advancedTwoStep():makeQuestion(id,attempt<35?force:alternate);
+ if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
+   let tries=0;
+   while(tries++<30&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
+ }
+}
+if(session?.seen?.has(key))throw Error("No se pudieron generar retos distintos para "+id);
+session?.seen?.add(key);
+q.step=st.step;q.fingerprint=key;
 miniState=MINI.begin(q);return q;
 }
 function startQuiz(items,title){session={items:items.map(q=>{const x=MINI.enrich(q,D,AD.status(adaptive,q.topic).step);if(x.choices&&!x.mechanic)x.mechanic={type:"scene",values:x.choices};return x;}),title:title||"Tu desafío",results:[],adaptive:false,target:items.length};questionIndex=0;answered=null;hintCount=0;response="";miniState=MINI.begin(session.items[0]);view="quiz";render();}
