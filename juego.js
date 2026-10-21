@@ -312,10 +312,44 @@ const stripPunctuation=s=>s.replace(/[.,!?¡¿;:«»"“”]/g,"").replace(/\s+/
 const wordSame=letters(a)===letters(b),capSame=stripPunctuation(a)===stripPunctuation(b);
 let msgs=[];if(!wordSame)msgs.push("Hay diferencias entre las palabras escritas y el texto original.");if(!capSame)msgs.push("Revisa también las mayúsculas al inicio y después de cada punto.");if((a.match(/[.!?]/g)||[]).join("")!==(b.match(/[.!?]/g)||[]).join(""))msgs.push("Comprueba los puntos y la puntuación.");if((a.match(/\n\s*\n/g)||[]).length!==(b.match(/\n\s*\n/g)||[]).length)msgs.push("Comprueba los cambios de párrafo: deja una línea en blanco entre ellos.");if(!msgs.length&&!ok)msgs.push("Hay alguna diferencia de mayúsculas, espacios o formato.");
 root.innerHTML='<div class="feedback '+(ok?"ok":"bad")+'"><strong>'+(ok?"¡Dictado perfecto!":"¡Buen intento! Revisa estas pistas:")+'</strong><p>'+esc(ok?"Has escrito el texto como en el modelo.":msgs.join(" "))+'</p></div><details><summary><b>Ver dictado correcto y comparar</b></summary><div class="reading">'+esc(correct)+'</div></details><p class="small-note">La comparación es orientativa. Revisa las diferencias con un adulto si tienes dudas.</p>';
-dictationResult=root.innerHTML;dictationChecked=true;const btn=document.querySelector?.('[data-action="dict-check"]');if(btn)btn.disabled=true;const q={topic:"dictado",variant:"d"+materialIndex};record(q,ok,0);fx(ok,q);if(ok){root.classList?.add?.("dictado-celebration");root.insertAdjacentHTML?.("afterbegin",'<div class="dictado-stamp" aria-hidden="true">✦ ¡Misterio resuelto! ✦'+AV.rewardMarkup()+'</div>');}}
+dictationResult=root.innerHTML;dictationChecked=true;dictationWasCorrect=ok;const btn=document.querySelector?.('[data-action="dict-check"]');if(btn)btn.disabled=true;const q={topic:"dictado",variant:"d"+materialIndex};record(q,ok,0);fx(ok,q);if(ok){root.classList?.add?.("dictado-celebration");root.insertAdjacentHTML?.("afterbegin",'<div class="dictado-stamp" aria-hidden="true">✦ ¡Misterio resuelto! ✦'+AV.rewardMarkup()+'</div>');}
+const stage=ST.getStage(subject,selectedStageId);
+if(stage?.special==="dictado"){
+ root.insertAdjacentHTML("beforeend",'<div class="action-row">'+button("finish-special","★ Terminar fase y recibir recompensa →")+'</div>');
+ dictationResult=root.innerHTML;
+}}
 function renderExpressive(){const x=D.expressive[materialIndex];if(!x){go("material");return;}shell(topBack("material")+'<h1 class="section-title">🎭 '+esc(x.title)+'</h1><div class="paper narrow"><p>Lee en voz alta, sin prisa, como si estuvieras representando una historia.</p><p class="voice-indicator" id="voice-status" role="status" aria-live="polite">Pulsa «Escuchar ejemplo» para solicitar la locución.</p><div class="reading">'+esc(x.text)+'</div><div class="action-row">'+button("expressive-speak","🔊 Escuchar ejemplo")+'</div><h2>¿Cómo ha ido la lectura?</h2><p class="small-note">Marca con ayuda de un adulto lo que has conseguido. Esta actividad no analiza el micrófono.</p>'+["He pronunciado las palabras con claridad.","He leído a un ritmo cómodo.","He hecho pausas en los puntos.","He utilizado una entonación adecuada."].map((x,i)=>'<label class="tick"><input type="checkbox" class="self-check" value="'+i+'">'+esc(x)+'</label>').join("")+'<div class="action-row">'+button("expressive-save","Guardar mi práctica",expressiveSaved?'disabled aria-disabled="true"':"")+'</div><div id="expressive-feedback" aria-live="polite">'+expressiveResult+'</div></div>');}
-function saveExpressive(){if(expressiveSaved)return;expressiveSaved=true;let checks=[...document.querySelectorAll(".self-check")],done=checks.filter(x=>x.checked).length;record({topic:"expresiva",variant:"e"+materialIndex},done===4,0);AV?.play(done===4?"star":"select");document.getElementById("expressive-feedback").innerHTML='<div class="feedback ok"><strong>¡Lectura practicada!</strong><p>Has marcado '+done+' de 4 aspectos. '+(done===4?"¡Sigue así!":"Puedes volver a leer para mejorar los que faltan.") +'</p></div>'+(done===4?'<div class="theatre-applause" aria-hidden="true">✦ ★ ¡Bravo! ★ ✦'+AV.rewardMarkup()+'</div>':'');expressiveResult=document.getElementById("expressive-feedback").innerHTML;}
-
+function saveExpressive(){
+ if(expressiveSaved)return;
+ expressiveSaved=true;
+ const checks=[...document.querySelectorAll(".self-check")],done=checks.filter(x=>x.checked).length;
+ expressiveScore=done;
+ record({topic:"expresiva",variant:"e"+materialIndex},done===4,0);
+ AV?.play(done===4?"star":"select");
+ const stage=ST.getStage(subject,selectedStageId);
+ document.getElementById("expressive-feedback").innerHTML=
+ '<div class="feedback ok"><strong>¡Lectura practicada!</strong><p>Has marcado '+done+' de 4 aspectos. '+
+ (done===4?"¡Sigue así!":"Puedes volver a leer para mejorar los que faltan.")+'</p></div>'+
+ (done===4?'<div class="theatre-applause" aria-hidden="true">✦ ★ ¡Bravo! ★ ✦'+AV.rewardMarkup()+'</div>':"")+
+ (stage?.special==="expresiva"?'<div class="action-row">'+button("finish-special","★ Terminar fase y recibir recompensa →")+'</div>':"");
+ expressiveResult=document.getElementById("expressive-feedback").innerHTML;
+}
+function finishSpecialStage(){
+ const stage=ST.getStage(subject,selectedStageId);
+ if(!stage||!["dictation","expressive"].includes(view))return;
+ const dict=view==="dictation";
+ if(stage.special!==(dict?"dictado":"expresiva")||(dict?!dictationChecked:!expressiveSaved))return;
+ const ok=dict?dictationWasCorrect:expressiveScore===4;
+ session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,stage,topic:stage.topics[0],
+  review:false,adaptive:false,finished:true,special:stage.special,target:1,items:[],
+  results:[{question:{topic:stage.topics[0],prompt:stage.title,explanation:"Actividad practicada."},ok}],
+  specialSummary:dict?
+   (ok?"Has revisado el dictado y coincide con el texto original.":"Has revisado el dictado y descubierto aspectos que puedes seguir practicando."):
+   ("Práctica guardada: "+expressiveScore+" de 4 aspectos de autoevaluación marcados. No se ha evaluado tu pronunciación automáticamente.")
+ };
+ finishStage(ok?1:0,1);
+ AV?.play("mission");view="result";render();
+}
 function startMemory(){const pool=topic==="sinonimos"?D.synonyms:D.antonyms;let selected=[],seen=new Set();for(let pair of shuffle(pool)){if(!seen.has(pair[0])&&!seen.has(pair[1])){selected.push(pair);seen.add(pair[0]);seen.add(pair[1]);}if(selected.length===4)break;}const cards=shuffle(selected.flatMap((p,i)=>[{id:i,side:0,word:p[0]},{id:i,side:1,word:p[1]}]));memoryState={cards,open:[],matched:[],attempts:0,message:""};view="memory";renderMemory();}
 function renderMemory(){if(!memoryState){go("home");return;}const m=memoryState,done=m.matched.length===4;const cards=m.cards.map((c,i)=>{const shown=m.open.includes(i)||m.matched.includes(c.id);return '<button type="button" class="memory-card '+(m.matched.includes(c.id)?"memory-found":"")+'" data-action="memory-flip" data-index="'+i+'" '+(shown?"disabled":"")+' aria-label="'+(shown?esc(c.word):"Descubrir tarjeta "+(i+1))+'">'+(shown?esc(c.word):"✦ ? ✦")+'</button>';}).join("");shell(topBack("topics")+'<h1 class="section-title">🃏 Memory de '+(topic==="sinonimos"?"sinónimos":"antónimos")+'</h1><p class="section-lead">Busca cuatro parejas de palabras '+(topic==="sinonimos"?"con significado parecido":"de significado contrario")+'. Puedes pulsar las tarjetas.</p><div class="paper narrow"><div class="progress-row"><span>Parejas encontradas: '+m.matched.length+' / 4</span><span>Intentos: '+m.attempts+'</span></div><div class="memory-grid">'+cards+'</div><div class="action-row">'+(done?button("memory-start","¡Otra partida!"):m.open.length===2&&!m.matched.includes(m.cards[m.open[0]].id)?button("memory-clear","Seguir intentando"):button("topics","Volver a misiones",'data-mode="games"',"secondary-btn"))+'</div><p class="feedback '+(done?"ok":"")+'" role="status">'+esc(done?"¡Todas las parejas encontradas!":m.message||"Destapa dos tarjetas para buscar una pareja.")+'</p></div>');}
 function flipMemory(i){const m=memoryState;if(!m||m.open.length>=2||m.open.includes(i)||m.matched.includes(m.cards[i]?.id))return;m.open.push(i);if(m.open.length===2){m.attempts++;const c=m.cards[m.open[0]],d=m.cards[m.open[1]];if(c.id===d.id&&c.side!==d.side){m.matched.push(c.id);m.message="¡Pareja encontrada! "+c.word+" y "+d.word+".";m.open=[];record({topic,variant:"memory"},true,0);if(m.matched.length===4)fx(true);else AV?.play("link");}else{m.message="Estas palabras no forman pareja. Observa y pulsa «Seguir intentando».";fx(false);}}renderMemory();}
