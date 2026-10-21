@@ -1,0 +1,76 @@
+/* Recorridos de 15 casillas - componente sobre los mapas SVG originales */
+.game .stage-gameworld{max-width:1160px}
+.game .stage-map-progress{position:relative;z-index:5;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 18px;margin:0 0 14px;color:#34577b;text-align:center;font-weight:850}
+.game .stage-map-progress strong{background:#fff8e3;border:2px solid #fff;box-shadow:0 4px 0 #d3b96b;padding:10px 18px;border-radius:22px}
+.game .stage-map-progress span{background:#fffefaef;padding:9px 14px;border-radius:16px;font-size:.84rem}
+.game .stage-map-progress .stage-final-unlocked{background:#ffe1a0;border:1px solid #f7bf55;color:#825a1b}
+.game.lang-game .stage-map-progress{color:#725287}
+.game .stage-artscape{overflow:hidden}
+.game .stage-landmarks,.game .stage-locations,.game .stage-road{position:absolute;inset:0}
+.game .stage-landmarks{z-index:1;pointer-events:none}
+.game .stage-landmark{position:absolute;left:var(--lx);top:var(--ly);width:clamp(92px,20%,210px);transform:translate(-50%,-50%);opacity:.79;filter:drop-shadow(0 6px 5px #246d5030)}
+.game .stage-landmark-art{display:block;width:100%;height:auto}
+.game .stage-road{width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+.game .stage-road polyline{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.game .stage-road-base{stroke:#fffded;stroke-width:13;opacity:.93;stroke-dasharray:3 17;filter:drop-shadow(0 2px 1px #326d565e)}
+.game .stage-road-done{stroke:#f8bf53;stroke-width:8;opacity:.97;stroke-dasharray:2 18}
+.game .stage-locations{z-index:4;pointer-events:none}
+.game .stage-node{position:absolute;left:var(--stage-x);top:var(--stage-y);transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;width:clamp(130px,17%,174px);min-width:0;min-height:89px;padding:3px 5px 6px;border:0;background:transparent;color:#28506f;box-shadow:none;cursor:pointer;pointer-events:auto;touch-action:manipulation;transition:transform .16s ease,filter .16s ease;isolation:isolate;text-align:center}
+.game .stage-node:hover{transform:translate(-50%,-53%) scale(1.06);filter:brightness(1.07)}
+.game .stage-node.is-pressed,.game .stage-node:active{transform:translate(-50%,-48%) scale(.96)}
+.game .stage-node:focus-visible{outline:4px solid #f9af46;outline-offset:2px;border-radius:21px}
+.game .stage-orb{position:relative;display:flex;align-items:center;justify-content:center;gap:2px;width:67px;height:58px;border:3px solid #fff4d2;border-radius:50% 50% 42% 42%;background:linear-gradient(145deg,#fdf5d0,#ebd19d 65%,#d4a96d);box-shadow:0 5px 0 #b48857,0 9px 11px #37576f4a,inset 0 3px 6px #ffffffb5;line-height:1}
+.game .stage-index{font-size:1.22rem;font-weight:1000;color:#74502b;text-shadow:0 1px 0 #fff}
+.game .stage-orb-icon{font-size:1.18rem;filter:drop-shadow(0 1px 1px #ffffff88)}
+.game .stage-check{position:absolute;right:-10px;top:-10px;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#f6d88e;border:2px solid #fff5dc;color:#865d25;font-size:15px;box-shadow:0 2px 0 #ac823c}
+.game .stage-node-name{display:flex;align-items:center;justify-content:center;padding:7px 10px;min-height:35px;width:100%;max-width:165px;border:2px solid #fff9eb;border-radius:13px;background:linear-gradient(160deg,#fffcf0,#f9e9bd);box-shadow:0 4px 0 #caa46d,0 6px 8px #3f5b6929;font-weight:1000;font-size:clamp(.71rem,1.3vw,.84rem);line-height:1.15;overflow-wrap:anywhere}
+.game .stage-completed .stage-orb{background:linear-gradient(145deg,#fff0af,#f2c252,#dca03e);box-shadow:0 5px 0 #bb862c,0 0 13px #f8d36d}
+.game .stage-completed .stage-node-name{border-color:#fff0b2}
+.game .stage-active .stage-orb{background:linear-gradient(145deg,#e6ffed,#70e0b4 65%,#2ca787);border-color:#fcfff2;box-shadow:0 5px 0 #278c70,0 0 0 5px #fff5ccbd,0 0 27px #ffdf66;animation:stage-active-pulse 2.1s ease-in-out infinite}
+.game .stage-active .stage-node-name{background:linear-gradient(160deg,#fafffc,#ceffe6);border-color:#ecfff8;box-shadow:0 4px 0 #4dbf92,0 6px 14px #39655238}
+.game .stage-active .stage-check{background:#fff1af}
+.game .stage-pending{filter:saturate(.85)}
+.game.lang-game .stage-node-name{color:#724a85;background:linear-gradient(145deg,#fff5ff,#f5dbff);border-color:#fff6ff;box-shadow:0 4px 0 #b69ccf}
+.game.lang-game .stage-active .stage-node-name{background:linear-gradient(145deg,#fffefa,#dbffe9);box-shadow:0 4px 0 #61ba91}
+.game .stage-guide{position:absolute;z-index:3;pointer-events:none;left:calc(var(--guide-x) - 13%);top:var(--guide-y);transform:translate(-50%,-59%);width:clamp(63px,10%,105px);height:auto;filter:drop-shadow(0 8px 8px #3e536949)}
+.game .stage-guide img{display:block;width:100%;height:auto;animation:stage-guide-bob 3.2s ease-in-out infinite}
+.game .stage-guide.guide-travelling{animation:stage-guide-travel .95s cubic-bezier(.18,.7,.4,1) both}
+.game .stage-guide:after{content:"✦";position:absolute;top:-4px;right:2px;font-size:22px;color:#ffeb8d;text-shadow:0 0 9px #fff}
+.game .stage-gameworld .map-access-note{position:relative;z-index:5;margin:8px auto 0;background:#fffcf5bf;border-radius:14px;max-width:740px}
+.game .stage-victory{position:relative;overflow:hidden;text-align:center}
+.game .stage-victory .victory-guide{display:block;width:clamp(95px,18vw,170px);height:auto;max-height:180px;object-fit:contain;margin:0 auto 5px;animation:stage-guide-celebrate .8s ease-out both}
+.game .stage-victory .stage-finish-medal{display:inline-flex;align-items:center;justify-content:center;font-size:2.2rem;width:78px;height:78px;border:4px solid #fff8d8;border-radius:50%;background:linear-gradient(145deg,#fffbd7,#f5c654,#dba037);box-shadow:0 7px 0 #b37f30,0 14px 26px #8050273d;animation:stage-medal .7s cubic-bezier(.2,1.5,.4,1) both}
+.game .stage-victory .stage-victory-message{font-size:1.08rem;font-weight:850;line-height:1.55;margin:15px auto;max-width:600px}
+.game .stage-victory .stage-final-badge{margin:12px auto;padding:12px;border-radius:18px;background:linear-gradient(135deg,#fff6b0,#f6d681);font-weight:1000;max-width:430px;border:2px solid #fff}
+.game .stage-victory .action-row{justify-content:center}
+.game .stage-victory .stage-victory-name{margin:6px auto 10px;font-size:1.3rem}
+@keyframes stage-active-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.09)}}
+@keyframes stage-guide-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes stage-guide-travel{from{transform:translate(calc(-50% + var(--travel-x,0px)),calc(-59% + var(--travel-y,0px))) scale(.86)}to{transform:translate(-50%,-59%) scale(1)}}
+@keyframes stage-guide-celebrate{0%{transform:translateY(15px) rotate(-8deg);opacity:.65}45%{transform:translateY(-15px) rotate(8deg);opacity:1}100%{transform:none}}
+@keyframes stage-medal{from{transform:scale(.5) rotate(-28deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+@media(max-width:700px){
+ .game .stage-artscape,.game.lang-game .stage-artscape{height:1900px;min-height:1900px;aspect-ratio:auto}
+ .game.lang-game .stage-artscape{height:2140px;min-height:2140px}
+ .game .stage-node{width:clamp(124px,37vw,156px);min-height:90px}
+ .game .stage-node-name{font-size:.75rem;line-height:1.12;min-height:37px}
+ .game .stage-orb{width:62px;height:57px}
+ .game .stage-landmark{width:clamp(76px,24%,135px);opacity:.57}
+ .game .stage-guide{width:72px;left:calc(var(--guide-x) - 18%);transform:translate(-50%,-55%)}
+ .game .stage-map-progress{gap:6px;justify-content:center}
+ .game .stage-map-progress span{font-size:.74rem}
+ .game .stage-road-base{stroke-width:10}
+ .game .stage-road-done{stroke-width:6}
+}
+@media(max-width:390px){
+ .game .stage-artscape{height:2020px;min-height:2020px}
+ .game.lang-game .stage-artscape{height:2270px;min-height:2270px}
+ .game .stage-node{width:125px}
+ .game .stage-node-name{font-size:.7rem;padding:6px}
+ .game .stage-guide{width:65px;left:calc(var(--guide-x) - 19%)}
+ .game .stage-landmark{opacity:.45}
+}
+@media(prefers-reduced-motion:reduce){
+ .game .stage-active .stage-orb,.game .stage-guide img,.game .stage-guide.guide-travelling,.game .stage-victory .victory-guide,.game .stage-victory .stage-finish-medal{animation:none!important}
+ .game .stage-node{transition:none!important}
+}
