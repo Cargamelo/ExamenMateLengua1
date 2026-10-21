@@ -4,7 +4,7 @@
 (function(){
 const KEY="ligasaber-sonido-2026",VK="ligasaber-volumen-2026";
 let enabled=false,volume=.32,ctx=null,master=null,last={},active=new Set(),toneCount=0;
-try{enabled=localStorage.getItem(KEY)==="on";const v=Number(localStorage.getItem(VK));if(Number.isFinite(v)&&v>=0&&v<=1)volume=v;}catch(e){}
+try{enabled=localStorage.getItem(KEY)==="on";const stored=localStorage.getItem(VK);if(stored!==null){const v=Number(stored);if(Number.isFinite(v)&&v>=0&&v<=1)volume=v;}}catch(e){}
 const clamp=x=>Math.max(0,Math.min(1,Number(x)||0));
 function save(){try{localStorage.setItem(KEY,enabled?"on":"off");localStorage.setItem(VK,String(volume));}catch(e){}}
 function isEnabled(){return enabled}
