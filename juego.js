@@ -22,6 +22,12 @@ function persist(){try{localStorage.setItem(key,JSON.stringify(progress))}catch(
 function topicById(id){return modules.find(x=>x.id===id)}
 function master(id){const h=progress.history.filter(x=>x.topic===id).slice(-10);const ok=h.filter(x=>x.ok).length;return {tried:h.length,percent:h.length?Math.round(100*ok/h.length):0,solid:h.length>=5&&ok/h.length>=.8};}
 function stars(){return progress.history.filter(x=>x.ok).length;}
+function starsLabel(){const n=stars();return n+" "+(n===1?"estrella acumulada":"estrellas acumuladas");}
+function missionHud(){
+ if(view!=="quiz"||!session?.items?.length)return "";
+ const q=session.items[questionIndex]||session.items[0],stat=AD.status(adaptive,q.topic);
+ return '<aside class="mission-hud" aria-label="Estado actual de la misión"><span class="mission-hud-star"><span aria-hidden="true">★</span><strong>'+starsLabel()+'</strong></span><span class="mission-hud-tier"><span aria-hidden="true">✦</span> '+esc(stat.name)+'</span><span class="mission-hud-clock"><span aria-hidden="true">◷</span> Sin cronómetro</span></aside>';
+}
 function stopSpeak(){voiceRequest++;if("speechSynthesis" in window)window.speechSynthesis.cancel();}
 function speak(text){
  const status=document.getElementById("voice-status");
@@ -48,11 +54,11 @@ const subjectName=isMath?"Matemáticas":"Lengua";
 app.innerHTML='<main class="game-container"><header class="game-header">'+
 '<a class="brand" href="./index.html" aria-label="Volver a la portada de La Liga del Saber"><span class="brand-logo">'+graphicIcon(isMath?"mates":"lengua","brand-icon")+'</span><span><small>'+META.subtitle+'</small><strong>'+META.brand+'</strong></span></a>'+
 '<a class="header-main-menu" href="./index.html"><span class="menu-glyph" aria-hidden="true">⌂</span> Menú principal</a>'+
-'<div class="header-actions"><span class="pill-info" title="Respuestas acertadas">⭐ '+stars()+'</span>'+
+'<div class="header-actions">'+(view==="quiz"?"":'<span class="pill-info" title="Respuestas acertadas">⭐ '+stars()+'</span>')+
 '<button type="button" class="icon-button" data-action="sound" aria-label="'+(soundEnabled?"Desactivar efectos sonoros":"Activar efectos sonoros")+'" aria-pressed="'+soundEnabled+'">'+(soundEnabled?"🔊 Sonido":"🔇 Sonido")+'</button>'+
 (soundEnabled?'<details class="sound-mixer"><summary title="Ajustar volumen" aria-label="Ajustar volumen de efectos">♫ Vol.</summary><label for="fx-volume">Volumen de efectos <output id="fx-volume-display">'+Math.round(AV.getVolume()*100)+' %</output></label><input type="range" id="fx-volume" min="0" max="100" step="5" value="'+Math.round(AV.getVolume()*100)+'" aria-label="Volumen de efectos sonoros"><small>Las lecturas en voz alta utilizan el volumen del dispositivo.</small></details>':"")+
 '<button type="button" class="icon-button" data-action="home" aria-label="Volver a la pantalla de '+subjectName+'">✦ '+subjectName+'</button></div>'+
-'</header><div id="view">'+inner+'</div><div class="footer-nav">Progreso guardado en este dispositivo · <a href="./index.html">Menú principal</a></div></main>';
+'</header>'+missionHud()+'<div id="view">'+inner+'</div></main>';
 }
 function button(action,text,extra="",klass="primary-btn"){return '<button type="button" class="'+klass+'" data-action="'+action+'" '+extra+'>'+text+'</button>';}
 function go(where){stopSpeak();view=where;answered=null;hintCount=0;response="";render();window.scrollTo({top:0,behavior:"instant"});}
@@ -62,7 +68,7 @@ function render(){if(view==="home")return renderHome();if(view==="topics")return
 function renderHome(){
 const art=isMath?"./assets/escena-matematicas.svg":"./assets/escena-lengua.svg";
 const pending=AD.pending(adaptive).length,medals=adaptive.rewards?.completed||0;
-shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="overline">✦ TU NUEVA AVENTURA</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><div class="quest-summary"><span>⭐ '+stars()+' estrellas</span><span>🏅 '+medals+' misiones</span><span>🪙 '+(adaptive.rewards?.coins||0)+' monedas</span></div></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"><img class="hero-companion" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async"></section>'+
+shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="overline">✦ TU NUEVA AVENTURA</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><div class="quest-summary"><span>⭐ '+starsLabel()+'</span><span>🏅 '+medals+' misiones</span><span>🪙 '+(adaptive.rewards?.coins||0)+' monedas</span></div></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"><img class="hero-companion" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async"></section>'+
 '<section class="adventure-actions" aria-label="Elegir aventura">'+
 '<button type="button" class="adventure-launch" data-action="topics">'+graphicIcon("jugar")+'<span><strong>JUGAR</strong><small>¡Explora los mundos y supera misiones!</small></span><span class="launch-arrow" aria-hidden="true">→</span></button>'+
 '<button type="button" class="adventure-repair" data-action="errors">'+graphicIcon("errores")+'<span><strong>MIS ERRORES</strong><small>'+(pending?pending+' pistas pendientes para investigar':'Un taller para seguir aprendiendo')+'</small></span><span class="launch-arrow" aria-hidden="true">→</span></button></section>'+
@@ -103,7 +109,7 @@ shell(topBack()+'<section class="paper recovery-hub"><div class="recovery-symbol
 function enterWorld(id,review=false){
  const m=topicById(id);if(!m)return;topic=id;mode=review?"errors":"games";
  if(["comprension","dictado","expresiva"].includes(id)){go("material");return;}
- session={title:(review?"Reparación · ":"Misión · ")+(WORLD.places[id]?.name||m.title),topic:id,review,adaptive:true,target:6,items:[],results:[]};
+ session={title:(review?"Reparación · ":"Misión · ")+(WORLD.places[id]?.name||m.title),topic:id,review,adaptive:true,target:15,items:[],results:[],seen:new Set()};
  questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
  session.items.push(nextChallenge(id,review));view="quiz";render();
 }
@@ -144,7 +150,7 @@ function renderQuiz(){
  else {input='<label class="mini-label" for="response">'+(q.long?"Escribe tu respuesta:":"Escribe el resultado:")+'</label>'+(q.long?'<textarea id="response" class="field long" spellcheck="false" '+(ready?"disabled":"")+'>'+esc(response)+'</textarea>':'<input id="response" class="field" type="text" inputmode="'+(q.numeric?"numeric":"text")+'" value="'+esc(response)+'" '+(ready?"disabled":"")+'>')+(!ready?'<div class="action-row">'+button("check","Comprobar")+'</div>':"");}
  const fb=ready?'<div class="quest-reaction '+(answered.ok?"win":"try")+'" aria-hidden="true">'+(answered.ok?"✦ ⭐ ✦":"✦")+(answered.ok?AV.rewardMarkup():"")+'</div><div class="feedback '+(answered.ok?"ok":"bad")+'" role="status"><strong>'+(answered.ok?"¡Has conseguido activar la escena!":"Buena investigación. Vamos a entender la pista.")+'</strong><p>'+esc(q.explanation)+'</p>'+(answered.ok?"":'<p><b>Solución:</b> '+esc(q.correct)+'</p><details class="quest-help-lesson"><summary>💡 Ver una explicación con ejemplos</summary>'+m.lesson+'</details>')+'</div>':"";
  const help=!ready?'<div class="hint-tools">'+button("hint","💡 Una pista","","tag-btn")+button("speak-question","🔊 Escuchar","","tag-btn")+'</div>'+(hintCount?'<div class="help-text">'+esc(hintCount===1?q.hint1:(q.hint2||q.explanation))+'</div>':""):"";
- shell(topBack("topics")+'<section class="mission-stage"><div class="mission-toolbar"><div><span class="map-flag">✦ '+(session.review?"TALLER DE REPARACIÓN":"MISIÓN INTERACTIVA")+'</span><p>'+esc(session.title)+'</p></div><span class="mission-count">'+(questionIndex+1)+' / '+count+'</span></div><div class="meter" aria-label="Progreso de la misión" style="margin:11px 0 22px"><span style="width:'+meter+'%"></span></div><div class="mission-layout"><div class="mission-pane">'+WORLD.scene(q.topic,isMath,ready?answered.ok:null)+'<span class="q-steps">'+graphicIcon(m.id)+' '+esc(WORLD.places[q.topic]?.name||m.title)+'</span><h1 class="q-title">'+esc(q.prompt)+'</h1>'+(q.sub?'<p class="question-sub">'+esc(q.sub)+'</p>':"")+(q.visual?'<div class="'+(q.reading?"reading":"question-visual")+'">'+esc(q.visual)+'</div>':"")+(!ready?help:"")+'</div><div class="mission-interaction">'+(q.mechanic?'<div class="quest-completion '+(ready?(answered.ok?"activated":"needs-repair"):"active") +'">'+input+'</div>':ready?"":input)+fb+(ready?'<div class="action-row">'+button("next",questionIndex===count-1?"Recibir recompensa →":"Siguiente desafío →")+'</div>':"")+'</div></div><p class="quest-encouragement">⭐ '+stars()+' estrellas acumuladas · '+stat.name+' · Sin cronómetro</p></section>');
+ shell(topBack("topics")+'<section class="mission-stage"><div class="mission-toolbar"><div><span class="map-flag">✦ '+(session.review?"TALLER DE REPARACIÓN":"MISIÓN INTERACTIVA")+'</span><p>'+esc(session.title)+'</p></div><span class="mission-count">Reto '+(questionIndex+1)+' de '+count+'</span></div><div class="meter" aria-label="Progreso de la misión" style="margin:11px 0 22px"><span style="width:'+meter+'%"></span></div><div class="mission-layout"><div class="mission-pane">'+WORLD.scene(q.topic,isMath,ready?answered.ok:null)+'<span class="q-steps">'+graphicIcon(m.id)+' '+esc(WORLD.places[q.topic]?.name||m.title)+'</span><h1 class="q-title">'+esc(q.prompt)+'</h1>'+(q.sub?'<p class="question-sub">'+esc(q.sub)+'</p>':"")+(q.visual?'<div class="'+(q.reading?"reading":"question-visual")+'">'+esc(q.visual)+'</div>':"")+(!ready?help:"")+'</div><div class="mission-interaction">'+(q.mechanic?'<div class="quest-completion '+(ready?(answered.ok?"activated":"needs-repair"):"active") +'">'+input+'</div>':ready?"":input)+fb+(ready?'<div class="action-row">'+button("next",questionIndex===count-1?"Recibir recompensa →":"Siguiente desafío →")+'</div>':"")+'</div></div></section>');
 }
 function grade(ok,choice,input){
  if(answered!==null)return;const q=session.items[questionIndex];
