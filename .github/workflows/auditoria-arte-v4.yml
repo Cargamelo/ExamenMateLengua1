@@ -15,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Preparar lectura de imágenes
+        run: python3 -m pip install --disable-pip-version-check Pillow==11.3.0
       - name: Validar arte y recursos
         run: |
           python3 - <<'PY'
