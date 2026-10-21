@@ -46,7 +46,7 @@ function render(isMath,stages,journey,escape){
  return '<section class="gameworld gameworld-'+theme+' stage-gameworld" aria-label="Recorrido ilustrado de quince fases">'+
  '<div class="stage-map-progress" role="status"><strong>✦ '+done+' de 15 fases completadas</strong><span>Fase activa: '+active.number+' · '+escape(active.title)+'</span>'+(journey.finalAwarded?'<span class="stage-final-unlocked">★ Insignia de las quince fases ★</span>':"")+'</div>'+
  '<div class="gameworld-sky" aria-hidden="true"><span class="sky-star sky-one">✧</span><span class="sky-star sky-two">✦</span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span></div>'+
- '<div class="map-artscape stage-artscape"><img class="map-ground-art" src="./assets/mapa-'+(isMath?"mates":"lengua")+'-nitido.svg" alt="" loading="eager" decoding="async" width="1200" height="1900">'+
+ '<div class="map-artscape stage-artscape"><img class="map-ground-art" src="./assets/escenarios/mapa-'+(isMath?"numeros":"palabras")+'-v3.svg" alt="" loading="eager" decoding="async" width="1200" height="1900">'+
  '<div class="stage-landmarks">'+landmarks+'</div>'+road+
  '<div class="stage-locations">'+nodes+'</div>'+
  '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/personajes/'+(isMath?"tiko-explorador":"nara-detective")+'.svg" width="240" height="270" decoding="async" alt=""></div>'+
