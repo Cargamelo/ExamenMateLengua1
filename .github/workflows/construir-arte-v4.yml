@@ -35,7 +35,7 @@ jobs:
               with Image.open(f) as im:
                   im.verify()
               print(name, f.stat().st_size)
-          assert len(list(p.glob("*.webp")))==19
+          assert len(list(p.glob("*.webp")))==20
           PY
       - name: Incorporar imágenes generadas al repositorio
         run: |
