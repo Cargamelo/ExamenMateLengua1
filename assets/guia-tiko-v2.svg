@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 270" role="img" aria-label="Tiko, joven aventurero matemático con ábaco y cristales">
+ <defs><linearGradient id="vest" x2="0" y2="1"><stop stop-color="#43afa5"/><stop offset="1" stop-color="#207c81"/></linearGradient><filter id="outline" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="2" flood-color="#041b25" flood-opacity=".65"/></filter></defs>
+ <g filter="url(#outline)" stroke="#312c32" stroke-width="5" stroke-linejoin="round">
+ <ellipse cx="116" cy="254" rx="56" ry="8" fill="#102a30" opacity=".3" stroke="none"/>
+ <path d="M81 205l-8 37h37l10-32M142 205l8 37h34l-11-39" fill="#513c44"/>
+ <path d="M68 155q-16 13-20 43l29 12 16-25M177 155q21 13 19 47l-29 10-17-25" fill="#f3cf91"/>
+ <path d="M73 134L169 134l17 83H58Z" fill="url(#vest)"/>
+ <path d="M104 137h29l9 70h-45Z" fill="#fff0bb"/>
+ <path d="M111 132l9 22 10-22" fill="#9a7258"/>
+ <path d="M59 101q-2-62 61-71 58-1 64 73l-10 46-55 18-51-19Z" fill="#f3cf91"/>
+ <path d="M57 89q9-60 65-63 65 2 72 69l-22-25-31-20-43 8-33 31Z" fill="#714b33"/>
+ <path d="M70 87q11-32 46-44l40 10" fill="none" stroke="#916646" stroke-width="11"/>
+ <ellipse cx="96" cy="107" rx="8" ry="11" fill="#233849" stroke="none"/>
+ <ellipse cx="146" cy="107" rx="8" ry="11" fill="#233849" stroke="none"/>
+ <circle cx="99" cy="104" r="3" fill="#fff" stroke="none"/><circle cx="149" cy="104" r="3" fill="#fff" stroke="none"/>
+ <path d="M112 134q10 9 21 0" fill="none" stroke="#ae5e56" stroke-linecap="round" stroke-width="4"/>
+ <rect x="176" y="167" width="43" height="48" rx="5" fill="#c9954c"/><g stroke="#f8e4a9" stroke-width="4"><path d="M181 180h32M181 194h32M181 205h32"/></g><g fill="#76dfd3" stroke="none"><circle cx="190" cy="180" r="6"/><circle cx="204" cy="194" r="6"/><circle cx="189" cy="205" r="6"/></g><path d="M36 146l11-22 14 22-14 22Z" fill="#7bebdd"/>
+ </g></svg>
