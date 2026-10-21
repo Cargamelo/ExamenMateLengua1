@@ -1,0 +1,48 @@
+name: Construir arte RPG v4
+on:
+  push:
+    branches: [referencia-visual-v4-2026-10-21]
+    paths:
+      - "tools/crear_arte_v4.py"
+      - ".github/workflows/construir-arte-v4.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar biblioteca de imágenes
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0
+      - name: Crear recursos WEBP a partir de las referencias del usuario
+        run: python tools/crear_arte_v4.py
+      - name: Validar formatos, resoluciones y arte real
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          p=Path("assets/arte-v4")
+          for name in ("tiko-retrato.webp","nara-retrato.webp","tiko-sprite.webp","nara-sprite.webp","bosque-magico.webp","portal-numeros.webp","portal-palabras.webp","mapa-numeros.webp","mapa-palabras.webp"):
+              f=p/name
+              assert f.is_file() and f.stat().st_size > 3000, f
+              with Image.open(f) as im:
+                  im.verify()
+              print(name, f.stat().st_size)
+          assert len(list(p.glob("*.webp")))==19
+          PY
+      - name: Incorporar imágenes generadas al repositorio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/arte-v4/
+          if ! git diff --cached --quiet; then
+            git commit -m 'art: add optimized illustrated scenes and anime companions [skip ci]'
+            git push origin HEAD:referencia-visual-v4-2026-10-21
+          fi
