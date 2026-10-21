@@ -110,3 +110,20 @@
 @media(max-width:760px){.game .sound-mixer[open]{min-width:160px}}
 @media(max-width:450px){.game .sound-mixer>summary{min-width:58px;padding:8px 5px}.game .sound-mixer[open]{min-width:150px}.game .sound-mixer[open]>label{margin-left:7px;margin-right:7px;font-size:.65rem}.game .quest-pair-thread{font-size:.68rem}}
 @media(prefers-reduced-motion:reduce){.game .quest-pair-thread,.game .quest-word.selected,.game .dictado-stamp,.game .theatre-applause,.game .mission-victory .victory-rewards span,.game .quest-completion.activated .quest-scene.quest-scene .quest-artifact-button.winner::after{animation:none!important}.game .sound-mixer>summary{transition:none}}
+
+/* Estado de aventura visible debajo de la cabecera, sin duplicar el contador */
+.game .mission-hud{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 14px;margin:12px auto 20px;padding:11px 14px;max-width:1100px;border:2px solid #d4e7f4;border-radius:19px;background:linear-gradient(135deg,#fffdf2 0%,#f0faff 50%,#e7effe 100%);box-shadow:0 4px 0 #a4c7dba8,0 12px 24px #275b9021;color:#315578;isolation:isolate}
+.game.lang-game .mission-hud{background:linear-gradient(135deg,#fff9ee,#f9effe 55%,#eff3ff);border-color:#e5d5f5;box-shadow:0 4px 0 #c7b4df9c,0 12px 24px #764b9520}
+.game .mission-hud>span{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:7px 14px;border-radius:13px;background:#ffffffd9;border:1px solid #ffffff;box-shadow:inset 0 1px 0 #fff,0 2px 6px #275c8514;font-weight:900;font-size:clamp(.78rem,1.6vw,.94rem);letter-spacing:.005em;line-height:1.25;text-align:center}
+.game .mission-hud-star{color:#8f6018}
+.game .mission-hud-star>span{font-size:1.5rem;color:#f8ba35;text-shadow:0 2px 0 #c28a25,0 4px 8px #e6b85f9c;filter:drop-shadow(0 1px 1px #fff)}
+.game .mission-hud-tier{color:#315b92}
+.game .mission-hud-tier>span{color:#8064d7}
+.game .mission-hud-clock{color:#436a70}
+.game .mission-hud-clock>span{font-size:1.35rem;font-weight:900}
+.game .mission-stage{margin-top:6px}
+.game .mission-count{white-space:normal;text-align:center}
+.game .mission-hud strong{font-weight:1000}
+@media(max-width:680px){.game .mission-hud{margin:13px auto 17px;gap:7px;padding:9px;border-radius:16px}.game .mission-hud>span{padding:8px 10px;min-height:41px}}
+@media(max-width:390px){.game .mission-hud>span{font-size:.75rem;gap:5px;padding:7px 8px}.game .mission-hud-star>span{font-size:1.23rem}}
+@media(prefers-reduced-motion:reduce){.game .mission-hud,.game .mission-hud *{animation:none!important;transition:none!important}}
