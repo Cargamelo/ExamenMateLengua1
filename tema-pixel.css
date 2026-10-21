@@ -142,3 +142,6 @@ body.game.pixel-game .stage-artscape .map-ground-art{image-rendering:pixelated}
 body.game.pixel-game .quest-place-art{object-fit:contain;image-rendering:pixelated}
 @keyframes pixel-chest-appear{from{opacity:0;transform:translateY(14px) scale(.85)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){body.game.pixel-game .pixel-chest{animation:none}}
+
+/* No reutilizar el halo absoluto de 900 px de la portada anterior: provoca desbordamiento horizontal. */
+body.home-pixel.home-v2::after{content:none;display:none}
