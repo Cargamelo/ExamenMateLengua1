@@ -27,7 +27,9 @@ function render(isMath,stages,journey,escape){
   const p=places[id];return '<div class="stage-landmark" style="--lx:'+p.left+'%;--ly:'+p.top+'%" aria-hidden="true">'+artwork(id,"stage-landmark-art")+'</div>';
  }).join("");
  const routePoints=stages.map(s=>(s.x*10)+","+(s.y*10)).join(" ");
- const completePoints=stages.slice(0,Math.max(1,active.number)).map(s=>(s.x*10)+","+(s.y*10)).join(" ");
+ const firstPending=stages.findIndex(s=>!journey.completed[s.id]);
+ const routeThrough=firstPending<0?stages.length:Math.max(1,firstPending+1);
+ const completePoints=stages.slice(0,routeThrough).map(s=>(s.x*10)+","+(s.y*10)).join(" ");
  const road='<svg class="stage-road" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><polyline class="stage-road-base" points="'+routePoints+'"/><polyline class="stage-road-done" points="'+completePoints+'"/></svg>';
  const nodes=stages.map(s=>{
   const complete=!!journey.completed[s.id],selected=journey.active===s.id,cls=selected?"active":complete?"completed":"pending";
