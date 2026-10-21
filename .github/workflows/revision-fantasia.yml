@@ -20,7 +20,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
-          paths = ['assets/personajes/tiko-explorador.svg','assets/personajes/nara-detective.svg','assets/escenarios/bosque-del-saber.svg']
+          paths = ['assets/personajes/tiko-explorador.svg','assets/personajes/nara-detective.svg','assets/escenarios/bosque-del-saber.svg','assets/escenarios/mapa-numeros-v3.svg','assets/escenarios/mapa-palabras-v3.svg']
           for path in paths:
               p=Path(path)
               assert p.is_file() and p.stat().st_size>4000,path
@@ -49,7 +49,7 @@ jobs:
           sleep 2
       - name: Verificar recursos servidos
         run: |
-          for path in index.html tema-ilustrado-v3.css assets/escenarios/bosque-del-saber.svg assets/personajes/tiko-explorador.svg assets/personajes/nara-detective.svg; do
+          for path in index.html tema-ilustrado-v3.css assets/escenarios/bosque-del-saber.svg assets/escenarios/mapa-numeros-v3.svg assets/escenarios/mapa-palabras-v3.svg assets/personajes/tiko-explorador.svg assets/personajes/nara-detective.svg; do
             curl -fsS "http://127.0.0.1:8765/$path" >/dev/null || exit 1
           done
       - name: Comprobar guardado y candados
