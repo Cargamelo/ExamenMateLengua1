@@ -136,3 +136,9 @@ body.pixel-dialog-open{overflow:hidden}
 @media(max-width:390px){.pixel-hero{padding:25px 47px 25px;min-height:285px}.pixel-home-guide{width:54px;height:115px}.pixel-hero .pixel-logo{padding:13px 7px}.pixel-logo h1{font-size:1.55rem}.pixel-hero .pixel-slogan{font-size:.74rem}.pixel-hero .pixel-slogan-sub{font-size:.68rem}.pixel-portal{min-height:312px;padding:12px}.pixel-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body.game.pixel-game .brand strong{font-size:.85rem}body.game.pixel-game .brand small{font-size:.6rem}body.game.pixel-game .stage-orb{width:61px;height:61px}body.game.pixel-game .stage-node-name{font-size:.69rem}}
 @media(prefers-reduced-motion:reduce){.pixel-home-guide,.pixel-card-tile,.pixel-portal,.pixel-home-menu button,.pixel-album-grid *,body.game.pixel-game .stage-node{animation:none!important;transition:none!important}body.home-pixel *,body.game.pixel-game *{scroll-behavior:auto}}
 @keyframes px-mascot{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+/* Ilustración simbólica de cofre de finalización, sin prometer cartas ganadas. */
+body.game.pixel-game .pixel-chest{display:block;width:max-content;margin:11px auto 18px;padding:10px 19px;border:4px solid #a37330;border-radius:6px;background:linear-gradient(#ffd579 0 26%,#704220 26% 37%,#be792d 37% 82%,#674025 82%);color:#fff4bc;letter-spacing:7px;text-shadow:0 0 9px #fff7ac;box-shadow:inset 0 0 0 4px #edb75d,0 9px 0 #442b18,0 15px 19px #5b3b2560;font-size:1.3rem;animation:pixel-chest-appear .65s cubic-bezier(.15,1.25,.4,1) both}
+body.game.pixel-game .stage-artscape .map-ground-art{image-rendering:pixelated}
+body.game.pixel-game .quest-place-art{object-fit:contain;image-rendering:pixelated}
+@keyframes pixel-chest-appear{from{opacity:0;transform:translateY(14px) scale(.85)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){body.game.pixel-game .pixel-chest{animation:none}}
