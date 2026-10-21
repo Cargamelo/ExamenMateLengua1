@@ -1,0 +1,3 @@
+[functions.partidas]
+verify_jwt = false
+# El endpoint valida tokens de partida internamente.
