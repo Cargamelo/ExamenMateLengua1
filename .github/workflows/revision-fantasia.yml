@@ -1,0 +1,65 @@
+name: Revisión visual · personajes y bosque
+on:
+  push:
+    branches:
+      - redisenio-anime-fantasia-2026-10-21
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar ilustraciones, formatos y rutas
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          paths = ['assets/personajes/tiko-explorador.svg','assets/personajes/nara-detective.svg','assets/escenarios/bosque-del-saber.svg']
+          for path in paths:
+              p=Path(path)
+              assert p.is_file() and p.stat().st_size>4000,path
+              root=ET.parse(p).getroot()
+              assert root.tag.endswith('svg') and 'viewBox' in root.attrib,path
+              print(path, p.stat().st_size, "OK")
+          for p in [Path('index.html'),Path('matematicas-sda1.html'),Path('lengua-sda1.html')]:
+              s=p.read_text()
+              assert 'tema-ilustrado-v3.css' in s,p
+          src=Path('mapas.js').read_text()
+          assert 'lugar-"+id+".svg' in src
+          assert 'lugar-"+id+"-v2.svg' not in src
+          assert 'personajes/' in src
+          for n in ('tiko-explorador','nara-detective'):
+              assert n in Path('juego.js').read_text()
+          print('Los dos personajes, bosque, HTML y referencias verificados')
+          PY
+          for file in *.js tests/*.cjs; do node --check "$file"; done
+      - name: Comprobar bloqueo y persistencia
+        run: node tests/fases-secuenciales.cjs
+      - name: Instalar navegador de pruebas
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servir aplicación
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ligasaber.log 2>&1 &
+          sleep 2
+      - name: Verificar recursos servidos
+        run: |
+          for path in index.html tema-ilustrado-v3.css assets/escenarios/bosque-del-saber.svg assets/personajes/tiko-explorador.svg assets/personajes/nara-detective.svg; do
+            curl -fsS "http://127.0.0.1:8765/$path" >/dev/null || exit 1
+          done
+      - name: Comprobar guardado y candados
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Probar navegación y seis resoluciones
+        run: node qa-pixel.js
+      - name: Conservar capturas y resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: revision-anime-fantasia
+          path: qa-screenshots/
+          if-no-files-found: ignore
