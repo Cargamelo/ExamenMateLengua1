@@ -1,0 +1,307 @@
+/* La Liga del Saber · v4 · imagen de referencia aprobada (2026-10-21).
+   Arte derivado de las imágenes proporcionadas por el usuario.
+   Solo diseño: sin efectos sobre progreso, sesiones, respuestas ni moneda. */
+:root{
+ --rpg-night:#07121d;--rpg-teal:#56e9dc;--rpg-purple:#c49bea;
+ --rpg-gold:#f5d391;--rpg-wood:#4c2d26;--rpg-cream:#fff2d4;
+}
+body.home-pixel,body.game.pixel-game{
+ background-color:#080f1a;
+ background-image:linear-gradient(#080f1bc9,#0c1f2cc9),url('./assets/arte-v4/bosque-magico.webp');
+ background-attachment:scroll;background-position:center;background-size:cover;
+ color:var(--rpg-cream);
+}
+body.home-pixel .homepage{max-width:1300px;padding-bottom:50px}
+body.home-pixel .pixel-home-topbar{
+ border:2px solid #996d44;border-bottom:0;border-radius:14px 14px 0 0;
+ margin-bottom:0;padding:14px 22px;background:linear-gradient(90deg,#251824e9,#3b2b27f4,#251824e9);
+ box-shadow:inset 0 1px 0 #f2d5a971;
+}
+body.home-pixel .pixel-hero.v4-portal-home{
+ display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+ position:relative;min-height:725px;padding:30px clamp(17px,3.6vw,50px) 38px;
+ overflow:hidden;border:5px solid #bd985e;border-radius:0 0 22px 22px;
+ background-image:
+   radial-gradient(ellipse at 53% 30%,#052a31a8,transparent 54%),
+   linear-gradient(180deg,#0308176e 0%,#061a20b0 54%,#060a17ef 100%),
+   url('./assets/arte-v4/bosque-magico.webp');
+ background-position:center center;background-size:cover;
+ box-shadow:inset 0 0 0 3px #f6cf8444,inset 0 0 90px #020914a1,0 12px 0 #211a1b,0 22px 50px #000b;
+}
+body.home-pixel .pixel-hero.v4-portal-home:before{
+ content:'';position:absolute;inset:8px;z-index:0;pointer-events:none;
+ border:1px solid #fbe5a947;border-radius:14px;
+ background:linear-gradient(90deg,#07131b51,transparent 23%,transparent 77%,#08131d51);
+}
+body.home-pixel .pixel-hero.v4-portal-home:after{
+ content:'✦';position:absolute;top:22px;right:30px;z-index:1;font-size:26px;color:#ffe8a1;
+ text-shadow:0 0 12px #ffca4b;
+}
+body.home-pixel .v4-portal-home .pixel-hero-content{
+ z-index:2;position:relative;display:grid;justify-items:center;gap:7px;width:100%;
+}
+body.home-pixel .v4-portal-home .pixel-logo{
+ max-width:630px;width:min(100%,630px);
+ padding:17px 35px 23px;
+ background:linear-gradient(135deg,#5d3929f2,#372820f7 47%,#614024f2);
+ border:5px ridge #d6b171;border-radius:45px 45px 18px 18px;
+ box-shadow:inset 0 0 0 3px #211b1c,inset 0 0 0 5px #f5d48a64,0 8px 0 #2c1e1b,0 17px 30px #000b;
+}
+body.home-pixel .v4-portal-home .pixel-logo h1{
+ font-family:Georgia,'Times New Roman',serif;color:#ffe1a2;
+ font-size:clamp(2.2rem,5.2vw,4.85rem);line-height:1.04;
+ text-shadow:0 2px 1px #553122,0 5px 0 #392820,0 8px 15px #060d15,0 0 18px #ffe1a150;
+ letter-spacing:.07em;
+}
+body.home-pixel .v4-portal-home .pixel-logo .pixel-star{color:#f2ce7d;font-size:.85rem;opacity:.82}
+body.home-pixel .v4-portal-home .pixel-slogan{
+ margin:18px auto 0;color:#ffe5b2;background:#271a20d1;
+ border:2px solid #d9ad65;padding:8px 21px;border-radius:8px;line-height:1.35;
+ text-shadow:0 1px 6px #090b0d;letter-spacing:.09em;
+}
+body.home-pixel .v4-portal-home .pixel-slogan-sub{
+ margin:4px auto;color:#f5e7c9;max-width:620px;
+ font-size:clamp(.78rem,1.5vw,.97rem);font-weight:650;text-shadow:0 2px 8px #06090e;
+}
+body.home-pixel .v4-portal-home .pixel-world-chooser{
+ width:100%;max-width:1080px;position:relative;z-index:2;margin:25px 0 0;
+}
+body.home-pixel .v4-portal-home .pixel-world-header{margin:5px 0 16px}
+body.home-pixel .v4-portal-home .pixel-world-header h2{
+ font-family:Georgia,serif;font-size:clamp(1.35rem,2.5vw,2rem);
+ color:#fff0d5;text-shadow:0 3px 7px #05131d;
+}
+body.home-pixel .v4-portal-home .pixel-world-header p{
+ margin:4px 0 0;color:#f7ebd1;font-size:.83rem;font-weight:650;text-shadow:0 2px 7px #000;
+}
+body.home-pixel .v4-portal-home .pixel-world-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(15px,2.1vw,27px);
+}
+body.home-pixel .v4-portal-home .pixel-portal{
+ position:relative;display:flex;min-width:0;min-height:330px;max-height:365px;
+ padding:14px;border-radius:16px;
+ border:5px ridge #c7a26a;
+ background-image:
+  linear-gradient(90deg,#07161bc2,transparent 36%,#06142191),
+  linear-gradient(0deg,#07101ce8,transparent 58%),
+  url('./assets/arte-v4/portal-numeros.webp');
+ background-size:cover;background-position:50% 47%;
+ box-shadow:inset 0 0 0 2px #fff3bd63,inset 0 0 32px #07121d96,0 7px 0 #292021,0 18px 23px #000b;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang{
+ border-color:#b39ac6;
+ background-image:linear-gradient(90deg,#161025cf,transparent 42%,#17122ab1),
+  linear-gradient(0deg,#100c20ed,transparent 60%),
+  url('./assets/arte-v4/portal-palabras.webp');
+}
+body.home-pixel .v4-portal-home .pixel-portal:before{
+ content:'';position:absolute;inset:6px;border:1px solid #d5b17c8a;border-radius:6px;
+ pointer-events:none;z-index:1;
+}
+body.home-pixel .v4-portal-home .pixel-portal:after{
+ content:'✧';position:absolute;left:12px;bottom:12px;color:#f9dfa1;font-size:25px;
+ text-shadow:0 0 10px #77ffe9;pointer-events:none;z-index:1;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang:after{text-shadow:0 0 12px #df91ff}
+body.home-pixel .v4-portal-home .pixel-portal-label{
+ position:relative;z-index:3;font-family:Georgia,serif;font-size:.79rem;
+ letter-spacing:.055em;color:#fff1cf;padding:7px 10px;
+ border:1px solid #f0cc869b;border-radius:5px;
+ background:#251d22d4;
+}
+body.home-pixel .v4-portal-home .pixel-portal-art{
+ position:absolute;z-index:2;left:12px;bottom:24px;
+ width:min(49%,230px);height:290px;max-height:290px;
+ object-fit:contain;object-position:bottom left;image-rendering:auto;
+ filter:drop-shadow(0 6px 7px #01070ed9) drop-shadow(0 0 11px #85eee443);
+ transform:none;pointer-events:none;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-art{
+ left:auto;right:8px;object-position:bottom right;
+ filter:drop-shadow(0 6px 7px #01070ed9) drop-shadow(0 0 11px #d49eff45);
+}
+body.home-pixel .v4-portal-home .pixel-portal-footer{
+ position:relative;z-index:3;align-self:flex-end;justify-self:end;
+ width:58%;min-width:170px;min-height:145px;padding:13px;
+ margin:0 0 0 auto;
+ border-radius:12px;border:3px solid #d5ae79;
+ background:linear-gradient(140deg,#452c24f7,#241e21f4);
+ box-shadow:inset 0 1px 0 #fff0cd76,0 5px 0 #1d1315,0 14px 25px #0008;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-footer{
+ margin:0 auto 0 0;background:linear-gradient(145deg,#533449f7,#2b2137f9);
+ border-color:#d4abd6;
+}
+body.home-pixel .v4-portal-home .pixel-portal-footer h3{
+ font-size:clamp(.92rem,1.75vw,1.4rem);
+ font-family:Georgia,serif;line-height:1.13;color:#ffedca;
+ text-shadow:0 2px 5px #000;
+}
+body.home-pixel .v4-portal-home .pixel-portal-footer p{
+ font-size:.73rem;line-height:1.32;color:#e7ddc9;font-weight:600;
+}
+body.home-pixel .v4-portal-home .pixel-enter{
+ padding:8px 23px;font-weight:900;border:2px solid #a8ede3;
+ border-radius:8px;background:linear-gradient(#4abbac,#086d70);
+ box-shadow:0 4px 0 #043b46;color:#fff;letter-spacing:.06em;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-enter{
+ border-color:#e0c2ff;background:linear-gradient(#b390df,#664099);
+ box-shadow:0 4px 0 #34234d;
+}
+body.home-pixel .v4-portal-home .pixel-portal:hover{
+ transform:translateY(-4px);filter:brightness(1.07);
+}
+body.home-pixel .v4-portal-home .pixel-portal:focus-visible{
+ outline:4px solid #fff4a8;outline-offset:4px;
+}
+body.home-pixel .pixel-home-menu{
+ grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:26px auto 8px;
+}
+body.home-pixel .pixel-home-menu button{
+ min-height:88px;padding:10px 5px;line-height:1.15;
+ background:linear-gradient(152deg,#78513b,#322526 69%,#261f26);
+ border:3px ridge #b79363;border-radius:11px;
+ box-shadow:inset 0 0 0 1px #fff0c32e,0 5px 0 #261920,0 9px 17px #0009;
+ color:#ffe9bf;font-family:Georgia,serif;font-size:clamp(.7rem,1.15vw,.87rem);
+}
+body.home-pixel .pixel-home-menu button:focus-visible{outline:3px solid #fff0a3}
+body.home-pixel .pixel-home-menu [data-sync="recovery"]:disabled,
+body.home-pixel .pixel-home-menu [data-sync="logout"]:disabled{display:none}
+body.home-pixel .pixel-home-menu [data-sync="request"]:disabled,
+body.home-pixel .pixel-home-menu [data-sync="insert"]:disabled{
+ opacity:.75;filter:none;cursor:not-allowed;
+}
+body.home-pixel .liga-sync-status{font-size:.75rem;color:#c9cecc;margin:6px auto}
+body.game.pixel-game .quest-hero{
+ background-image:linear-gradient(90deg,#091721ec 0,#061e27c9 55%,#07152158),
+ url('./assets/arte-v4/bosque-magico.webp');
+ background-size:cover;background-position:center;
+ border:5px ridge #c9aa78;border-radius:17px;min-height:340px;
+}
+body.game.lang-game.pixel-game .quest-hero{
+ background-image:linear-gradient(90deg,#1a1429ee 0,#301e3ac4 57%,#100b1f77),
+ url('./assets/arte-v4/bosque-magico.webp');
+}
+body.game.pixel-game .quest-hero .game-hero-art{display:none}
+body.game.pixel-game .hero-companion{
+ max-height:300px;max-width:235px;height:auto;width:auto;
+ object-fit:contain;filter:drop-shadow(0 10px 8px #04121ccc);
+}
+body.game.pixel-game .stage-gameworld{
+ background:linear-gradient(135deg,#332623,#111e2b 56%,#3b2c2d);
+ border:5px ridge #d1ac77;box-shadow:0 10px 0 #251e20,0 25px 39px #0009;
+}
+body.game.pixel-game .stage-artscape{
+ position:relative;isolation:isolate;border:3px solid #c1a16a;
+ background:#081b26;box-shadow:inset 0 0 0 3px #fbe9c838,inset 0 0 44px #010b1ab6;
+}
+body.game.pixel-game .stage-artscape:before{
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(90deg,#050c1d4c,transparent 27%,transparent 73%,#050c1d40);
+}
+body.game.pixel-game .stage-artscape .map-ground-art{
+ width:100%;height:100%;object-fit:fill;image-rendering:auto;filter:none;
+}
+body.game.pixel-game .stage-node{z-index:4}
+body.game.pixel-game .stage-node .stage-orb{
+ border-radius:50%;width:76px;height:76px;
+ border:4px ridge #e2c082;background:linear-gradient(155deg,#6c513c,#292c30);
+ box-shadow:inset 0 1px 0 #ffefd6b2,0 5px 0 #37251e,0 0 14px #f0d49575;
+}
+body.game.pixel-game .stage-node .stage-orb-icon{inset:11px}
+body.game.pixel-game .stage-node .stage-index{
+ background:linear-gradient(#af8147,#58402d);color:#fff1c5;
+ border:2px solid #ffe0a3;border-radius:50%;
+}
+body.game.pixel-game .stage-node .stage-node-name{
+ border:2px ridge #cfa878;border-radius:8px;
+ background:linear-gradient(#fff5df,#e4c99b);color:#362b24;
+ box-shadow:0 4px 0 #3d2b28,0 8px 14px #010b1788;
+}
+body.game.pixel-game .stage-guide img{
+ width:95px;max-height:138px;object-fit:contain;image-rendering:pixelated;
+ filter:drop-shadow(0 8px 4px #08111a);
+}
+body.game.pixel-game .world-guide,body.game.pixel-game .quest-guide-art{
+ max-width:195px;max-height:240px;image-rendering:auto;
+ filter:drop-shadow(0 7px 7px #020f1ab6);
+}
+body.game.pixel-game .mission-stage{
+ position:relative;overflow:hidden;border:5px ridge #bd9764;border-radius:17px;
+ background-image:linear-gradient(#071a239e,#0c1a2fe0),
+ url('./assets/arte-v4/bosque-magico.webp');
+ background-size:cover;background-position:center;
+ box-shadow:0 9px 0 #251a19,0 16px 29px #0008;
+}
+body.game.pixel-game .mission-pane,body.game.pixel-game .mission-interaction{
+ position:relative;z-index:2;border:3px ridge #be9b64;
+ border-radius:14px;color:#3d2d29;background:linear-gradient(#fff3d7,#f4dfb5);
+ box-shadow:inset 0 0 0 3px #fff9e9b8,0 6px 0 #7a5a3b,0 15px 23px #0008;
+}
+body.game.pixel-game .mission-interaction{
+ background:linear-gradient(#fff7e6,#f4dfc5);border-color:#a88154;
+}
+body.game.pixel-game .mission-toolbar{
+ border-bottom:1px solid #e5c6917f;padding:10px 0;margin-bottom:15px;
+}
+body.game.pixel-game .mission-guide-expression{
+ display:inline-block;width:84px;height:84px;object-fit:contain;
+ border:3px solid #d4ad76;border-radius:12px;float:left;
+ margin:1px 11px 7px 0;box-shadow:0 5px 12px #172b4055;
+}
+body.game.pixel-game .hint-guide-expression{
+ width:50px;height:50px;object-fit:cover;border-radius:50%;
+ border:2px solid #e1bf78;vertical-align:middle;margin-right:7px;
+}
+body.game.pixel-game .stage-victory{
+ border:5px ridge #c2a071;border-radius:17px;
+ background:linear-gradient(#fff5d9,#f0d7af);
+ box-shadow:inset 0 0 0 3px #fff6df,0 9px 0 #6a4b31,0 14px 27px #0008;
+}
+body.game.pixel-game .stage-victory .victory-guide{
+ width:170px;height:190px;max-height:190px;object-fit:contain;
+}
+body.game.pixel-game .pixel-dialog{
+ border:4px ridge #be9b6e;background:linear-gradient(#221c2a,#0e222d);
+}
+@media(max-width:1000px){
+ body.home-pixel .v4-portal-home .pixel-portal-art{width:min(47%,188px);height:270px}
+ body.home-pixel .v4-portal-home .pixel-portal-footer{width:61%;min-width:160px}
+ body.home-pixel .v4-portal-home .pixel-portal-footer p{font-size:.69rem}
+ body.home-pixel .pixel-home-menu{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+ body.home-pixel .pixel-hero.v4-portal-home{
+  min-height:0;padding:23px 10px 28px;border-width:3px;
+ }
+ body.home-pixel .v4-portal-home .pixel-logo{width:min(93%,450px);padding:14px 14px 18px}
+ body.home-pixel .v4-portal-home .pixel-logo h1{font-size:clamp(1.8rem,7vw,3rem)}
+ body.home-pixel .v4-portal-home .pixel-slogan{font-size:.77rem;padding:7px 10px}
+ body.home-pixel .v4-portal-home .pixel-slogan-sub{font-size:.74rem;padding:0 10px}
+ body.home-pixel .v4-portal-home .pixel-world-grid{grid-template-columns:1fr;gap:16px}
+ body.home-pixel .v4-portal-home .pixel-world-header{margin:14px 0 12px}
+ body.home-pixel .v4-portal-home .pixel-portal{min-height:278px;max-height:none;padding:12px}
+ body.home-pixel .v4-portal-home .pixel-portal-art{width:43%;height:242px;max-height:242px;bottom:9px}
+ body.home-pixel .v4-portal-home .pixel-portal-footer{width:57%;min-width:0;min-height:130px;padding:11px}
+ body.home-pixel .v4-portal-home .pixel-portal-label{font-size:.68rem}
+ body.home-pixel .pixel-home-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ body.game.pixel-game .stage-orb{width:68px;height:68px}
+ body.game.pixel-game .stage-guide img{max-height:94px;width:65px}
+ body.game.pixel-game .hero-companion{max-height:210px}
+ body.game.pixel-game .mission-guide-expression{width:62px;height:62px}
+}
+@media(max-width:390px){
+ body.home-pixel .v4-portal-home .pixel-logo h1{font-size:1.7rem}
+ body.home-pixel .v4-portal-home .pixel-portal{min-height:257px}
+ body.home-pixel .v4-portal-home .pixel-portal-art{width:42%;height:218px;max-height:218px}
+ body.home-pixel .v4-portal-home .pixel-portal-footer{width:58%;padding:9px}
+ body.home-pixel .v4-portal-home .pixel-portal-footer h3{font-size:.9rem}
+ body.home-pixel .v4-portal-home .pixel-portal-footer p{font-size:.65rem}
+ body.game.pixel-game .stage-node .stage-orb{width:61px;height:61px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.home-pixel .v4-portal-home .pixel-portal,
+ body.home-pixel .v4-portal-home .pixel-portal-art,
+ body.game.pixel-game .stage-guide img{animation:none!important;transition:none!important}
+}
