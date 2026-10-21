@@ -32,11 +32,11 @@ function snapshot(){
 function saveCheckpoint(){
  if(view==="quiz"&&session?.stageId)window.LigaPartida?.save(subject,progress,snapshot());
 }
-const savedCheckpoint=window.LigaPartida?.readCheckpoint(subject)||null;
 function resumable(){
- return savedCheckpoint&&ST.canEnterStage(subject,journey,savedCheckpoint.stageId)
-  &&!savedCheckpoint.session.finished&&savedCheckpoint.questionIndex>=0
-  &&savedCheckpoint.questionIndex<savedCheckpoint.session.target? savedCheckpoint:null;
+ const c=window.LigaPartida?.readCheckpoint(subject);
+ return c&&ST.canEnterStage(subject,journey,c.stageId)
+  &&!c.session.finished&&c.questionIndex>=0
+  &&c.questionIndex<c.session.target?c:null;
 }
 function resumeStage(){
  const c=resumable();if(!c){go("topics");return;}
@@ -95,10 +95,11 @@ function topBack(destination="home"){return '<div class="back-line">'+button(des
 function render(){if(view==="home")return renderHome();if(view==="topics")return renderTopics();if(view==="lesson")return renderLesson();if(view==="setup")return renderSetup();if(view==="quiz")return renderQuiz();if(view==="result")return renderResult();if(view==="progress")return renderProgress();if(view==="schedule")return renderSchedule();if(view==="material")return renderMaterialList();if(view==="dictation")return renderDictation();if(view==="expressive")return renderExpressive();if(view==="memory")return renderMemory();}
 function renderHome(){
 const art=isMath?"./assets/escena-matematicas.svg":"./assets/escena-lengua.svg";
-const pending=AD.pending(adaptive).length,medals=adaptive.rewards?.completed||0;
+const pending=AD.pending(adaptive).length,medals=adaptive.rewards?.completed||0,resume=resumable();
 shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="overline">✦ TU NUEVA AVENTURA</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><div class="quest-summary"><span>⭐ '+starsLabel()+'</span><span>🏅 '+medals+' misiones</span><span>🪙 '+(adaptive.rewards?.coins||0)+' monedas</span></div></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"><img class="hero-companion" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async"></section>'+
 '<section class="adventure-actions" aria-label="Elegir aventura">'+
-'<button type="button" class="adventure-launch" data-action="topics">'+graphicIcon("jugar")+'<span><strong>JUGAR</strong><small>¡Explora los mundos y supera misiones!</small></span><span class="launch-arrow" aria-hidden="true">→</span></button>'+
+(resume?'<button type="button" class="adventure-launch continue-quest" data-action="resume-stage"><span class="resume-marker">↪</span><span><strong>CONTINUAR AVENTURA</strong><small>Fase '+ST.getStage(subject,resume.stageId).number+' · Reto '+(resume.questionIndex+1)+' de '+resume.session.target+'</small></span><span class="launch-arrow">→</span></button>':'')+
+ '<button type="button" class="adventure-launch" data-action="topics">'+graphicIcon("jugar")+'<span><strong>JUGAR</strong><small>¡Explora los mundos y supera misiones!</small></span><span class="launch-arrow" aria-hidden="true">→</span></button>'+
 '<button type="button" class="adventure-repair" data-action="errors">'+graphicIcon("errores")+'<span><strong>MIS ERRORES</strong><small>'+(pending?pending+' pistas pendientes para investigar':'Un taller para seguir aprendiendo')+'</small></span><span class="launch-arrow" aria-hidden="true">→</span></button></section>'+
 '<div class="adventure-footer"><p>Sin cronómetro y sin niveles que configurar. Cada reto se adapta a lo que vas aprendiendo.</p><div class="action-row">'+button("progress","🏅 Mis logros","","quest-text-button")+button("collection","🃏 Mi colección","","quest-text-button")+'</div></div>');
 }
@@ -107,7 +108,7 @@ function renderTopics(){
  const active=ST.getStage(subject,journey.active)||stages[0];
  shell(topBack()+'<header class="map-voyage-intro"><span class="map-flag">✦ EL GRAN MAPA DE LAS AVENTURAS</span>'+
  '<h1 class="section-title">'+(isMath?"El Reino de los Números":"El Archipiélago de las Palabras")+'</h1>'+
- '<p>Recorre quince fases. Las estrellas señalan las que ya has terminado. Puedes repetir cualquier casilla.</p></header>'+
+ '<p>Completa las fases por orden. Puedes repetir casillas superadas; las siguientes tienen candado.</p></header>'+
  WORLD.render(isMath,stages,journey,esc));
  persist();
  if(typeof window.requestAnimationFrame==="function"){
@@ -117,6 +118,14 @@ function renderTopics(){
 }
 function startStage(id){
  const stage=ST.getStage(subject,id);if(!stage)return;
+ if(!ST.canEnterStage(subject,journey,id)){
+  const existing=document.getElementById("stage-locked-message");
+  const note=existing||document.createElement("p");
+  note.id="stage-locked-message";note.setAttribute("role","alert");note.className="stage-locked-message";
+  note.textContent="Primero tienes que completar la fase anterior para continuar tu aventura.";
+  (document.querySelector(".stage-map-progress")||app).append(note);
+  return;
+ }
  const previous=journey.active;ST.activate(subject,journey,id);
  guideFrom=previous!==id?previous:null;selectedStageId=id;topic=stage.topics[0];mode="games";
  persist();
@@ -127,7 +136,7 @@ function startStage(id){
  }
  session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,stage,topic:stage.topics[0],review:false,adaptive:true,target:15,items:[],results:[],seen:new Set()};
  questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
- session.items.push(nextStageChallenge());view="quiz";render();
+ session.items.push(nextStageChallenge());view="quiz";render();saveCheckpoint();
 }
 function nextStageChallenge(){
  const stage=session.stage,idx=session.items.length,id=stage.topics[idx%stage.topics.length];
@@ -136,6 +145,8 @@ function nextStageChallenge(){
 function finishStage(score,total){
  if(!session?.stageId||session.stageOutcome)return;
  session.stageOutcome=ST.complete(subject,journey,session.stageId,score,total);
+ if(!session.stageOutcome)return;
+ window.LigaPartida?.clearCheckpoint(subject,progress);
  session.stageBonus=(session.stageOutcome.first?2:0)+(session.stageOutcome.justAwarded?15:0);
  if(session.stageBonus)adaptive.rewards.coins=(adaptive.rewards.coins||0)+session.stageBonus;
  guideFrom=session.stageId;
@@ -244,7 +255,8 @@ function renderQuiz(){
  else {input='<label class="mini-label" for="response">'+(q.long?"Escribe tu respuesta:":"Escribe el resultado:")+'</label>'+(q.long?'<textarea id="response" class="field long" spellcheck="false" '+(ready?"disabled":"")+'>'+esc(response)+'</textarea>':'<input id="response" class="field" type="text" inputmode="'+(q.numeric?"numeric":"text")+'" value="'+esc(response)+'" '+(ready?"disabled":"")+'>')+(!ready?'<div class="action-row">'+button("check","Comprobar")+'</div>':"");}
  const fb=ready?'<div class="quest-reaction '+(answered.ok?"win":"try")+'" aria-hidden="true">'+(answered.ok?"✦ ⭐ ✦":"✦")+(answered.ok?AV.rewardMarkup():"")+'</div><div class="feedback '+(answered.ok?"ok":"bad")+'" role="status"><strong>'+(answered.ok?"¡Has conseguido activar la escena!":"Buena investigación. Vamos a entender la pista.")+'</strong><p>'+esc(q.explanation)+'</p>'+(answered.ok?"":'<p><b>Solución:</b> '+esc(q.correct)+'</p><details class="quest-help-lesson"><summary>💡 Ver una explicación con ejemplos</summary>'+m.lesson+'</details>')+'</div>':"";
  const help=!ready?'<div class="hint-tools">'+button("hint","💡 Una pista","","tag-btn")+button("speak-question","🔊 Escuchar","","tag-btn")+'</div>'+(hintCount?'<div class="help-text">'+esc(hintCount===1?q.hint1:(q.hint2||q.explanation))+'</div>':""):"";
- shell(topBack("topics")+'<section class="mission-stage"><div class="mission-toolbar"><div><span class="map-flag">✦ '+(session.review?"TALLER DE REPARACIÓN":"MISIÓN INTERACTIVA")+'</span><p>'+esc(session.title)+'</p></div><span class="mission-count">Reto '+(questionIndex+1)+' de '+count+'</span></div><div class="meter" aria-label="Progreso de la misión" style="margin:11px 0 22px"><span style="width:'+meter+'%"></span></div><div class="mission-layout"><div class="mission-pane">'+WORLD.scene(q.topic,isMath,ready?answered.ok:null)+'<span class="q-steps">'+graphicIcon(m.id)+' '+esc(WORLD.places[q.topic]?.name||m.title)+'</span><h1 class="q-title">'+esc(q.prompt)+'</h1>'+(q.sub?'<p class="question-sub">'+esc(q.sub)+'</p>':"")+(q.visual?'<div class="'+(q.reading?"reading":"question-visual")+'">'+esc(q.visual)+'</div>':"")+(!ready?help:"")+'</div><div class="mission-interaction">'+(q.mechanic?'<div class="quest-completion '+(ready?(answered.ok?"activated":"needs-repair"):"active") +'">'+input+'</div>':ready?"":input)+fb+(ready?'<div class="action-row">'+button("next",questionIndex===count-1?"Recibir recompensa →":"Siguiente desafío →")+'</div>':"")+'</div></div></section>');
+ shell(topBack("topics")+'<section class="mission-stage"><div class="mission-toolbar"><div><span class="map-flag">✦ '+(session.review?"TALLER DE REPARACIÓN":"MISIÓN INTERACTIVA")+'</span><p>'+esc(session.title)+'</p></div><span class="mission-count">Reto '+(questionIndex+1)+' de '+count+'</span></div><div class="meter" aria-label="Progreso de la misión" style="margin:11px 0 22px"><span style="width:'+meter+'%"></span></div><div class="mission-layout"><div class="mission-pane">'+WORLD.scene(q.topic,isMath,ready?answered.ok:null)+'<span class="q-steps">'+graphicIcon(m.id)+' '+esc(WORLD.places[q.topic]?.name||m.title)+'</span><h1 class="q-title">'+esc(q.prompt)+'</h1>'+(q.sub?'<p class="question-sub">'+esc(q.sub)+'</p>':"")+(q.visual?'<div class="'+(q.reading?"reading":"question-visual")+'">'+esc(q.visual)+'</div>':"")+(!ready?help:"")+'</div><div class="mission-interaction">'+(q.mechanic?'<div class="quest-completion '+(ready?(answered.ok?"activated":"needs-repair"):"active") +'">'+input+'</div>':ready?"":input)+fb+(ready?'<div class="action-row">'+button("next",questionIndex===count-1?"Recibir recompensa →":"Siguiente desafío →")+'</div>':"") +'</div></div></section>');
+ saveCheckpoint();
 }
 function grade(ok,choice,input){
  if(answered!==null)return;const q=session.items[questionIndex];
@@ -410,11 +422,11 @@ for(const type of ["pointerup","pointercancel","dragend"])document.addEventListe
 },{passive:true});
 document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const el=e.target.closest?.('button,a.header-main-menu,a.brand');if(el&&!el.disabled)el.classList?.add?.("is-pressed");});
 document.addEventListener("keyup",e=>{if(e.key!=="Enter"&&e.key!==" ")return;e.target.closest?.('button,a.header-main-menu,a.brand')?.classList?.remove?.("is-pressed");});
-document.addEventListener("click",function(ev){const el=ev.target.closest("[data-action]");if(!el)return;const a=el.dataset.action;const t=el.dataset.topic;AV.onAction(a,el.dataset);if(a==="leave"){location.href="./index.html";return;}if(a==="collection"){window.LigaPixelUI?.openCollection?.();return;}if(a==="sound"){response=document.getElementById("response")?.value||response;dictationDraft=document.getElementById("dict-response")?.value??dictationDraft;soundEnabled=AV.setEnabled(!soundEnabled);if(soundEnabled){AV.unlock?.();AV.play("toggle");}render();return;}if(a==="home"){go("home");return;}if(a==="topics"){mode="games";go("topics");return;}if(a==="start-stage"){startStage(el.dataset.stage);return;}
+document.addEventListener("click",function(ev){const el=ev.target.closest("[data-action]");if(!el)return;const a=el.dataset.action;const t=el.dataset.topic;AV.onAction(a,el.dataset);if(a==="leave"){location.href="./index.html";return;}if(a==="collection"){window.LigaPixelUI?.openCollection?.();return;}if(a==="sound"){response=document.getElementById("response")?.value||response;dictationDraft=document.getElementById("dict-response")?.value??dictationDraft;soundEnabled=AV.setEnabled(!soundEnabled);if(soundEnabled){AV.unlock?.();AV.play("toggle");}render();return;}if(a==="home"){go("home");return;}if(a==="topics"){mode="games";go("topics");return;}if(a==="resume-stage"){resumeStage();return;}if(a==="start-stage"){startStage(el.dataset.stage);return;}
 if(a==="next-stage"){startStage(el.dataset.stage);return;}
 if(a==="repeat-stage"){startStage(el.dataset.stage);return;}
 if(a==="finish-special"){finishSpecialStage();return;}
-if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterWorld(t||topic,true);return;}if(a==="continue-mission"){enterWorld(session.topic,session.review);return;}if(a==="lesson"){topic=t;go("lesson");return;}if(a==="setup"){enterWorld(t||topic);return;}if(a==="material"){topic=t||topic;go("material");return;}if(a==="pick-material"){materialIndex=Number(el.dataset.index);dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";expressiveSaved=false;expressiveResult="";if(topic==="comprension"){startReading(materialIndex);return;}go(topic==="dictado"?"dictation":"expressive");return;}if(a==="check"){checkTyped();return;}if(a==="mini"){if(!session||answered!==null)return;const q=session.items[questionIndex],act=el.dataset.mini,val=el.dataset.value||"",prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){response=document.getElementById("response")?.value||response;hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);Object.assign(journey,{version:1,active:ST.getStages(subject)[0].id,completed:{},finalAwarded:false,previous:null});selectedStageId=null;persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
+if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterWorld(t||topic,true);return;}if(a==="continue-mission"){enterWorld(session.topic,session.review);return;}if(a==="lesson"){topic=t;go("lesson");return;}if(a==="setup"){enterWorld(t||topic);return;}if(a==="material"){topic=t||topic;go("material");return;}if(a==="pick-material"){materialIndex=Number(el.dataset.index);dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";expressiveSaved=false;expressiveResult="";if(topic==="comprension"){startReading(materialIndex);return;}go(topic==="dictado"?"dictation":"expressive");return;}if(a==="check"){checkTyped();return;}if(a==="mini"){if(!session||answered!==null)return;const q=session.items[questionIndex],act=el.dataset.mini,val=el.dataset.value||"",prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){response=document.getElementById("response")?.value||response;hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);Object.assign(journey,{version:1,active:ST.getStages(subject)[0].id,completed:{},finalAwarded:false,previous:null});selectedStageId=null;window.LigaPartida?.clearCheckpoint(subject,progress);persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
 /* Arrastrar y soltar opcional: todas las mecánicas mantienen la alternativa táctil por pulsaciones. */
 document.addEventListener("dragstart",e=>{
 const el=e.target.closest?.("[data-drag-kind]");
