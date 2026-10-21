@@ -1,0 +1,56 @@
+name: Auditoría visual RPG v4
+on:
+  push:
+    branches:
+      - referencia-visual-v4-2026-10-21
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar arte y recursos
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          art=Path('assets/arte-v4')
+          files=list(art.glob('*.webp'))
+          assert len(files)==20, 'Faltan imágenes: '+str(len(files))
+          for p in files:
+              assert p.stat().st_size>2500,p
+              with Image.open(p) as im: im.verify()
+          css=Path('tema-fantasia-v4.css').read_text()
+          assert 'bosque-magico.webp' in css and 'portal-numeros.webp' in css
+          for p in ('index.html','matematicas-sda1.html','lengua-sda1.html'):
+              assert 'tema-fantasia-v4.css' in Path(p).read_text(),p
+          print('20 WebP con datos válidos, CSS y páginas conectadas')
+          PY
+          for f in *.js tests/*.cjs; do node --check "$f"; done
+      - name: Validar bloqueo secuencial
+        run: node tests/fases-secuenciales.cjs
+      - name: Instalar navegador de pruebas
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar servidor
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ligasaber.log 2>&1 &
+          sleep 2
+      - name: Verificar partida, guardado y candados
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Probar rutas y seis tamaños habituales
+        run: node qa-pixel.js
+      - name: Verificar retratos, escenas y alta densidad
+        run: node tests/arte-v4.cjs
+      - name: Guardar capturas reales
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-redisenio-final-v4
+          path: qa-screenshots/
+          if-no-files-found: ignore
