@@ -25,7 +25,7 @@ const pixelArtByStage={
 };
 function render(isMath,stages,journey,escape){
  const theme=isMath?"math":"lang",type=theme;
- const active=stages.find(s=>s.id===journey.active)||stages[0];
+ const active=window.AventuraFases.firstPending(type,journey)||stages[stages.length-1];
  const done=window.AventuraFases.completedCount(type,journey);
  const landmarks=(isMath?["numeros","descomponer","comparar","ordinales","operaciones"]:["sinonimos","antonimos","comunicacion","puntuacion","comprension","dictado","expresiva"]).map(id=>{
   const p=places[id];return '<div class="stage-landmark" style="--lx:'+p.left+'%;--ly:'+p.top+'%" aria-hidden="true">'+artwork(id,"stage-landmark-art")+'</div>';
@@ -38,10 +38,10 @@ function render(isMath,stages,journey,escape){
  const nodes=stages.map(s=>{
   const iconId=pixelArtByStage[theme]?.[s.number-1]||"";
   const stageArt=iconId?'<img src="./assets/pixel/iconos/'+iconId+'.webp" alt="" width="112" height="112" decoding="async" loading="lazy">':escape(s.icon);
-  const complete=!!journey.completed[s.id],selected=journey.active===s.id,cls=selected?"active":complete?"completed":"pending";
-  return '<button type="button" class="stage-node stage-'+cls+'" style="--stage-x:'+s.x+'%;--stage-y:'+s.y+'%" data-action="start-stage" data-stage="'+s.id+'" data-stage-number="'+s.number+'" aria-label="Fase '+s.number+': '+escape(s.title)+'. '+(complete?"Completada, puedes repetirla.":selected?"Fase activa.":"Disponible.")+'" '+(selected?'aria-current="step"':"")+'>'+
+  const complete=!!journey.completed[s.id],allowed=window.AventuraFases.canEnterStage(type,journey,s.id),selected=active.id===s.id&&!complete,cls=!allowed?"locked":selected?"active":complete?"completed":"pending";
+  return '<button type="button" class="stage-node stage-'+cls+'" style="--stage-x:'+s.x+'%;--stage-y:'+s.y+'%" data-action="start-stage" data-stage="'+s.id+'" data-stage-number="'+s.number+'" aria-label="Fase '+s.number+': '+escape(s.title)+'. '+(!allowed?"Bloqueada. Completa las fases anteriores.":complete?"Completada, puedes repetirla.":selected?"Fase activa.":"Disponible.")+'" aria-disabled="'+(!allowed)+'" '+(selected?'aria-current="step"':"")+'>'+
    '<span class="stage-orb"><span class="stage-index">'+s.number+'</span><span class="stage-orb-icon" aria-hidden="true">'+stageArt+'</span><span class="stage-check" aria-hidden="true">'+(complete?"★":selected?"✦":"")+'</span></span>'+
-   '<span class="stage-node-name">'+escape(s.title)+'</span></button>';
+   '<span class="stage-node-name">'+escape(s.title)+'</span>'+(allowed?'':'<span class="stage-lock-label" aria-hidden="true">🔒</span>')+'</button>';
  }).join("");
  return '<section class="gameworld gameworld-'+theme+' stage-gameworld" aria-label="Recorrido ilustrado de quince fases">'+
  '<div class="stage-map-progress" role="status"><strong>✦ '+done+' de 15 fases completadas</strong><span>Fase activa: '+active.number+' · '+escape(active.title)+'</span>'+(journey.finalAwarded?'<span class="stage-final-unlocked">★ Insignia de las quince fases ★</span>':"")+'</div>'+
@@ -50,7 +50,7 @@ function render(isMath,stages,journey,escape){
  '<div class="stage-landmarks">'+landmarks+'</div>'+road+
  '<div class="stage-locations">'+nodes+'</div>'+
  '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" width="240" height="270" decoding="async" alt=""></div>'+
- '</div><p class="map-access-note">Todas las fases están disponibles. Pulsa una casilla o utiliza Tab y Entrar. Las estrellas indican fases completadas.</p></section>';
+ '</div><p class="map-access-note">Completa cada fase para abrir la siguiente. Puedes repetir las anteriores. Los candados señalan las fases bloqueadas.</p></section>';
 }
 function focusStage(id,previous=null){
  const item=document.querySelector?.('[data-action="start-stage"][data-stage="'+id+'"]');
