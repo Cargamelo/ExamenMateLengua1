@@ -1,0 +1,55 @@
+/* V2: fondos vectoriales originales para pantallas de alta densidad. */
+body.home-pixel .pixel-hero{background:
+ linear-gradient(180deg,rgba(5,18,28,.3),rgba(7,28,23,.58)),
+ url("./assets/portada-nitida.svg") center 55%/cover no-repeat;
+ border-color:#e6c48a;box-shadow:0 10px 0 #261a15,0 30px 80px #03131ecc}
+body.home-pixel .pixel-portal.math{background:
+ linear-gradient(0deg,rgba(6,24,29,.89),rgba(9,42,41,.23) 82%),
+ url("./assets/portal-mates-nitido.svg") center/cover no-repeat}
+body.home-pixel .pixel-portal.lang{background:
+ linear-gradient(0deg,rgba(20,11,36,.93),rgba(38,23,68,.19) 82%),
+ url("./assets/portal-lengua-nitido.svg") center/cover no-repeat}
+body.home-pixel .pixel-portal{border-radius:12px;border:4px solid #bfa274;min-height:460px}
+body.home-pixel .pixel-portal-footer{background:#2b281ffa;backdrop-filter:blur(3px);margin-top:auto}
+body.home-pixel .pixel-portal.lang .pixel-portal-footer{background:#312447f6}
+body.home-pixel .pixel-portal-art{width:clamp(120px,20vw,185px);max-height:195px;filter:drop-shadow(0 8px 10px #081b27)}
+body.home-pixel .pixel-home-guide{width:clamp(92px,14vw,185px);max-height:270px;filter:drop-shadow(0 9px 7px #081822)}
+body.game.pixel-game .stage-artscape{background:#132e31;isolation:isolate}
+body.game.pixel-game .stage-artscape .map-ground-art{width:100%;height:100%;object-fit:cover;image-rendering:auto;filter:none}
+body.game.pixel-game .stage-node.stage-locked{cursor:not-allowed}
+body.game.pixel-game .stage-locked .stage-orb{background:linear-gradient(145deg,#536167,#2a3137);border-color:#84989c;box-shadow:0 4px 0 #18242c;filter:saturate(.25)}
+body.game.pixel-game .stage-locked .stage-orb-icon{opacity:.38}
+body.game.pixel-game .stage-locked .stage-node-name{background:#273943;color:#e5e8e3;border-color:#77888e;box-shadow:0 4px 0 #122831}
+body.game.pixel-game .stage-locked .stage-index{background:#38474c;color:#ecf0ee}
+body.game.pixel-game .stage-locked .stage-lock-label{position:absolute;z-index:7;top:29px;right:15px;font-size:1.6rem;line-height:1;filter:drop-shadow(0 2px 2px #071222)}
+body.game.pixel-game .stage-locked:focus-visible{outline:4px solid #fbd48d}
+body.game.pixel-game .stage-locked-message{flex:1 1 100%;margin:4px auto 0;padding:10px 16px;border:2px solid #edb565;border-radius:8px;background:#312b25;color:#fff5d8;font-weight:800}
+body.game.pixel-game .continue-quest{border:3px solid #ffe5a2;background:linear-gradient(120deg,#1e7562,#22548c);box-shadow:0 5px 0 #173d37,0 9px 16px #081b30b5}
+body.game.pixel-game .resume-marker{font-size:2rem;color:#ffdb75}
+body.game.pixel-game .stage-node{touch-action:manipulation}
+@media(max-width:700px){
+ body.home-pixel .pixel-portal{min-height:360px}
+ body.home-pixel .pixel-hero{background-position:52% center}
+ body.game.pixel-game .stage-locked .stage-lock-label{right:18px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.home-pixel .pixel-home-guide,body.game.pixel-game .stage-active .stage-orb{animation:none!important}
+}
+
+
+/* Gestión opcional de traslado seguro entre dispositivos */
+.liga-sync-status{margin:14px auto 8px;text-align:center;font-size:.9rem;font-weight:750;color:#f6e5bd}
+.pixel-home-menu [data-sync]:disabled{opacity:.58;cursor:not-allowed;filter:grayscale(.55);box-shadow:none}
+.liga-sync-overlay{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:18px;font-family:system-ui,sans-serif}
+.liga-sync-shade{position:absolute;inset:0;background:#07131de8;backdrop-filter:blur(5px)}
+.liga-sync-dialog{position:relative;width:min(520px,100%);max-height:90dvh;overflow:auto;padding:22px;border:4px solid #bf9860;border-radius:16px;background:linear-gradient(150deg,#fff9de,#edd8b2);color:#352a24;box-shadow:0 20px 70px #0009}
+.liga-sync-dialog h2{font-size:1.4rem;margin:0 30px 14px 0;color:#4b351f}
+.liga-sync-close{position:absolute;right:10px;top:8px;font-size:1.7rem;border:0;background:transparent;cursor:pointer;color:#493621}
+.liga-sync-content{display:grid;gap:12px}
+.liga-sync-dialog input{width:100%;font-size:1.15rem;letter-spacing:.08em;padding:12px;border:2px solid #ab895b;border-radius:8px;background:white}
+.liga-sync-dialog button:not(.liga-sync-close){cursor:pointer;border:2px solid #365b4e;border-radius:9px;background:#276754;color:#fffbe6;padding:12px 15px;font-weight:800}
+.liga-sync-dialog button:focus-visible{outline:4px solid #2875ab;outline-offset:3px}
+.liga-sync-response{min-height:1.5em;color:#4b351f;font-weight:700}
+.liga-transfer-code{display:block;font-family:ui-monospace,monospace;font-size:clamp(1.3rem,4vw,2rem);letter-spacing:.12em;text-align:center;padding:14px;border:2px dashed #816642;background:#fffdfa;user-select:all}
+.liga-recovery-notice{padding:12px;background:#fff4c7;border:2px solid #9d7e46;border-radius:7px;overflow-wrap:anywhere}
+@media(max-width:420px){.liga-sync-dialog{padding:16px}.liga-sync-overlay{padding:8px}}
