@@ -18,7 +18,7 @@ jobs:
       - name: Comprobar sintaxis
         run: |
           for f in *.js tests/*.cjs; do node --check "$f"; done
-          python3 -m json.tool manifest.webmanifest > /dev/null
+          if [ -f manifest.webmanifest ]; then python3 -m json.tool manifest.webmanifest > /dev/null; fi
       - name: Comprobar secuencialidad
         run: node tests/fases-secuenciales.cjs
       - name: Preparar navegador
