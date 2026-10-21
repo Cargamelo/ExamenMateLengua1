@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="La Liga del Saber">
+<rect width="64" height="64" rx="10" fill="#112e2c"/>
+<path d="M8 8H56V56H8Z" fill="#294437" stroke="#d7b16b" stroke-width="4"/>
+<path d="M32 12l5.3 12.4L51 26l-10 9 2.7 14L32 42l-11.7 7L23 35l-10-9 13.7-1.6Z" fill="#f8d785" stroke="#6e4b2b" stroke-width="2"/>
+<path d="M20 34q6-3 12 2v12q-6-4-12-2zM32 36q6-5 12-2v12q-6-2-12 2z" fill="#fff0ce" stroke="#4b3b32" stroke-width="1.7"/>
+<path d="M32 36v12" stroke="#aa823f" stroke-width="1.5"/>
+</svg>
