@@ -74,8 +74,9 @@ function complete(type,j,id,score,total){
  j.previous=id;
  const next=getStages(type)[s.number]||null;
  j.active=next?.id||id;
- if(completedCount(type,j)===15&&!j.finalAwarded){j.finalAwarded=true;}
- return {first:!existed,next,finalAwarded:j.finalAwarded,completed:completedCount(type,j)};
+ const justAwarded=completedCount(type,j)===15&&!j.finalAwarded;
+ if(justAwarded)j.finalAwarded=true;
+ return {first:!existed,next,justAwarded,finalAwarded:j.finalAwarded,completed:completedCount(type,j)};
 }
 function message(type,number,perfect=false,completed=0){
  if(completed===15)return "¡Has recorrido las quince fases! Tu esfuerzo ha hecho brillar todo el mapa.";
