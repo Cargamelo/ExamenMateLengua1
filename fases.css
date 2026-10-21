@@ -74,3 +74,8 @@
  .game .stage-active .stage-orb,.game .stage-guide img,.game .stage-guide.guide-travelling,.game .stage-victory .victory-guide,.game .stage-victory .stage-finish-medal{animation:none!important}
  .game .stage-node{transition:none!important}
 }
+
+.game .stage-special-heading{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin:18px auto 20px;padding:12px 17px;max-width:690px;border:2px solid #f4e4b9;border-radius:20px;background:linear-gradient(145deg,#fffefa,#ffefc8);color:#594a69;text-align:center;box-shadow:0 5px 0 #e1c99d}
+.game .stage-special-heading strong{font-size:1.05rem;line-height:1.3}
+.game.lang-game .stage-special-heading{background:linear-gradient(145deg,#fffefd,#f8e5ff);border-color:#e6d1f4;box-shadow:0 5px 0 #cbb4da}
+.game .stage-score-special{font-size:1.18rem;font-weight:950;color:#387192}
