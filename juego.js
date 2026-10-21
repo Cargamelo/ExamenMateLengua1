@@ -238,7 +238,7 @@ function renderStageResult(){
  const stage=ST.getStage(subject,session.stageId),result=session.stageOutcome;
  if(!stage||!result){go("topics");return;}
  const ok=session.results.filter(r=>r.ok).length,count=session.results.length,perfect=ok===count&&!session.special;
- const final=result.finalAwarded&&result.completed===15;
+ const final=result.justAwarded||(result.finalAwarded&&result.completed===15&&stage.number===15);
  const message=ST.message(subject,stage.number,perfect,result.completed);
  const nextButton=result.next?button("next-stage","▶ IR A LA SIGUIENTE FASE",'data-stage="'+result.next.id+'"',"primary-btn"):"";
  const extra=session.special?'<p class="small-note">'+esc(session.specialSummary||"Actividad realizada y guardada.")+'</p>':"";
