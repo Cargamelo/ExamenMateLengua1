@@ -22,7 +22,7 @@ function unique(a){return [...new Set(a)]}function cap(s){return s.charAt(0).toU
 function fmt(n){return Number(n).toLocaleString("es-ES",{useGrouping:true,maximumFractionDigits:0})}
 function persist(){
  try{localStorage.setItem(key,JSON.stringify(progress))}catch(e){}
- window.LigaPartida?.save(subject,progress,view==="quiz"&&session?.stageId?snapshot():undefined);
+ window.LigaPartida?.save(subject,progress,view==="quiz"&&session?.stageId?snapshot():undefined);window.LigaSync?.queueSave();
 }
 function snapshot(){
  if(!session?.stageId||view!=="quiz"||session.finished)return null;
@@ -30,7 +30,7 @@ function snapshot(){
   hintCount,response,miniState,session:{...session,seen:[...(session.seen||[])]},updated:Date.now()};
 }
 function saveCheckpoint(){
- if(view==="quiz"&&session?.stageId)window.LigaPartida?.save(subject,progress,snapshot());
+ if(view==="quiz"&&session?.stageId)window.LigaPartida?.save(subject,progress,snapshot());window.LigaSync?.queueSave();
 }
 function resumable(){
  const c=window.LigaPartida?.readCheckpoint(subject);
