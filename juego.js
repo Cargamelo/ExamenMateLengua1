@@ -4,12 +4,14 @@ const D=window.EDU_DATA, subject=document.body.dataset.subject, isMath=subject==
 const modules=isMath?D.math:D.lang;
 const app=document.getElementById("app");
 if(!D||!app){document.body.innerHTML="<p>No se han podido cargar los contenidos.</p>";return;}
-const META=isMath?{brand:"Reino de los Números",subtitle:"MATEMÁTICAS · 3.º C",hero:"La aventura de los números",intro:"Cinco territorios llenos de números, acertijos y operaciones.",mascot:"🧙",exam:"Martes 27 de octubre"}:{brand:"Agencia de las Palabras",subtitle:"LENGUA · 3.º C",hero:"Detectives de las palabras",intro:"Siete misiones para investigar, leer, escribir y descubrir palabras.",mascot:"🕵️",exam:"Del 26 al 30 de octubre"};
+const META=isMath?{brand:"Reino de los Números",subtitle:"MATEMÁTICAS · 3.º C",hero:"La aventura de los números",intro:"Quince fases llenas de números, acertijos y operaciones.",mascot:"🧙",exam:"Martes 27 de octubre"}:{brand:"Agencia de las Palabras",subtitle:"LENGUA · 3.º C",hero:"Detectives de las palabras",intro:"Quince fases para investigar, leer, escribir y descubrir palabras.",mascot:"🕵️",exam:"Del 26 al 30 de octubre"};
 const key="ligasaber-2026-"+subject;
 let progress={history:[],misses:[],badges:[],lastDate:""};
 try{const saved=JSON.parse(localStorage.getItem(key)||"null");if(saved&&Array.isArray(saved.history))progress={...progress,...saved};}catch(e){}
 let soundEnabled=!!window.AventuraFX?.isEnabled?.(), audioContext=null, view="home", topic="", mode="practice", difficulty=2, questionStep=0, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
 let voiceRequest=0;let voiceList=[];let memoryState=null;let dictationDraft="";let dictationChecked=false,dictationResult="",expressiveSaved=false,expressiveResult="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini, AV=window.AventuraFX, WORLD=window.AventuraMapas;const adaptive=AD.init(progress,modules.map(x=>x.id));const challengeSeq={};
+const ST=window.AventuraFases,journey=ST.init(progress,subject);
+let selectedStageId=null,guideFrom=null,dictationWasCorrect=false,expressiveScore=0;
 function refreshVoices(){if("speechSynthesis" in window)voiceList=window.speechSynthesis.getVoices()||[];}
 refreshVoices();
 if("speechSynthesis" in window && window.speechSynthesis.addEventListener)window.speechSynthesis.addEventListener("voiceschanged",refreshVoices);
@@ -75,12 +77,41 @@ shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="
 '<div class="adventure-footer"><p>Sin cronómetro y sin niveles que configurar. Cada reto se adapta a lo que vas aprendiendo.</p>'+button("progress","Ver mis medallas y progreso","","quest-text-button")+'</div>');
 }
 function renderTopics(){
- const pending=AD.pending(adaptive);
- const stats=id=>({missions:AD.status(adaptive,id).missions,pending:pending.filter(x=>x.topic===id).length});
+ const stages=ST.getStages(subject);
+ const active=ST.getStage(subject,journey.active)||stages[0];
  shell(topBack()+'<header class="map-voyage-intro"><span class="map-flag">✦ EL GRAN MAPA DE LAS AVENTURAS</span>'+
  '<h1 class="section-title">'+(isMath?"El Reino de los Números":"El Archipiélago de las Palabras")+'</h1>'+
- '<p>Sigue los senderos, explora edificios y toca un lugar para comenzar tu misión. ¡Todas las puertas están abiertas!</p></header>'+
- WORLD.render(isMath,modules,stats,esc));
+ '<p>Recorre quince fases. Las estrellas señalan las que ya has terminado. Puedes repetir cualquier casilla.</p></header>'+
+ WORLD.render(isMath,stages,journey,esc));
+ persist();
+ if(typeof window.requestAnimationFrame==="function"){
+   const previous=guideFrom;guideFrom=null;
+   window.requestAnimationFrame(()=>WORLD.focusStage(active.id,previous));
+ }else guideFrom=null;
+}
+function startStage(id){
+ const stage=ST.getStage(subject,id);if(!stage)return;
+ const previous=journey.active;ST.activate(subject,journey,id);
+ guideFrom=previous!==id?previous:null;selectedStageId=id;topic=stage.topics[0];mode="games";
+ persist();
+ if(stage.special){
+  materialIndex=0;dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";
+  expressiveSaved=false;expressiveResult="";dictationWasCorrect=false;expressiveScore=0;
+  go("material");return;
+ }
+ session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,stage,topic:stage.topics[0],review:false,adaptive:true,target:15,items:[],results:[],seen:new Set()};
+ questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
+ session.items.push(nextStageChallenge());view="quiz";render();
+}
+function nextStageChallenge(){
+ const stage=session.stage,idx=session.items.length,id=stage.topics[idx%stage.topics.length];
+ return nextChallenge(id,false,stage.topics.length===1?stage.variants:null,stage.sign);
+}
+function finishStage(score,total){
+ if(!session?.stageId||session.stageOutcome)return;
+ session.stageOutcome=ST.complete(subject,journey,session.stageId,score,total);
+ guideFrom=session.stageId;
+ persist();
 }
 function renderLesson(){const m=topicById(topic);if(!m){go("home");return;}shell(topBack("topics")+'<h1 class="section-title">'+graphicIcon(m.id)+' '+esc(m.title)+'</h1><article class="paper lesson narrow">'+m.lesson+'<div class="action-row">'+button("enter-world","Continuar aventura",'data-topic="'+topic+'"')+'</div></article>');}
 function renderSetup(){enterWorld(topic);}
@@ -107,6 +138,7 @@ const entries=unique(pending.map(p=>p.topic));
 shell(topBack()+'<section class="paper recovery-hub"><div class="recovery-symbol">'+(isMath?"⚙️":"🔍")+'</div><h1 class="section-title">'+(isMath?"Taller de reparaciones":"Laboratorio de pistas")+'</h1><p>Aquí investigamos las dificultades, sin castigos ni prisas. Para resolver una pista hay que demostrar varias veces que ya la dominas.</p><div class="repair-grid">'+entries.map(id=>{const m=topicById(id),needs=pending.filter(p=>p.topic===id);return '<button type="button" class="repair-item" data-action="review-world" data-topic="'+id+'">'+graphicIcon(id)+'<span><strong>'+esc(m.title)+'</strong><small>'+needs.length+' conceptos para practicar</small></span><span>→</span></button>'}).join("")+'</div></section>');
 }
 function enterWorld(id,review=false){
+ selectedStageId=null;
  const m=topicById(id);if(!m)return;topic=id;mode=review?"errors":"games";
  if(["comprension","dictado","expresiva"].includes(id)){go("material");return;}
  session={title:(review?"Reparación · ":"Misión · ")+(WORLD.places[id]?.name||m.title),topic:id,review,adaptive:true,target:15,items:[],results:[],seen:new Set()};
@@ -119,14 +151,15 @@ const answer=stock+arrival-borrow;
 let q=qObj("operaciones","contexto","La biblioteca tenía "+fmt(stock)+" libros. Llegaron "+fmt(arrival)+" libros nuevos y se prestaron "+fmt(borrow)+". ¿Cuántos quedan?",fmt(answer),"📚  "+fmt(stock)+"   +   "+fmt(arrival)+"   −   "+fmt(borrow),null,"Primero sumamos: "+fmt(stock)+" + "+fmt(arrival)+" = "+fmt(stock+arrival)+". Después restamos "+fmt(borrow)+" y quedan "+fmt(answer)+".","Resuelve primero la llegada de libros.","Después resta los libros prestados. Comprueba el resultado.",true);
 q.concept="operaciones-dos-pasos";return q;
 }
-function nextChallenge(id,review=false){
+function nextChallenge(id,review=false,allowedVariants=null,requiredSign=null){
 const st=AD.status(adaptive,id);difficulty=st.tier;questionStep=st.step;
 const map={numeros:["a","b","c"],descomponer:["a","b","c"],comparar:["b","a","c"],ordinales:["c","a","b"],operaciones:["a","b","c","d"],sinonimos:["a","b"],antonimos:["a","b"],comunicacion:["a","b"],puntuacion:["a","b","c"]};
-const arr=map[id]||["a"];let n=challengeSeq[id]||0;
+const arr=(allowedVariants?.length?allowedVariants:map[id])||["a"];let n=challengeSeq[id]||0;
 let force=arr[n%arr.length];
 if(review){const needs=AD.pending(adaptive).filter(x=>x.topic===id);if(needs.length&&n%2===0){const v=needs[n%needs.length].variant;if(arr.includes(v))force=v;}}
 challengeSeq[id]=n+1;
-let source=(id==="operaciones"&&st.step>=4&&n%3===2)?advancedTwoStep():makeQuestion(id,force);
+let source=(id==="operaciones"&&st.step>=4&&n%3===2&&!requiredSign)?advancedTwoStep():makeQuestion(id,force);
+if(requiredSign){let tries=0;while(tries++<120&&!String(source.visual).includes(requiredSign))source=makeQuestion(id,force);if(!String(source.visual).includes(requiredSign))throw Error("No se pudo generar operación de signo "+requiredSign);}
 if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
 let tries=0;while(tries++<40&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
 }
@@ -139,7 +172,8 @@ for(let attempt=0;attempt<120;attempt++){
  if(!session?.seen?.has(key))break;
  // No contar como reto nuevo la misma pregunta con otras opciones.
  const alternate=arr[(n+attempt+1)%arr.length];
- source=(id==="operaciones"&&st.step>=4&&attempt%5===4)?advancedTwoStep():makeQuestion(id,attempt<35?force:alternate);
+ source=(id==="operaciones"&&st.step>=4&&attempt%5===4&&!requiredSign)?advancedTwoStep():makeQuestion(id,attempt<35?force:alternate);
+ if(requiredSign){let tries=0;while(tries++<120&&!String(source.visual).includes(requiredSign))source=makeQuestion(id,force);}
  if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
    let tries=0;
    while(tries++<30&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
@@ -232,7 +266,12 @@ const isAparte=row[1]==="aparte";const visual=isAparte?row[0]:row[0].split("\n\n
 return null;}
 function normWord(s){return String(s).toLocaleLowerCase("es").normalize("NFC").replace(/[.,!?¡¿;:«»"“”]/g,"").trim();}
 function makeReadingQuestions(i){const r=D.readings[i],pool=D.readings.filter((x,n)=>n!==i);return r.qa.map((qa,j)=>{const candidates=shuffle(unique(pool.map(p=>p.qa[j]?.[1]).filter(Boolean))).filter(a=>normWord(a)!==normWord(qa[1]));const options=optionsFrom(qa[1],candidates.slice(0,3));let q=qObj("comprension","r"+i,r.qa[j][0],qa[1],r.text,options,"Según la lectura, la respuesta es: "+qa[1],"Busca en la historia la parte relacionada con la pregunta.");q.reading=true;q.sub="Lectura: "+r.title;return q;});}
-function startReading(i){const qs=makeReadingQuestions(i);mode=mode==="test"?"test":"practice";startQuiz(qs,"Lectura · "+D.readings[i].title);}
+function startReading(i){
+ const qs=makeReadingQuestions(i);mode=mode==="test"?"test":"practice";
+ startQuiz(qs,"Lectura · "+D.readings[i].title);
+ const stage=ST.getStage(subject,selectedStageId);
+ if(stage?.special==="comprension"){session.stageId=stage.id;session.stage=stage;session.topic="comprension";renderQuiz();}
+}
 function sentences(text){return text.replace(/\n+/g," ").match(/[^.!?]+[.!?]+/g)?.map(x=>x.trim())||[text];}
 function renderDictation(){const d=D.dictations[materialIndex];if(!d){go("material");return;}let ss=sentences(d.text);shell(topBack("material")+'<h1 class="section-title">🎧 '+esc(d.title)+'</h1><div class="paper narrow"><p>Escucha cada frase tantas veces como necesites. Un adulto también puede ayudarte a dictarla.</p><p class="voice-indicator" id="voice-status" role="status" aria-live="polite">Pulsa una frase para escucharla. La voz depende de tu navegador.</p><div class="filter-row">'+ss.map((s,i)=>button("dictate-sentence","🔊 Frase "+(i+1),'data-index="'+i+'"',"secondary-btn")).join("")+'</div><div class="action-row">'+button("dictate-all","🔊 Escuchar todo")+button("adult-toggle",dictationShow?"Ocultar texto del adulto":"👪 Modo con adulto","","secondary-btn")+'</div>'+(dictationShow?'<details open><summary><b>Texto para la persona adulta</b></summary><p class="reading">'+esc(d.text)+'</p></details>':"")+'<label class="mini-label" for="dict-response">Escribe aquí tu dictado (pulsa Intro dos veces para cambiar de párrafo):</label><textarea id="dict-response" class="field long" rows="8" style="min-height:230px" spellcheck="false" placeholder="Escucha y escribe…">'+esc(dictationDraft)+'</textarea><div class="action-row">'+button("dict-check","Corregir mi dictado",dictationChecked?'disabled aria-disabled="true"':"")+'</div><div id="dict-feedback" aria-live="polite">'+dictationResult+'</div></div>');}
 function normSpaces(s){return s.replace(/\r/g,"").trim().replace(/[ \t]+/g," ").replace(/[ \t]*\n[ \t]*/g,"\n");}
