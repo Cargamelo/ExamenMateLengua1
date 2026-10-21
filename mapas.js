@@ -71,7 +71,7 @@ function focusStage(id,previous=null){
 function scene(topic,isMath,won=null){
 const p=places[topic],name=p?.name||"Misión de aventura";
 return '<div class="quest-place-scene" aria-hidden="true"><span class="quest-place-halo"></span>'+
-  artwork(topic,"quest-place-art")+
+  '<img class="quest-place-art" src="./assets/pixel/iconos/'+({numeros:"m03",descomponer:"m05",comparar:"m07",ordinales:"m10",operaciones:"m13",sinonimos:"l01",antonimos:"l03",comunicacion:"l05",puntuacion:"l07",comprension:"l09",dictado:"l12",expresiva:"l14"}[topic]||"m01")+'.webp" alt="" width="112" height="112" decoding="async">'+
   '<img class="quest-guide-art" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async">'+
   '<span class="quest-place-title">'+name+'</span>'+(won===null?'':'<span class="quest-guide-reaction '+(won?'guide-win':'guide-hint')+'" role="status">'+(won?'¡Misión resuelta! ✦':'¡Vamos a buscar otra pista!')+'</span>')+'</div>';
 }
