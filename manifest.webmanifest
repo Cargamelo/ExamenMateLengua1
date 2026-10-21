@@ -1,0 +1,21 @@
+{
+  "name": "La Liga del Saber",
+  "short_name": "Liga del Saber",
+  "description": "Aventuras educativas de Matemáticas y Lengua",
+  "lang": "es",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#112d2d",
+  "theme_color": "#112d2d",
+  "icons": [
+    {
+      "src": "./assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
