@@ -16,7 +16,7 @@ const errors=[];try{
   assert.equal(await page.locator('[data-action="start-stage"]').count(),15);
   const locked=page.locator('[data-action="start-stage"]').nth(4);
   assert.equal(await locked.getAttribute("aria-disabled"),"true");
-  await locked.click();
+  await locked.dispatchEvent("click"); // simulamos activación maliciosa; aria-disabled impide el clic normal
   assert.match(await page.locator("#stage-locked-message").innerText(),/fase anterior/);
   assert.equal(await page.locator(".mission-stage").count(),0,"Locked stage was entered");
   await page.locator('[data-action="start-stage"]').first().click();
