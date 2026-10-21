@@ -213,15 +213,45 @@ function next(){
  if(questionIndex>=count-1){
    if(session.finished)return;session.finished=true;
    if(session.adaptive){AD.finishMission(adaptive,session.topic,session.results.filter(r=>r.ok).length);persist();}
+   finishStage(session.results.filter(r=>r.ok).length,session.results.length);
    AV?.play("mission");view="result";render();return;
  }
  questionIndex++;answered=null;hintCount=0;response="";
- AV?.play("advance");if(session.adaptive)session.items.push(nextChallenge(session.topic,session.review));
+ AV?.play("advance");if(session.adaptive)session.items.push(session.stageId?nextStageChallenge():nextChallenge(session.topic,session.review));
  else miniState=MINI.begin(session.items[questionIndex]);
  renderQuiz();
 }
+function renderStageResult(){
+ const stage=ST.getStage(subject,session.stageId),result=session.stageOutcome;
+ if(!stage||!result){go("topics");return;}
+ const ok=session.results.filter(r=>r.ok).length,count=session.results.length,perfect=ok===count&&!session.special;
+ const final=result.finalAwarded&&result.completed===15;
+ const message=ST.message(subject,stage.number,perfect,result.completed);
+ const nextButton=result.next?button("next-stage","▶ IR A LA SIGUIENTE FASE",'data-stage="'+result.next.id+'"',"primary-btn"):"";
+ const extra=session.special?'<p class="small-note">'+esc(session.specialSummary||"Actividad realizada y guardada.")+'</p>':"";
+ const score=session.special?
+  '<p class="stage-score-special">'+esc(session.special==="dictado"?"1 dictado revisado":"1 lectura expresiva practicada")+'</p>':
+  '<div class="score-big">'+ok+' / '+count+'</div><p>'+count+' retos realizados · '+ok+' respuestas correctas</p>';
+ shell(topBack("topics")+'<section class="paper narrow mission-victory stage-victory" aria-live="polite">'+AV.missionMarkup()+
+ '<span class="map-flag">FASE '+stage.number+' COMPLETADA</span>'+
+ '<h1 class="section-title stage-victory-name">'+esc(stage.title)+'</h1>'+
+ '<img class="victory-guide" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async">'+
+ '<span class="stage-finish-medal" aria-hidden="true">★</span>'+
+ '<p class="stage-victory-message">'+esc(message)+'</p>'+
+ score+extra+
+ '<div class="quest-summary victory-rewards"><span>⭐ '+(session.special?"Actividad completada":ok+" estrellas conseguidas")+'</span>'+
+ '<span>🪙 '+(adaptive.rewards?.coins||0)+' monedas acumuladas</span>'+
+ '<span>✦ '+result.completed+' / 15 fases</span></div>'+
+ (final?'<div class="stage-final-badge" role="status">🏆 ¡Insignia especial! Has completado las quince fases de esta aventura.</div>':"")+
+ (!session.special&&session.results.some(r=>!r.ok)?'<details class="quest-review"><summary>Ver las pistas para mejorar</summary>'+
+ session.results.filter(r=>!r.ok).map(x=>'<p><strong>'+esc(x.question.prompt)+'</strong><br>'+esc(x.question.explanation)+'</p>').join("")+'</details>':"")+
+ '<div class="action-row">'+nextButton+
+ button("topics","🗺️ VOLVER AL MAPA","","secondary-btn")+
+ button("repeat-stage","↻ Repetir fase",'data-stage="'+stage.id+'"',"secondary-btn")+'</div></section>');
+}
 function renderResult(){
  if(!session){go("home");return;}
+ if(session.stageId)return renderStageResult();
  const results=session.results,ok=results.filter(x=>x.ok).length,pct=results.length?Math.round(ok/results.length*100):0;
  const misses=results.filter(x=>!x.ok);
  const stat=AD.status(adaptive,session.topic||results[0]?.question.topic||modules[0].id);
@@ -300,7 +330,11 @@ for(const type of ["pointerup","pointercancel","dragend"])document.addEventListe
 },{passive:true});
 document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const el=e.target.closest?.('button,a.header-main-menu,a.brand');if(el&&!el.disabled)el.classList?.add?.("is-pressed");});
 document.addEventListener("keyup",e=>{if(e.key!=="Enter"&&e.key!==" ")return;e.target.closest?.('button,a.header-main-menu,a.brand')?.classList?.remove?.("is-pressed");});
-document.addEventListener("click",function(ev){const el=ev.target.closest("[data-action]");if(!el)return;const a=el.dataset.action;const t=el.dataset.topic;AV.onAction(a,el.dataset);if(a==="leave"){location.href="./index.html";return;}if(a==="sound"){response=document.getElementById("response")?.value||response;dictationDraft=document.getElementById("dict-response")?.value??dictationDraft;soundEnabled=AV.setEnabled(!soundEnabled);if(soundEnabled){AV.unlock?.();AV.play("toggle");}render();return;}if(a==="home"){go("home");return;}if(a==="topics"){mode="games";go("topics");return;}if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterWorld(t||topic,true);return;}if(a==="continue-mission"){enterWorld(session.topic,session.review);return;}if(a==="lesson"){topic=t;go("lesson");return;}if(a==="setup"){enterWorld(t||topic);return;}if(a==="material"){topic=t||topic;go("material");return;}if(a==="pick-material"){materialIndex=Number(el.dataset.index);dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";expressiveSaved=false;expressiveResult="";if(topic==="comprension"){startReading(materialIndex);return;}go(topic==="dictado"?"dictation":"expressive");return;}if(a==="check"){checkTyped();return;}if(a==="mini"){if(!session||answered!==null)return;const q=session.items[questionIndex],act=el.dataset.mini,val=el.dataset.value||"",prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){response=document.getElementById("response")?.value||response;hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
+document.addEventListener("click",function(ev){const el=ev.target.closest("[data-action]");if(!el)return;const a=el.dataset.action;const t=el.dataset.topic;AV.onAction(a,el.dataset);if(a==="leave"){location.href="./index.html";return;}if(a==="sound"){response=document.getElementById("response")?.value||response;dictationDraft=document.getElementById("dict-response")?.value??dictationDraft;soundEnabled=AV.setEnabled(!soundEnabled);if(soundEnabled){AV.unlock?.();AV.play("toggle");}render();return;}if(a==="home"){go("home");return;}if(a==="topics"){mode="games";go("topics");return;}if(a==="start-stage"){startStage(el.dataset.stage);return;}
+if(a==="next-stage"){startStage(el.dataset.stage);return;}
+if(a==="repeat-stage"){startStage(el.dataset.stage);return;}
+if(a==="finish-special"){finishSpecialStage();return;}
+if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterWorld(t||topic,true);return;}if(a==="continue-mission"){enterWorld(session.topic,session.review);return;}if(a==="lesson"){topic=t;go("lesson");return;}if(a==="setup"){enterWorld(t||topic);return;}if(a==="material"){topic=t||topic;go("material");return;}if(a==="pick-material"){materialIndex=Number(el.dataset.index);dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";expressiveSaved=false;expressiveResult="";if(topic==="comprension"){startReading(materialIndex);return;}go(topic==="dictado"?"dictation":"expressive");return;}if(a==="check"){checkTyped();return;}if(a==="mini"){if(!session||answered!==null)return;const q=session.items[questionIndex],act=el.dataset.mini,val=el.dataset.value||"",prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){response=document.getElementById("response")?.value||response;hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);Object.assign(journey,{version:1,active:ST.getStages(subject)[0].id,completed:{},finalAwarded:false,previous:null});selectedStageId=null;persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
 /* Arrastrar y soltar opcional: todas las mecánicas mantienen la alternativa táctil por pulsaciones. */
 document.addEventListener("dragstart",e=>{
 const el=e.target.closest?.("[data-drag-kind]");
