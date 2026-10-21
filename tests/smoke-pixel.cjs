@@ -20,7 +20,7 @@ async function test() {
    const context=await browser.newContext({viewport:vp,deviceScaleFactor:1});
    const page=await context.newPage();
    page.on("pageerror",e=>errors.push(vp.width+" JS: "+e.message));
-   page.on("console",m=>{if(m.type()==="error"&&!m.text().includes("fonts.googleapis")) errors.push(vp.width+" console: "+m.text())});
+   page.on("console",m=>{if(m.type()==="error"&&!m.text().includes("fonts.googleapis")) errors.push(vp.width+" console: "+m.text())});page.on("response",resp=>{if(resp.status()===404)errors.push(vp.width+" 404: "+resp.url())});
    await page.goto(base+"/index.html",{waitUntil:"networkidle"});
    assert(await page.getByRole("heading",{name:/LA LIGA/i}).count()>0);
    assert.equal(await page.locator(".pixel-portal").count(),2);
