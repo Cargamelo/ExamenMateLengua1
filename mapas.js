@@ -19,6 +19,10 @@ const places={
 const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
 function character(isMath){return '<img class="world-guide" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" loading="lazy" decoding="async">';}
+const pixelArtByStage={
+ math:["m01","m02","m03","m04","m05","m07","m08","m10","m11","m13","m14","m15","m06","m09","m15"],
+ lang:["l01","l03","l02","l04","l05","l06","l07","l08","l09","l02","l06","l08","l12","l14","l11"]
+};
 function render(isMath,stages,journey,escape){
  const theme=isMath?"math":"lang",type=theme;
  const active=stages.find(s=>s.id===journey.active)||stages[0];
@@ -32,15 +36,17 @@ function render(isMath,stages,journey,escape){
  const completePoints=stages.slice(0,routeThrough).map(s=>(s.x*10)+","+(s.y*10)).join(" ");
  const road='<svg class="stage-road" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><polyline class="stage-road-base" points="'+routePoints+'"/><polyline class="stage-road-done" points="'+completePoints+'"/></svg>';
  const nodes=stages.map(s=>{
+  const iconId=pixelArtByStage[theme]?.[s.number-1]||"";
+  const stageArt=iconId?'<img src="./assets/pixel/iconos/'+iconId+'.webp" alt="" width="112" height="112" decoding="async" loading="lazy">':escape(s.icon);
   const complete=!!journey.completed[s.id],selected=journey.active===s.id,cls=selected?"active":complete?"completed":"pending";
   return '<button type="button" class="stage-node stage-'+cls+'" style="--stage-x:'+s.x+'%;--stage-y:'+s.y+'%" data-action="start-stage" data-stage="'+s.id+'" data-stage-number="'+s.number+'" aria-label="Fase '+s.number+': '+escape(s.title)+'. '+(complete?"Completada, puedes repetirla.":selected?"Fase activa.":"Disponible.")+'" '+(selected?'aria-current="step"':"")+'>'+
-   '<span class="stage-orb"><span class="stage-index">'+s.number+'</span><span class="stage-orb-icon" aria-hidden="true">'+escape(s.icon)+'</span><span class="stage-check" aria-hidden="true">'+(complete?"★":selected?"✦":"")+'</span></span>'+
+   '<span class="stage-orb"><span class="stage-index">'+s.number+'</span><span class="stage-orb-icon" aria-hidden="true">'+stageArt+'</span><span class="stage-check" aria-hidden="true">'+(complete?"★":selected?"✦":"")+'</span></span>'+
    '<span class="stage-node-name">'+escape(s.title)+'</span></button>';
  }).join("");
  return '<section class="gameworld gameworld-'+theme+' stage-gameworld" aria-label="Recorrido ilustrado de quince fases">'+
  '<div class="stage-map-progress" role="status"><strong>✦ '+done+' de 15 fases completadas</strong><span>Fase activa: '+active.number+' · '+escape(active.title)+'</span>'+(journey.finalAwarded?'<span class="stage-final-unlocked">★ Insignia de las quince fases ★</span>':"")+'</div>'+
  '<div class="gameworld-sky" aria-hidden="true"><span class="sky-star sky-one">✧</span><span class="sky-star sky-two">✦</span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span></div>'+
- '<div class="map-artscape stage-artscape"><picture class="map-ground-picture"><source media="(max-width:700px)" srcset="./assets/mapa-mobile-'+theme+'.svg"><img class="map-ground-art" src="./assets/mapa-'+theme+'.svg" alt="" loading="eager" decoding="async" width="1100" height="'+(isMath?1400:1750)+'"></picture>'+
+ '<div class="map-artscape stage-artscape"><picture class="map-ground-picture"><source media="(max-width:700px)" srcset="./assets/pixel/mapa-'+(isMath?"matematicas":"lengua")+'.webp"><img class="map-ground-art" src="./assets/pixel/mapa-'+(isMath?"matematicas":"lengua")+'.webp" alt="" loading="eager" decoding="async" width="1100" height="'+(isMath?1400:1750)+'"></picture>'+
  '<div class="stage-landmarks">'+landmarks+'</div>'+road+
  '<div class="stage-locations">'+nodes+'</div>'+
  '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" width="240" height="270" decoding="async" alt=""></div>'+
