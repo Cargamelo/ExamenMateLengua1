@@ -1,0 +1,10 @@
+/* Progresión secuencial accesible, sin alterar los recursos gráficos existentes. */
+body.game.pixel-game .stage-node.stage-locked{cursor:not-allowed}
+body.game.pixel-game .stage-locked .stage-orb{background:linear-gradient(145deg,#50626a,#2b3640);border-color:#8799a1;box-shadow:0 4px 0 #21313a;filter:saturate(.3)}
+body.game.pixel-game .stage-locked .stage-orb-icon{opacity:.4}
+body.game.pixel-game .stage-locked .stage-node-name{background:#273b46;color:#f2f2eb;border-color:#81949b;box-shadow:0 4px 0 #172e39}
+body.game.pixel-game .stage-locked .stage-index{background:#384950;color:#f0eee8}
+body.game.pixel-game .stage-lock-label{position:absolute;z-index:8;top:28px;right:12px;font-size:1.5rem;filter:drop-shadow(0 2px 2px #061728)}
+body.game.pixel-game .stage-locked-message{flex:1 1 100%;margin:4px auto 0;padding:10px 16px;border:2px solid #edb565;border-radius:8px;background:#312b25;color:#fff5d8;font-weight:800}
+body.game.pixel-game .continue-quest{border:3px solid #ffe5a2;background:linear-gradient(120deg,#1e7562,#22548c);box-shadow:0 5px 0 #173d37}
+body.game.pixel-game .resume-marker{font-size:2rem;color:#ffdb75}
