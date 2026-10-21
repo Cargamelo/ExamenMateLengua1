@@ -164,7 +164,20 @@ if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.conc
 let tries=0;while(tries++<40&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
 }
 let q=null,key="";
+const phase=session?.stage?.number||0;
+function relevantToStage(exercise){
+ if(!phase||session.stage.topics.length!==1)return true;
+ if(subject==="math"&&phase===5&&id==="descomponer"){
+  const value=String(exercise.correct).replace(/[.\s]/g,"");
+  return exercise.variant==="c"?value==="0":value.includes("0");
+ }
+ if(subject==="lang"&&id==="comunicacion"&&phase===5)return /el (emisor|receptor)\?/i.test(exercise.prompt);
+ if(subject==="lang"&&id==="comunicacion"&&phase===6)return /el (mensaje|código|canal)\?/i.test(exercise.prompt);
+ return true;
+}
 for(let attempt=0;attempt<120;attempt++){
+ if(!relevantToStage(source)){source=makeQuestion(id,force);continue;}
+ if(subject==="lang"&&id==="comunicacion"&&(phase===5||phase===6))source={...source,stageFocusedCommunication:true};
  q=MINI.enrich(source,D,st.step);
  if(!q)throw Error("No se pudo crear el reto de "+id);
  if(q.choices&&!q.mechanic)q.mechanic={type:"scene",values:q.choices};
