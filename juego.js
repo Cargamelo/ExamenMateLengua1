@@ -96,7 +96,7 @@ function render(){if(view==="home")return renderHome();if(view==="topics")return
 function renderHome(){
 const art=isMath?"./assets/escena-matematicas.svg":"./assets/escena-lengua.svg";
 const pending=AD.pending(adaptive).length,medals=adaptive.rewards?.completed||0,resume=resumable();
-shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="overline">✦ TU NUEVA AVENTURA</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><div class="quest-summary"><span>⭐ '+starsLabel()+'</span><span>🏅 '+medals+' misiones</span><span>🪙 '+(adaptive.rewards?.coins||0)+' monedas</span></div></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"><img class="hero-companion" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async"></section>'+
+shell('<section class="hero-game quest-hero"><div class="hero-copy"><div class="overline">✦ TU NUEVA AVENTURA</div><h1>'+META.hero+'</h1><p>'+META.intro+'</p><div class="quest-summary"><span>⭐ '+starsLabel()+'</span><span>🏅 '+medals+' misiones</span><span>🪙 '+(adaptive.rewards?.coins||0)+' monedas</span></div></div><img class="game-hero-art" src="'+art+'" alt="" width="920" height="550" decoding="async"><img class="hero-companion" src="./assets/guia-'+(isMath?"tiko":"nara")+'-v2.svg" alt="" width="240" height="270" decoding="async"></section>'+
 '<section class="adventure-actions" aria-label="Elegir aventura">'+
 (resume?'<button type="button" class="adventure-launch continue-quest" data-action="resume-stage"><span class="resume-marker">↪</span><span><strong>CONTINUAR AVENTURA</strong><small>Fase '+ST.getStage(subject,resume.stageId).number+' · Reto '+(resume.questionIndex+1)+' de '+resume.session.target+'</small></span><span class="launch-arrow">→</span></button>':'')+
  '<button type="button" class="adventure-launch" data-action="topics">'+graphicIcon("jugar")+'<span><strong>JUGAR</strong><small>¡Explora los mundos y supera misiones!</small></span><span class="launch-arrow" aria-hidden="true">→</span></button>'+
@@ -293,7 +293,7 @@ function renderStageResult(){
  shell(topBack("topics")+'<section class="paper narrow mission-victory stage-victory" aria-live="polite">'+AV.missionMarkup()+
  '<span class="map-flag">FASE '+stage.number+' COMPLETADA</span>'+
  '<h1 class="section-title stage-victory-name">'+esc(stage.title)+'</h1>'+
- '<img class="victory-guide" src="./assets/guia-'+(isMath?"tiko":"nara")+'.svg" alt="" width="240" height="270" decoding="async">'+
+ '<img class="victory-guide" src="./assets/guia-'+(isMath?"tiko":"nara")+'-v2.svg" alt="" width="240" height="270" decoding="async">'+
  '<span class="stage-finish-medal" aria-hidden="true">★</span><span class="pixel-chest" aria-hidden="true">✧ ◆ ✧</span>'+
  '<p class="stage-victory-message">'+esc(message)+'</p>'+
  score+extra+
