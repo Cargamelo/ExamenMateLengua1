@@ -18,7 +18,7 @@ const places={
 };
 const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
-function character(isMath){return '<img class="world-guide" src="./assets/personajes/'+(isMath?"tiko-explorador":"nara-detective")+'.svg" alt="" width="240" height="270" loading="lazy" decoding="async">';}
+function character(isMath){return '<img class="world-guide" src="./assets/personajes/'+(isMath?"tiko-retrato":"nara-retrato")+'.svg" alt="" width="240" height="270" loading="lazy" decoding="async">';}
 const pixelArtByStage={
  math:["m01","m02","m03","m04","m05","m07","m08","m10","m11","m13","m14","m15","m06","m09","m15"],
  lang:["l01","l03","l02","l04","l05","l06","l07","l08","l09","l02","l06","l08","l12","l14","l11"]
@@ -49,7 +49,7 @@ function render(isMath,stages,journey,escape){
  '<div class="map-artscape stage-artscape"><img class="map-ground-art" src="./assets/escenarios/mapa-'+(isMath?"numeros":"palabras")+'-v3.svg" alt="" loading="eager" decoding="async" width="1200" height="1900">'+
  '<div class="stage-landmarks">'+landmarks+'</div>'+road+
  '<div class="stage-locations">'+nodes+'</div>'+
- '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/personajes/'+(isMath?"tiko-explorador":"nara-detective")+'.svg" width="240" height="270" decoding="async" alt=""></div>'+
+ '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/personajes/'+(isMath?"tiko-retrato":"nara-retrato")+'.svg" width="240" height="270" decoding="async" alt=""></div>'+
  '</div><p class="map-access-note">Completa cada fase para abrir la siguiente. Puedes repetir las anteriores. Los candados señalan las fases bloqueadas.</p></section>';
 }
 function focusStage(id,previous=null){
@@ -72,7 +72,7 @@ function scene(topic,isMath,won=null){
 const p=places[topic],name=p?.name||"Misión de aventura";
 return '<div class="quest-place-scene" aria-hidden="true"><span class="quest-place-halo"></span>'+
   '<img class="quest-place-art" src="./assets/pixel/iconos/'+({numeros:"m03",descomponer:"m05",comparar:"m07",ordinales:"m10",operaciones:"m13",sinonimos:"l01",antonimos:"l03",comunicacion:"l05",puntuacion:"l07",comprension:"l09",dictado:"l12",expresiva:"l14"}[topic]||"m01")+'.webp" alt="" width="112" height="112" decoding="async">'+
-  '<img class="quest-guide-art" src="./assets/personajes/'+(isMath?"tiko-explorador":"nara-detective")+'.svg" alt="" width="240" height="270" decoding="async">'+
+  '<img class="quest-guide-art" src="./assets/personajes/'+(isMath?"tiko-retrato":"nara-retrato")+'.svg" alt="" width="240" height="270" decoding="async">'+
   '<span class="quest-place-title">'+name+'</span>'+(won===null?'':'<span class="quest-guide-reaction '+(won?'guide-win':'guide-hint')+'" role="status">'+(won?'¡Misión resuelta! ✦':'¡Vamos a buscar otra pista!')+'</span>')+'</div>';
 }
 window.AventuraMapas={render,scene,artwork,places,character,focusStage};
