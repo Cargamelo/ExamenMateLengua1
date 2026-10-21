@@ -1,0 +1,55 @@
+name: Validacion visual Liga del Saber
+on:
+  push:
+    branches:
+      - redisenio-pixel-cartas-2026-10-21
+      - main
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Obtener codigo
+        uses: actions/checkout@v4
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar sintaxis JavaScript
+        run: |
+          for file in *.js tests/*.cjs; do node --check "$file"; done
+      - name: Comprobar los archivos del paquete visual
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          p=pathlib.Path(".")
+          files=[*p.glob("assets/pixel/cartas/c???.webp")]
+          assert len(files)==24, ("Cartas",len(files))
+          for prefix in ("m","l"):
+              items=list(p.glob(f"assets/pixel/iconos/{prefix}??.webp"))
+              assert len(items)==15, (prefix,len(items))
+          for f in ("assets/pixel/mapa-matematicas.webp","assets/pixel/mapa-lengua.webp",
+                    "datos/cartas-v1.json","datos/fases-pixel-lengua.json","datos/fases-pixel-matematicas.json"):
+              assert (p/f).is_file(),f
+          for f in p.glob("datos/*.json"):
+              json.loads(f.read_text(encoding="utf-8"))
+          print("OK: 24 cartas, 30 iconos, dos mapas y JSON legibles")
+          PY
+      - name: Instalar Playwright Core
+        run: npm install --no-save playwright-core@1.56.1
+      - name: Levantar web estatica
+        run: python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/ligasaber-server.log 2>&1 &
+      - name: Pruebas en navegador real
+        run: |
+          command -v google-chrome || command -v chromium || command -v chromium-browser
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)" node tests/smoke-pixel.cjs
+      - name: Guardar capturas de las pruebas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-liga-pixel
+          path: test-screenshots/
+          if-no-files-found: ignore
