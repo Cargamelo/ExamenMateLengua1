@@ -20,7 +20,32 @@ function rand(n){return Math.floor(Math.random()*n)}function pick(a){return a[ra
 function shuffle(a){let b=a.slice();for(let i=b.length-1;i>0;i--){const j=rand(i+1);[b[i],b[j]]=[b[j],b[i]];}return b;}
 function unique(a){return [...new Set(a)]}function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 function fmt(n){return Number(n).toLocaleString("es-ES",{useGrouping:true,maximumFractionDigits:0})}
-function persist(){try{localStorage.setItem(key,JSON.stringify(progress))}catch(e){}}
+function persist(){
+ try{localStorage.setItem(key,JSON.stringify(progress))}catch(e){}
+ window.LigaPartida?.save(subject,progress,view==="quiz"&&session?.stageId?snapshot():undefined);
+}
+function snapshot(){
+ if(!session?.stageId||view!=="quiz"||session.finished)return null;
+ return {version:2,subject,stageId:session.stageId,questionIndex,answered,
+  hintCount,response,miniState,session:{...session,seen:[...(session.seen||[])]},updated:Date.now()};
+}
+function saveCheckpoint(){
+ if(view==="quiz"&&session?.stageId)window.LigaPartida?.save(subject,progress,snapshot());
+}
+const savedCheckpoint=window.LigaPartida?.readCheckpoint(subject)||null;
+function resumable(){
+ return savedCheckpoint&&ST.canEnterStage(subject,journey,savedCheckpoint.stageId)
+  &&!savedCheckpoint.session.finished&&savedCheckpoint.questionIndex>=0
+  &&savedCheckpoint.questionIndex<savedCheckpoint.session.target? savedCheckpoint:null;
+}
+function resumeStage(){
+ const c=resumable();if(!c){go("topics");return;}
+ selectedStageId=c.stageId;session={...c.session,stage:ST.getStage(subject,c.stageId),
+  seen:new Set(c.session.seen||[])};questionIndex=c.questionIndex;
+ answered=c.answered;hintCount=c.hintCount;response=c.response||"";
+ miniState=c.miniState||MINI.begin(session.items[questionIndex]);
+ topic=session.items[questionIndex]?.topic||session.topic;mode="games";view="quiz";render();
+}
 function topicById(id){return modules.find(x=>x.id===id)}
 function master(id){const h=progress.history.filter(x=>x.topic===id).slice(-10);const ok=h.filter(x=>x.ok).length;return {tried:h.length,percent:h.length?Math.round(100*ok/h.length):0,solid:h.length>=5&&ok/h.length>=.8};}
 function stars(){return progress.history.filter(x=>x.ok).length;}
