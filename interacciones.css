@@ -73,3 +73,40 @@
 .game .icon-button{min-height:48px}
 .game .quest-word{display:inline-flex;align-items:center;min-height:48px}
 @media(max-width:420px){.game .icon-button{min-height:48px;padding:8px 9px}}
+
+/* NUEVO: precisión audiovisual y controles físicos — 21/10/2026 */
+.game .sound-mixer{position:relative;z-index:20;isolation:isolate;flex:none}
+.game .sound-mixer>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:48px;min-width:65px;padding:8px 10px;border-radius:14px;border:2px solid #fff;background:linear-gradient(175deg,#fff,#e4f3ff);color:#295d8b;box-shadow:0 4px 0 #b4cee1;font-size:.76rem;font-weight:1000;user-select:none;transition:transform .15s,filter .15s,box-shadow .15s}
+.game .sound-mixer>summary::-webkit-details-marker{display:none}
+.game .sound-mixer>summary:hover{filter:brightness(1.05);transform:translateY(-2px)}
+.game .sound-mixer>summary:active{transform:translateY(3px);box-shadow:0 1px 0 #b4cee1}
+.game .sound-mixer>summary:focus-visible{outline:4px solid #ffc55f;outline-offset:3px}
+.game .sound-mixer[open]>summary{background:linear-gradient(#e4faff,#c2eaff);border-color:#7acaf1}
+.game .sound-mixer>label,.game .sound-mixer>input,.game .sound-mixer>small{position:relative;z-index:1}
+.game .sound-mixer[open]{background:linear-gradient(155deg,#fff,#ebf7ff);padding:3px 3px 10px;border-radius:15px;box-shadow:0 7px 22px #19436627}
+.game .sound-mixer[open]>label{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin:9px 12px 4px;font-size:.71rem;line-height:1.5;font-weight:900;color:#426b92}
+.game .sound-mixer[open]>label output{color:#155d9c}
+.game .sound-mixer[open]>input{display:block;width:calc(100% - 20px);margin:8px auto 6px;min-height:35px;accent-color:#2c87ca}
+.game .sound-mixer[open]>small{display:block;margin:4px 12px;font-size:.65rem;line-height:1.45;color:#617d96;max-width:210px}
+.game .sound-mixer[open]{min-width:210px}
+.game .quest-key,.game .quest-piece,.game .quest-racer,.game .quest-artifact-button,.game .primary-btn,.game .secondary-btn,.game .map-location,.game .adventure-launch,.game .adventure-repair{backface-visibility:hidden}
+.game .quest-key:active:not(:disabled),.game .quest-piece:active:not(:disabled),.game .quest-link:active:not(:disabled),.game .quest-racer:active:not(:disabled),.game .quest-artifact-button:active:not(:disabled){transform:translateY(3px) scale(.98);filter:brightness(.98);box-shadow:0 2px 0 #89aacc,inset 0 3px 8px #3a699326}
+.game .quest-linked-evidence{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px;margin:15px 0 6px}
+.game .quest-pair-thread{display:inline-flex;align-items:center;min-height:32px;max-width:100%;overflow-wrap:anywhere;padding:6px 10px;border:2px solid #f6ecca;border-radius:99px;background:linear-gradient(145deg,#fffaea,#ffe6af);color:#68503c;box-shadow:0 3px 0 #d6b977;font-size:.73rem;font-weight:900;animation:fx-key-dock .28s cubic-bezier(.1,1.5,.4,1) both}
+.game .quest-word.selected{animation:fx-letter-flip .3s ease-out both}
+.game .quest-word:focus-visible,.game .quest-link:focus-visible{outline:4px solid #ffc650;outline-offset:3px}
+.game .dictado-stamp,.game .theatre-applause{position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate;min-height:90px;margin:15px auto;padding:12px 25px;max-width:490px;background:radial-gradient(ellipse at 50% 0,#fffad3,#ffebc0);border:3px solid #fff3c6;border-radius:23px;box-shadow:0 8px 0 #d9b76d,0 16px 24px #b3904d2f;color:#865819;font-size:clamp(1rem,3vw,1.35rem);font-weight:1000;text-align:center;animation:fx-trophy-appear .7s cubic-bezier(.2,1.1,.4,1) both}
+.game .theatre-applause{background:radial-gradient(ellipse at 50% 0,#fff0ff,#e6c9ff);box-shadow:0 8px 0 #b69bd7,0 16px 24px #986daa35;color:#71448b}
+.game .dictado-stamp .fx-starfield,.game .theatre-applause .fx-starfield{z-index:-1}
+.game .mission-victory .victory-stars{filter:drop-shadow(0 7px 10px #e1ab4a8a)}
+.game .mission-victory .victory-rewards span{animation:fx-trophy-appear .55s ease-out both}
+.game .mission-victory .victory-rewards span:nth-child(2){animation-delay:.12s}
+.game .mission-victory .victory-rewards span:nth-child(3){animation-delay:.24s}
+.game .quest-completion.activated .quest-scene.quest-links .quest-pair-thread{filter:brightness(1.09)}
+.game .quest-completion.activated .quest-scene.quest-digits .quest-slot,.game .quest-completion.activated .quest-scene.quest-machine .quest-slot{box-shadow:0 6px 0 #75c6a0,0 0 19px #5deaa270}
+.game .quest-completion.activated .quest-scene.quest-scene .quest-artifact-button.winner::after{content:"★";position:absolute;right:8px;top:5px;color:#d9aa45;font-size:19px;animation:fx-key-dock .3s ease-out both}
+@keyframes fx-letter-flip{0%{transform:scale(.94);opacity:.6}65%{transform:scale(1.09);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes fx-trophy-appear{from{transform:translateY(15px) scale(.91);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:760px){.game .sound-mixer[open]{min-width:160px}}
+@media(max-width:450px){.game .sound-mixer>summary{min-width:58px;padding:8px 5px}.game .sound-mixer[open]{min-width:150px}.game .sound-mixer[open]>label{margin-left:7px;margin-right:7px;font-size:.65rem}.game .quest-pair-thread{font-size:.68rem}}
+@media(prefers-reduced-motion:reduce){.game .quest-pair-thread,.game .quest-word.selected,.game .dictado-stamp,.game .theatre-applause,.game .mission-victory .victory-rewards span,.game .quest-completion.activated .quest-scene.quest-scene .quest-artifact-button.winner::after{animation:none!important}.game .sound-mixer>summary{transition:none}}
