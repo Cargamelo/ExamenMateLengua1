@@ -149,3 +149,10 @@ body.home-pixel .pixel-card-tile:hover,body.game.pixel-game .pixel-card-tile:hov
  body.home-pixel .pixel-home-guide,
  body.home-pixel .pixel-portal-art{animation:none!important;transition:none!important}
 }
+
+/* Portrait illustrations: consistent circular medallions for both companions */
+body.home-pixel .pixel-home-guide{aspect-ratio:1/1;height:auto;max-height:none;width:clamp(125px,22vw,270px);filter:drop-shadow(0 12px 10px #001019bb) drop-shadow(0 0 16px #d8b7784d)}
+body.home-pixel .pixel-portal-art{aspect-ratio:1/1;height:auto;max-height:none;object-fit:contain;width:clamp(155px,22vw,260px);filter:drop-shadow(0 8px 12px #001320b0)}
+body.game.pixel-game .hero-companion,body.game.pixel-game .victory-guide,body.game.pixel-game .quest-guide-art,body.game.pixel-game .world-guide,body.game.pixel-game .stage-guide img{aspect-ratio:1/1;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 4px 7px #071421a6)}
+body.game.pixel-game .stage-guide img{max-width:130px;max-height:130px}
+@media(max-width:600px){body.home-pixel .pixel-home-guide{width:clamp(62px,20vw,102px);height:auto;max-height:none}body.home-pixel .pixel-portal-art{width:clamp(155px,50vw,225px);height:auto;max-height:none}body.game.pixel-game .stage-guide img{max-width:80px;max-height:80px}}
