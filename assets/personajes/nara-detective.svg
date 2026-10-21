@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 525" width="400" height="525" role="img" aria-label="Nara, detective de las palabras"><title>Nara, detective de las palabras · La Liga del Saber</title><defs>
+<linearGradient id="skin" x1="0" x2=".83" y1="0" y2="1"><stop stop-color="#ffe6c9"/><stop offset=".5" stop-color="#f5c5a9"/><stop offset="1" stop-color="#db9988"/></linearGradient>
+<linearGradient id="inkhair" x1="0" x2="1"><stop stop-color="#171729"/><stop offset=".47" stop-color="#37314e"/><stop offset=".82" stop-color="#63517b"/><stop offset="1" stop-color="#21182e"/></linearGradient>
+<linearGradient id="brownhair" x1="0" x2="1" y2=".8"><stop stop-color="#382335"/><stop offset=".48" stop-color="#8e5644"/><stop offset=".8" stop-color="#b77a51"/><stop offset="1" stop-color="#493342"/></linearGradient>
+<linearGradient id="naraCoat" x1="0" x2="1" y2="1"><stop stop-color="#e7c09e"/><stop offset=".5" stop-color="#b28a73"/><stop offset="1" stop-color="#795d65"/></linearGradient>
+<linearGradient id="tikoCoat" x1="0" x2="1" y2="1"><stop stop-color="#75d1bd"/><stop offset=".48" stop-color="#298f94"/><stop offset="1" stop-color="#17566e"/></linearGradient>
+<radialGradient id="irisV"><stop stop-color="#e3b4fe"/><stop offset=".4" stop-color="#a75ecb"/><stop offset=".8" stop-color="#61398e"/><stop offset="1" stop-color="#2d254c"/></radialGradient>
+<radialGradient id="irisT"><stop stop-color="#d3fff0"/><stop offset=".4" stop-color="#54c7c1"/><stop offset=".85" stop-color="#168398"/><stop offset="1" stop-color="#1b405e"/></radialGradient>
+<filter id="drop" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#081421" flood-opacity=".43"/></filter>
+<pattern id="plaid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M6 0V34 M10 0V34 M0 7H34 M0 11H34" stroke="#473344" stroke-opacity=".23" stroke-width="3"/><path d="M0 27H34 M23 0V34" stroke="#f7dec4" stroke-opacity=".35" stroke-width="3"/></pattern>
+</defs><g filter="url(#drop)" stroke-linejoin="round" stroke-linecap="round">
+<!-- long violet-tinted hair behind shoulders -->
+<path d="M118 99Q144 39 204 48Q275 37 292 99L309 334Q312 403 339 454Q302 455 278 427L258 355Q239 396 203 411Q165 403 141 367L126 436Q98 452 76 444Q103 401 101 328Z" fill="url(#inkhair)" stroke="#262236" stroke-width="6"/>
+<path d="M106 149Q80 230 100 369Q89 414 62 465Q105 449 116 421L135 277Z" fill="#5f4b81" opacity=".8"/><path d="M276 128Q311 227 294 371Q307 439 344 470Q310 454 284 425L263 259Z" fill="#67518e" opacity=".77"/>
+<!-- shoes -->
+<path d="M147 444L144 475Q129 489 117 502Q145 511 179 499L186 461M216 461L226 495Q251 512 283 500Q276 485 252 469L247 442" fill="#413443" stroke="#292539" stroke-width="6"/>
+<!-- skirt and legs -->
+<path d="M148 391L144 464L182 467L191 409M213 407L218 468L255 466L252 393" fill="url(#skin)" stroke="#593c4a" stroke-width="5"/>
+<path d="M136 429Q204 443 265 424L285 395L264 365H143L120 400Z" fill="#444057" stroke="#382d45" stroke-width="5"/><path d="M136 429L120 399L151 412L165 393L179 422L192 396L215 428L229 397L247 416L265 391L283 399" fill="none" stroke="#ecdbca" stroke-width="5"/>
+<!-- detective overcoat -->
+<path d="M130 279Q104 299 92 346L116 393L148 397L138 434Q203 461 267 430L255 395L292 390L306 351Q297 306 267 286L232 265L166 265Z" fill="url(#naraCoat)" stroke="#533d47" stroke-width="6"/>
+<path d="M130 279Q104 299 92 346L116 393L148 397L138 434Q203 461 267 430L255 395L292 390L306 351Q297 306 267 286L232 265L166 265Z" fill="url(#plaid)"/>
+<path d="M168 266L205 313L231 269L254 291L222 340L195 372L158 289Z" fill="#e9d5bf" stroke="#694a4c" stroke-width="4"/>
+<path d="M182 268L202 304L215 269" fill="#fdf1e2"/><path d="M200 304L189 349L207 371L221 345L207 305Z" fill="#aa233f" stroke="#6a2a35" stroke-width="4"/>
+<path d="M162 284Q159 355 180 433M246 286Q256 358 226 438" stroke="#6e4e59" stroke-width="3" fill="none"/><circle cx="183" cy="346" r="6" fill="#715044"/><circle cx="222" cy="346" r="6" fill="#715044"/><circle cx="184" cy="388" r="6" fill="#715044"/><circle cx="222" cy="387" r="6" fill="#715044"/>
+<!-- hands -->
+<path d="M94 346Q86 371 101 396Q117 400 120 384L115 362M285 350Q307 376 291 396Q279 397 270 380L273 361" fill="url(#skin)" stroke="#79575b" stroke-width="4"/>
+<!-- head and face -->
+<path d="M116 133Q125 69 198 66Q279 69 283 143L280 214Q266 269 206 284Q146 275 122 221Z" fill="url(#skin)" stroke="#63434b" stroke-width="6"/>
+<path d="M131 217Q145 208 155 222M249 219Q261 206 272 216" stroke="#d67c84" stroke-width="5" opacity=".46"/>
+<g stroke="#30243d" stroke-width="3.5"><path d="M123 180 Q153 164 182 180 Q153 212 123 180" fill="#fff9f9"/><path d="M212 180 Q242 164 271 180 Q242 212 212 180" fill="#fff9f9"/></g><g><ellipse cx="153" cy="184" rx="15" ry="23" fill="url(#irisV)"/><ellipse cx="242" cy="184" rx="15" ry="23" fill="url(#irisV)"/><ellipse cx="153" cy="186" rx="6" ry="15" fill="#211d30"/><ellipse cx="242" cy="186" rx="6" ry="15" fill="#211d30"/><circle cx="148" cy="174" r="7" fill="#fff"/><circle cx="237" cy="174" r="7" fill="#fff"/><circle cx="160" cy="193" r="3.5" fill="#fff"/><circle cx="249" cy="193" r="3.5" fill="#fff"/></g><g fill="none" stroke="#39283b" stroke-width="4" stroke-linecap="round"><path d="M128 169q24-17 49-2M218 168q23-17 47-1"/></g>
+<path d="M199 212L195 225L205 226" stroke="#b77676" fill="none" stroke-width="3"/><path d="M184 241Q203 257 221 240" stroke="#974c63" fill="none" stroke-width="3.5"/><path d="M178 238q22 9 47-2" stroke="#ffebed" stroke-width="1.3" fill="none"/>
+<!-- anime bangs and strands -->
+<path d="M117 139Q118 66 190 63Q244 59 282 131Q266 112 260 135Q245 133 231 116Q221 153 207 162L201 135Q180 169 154 170L165 139Q143 170 119 169Z" fill="url(#inkhair)" stroke="#2b243b" stroke-width="5"/>
+<path d="M163 92Q147 117 148 146M202 90Q197 116 191 142M231 89Q236 111 244 133" stroke="#987bbc" stroke-width="4" opacity=".55" fill="none"/>
+<!-- Sherlock style plaid cap -->
+<path d="M103 99Q110 40 177 22Q235 9 282 54Q302 67 304 105L288 126Q210 139 102 122Z" fill="url(#naraCoat)" stroke="#3c3037" stroke-width="7"/>
+<path d="M103 99Q110 40 177 22Q235 9 282 54Q302 67 304 105L288 126Q210 139 102 122Z" fill="url(#plaid)" opacity=".85"/>
+<path d="M109 111Q201 84 295 103Q307 111 306 122Q234 151 113 128Z" fill="#bc998a" stroke="#46353e" stroke-width="5"/>
+<path d="M157 42Q197 13 233 33Q255 41 265 57Q215 50 157 70Z" fill="#e6c7ac" opacity=".72"/>
+<!-- round spectacles -->
+<g fill="none" stroke="#352a3f" stroke-width="4.4" opacity=".94"><circle cx="150" cy="189" r="31"/><circle cx="241" cy="189" r="31"/><path d="M181 184q15-10 29 0M116 187l-13-5M272 184l12-6"/></g>
+<!-- upright magnifying glass -->
+<path d="M297 257L329 191" stroke="#603f2a" stroke-width="17"/><path d="M297 257L329 191" stroke="#dbb168" stroke-width="9"/>
+<circle cx="335" cy="166" r="40" fill="#c9efff" fill-opacity=".2" stroke="#2a293b" stroke-width="13"/><circle cx="335" cy="166" r="39" fill="none" stroke="#f7e7cf" stroke-width="5"/><path d="M311 148Q322 129 340 132" fill="none" stroke="#fff" stroke-width="8" opacity=".8"/>
+<!-- magic spark -->
+<path d="M83 179L89 163L94 179L110 185L94 190L89 204L83 190L68 185Z" fill="#e9ca73" stroke="none"/>
+</g></svg>
