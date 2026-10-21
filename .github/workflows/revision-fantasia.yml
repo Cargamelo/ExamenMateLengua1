@@ -20,7 +20,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
-          paths = ['assets/personajes/tiko-explorador.svg','assets/personajes/nara-detective.svg','assets/escenarios/bosque-del-saber.svg','assets/escenarios/mapa-numeros-v3.svg','assets/escenarios/mapa-palabras-v3.svg']
+          paths = ['assets/personajes/tiko-retrato.webp','assets/personajes/nara-retrato.webp','assets/escenarios/bosque-del-saber.svg','assets/escenarios/mapa-numeros-v3.svg','assets/escenarios/mapa-palabras-v3.svg']
           for path in paths:
               p=Path(path)
               assert p.is_file() and p.stat().st_size>4000,path
@@ -34,9 +34,9 @@ jobs:
           assert 'lugar-"+id+".svg' in src
           assert 'lugar-"+id+"-v2.svg' not in src
           assert 'personajes/' in src
-          for n in ('tiko-explorador','nara-detective'):
+          for n in ('tiko-retrato','nara-retrato'):
               assert n in Path('juego.js').read_text()
-          print('Los dos personajes, bosque, HTML y referencias verificados')
+          for image in ('tiko-retrato.webp','nara-retrato.webp'):\n              data=(Path('assets/personajes')/image).read_bytes()\n              assert data[:4]==b'RIFF' and data[8:12]==b'WEBP',image\n          print('Retratos WebP, bosque, mapas, HTML y referencias verificados')
           PY
           for file in *.js tests/*.cjs; do node --check "$file"; done
       - name: Comprobar bloqueo y persistencia
@@ -49,7 +49,7 @@ jobs:
           sleep 2
       - name: Verificar recursos servidos
         run: |
-          for path in index.html tema-ilustrado-v3.css assets/escenarios/bosque-del-saber.svg assets/escenarios/mapa-numeros-v3.svg assets/escenarios/mapa-palabras-v3.svg assets/personajes/tiko-explorador.svg assets/personajes/nara-detective.svg; do
+          for path in index.html tema-ilustrado-v3.css assets/escenarios/bosque-del-saber.svg assets/escenarios/mapa-numeros-v3.svg assets/escenarios/mapa-palabras-v3.svg assets/personajes/tiko-retrato.webp assets/personajes/nara-retrato.webp; do
             curl -fsS "http://127.0.0.1:8765/$path" >/dev/null || exit 1
           done
       - name: Comprobar guardado y candados
