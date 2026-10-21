@@ -110,6 +110,8 @@ function nextStageChallenge(){
 function finishStage(score,total){
  if(!session?.stageId||session.stageOutcome)return;
  session.stageOutcome=ST.complete(subject,journey,session.stageId,score,total);
+ session.stageBonus=(session.stageOutcome.first?2:0)+(session.stageOutcome.justAwarded?15:0);
+ if(session.stageBonus)adaptive.rewards.coins=(adaptive.rewards.coins||0)+session.stageBonus;
  guideFrom=session.stageId;
  persist();
 }
@@ -257,7 +259,7 @@ function renderStageResult(){
  '<p class="stage-victory-message">'+esc(message)+'</p>'+
  score+extra+
  '<div class="quest-summary victory-rewards"><span>⭐ '+(session.special?"Actividad completada":ok+" estrellas conseguidas")+'</span>'+
- '<span>🪙 '+(adaptive.rewards?.coins||0)+' monedas acumuladas</span>'+
+ '<span>🪙 '+(adaptive.rewards?.coins||0)+' monedas acumuladas'+(session.stageBonus?' · +'+session.stageBonus+' por nueva fase/logro':'')+'</span>'+
  '<span>✦ '+result.completed+' / 15 fases</span></div>'+
  (final?'<div class="stage-final-badge" role="status">🏆 ¡Insignia especial! Has completado las quince fases de esta aventura.</div>':"")+
  (!session.special&&session.results.some(r=>!r.ok)?'<details class="quest-review"><summary>Ver las pistas para mejorar</summary>'+
