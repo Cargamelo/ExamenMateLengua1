@@ -1,0 +1,40 @@
+name: Validación evolución segura de La Liga
+on:
+  push:
+    branches:
+      - integracion-v3-segura-2026-10-21
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Comprobar sintaxis
+        run: |
+          for f in *.js tests/*.cjs; do node --check "$f"; done
+          python3 -m json.tool manifest.webmanifest > /dev/null
+      - name: Comprobar secuencialidad
+        run: node tests/fases-secuenciales.cjs
+      - name: Preparar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servir aplicación
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/liga.log 2>&1 &
+          sleep 2
+      - name: Comprobar guardado y candados
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Comprobar seis tamaños y rutas principales
+        run: node qa-pixel.js
+      - name: Guardar capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-evolucion
+          path: qa-screenshots/
+          if-no-files-found: ignore
