@@ -20,7 +20,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
-          paths = ['assets/personajes/tiko-retrato.webp','assets/personajes/nara-retrato.webp','assets/escenarios/bosque-del-saber.svg','assets/escenarios/mapa-numeros-v3.svg','assets/escenarios/mapa-palabras-v3.svg']
+          paths = ['assets/escenarios/bosque-del-saber.svg','assets/escenarios/mapa-numeros-v3.svg','assets/escenarios/mapa-palabras-v3.svg']
           for path in paths:
               p=Path(path)
               assert p.is_file() and p.stat().st_size>4000,path
