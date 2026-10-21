@@ -36,7 +36,10 @@ jobs:
           assert 'personajes/' in src
           for n in ('tiko-retrato','nara-retrato'):
               assert n in Path('juego.js').read_text()
-          for image in ('tiko-retrato.webp','nara-retrato.webp'):\n              data=(Path('assets/personajes')/image).read_bytes()\n              assert data[:4]==b'RIFF' and data[8:12]==b'WEBP',image\n          print('Retratos WebP, bosque, mapas, HTML y referencias verificados')
+          for image in ('tiko-retrato.webp','nara-retrato.webp'):
+              data=(Path('assets/personajes')/image).read_bytes()
+              assert data[:4]==b'RIFF' and data[8:12]==b'WEBP',image
+          print('Retratos WebP, bosque, mapas, HTML y referencias verificados')
           PY
           for file in *.js tests/*.cjs; do node --check "$file"; done
       - name: Comprobar bloqueo y persistencia
