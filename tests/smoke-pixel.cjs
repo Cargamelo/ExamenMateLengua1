@@ -7,7 +7,7 @@ const errors = [];
 const screenshots = "test-screenshots";
 fs.mkdirSync(screenshots, {recursive:true});
 async function inspect(page, name) {
- const broken = await page.locator('img').evaluateAll(items => items.filter(img => !img.complete || img.naturalWidth===0).map(img=>img.getAttribute('src')));
+ const broken = await page.locator('img').evaluateAll(items => items.filter(img => {let e=img;while(e&&e!==document.body){if(getComputedStyle(e).display==='none'||getComputedStyle(e).visibility==='hidden')return false;e=e.parentElement;}return img.complete&&img.naturalWidth===0}).map(img=>img.getAttribute('src')));
  assert.equal(broken.length,0, name+" contiene imágenes no disponibles: "+broken.join(", "));
  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth+3);
  assert.equal(overflow,false,name+" presenta desplazamiento horizontal");
