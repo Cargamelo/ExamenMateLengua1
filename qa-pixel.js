@@ -7,7 +7,7 @@ const chrome=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin
 const root='http://127.0.0.1:8765';
 const ok=(v,msg)=>{checks++;if(!v)errors.push(msg)};
 async function pageCheck(p,selector){await p.waitForSelector(selector,{timeout:15000});checks++}
-async function overflow(p,w,name){const width=await p.evaluate(()=>document.documentElement.scrollWidth);ok(width<=w+2,name+' horizontal '+width+' > '+w)}
+async function overflow(p,w,name){const width=await p.evaluate(()=>document.documentElement.scrollWidth);if(width>w+2){const offenders=await p.evaluate(()=>[...document.querySelectorAll('*')].map(e=>({name:e.tagName.toLowerCase()+(e.className&&typeof e.className==='string'?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):'').slice(0,80),right:Math.round(e.getBoundingClientRect().right),left:Math.round(e.getBoundingClientRect().left),width:Math.round(e.getBoundingClientRect().width)})).filter(x=>x.right>innerWidth+4&&x.width>0).sort((a,b)=>b.right-a.right).slice(0,12));console.log('DESBORDAMIENTO',name,JSON.stringify(offenders));}ok(width<=w+2,name+' horizontal '+width+' > '+w)}
 async function run(){
  if(!chrome)throw Error('Ningún Chromium instalado');
  fs.mkdirSync('qa-screenshots',{recursive:true});
