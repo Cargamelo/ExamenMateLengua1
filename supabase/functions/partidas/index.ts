@@ -40,9 +40,13 @@ async function authenticate(body:Record<string,unknown>,req:Request){
  return {id,hash:await digest("device:"+raw)};
 }
 async function allowed(req:Request,kind:string,limit:number,windowSeconds:number){
- // Until ingress can attest the peer IP, do not treat client-supplied forwarded headers as an identity.
- // A shared defensive bucket is a conservative fallback: the server is not enabled in production.
- const bucket=await digest("limit:"+kind+":unverified-ingress");
+ // Fail closed until the ingress contract is explicitly verified by an operator.
+ // Merely naming a header is not proof it cannot be supplied by an external caller.
+ const name=Deno.env.get("TRUSTED_CLIENT_IP_HEADER");
+ if(!name||!["cf-connecting-ip","x-real-ip","x-forwarded-for"].includes(name))return false;
+ const addr=req.headers.get(name)?.split(",")[0]?.trim();
+ if(!addr||addr.length>64||!/^[0-9a-f:.]+$/i.test(addr))return false;
+ const bucket=await digest("limit:"+kind+":"+addr);
  return await rpc("liga_rate",{p_bucket:bucket,p_max:limit,p_window_seconds:windowSeconds})===true;
 }
 Deno.serve(async(req)=>{
