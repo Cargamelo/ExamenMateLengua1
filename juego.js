@@ -17,7 +17,7 @@ function ledgerAdd(id){if(!id)return;const a=Array.isArray(progress.confirmedEve
 let soundEnabled=!!window.AventuraFX?.isEnabled?.(), audioContext=null, view="home", topic="", mode="practice", difficulty=2, questionStep=0, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
 let voiceRequest=0;let voiceList=[];let memoryState=null;let dictationDraft="";let dictationChecked=false,dictationResult="",expressiveSaved=false,expressiveResult="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini, AV=window.AventuraFX, WORLD=window.AventuraMapas;let adaptive=null;const challengeSeq={};
 const ST=window.AventuraFases;let journey=null;
-let selectedStageId=null,guideFrom=null,dictationWasCorrect=false,expressiveScore=0;
+let selectedStageId=null,guideFrom=null,dictationWasCorrect=false,expressiveScore=0,expressiveChecks=[];
 function refreshVoices(){if("speechSynthesis" in window)voiceList=window.speechSynthesis.getVoices()||[];}
 refreshVoices();
 if("speechSynthesis" in window && window.speechSynthesis.addEventListener)window.speechSynthesis.addEventListener("voiceschanged",refreshVoices);
@@ -35,6 +35,16 @@ function snapshot(){
  if(!session?.stageId||view!=="quiz"||session.finished)return null;
  return {version:2,subject,stageId:session.stageId,questionIndex,answered,
   hintCount,response,miniState,session:{...session,seen:[...(session.seen||[])]},updated:Date.now()};
+}
+function saveSpecial(){
+ const stage=ST.getStage(subject,selectedStageId);
+ if(!stage||!["dictado","expresiva"].includes(stage.special))return;
+ const prev=progress.specialCheckpoint;
+ progress.specialCheckpoint={version:1,subject,stageId:stage.id,attemptId:prev?.stageId===stage.id?prev.attemptId:eventId(),
+  view:["dictation","expressive","material"].includes(view)?view:"material",materialIndex,
+  dictationDraft,dictationShow,dictationChecked,dictationResult,dictationWasCorrect,
+  expressiveSaved,expressiveResult,expressiveScore,expressiveChecks};
+ persist();
 }
 function saveCheckpoint(){
  if(view==="quiz"&&session?.stageId&&!window.LigaPartida?.save(subject,progress,snapshot()))
@@ -139,8 +149,8 @@ function startStage(id){
  persist();
  if(stage.special){
   materialIndex=0;dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";
-  expressiveSaved=false;expressiveResult="";dictationWasCorrect=false;expressiveScore=0;
-  go("material");return;
+  expressiveSaved=false;expressiveResult="";dictationWasCorrect=false;expressiveScore=0;expressiveChecks=[];
+  progress.specialCheckpoint=null;go("material");saveSpecial();return;
  }
  session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,attemptId:eventId(),stage,topic:stage.topics[0],review:false,adaptive:true,target:15,items:[],results:[],seen:new Set()};
  questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
@@ -389,19 +399,19 @@ const stripPunctuation=s=>s.replace(/[.,!?¡¿;:«»"“”]/g,"").replace(/\s+/
 const wordSame=letters(a)===letters(b),capSame=stripPunctuation(a)===stripPunctuation(b);
 let msgs=[];if(!wordSame)msgs.push("Hay diferencias entre las palabras escritas y el texto original.");if(!capSame)msgs.push("Revisa también las mayúsculas al inicio y después de cada punto.");if((a.match(/[.!?]/g)||[]).join("")!==(b.match(/[.!?]/g)||[]).join(""))msgs.push("Comprueba los puntos y la puntuación.");if((a.match(/\n\s*\n/g)||[]).length!==(b.match(/\n\s*\n/g)||[]).length)msgs.push("Comprueba los cambios de párrafo: deja una línea en blanco entre ellos.");if(!msgs.length&&!ok)msgs.push("Hay alguna diferencia de mayúsculas, espacios o formato.");
 root.innerHTML='<div class="feedback '+(ok?"ok":"bad")+'"><strong>'+(ok?"¡Dictado perfecto!":"¡Buen intento! Revisa estas pistas:")+'</strong><p>'+esc(ok?"Has escrito el texto como en el modelo.":msgs.join(" "))+'</p></div><details><summary><b>Ver dictado correcto y comparar</b></summary><div class="reading">'+esc(correct)+'</div></details><p class="small-note">La comparación es orientativa. Revisa las diferencias con un adulto si tienes dudas.</p>';
-dictationResult=root.innerHTML;dictationChecked=true;dictationWasCorrect=ok;const btn=document.querySelector?.('[data-action="dict-check"]');if(btn)btn.disabled=true;const q={topic:"dictado",variant:"d"+materialIndex};record(q,ok,0);fx(ok,q);if(ok){root.classList?.add?.("dictado-celebration");root.insertAdjacentHTML?.("afterbegin",'<div class="dictado-stamp" aria-hidden="true">✦ ¡Misterio resuelto! ✦'+AV.rewardMarkup()+'</div>');}
+dictationResult=root.innerHTML;dictationChecked=true;dictationWasCorrect=ok;const btn=document.querySelector?.('[data-action="dict-check"]');if(btn)btn.disabled=true;const q={topic:"dictado",variant:"d"+materialIndex};record(q,ok,0,progress.specialCheckpoint?.attemptId?"dict:"+progress.specialCheckpoint.attemptId+":"+materialIndex:null);fx(ok,q);if(ok){root.classList?.add?.("dictado-celebration");root.insertAdjacentHTML?.("afterbegin",'<div class="dictado-stamp" aria-hidden="true">✦ ¡Misterio resuelto! ✦'+AV.rewardMarkup()+'</div>');}
 const stage=ST.getStage(subject,selectedStageId);
 if(stage?.special==="dictado"){
  root.insertAdjacentHTML("beforeend",'<div class="action-row">'+button("finish-special","★ Terminar fase y recibir recompensa →")+'</div>');
  dictationResult=root.innerHTML;
-}}
-function renderExpressive(){const x=D.expressive[materialIndex];if(!x){go("material");return;}shell(topBack("material")+specialStageIntro()+'<h1 class="section-title">🎭 '+esc(x.title)+'</h1><div class="paper narrow"><p>Lee en voz alta, sin prisa, como si estuvieras representando una historia.</p><p class="voice-indicator" id="voice-status" role="status" aria-live="polite">Pulsa «Escuchar ejemplo» para solicitar la locución.</p><div class="reading">'+esc(x.text)+'</div><div class="action-row">'+button("expressive-speak","🔊 Escuchar ejemplo")+'</div><h2>¿Cómo ha ido la lectura?</h2><p class="small-note">Marca con ayuda de un adulto lo que has conseguido. Esta actividad no analiza el micrófono.</p>'+["He pronunciado las palabras con claridad.","He leído a un ritmo cómodo.","He hecho pausas en los puntos.","He utilizado una entonación adecuada."].map((x,i)=>'<label class="tick"><input type="checkbox" class="self-check" value="'+i+'">'+esc(x)+'</label>').join("")+'<div class="action-row">'+button("expressive-save","Guardar mi práctica",expressiveSaved?'disabled aria-disabled="true"':"")+'</div><div id="expressive-feedback" aria-live="polite">'+expressiveResult+'</div></div>');}
+}saveSpecial();}
+function renderExpressive(){const x=D.expressive[materialIndex];if(!x){go("material");return;}shell(topBack("material")+specialStageIntro()+'<h1 class="section-title">🎭 '+esc(x.title)+'</h1><div class="paper narrow"><p>Lee en voz alta, sin prisa, como si estuvieras representando una historia.</p><p class="voice-indicator" id="voice-status" role="status" aria-live="polite">Pulsa «Escuchar ejemplo» para solicitar la locución.</p><div class="reading">'+esc(x.text)+'</div><div class="action-row">'+button("expressive-speak","🔊 Escuchar ejemplo")+'</div><h2>¿Cómo ha ido la lectura?</h2><p class="small-note">Marca con ayuda de un adulto lo que has conseguido. Esta actividad no analiza el micrófono.</p>'+["He pronunciado las palabras con claridad.","He leído a un ritmo cómodo.","He hecho pausas en los puntos.","He utilizado una entonación adecuada."].map((x,i)=>'<label class="tick"><input type="checkbox" class="self-check" value="'+i+'"'+(expressiveChecks.includes(i)?' checked':'')+'>'+esc(x)+'</label>').join("")+'<div class="action-row">'+button("expressive-save","Guardar mi práctica",expressiveSaved?'disabled aria-disabled="true"':"")+'</div><div id="expressive-feedback" aria-live="polite">'+expressiveResult+'</div></div>');}
 function saveExpressive(){
  if(expressiveSaved)return;
  expressiveSaved=true;
  const checks=[...document.querySelectorAll(".self-check")],done=checks.filter(x=>x.checked).length;
- expressiveScore=done;
- record({topic:"expresiva",variant:"e"+materialIndex},done===4,0);
+ expressiveScore=done;expressiveChecks=checks.filter(x=>x.checked).map(x=>Number(x.value));
+ record({topic:"expresiva",variant:"e"+materialIndex},done===4,0,progress.specialCheckpoint?.attemptId?"expressive:"+progress.specialCheckpoint.attemptId+":"+materialIndex:null);
  AV?.play(done===4?"star":"select");
  const stage=ST.getStage(subject,selectedStageId);
  document.getElementById("expressive-feedback").innerHTML=
@@ -410,6 +420,7 @@ function saveExpressive(){
  (done===4?'<div class="theatre-applause" aria-hidden="true">✦ ★ ¡Bravo! ★ ✦'+AV.rewardMarkup()+'</div>':"")+
  (stage?.special==="expresiva"?'<div class="action-row">'+button("finish-special","★ Terminar fase y recibir recompensa →")+'</div>':"");
  expressiveResult=document.getElementById("expressive-feedback").innerHTML;
+ saveSpecial();
 }
 function finishSpecialStage(){
  const stage=ST.getStage(subject,selectedStageId);
@@ -417,7 +428,7 @@ function finishSpecialStage(){
  const dict=view==="dictation";
  if(stage.special!==(dict?"dictado":"expresiva")||(dict?!dictationChecked:!expressiveSaved))return;
  const ok=dict?dictationWasCorrect:expressiveScore===4;
- session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,stage,topic:stage.topics[0],
+ session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,attemptId:progress.specialCheckpoint?.attemptId||eventId(),stage,topic:stage.topics[0],
   review:false,adaptive:false,finished:true,special:stage.special,target:1,items:[],
   results:[{question:{topic:stage.topics[0],prompt:stage.title,explanation:"Actividad practicada."},ok}],
   specialSummary:dict?
@@ -425,6 +436,7 @@ function finishSpecialStage(){
    ("Práctica guardada: "+expressiveScore+" de 4 aspectos de autoevaluación marcados. No se ha evaluado tu pronunciación automáticamente.")
  };
  finishStage(ok?1:0,1);
+ progress.specialCheckpoint=null;persist();
  AV?.play("mission");view="result";render();
 }
 function startMemory(){const pool=topic==="sinonimos"?D.synonyms:D.antonyms;let selected=[],seen=new Set();for(let pair of shuffle(pool)){if(!seen.has(pair[0])&&!seen.has(pair[1])){selected.push(pair);seen.add(pair[0]);seen.add(pair[1]);}if(selected.length===4)break;}const cards=shuffle(selected.flatMap((p,i)=>[{id:i,side:0,word:p[0]},{id:i,side:1,word:p[1]}]));memoryState={cards,open:[],matched:[],attempts:0,message:""};view="memory";renderMemory();}
@@ -445,7 +457,7 @@ document.addEventListener("click",function(ev){const el=ev.target.closest("[data
 if(a==="next-stage"){startStage(el.dataset.stage);return;}
 if(a==="repeat-stage"){startStage(el.dataset.stage);return;}
 if(a==="finish-special"){finishSpecialStage();return;}
-if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterWorld(t||topic,true);return;}if(a==="continue-mission"){enterWorld(session.topic,session.review);return;}if(a==="lesson"){topic=t;go("lesson");return;}if(a==="setup"){enterWorld(t||topic);return;}if(a==="material"){topic=t||topic;go("material");return;}if(a==="pick-material"){materialIndex=Number(el.dataset.index);dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";expressiveSaved=false;expressiveResult="";if(topic==="comprension"){startReading(materialIndex);return;}go(topic==="dictado"?"dictation":"expressive");return;}if(a==="check"){checkTyped();return;}if(a==="mini"){if(!session||answered!==null)return;const q=session.items[questionIndex],act=el.dataset.mini,val=el.dataset.value||"",prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){response=document.getElementById("response")?.value||response;hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);Object.assign(journey,{version:1,active:ST.getStages(subject)[0].id,completed:{},finalAwarded:false,previous:null});selectedStageId=null;window.LigaPartida?.clearCheckpoint(subject,progress);persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
+if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterWorld(t||topic,true);return;}if(a==="continue-mission"){enterWorld(session.topic,session.review);return;}if(a==="lesson"){topic=t;go("lesson");return;}if(a==="setup"){enterWorld(t||topic);return;}if(a==="material"){topic=t||topic;go("material");return;}if(a==="pick-material"){materialIndex=Number(el.dataset.index);dictationShow=false;dictationDraft="";dictationChecked=false;dictationResult="";expressiveSaved=false;expressiveResult="";expressiveChecks=[];if(topic==="comprension"){startReading(materialIndex);return;}go(topic==="dictado"?"dictation":"expressive");saveSpecial();return;}if(a==="check"){checkTyped();return;}if(a==="mini"){if(!session||answered!==null)return;const q=session.items[questionIndex],act=el.dataset.mini,val=el.dataset.value||"",prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){response=document.getElementById("response")?.value||response;hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);Object.assign(journey,{version:1,active:ST.getStages(subject)[0].id,completed:{},finalAwarded:false,previous:null});selectedStageId=null;window.LigaPartida?.clearCheckpoint(subject,progress);persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();saveSpecial();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
 /* Arrastrar y soltar opcional: todas las mecánicas mantienen la alternativa táctil por pulsaciones. */
 document.addEventListener("dragstart",e=>{
 const el=e.target.closest?.("[data-drag-kind]");
@@ -470,7 +482,8 @@ if(!outcome)return;
 miniState=outcome.state;
 if(outcome.done)grade(outcome.ok,-1,outcome.given);else{AV?.play?.(kind==="train"?"dock":outcome.state.linked.length>beforeLinked?"pair":"incorrect");renderQuiz();}
 });
-document.addEventListener("input",e=>{const el=e.target;if(el?.id==="fx-volume"){const value=AV.setVolume(Number(el.value)/100);const display=document.getElementById("fx-volume-display");if(display)display.textContent=Math.round(value*100)+" %";}});
+document.addEventListener("input",e=>{const el=e.target;if(el?.id==="dict-response"){dictationDraft=el.value;saveSpecial();return;}if(el?.id==="fx-volume"){const value=AV.setVolume(Number(el.value)/100);const display=document.getElementById("fx-volume-display");if(display)display.textContent=Math.round(value*100)+" %";}});
+document.addEventListener("change",e=>{if(e.target?.classList?.contains("self-check")){expressiveChecks=[...document.querySelectorAll(".self-check")].filter(x=>x.checked).map(x=>Number(x.value));saveSpecial();}});
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="response"){e.preventDefault();checkTyped();}});
 async function boot(){
  try{
@@ -483,6 +496,17 @@ async function boot(){
   adaptive=AD.init(progress,modules.map(x=>x.id));
   journey=ST.init(progress,subject);
   if(result.status==="recovered")storageAlert="Partida recuperada desde una copia local de seguridad.";
+  const special=progress.specialCheckpoint,st=special&&ST.getStage(subject,special.stageId);
+  if(special&&special.version===1&&special.subject===subject&&st&&ST.canEnterStage(subject,journey,st.id)&&
+     ["dictado","expresiva"].includes(st.special)&&["dictation","expressive","material"].includes(special.view)){
+   selectedStageId=st.id;topic=st.topics[0];view=special.view;
+   materialIndex=Number.isSafeInteger(special.materialIndex)?special.materialIndex:0;
+   dictationDraft=String(special.dictationDraft||"");dictationShow=!!special.dictationShow;
+   dictationChecked=!!special.dictationChecked;dictationResult=String(special.dictationResult||"");
+   dictationWasCorrect=!!special.dictationWasCorrect;expressiveSaved=!!special.expressiveSaved;
+   expressiveResult=String(special.expressiveResult||"");expressiveScore=Number(special.expressiveScore)||0;
+   expressiveChecks=Array.isArray(special.expressiveChecks)?special.expressiveChecks.filter(x=>Number.isInteger(x)&&x>=0&&x<4):[];
+  }
   render();
   try{const requested=new URLSearchParams(location.search||"").get("view");if(requested==="progress")go("progress");else if(requested==="errors")errors();}catch(e){}
  }catch(err){app.textContent="No se ha podido verificar la partida. No se han modificado los datos almacenados.";}
