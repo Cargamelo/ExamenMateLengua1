@@ -14,7 +14,7 @@ async function checkCSS(page,selector,{name,forbidWhite=true,expectImage=null}={
   const style=getComputedStyle(el);return {background:style.backgroundColor,image:style.backgroundImage,color:style.color,visible:el.getBoundingClientRect().width>0};
  });
  assert.equal(v.visible,true,selector+" oculto");
- if(forbidWhite)assert(!/rgba?\\(255, 255, 255(?:, 1)?\\)/.test(v.background),selector+" tiene fondo blanco: "+JSON.stringify(v));
+ if(forbidWhite)assert(!["rgb(255, 255, 255)","rgba(255, 255, 255, 1)"].includes(v.background),selector+" tiene fondo blanco: "+JSON.stringify(v));
  if(expectImage)assert(v.image.includes(expectImage),selector+" no usa imagen: "+JSON.stringify(v));
  checks++;
  return v;
