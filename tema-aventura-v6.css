@@ -348,3 +348,25 @@ body.home-pixel :is(button,a,input,textarea,select,summary):focus-visible,
 @media(prefers-reduced-motion:reduce){
  body.home-pixel *,body.game.pixel-game *,.pixel-overlay-root *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* Mapas de dos proporciones: una panorámica para escritorio, otra original para móvil. */
+body.game.pixel-game .stage-map-picture{position:absolute;inset:0;display:block;width:100%;height:100%;z-index:0;overflow:hidden}
+body.game.pixel-game .stage-map-picture .map-ground-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+body.game.pixel-game .stage-territories{position:relative;z-index:5;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:1px auto 13px;max-width:1120px}
+body.game.pixel-game .stage-territory{
+ display:inline-flex;align-items:center;min-height:34px;padding:6px 12px;
+ font:800 .78rem/1.15 Georgia,serif;color:#ffedc7;
+ background:linear-gradient(145deg,#735039,#422c2c);
+ border:2px ridge #cc9d5a;border-radius:10px;box-shadow:0 3px 0 #241b19
+}
+body.game.pixel-game.lang-game .stage-territory{background:linear-gradient(145deg,#6c497a,#37243c);border-color:#c69edb}
+body.game.pixel-game .stage-road.desktop-road{display:none}
+body.game.pixel-game .stage-road.mobile-road{display:block}
+@media(min-width:900px){
+ body.game.pixel-game .stage-road.desktop-road{display:block}
+ body.game.pixel-game .stage-road.mobile-road{display:none}
+}
+@media(max-width:700px){
+ body.game.pixel-game .stage-territories{gap:5px}
+ body.game.pixel-game .stage-territory{font-size:.67rem;min-height:32px;padding:5px 8px}
+}
