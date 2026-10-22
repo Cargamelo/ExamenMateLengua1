@@ -52,9 +52,11 @@ const getStages=type=>catalogs[type]||[];
 const getStage=(type,id)=>getStages(type).find(s=>s.id===id)||null;
 function init(progress,type){
  let j=progress.stageJourney;
- if(!j||j.version!==1||!j.completed||typeof j.completed!=="object"){
+ if(!j){
   j={version:1,active:getStages(type)[0].id,completed:{},finalAwarded:false,previous:null};
   progress.stageJourney=j;
+ }else if(j.version!==1||!j.completed||typeof j.completed!=="object"||Array.isArray(j.completed)){
+  throw new Error("Versión de progreso incompatible: se conserva sin modificar");
  }
  j.active=firstPending(type,j)?.id||getStages(type)[getStages(type).length-1].id;
  return j;
@@ -86,8 +88,10 @@ function activate(type,j,id){
 }
 function complete(type,j,id,score,total){
  const s=getStage(type,id);
- if(!s||!canEnterStage(type,j,id))return null;
+ if(!s||!canEnterStage(type,j,id)||!Number.isSafeInteger(total)||total<1||total>100||
+  !Number.isSafeInteger(score)||score<0||score>total)return null;
  const existed=!!j.completed[id],entry=j.completed[id]||{plays:0,best:0};
+ if(!Number.isSafeInteger(entry.plays)||entry.plays<0||entry.plays>=Number.MAX_SAFE_INTEGER)return null;
  entry.plays++;entry.best=Math.max(Number(entry.best)||0,score);
  entry.lastScore=score;entry.lastTotal=total;entry.lastAt=Date.now();
  j.completed[id]=entry;j.previous=id;
