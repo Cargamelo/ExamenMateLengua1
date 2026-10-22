@@ -265,3 +265,20 @@ body.game.pixel-game :is(button,a,input,textarea,select):focus-visible{
     scroll-behavior:auto
   }
 }
+/* visual.css conserva un fondo pastel con !important en .game y .lang-game.
+ * Prioridad especifica y limitada al lienzo; NO se fuerza en paneles educativos. */
+body.game.pixel-game.math-game{
+ background:linear-gradient(180deg,#071424db,#092127e8 55%,#06131def),
+   url("./assets/arte-v4/bosque-magico.webp") center top/cover no-repeat #071622!important;
+}
+body.game.pixel-game.lang-game{
+ background:linear-gradient(180deg,#150d29e3,#201a36eb 55%,#0a1225f0),
+   url("./assets/arte-v4/bosque-magico.webp") center top/cover no-repeat #0b1425!important;
+}
+@media(max-width:700px){
+ body.game.pixel-game.math-game,body.game.pixel-game.lang-game{
+  background-position:center top!important;
+  background-size:auto 100%!important;
+  background-attachment:scroll!important;
+ }
+}
