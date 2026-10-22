@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - progreso-secuencial-validado-2026-10-21
+      - fix/integridad-persistencia-liga-saber
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,6 +22,8 @@ jobs:
           if [ -f manifest.webmanifest ]; then python3 -m json.tool manifest.webmanifest > /dev/null; fi
       - name: Comprobar secuencialidad
         run: node tests/fases-secuenciales.cjs
+      - name: Comprobar integridad y recuperación sintética
+        run: node tests/integridad-b.cjs
       - name: Preparar navegador
         run: npm install --no-save playwright-core@1.58.2
       - name: Servir aplicación
