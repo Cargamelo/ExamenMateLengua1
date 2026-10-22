@@ -14,7 +14,7 @@ if(!chrome)throw new Error("Chrome no disponible");
    await page.addInitScript(number=>{
     const completed={};
     for(let i=1;i<number;i++)completed["lang-stage-"+String(i).padStart(2,"0")]={plays:1,best:0,lastScore:0,lastTotal:15};
-    localStorage.setItem("ligasaber-2026-lang",JSON.stringify({history:[],misses:[],badges:[],
+    if(!localStorage.getItem("ligasaber-2026-lang"))localStorage.setItem("ligasaber-2026-lang",JSON.stringify({history:[],misses:[],badges:[],
      stageJourney:{version:1,active:"lang-stage-"+number,completed,finalAwarded:false,previous:null}}));
    },number);
    await page.goto("http://127.0.0.1:8765/lengua-sda1.html",{waitUntil:"networkidle"});
