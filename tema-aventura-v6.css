@@ -401,3 +401,23 @@ body.game.pixel-game .stage-road.mobile-road{display:block}
 @media(max-width:1000px){.pixel-album-layout{grid-template-columns:minmax(132px,170px) minmax(0,1fr)}.pixel-album-detail{grid-column:2;max-height:none}.pixel-album-main{max-height:60dvh}.pixel-album-main .pixel-album-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.pixel-album-layout{grid-template-columns:minmax(0,1fr);gap:10px}.pixel-album-sidebar{padding:9px}.pixel-album-sidebar .pixel-album-actions{display:flex;overflow-x:auto;scrollbar-width:thin;gap:5px}.pixel-album-sidebar .pixel-album-actions button{flex:0 0 auto;padding:7px 9px}.pixel-album-sidebar .pixel-album-counter{margin:6px 0 0}.pixel-album-main{max-height:52dvh;padding:8px}.pixel-album-main .pixel-album-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.pixel-album-detail{grid-column:auto;max-height:none}.pixel-album-detail .pixel-card-detail{grid-template-columns:1fr 1fr;align-items:start}.pixel-album-detail .pixel-card-flip{width:100%}.pixel-album-detail .pixel-card-story{padding:9px}}
 @media(max-width:420px){.pixel-album-main .pixel-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pixel-album-detail .pixel-card-detail{grid-template-columns:1fr}.pixel-album-detail .pixel-card-flip{max-width:220px}}
+
+/* Portales escenográficos con arco real CSS. El enlace sigue ocupando toda la tarjeta. */
+body.home-pixel .v4-portal-home .pixel-portal.math::before,
+body.home-pixel .v4-portal-home .pixel-portal.lang::before{
+ content:"";display:block;position:absolute;pointer-events:none;z-index:1;
+ inset:16% 27% 14%;border-radius:48% 48% 12% 12%;
+ border:9px ridge #9cded7;background:radial-gradient(ellipse at 50% 52%,#20b8c830,transparent 75%);
+ box-shadow:0 0 0 4px #32403b,0 0 0 7px #d8b87c8a,
+ inset 0 0 32px #64ffee99,0 0 27px #4cead7a1
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang::before{
+ border-color:#d6a0ee;
+ background:radial-gradient(ellipse at 50% 52%,#c478ee33,transparent 75%);
+ box-shadow:0 0 0 4px #3b294c,0 0 0 7px #d8b87c8a,
+ inset 0 0 32px #d28eff99,0 0 27px #ba75f5bb
+}
+@media(max-width:700px){
+ body.home-pixel .v4-portal-home .pixel-portal.math::before,
+ body.home-pixel .v4-portal-home .pixel-portal.lang::before{inset:17% 26% 15%;border-width:6px}
+}
