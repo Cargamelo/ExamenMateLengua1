@@ -40,15 +40,15 @@ jobs:
           PY
       - name: Instalar pruebas Chromium
         run: npm install --no-save playwright-core@1.58.2
-      - name: Validar progresión secuencial y guardado
-        run: |
-          node tests/fases-secuenciales.cjs
-          node tests/guardar-y-bloquear.cjs
       - name: Levantar web de ensayo
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/ligasaber-v6.log 2>&1 &
           sleep 2
           curl -fsS http://127.0.0.1:8765/index.html >/dev/null
+      - name: Validar progresión secuencial y guardado
+        run: |
+          node tests/fases-secuenciales.cjs
+          node tests/guardar-y-bloquear.cjs
       - name: Comprobar seis tamaños, álbum, mapas y ejercicios
         run: node qa-pixel.js
       - name: Miniaturas visuales para auditoría (solo capturas de prueba)
