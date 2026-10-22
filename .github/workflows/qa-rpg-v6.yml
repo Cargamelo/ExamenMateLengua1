@@ -38,12 +38,12 @@ jobs:
           for f in p.glob('datos/*.json'): json.loads(f.read_text())
           print("Recursos e interfaces sin cambios de esquema: OK")
           PY
+      - name: Instalar pruebas Chromium
+        run: npm install --no-save playwright-core@1.58.2
       - name: Validar progresión secuencial y guardado
         run: |
           node tests/fases-secuenciales.cjs
           node tests/guardar-y-bloquear.cjs
-      - name: Instalar pruebas Chromium
-        run: npm install --no-save playwright-core@1.58.2
       - name: Levantar web de ensayo
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/ligasaber-v6.log 2>&1 &
@@ -51,6 +51,24 @@ jobs:
           curl -fsS http://127.0.0.1:8765/index.html >/dev/null
       - name: Comprobar seis tamaños, álbum, mapas y ejercicios
         run: node qa-pixel.js
+      - name: Miniaturas visuales para auditoría (solo capturas de prueba)
+        if: always()
+        run: |
+          python3 -m pip install --disable-pip-version-check Pillow==11.3.0 --quiet
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          from io import BytesIO
+          import base64
+          paths=["01-portada-1366.png","03-mapa-matematicas-1366.png","04-mapa-lengua-1366.png","05-ejercicio-matematicas.png","07-coleccion.png"]
+          for f in paths:
+            path=Path("qa-screenshots")/f
+            if not path.exists(): continue
+            im=Image.open(path).convert("RGB")
+            im.thumbnail((760,650))
+            buf=BytesIO(); im.save(buf,"JPEG",quality=58,optimize=True)
+            print("IMAGEN_AUDITORIA_"+f+"="+base64.b64encode(buf.getvalue()).decode())
+          PY
       - name: Capturas e informe de pruebas
         if: always()
         uses: actions/upload-artifact@v4
