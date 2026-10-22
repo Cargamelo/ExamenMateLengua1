@@ -1,7 +1,7 @@
 "use strict";
 const { chromium }=require('playwright-core');
 const fs=require('fs');
-const sizes=[[360,800],[390,844],[768,1024],[1024,768],[1366,768],[1920,1080]];
+const sizes=[[360,800],[390,844],[768,1024],[1024,768],[1366,768],[1920,1080],[2560,1440],[360,640]];
 const errors=[];let checks=0;
 const chrome=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(x=>fs.existsSync(x));
 const root='http://127.0.0.1:8765';
@@ -13,7 +13,7 @@ async function run(){
  fs.mkdirSync('qa-screenshots',{recursive:true});
  const browser=await chromium.launch({headless:true,executablePath:chrome,args:['--no-sandbox','--disable-gpu']});
  for(const [w,h] of sizes){
-  const p=await browser.newPage({viewport:{width:w,height:h},deviceScaleFactor:1});const runtime=[];
+  const p=await browser.newPage({viewport:{width:w,height:h},deviceScaleFactor:(w===360&&h===640?3:1)});const runtime=[];
   p.on('pageerror',e=>runtime.push(e.message));
   p.on('response',resp=>{if(resp.status()===404&&resp.url().startsWith(root))errors.push('404 '+resp.url())});
   await p.goto(root+'/index.html',{waitUntil:'networkidle'});
@@ -31,7 +31,14 @@ async function run(){
   for(const [name,href,code] of [['matematicas','matematicas-sda1.html','03'],['lengua','lengua-sda1.html','04']]){
    await p.goto(root+'/'+href,{waitUntil:'networkidle'});await pageCheck(p,'.adventure-launch');
    await p.locator('[data-action="topics"]').click();await pageCheck(p,'.stage-node');
-   ok(await p.locator('.stage-node').count()===15,name+' 15 fases '+w);await overflow(p,w,'mapa '+name+' '+w);
+   ok(await p.locator('.stage-node').count()===15,name+' 15 fases '+w);
+   const artwork=await p.locator('.map-ground-art').evaluate(n=>({loaded:n.complete&&n.naturalWidth>0,src:n.currentSrc}));
+   ok(artwork.loaded,name+' mapa cargado '+w);
+   ok(artwork.src.endsWith(w>=900?'.svg':'.webp'),name+' mapa adaptable '+w+' '+artwork.src);
+   await p.emulateMedia({reducedMotion:'reduce'});
+   ok(await p.locator('.stage-guide img').evaluate(n=>getComputedStyle(n).animationName==='none'),name+' movimiento reducido '+w);
+   await p.emulateMedia({reducedMotion:'no-preference'});
+   await overflow(p,w,'mapa '+name+' '+w);
    if(w===1366||w===390)await p.screenshot({path:'qa-screenshots/'+code+'-mapa-'+name+'-'+w+'.png',fullPage:true});
    await p.locator('.stage-node').first().click();await pageCheck(p,'.mission-stage');
    ok((await p.locator('.mission-count').innerText()).includes('15'),name+' reto 1/15 '+w);await overflow(p,w,'ejercicio '+name+' '+w);
