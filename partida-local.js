@@ -10,8 +10,11 @@
  const parse=x=>{try{return JSON.parse(x)}catch{return null}};
  function valid(p){
   if(!p||typeof p!=="object"||Array.isArray(p)||!Array.isArray(p.history)||!Array.isArray(p.misses||[])||!Array.isArray(p.badges||[]))return false;
-  if(p.stageJourney&&(!Number.isSafeInteger(p.stageJourney.version)||p.stageJourney.version>1||!p.stageJourney.completed||typeof p.stageJourney.completed!=="object"||Array.isArray(p.stageJourney.completed)))return false;
-  if(p.adaptive&&(!Number.isSafeInteger(p.adaptive.version)||p.adaptive.version>2))return false;
+  if(p.stageJourney&&(!Number.isSafeInteger(p.stageJourney.version)||p.stageJourney.version!==1||!p.stageJourney.completed||typeof p.stageJourney.completed!=="object"||Array.isArray(p.stageJourney.completed)))return false;
+  if(p.adaptive&&(!Number.isSafeInteger(p.adaptive.version)||p.adaptive.version!==2))return false;
+  if(p.adaptive&&(!p.adaptive.topics||typeof p.adaptive.topics!=="object"||!p.adaptive.rewards||
+    !Number.isSafeInteger(p.adaptive.rewards.coins)||p.adaptive.rewards.coins<0||
+    !Number.isSafeInteger(p.adaptive.rewards.completed)||p.adaptive.rewards.completed<0))return false;
   return true;
  }
  function checkpointValid(c,subject){
@@ -69,9 +72,9 @@
  function queue(subject,progress,checkpoint){pending[subject]={progress:parse(safe(progress)),checkpoint:parse(safe(checkpoint))};void flush()}
  function save(subject,progress,checkpoint){
   if(!allowed(subject)||!valid(progress))return false;
+  if(checkpoint!==undefined&&checkpoint!==null&&!checkpointValid(checkpoint,subject))return false;
   const p=safe(progress);if(p===null||!writeLocal(key(subject),p))return false;
   if(checkpoint!==undefined){
-   if(checkpoint!==null&&!checkpointValid(checkpoint,subject))return false;
    if(!writeLocal(ck(subject),safe(checkpoint)))return false;
   }
   const raw=readLocal(subject);
@@ -83,6 +86,10 @@
   const raw=readLocal(subject);
   const c=parse(raw.checkpoint);return checkpointValid(c,subject)?c:null;
  }
+ function retire(subject){
+  if(!allowed(subject))return false;
+  return writeLocal(key(subject)+"-retired-v3","yes");
+ }
  function clearCheckpoint(subject,progress){
   if(!allowed(subject)||!valid(progress))return false;
   if(!writeLocal(ck(subject),"null"))return false;
@@ -92,6 +99,7 @@
   if(!allowed(subject))return {status:"blocked",reason:"invalid-subject"};
   const local=readLocal(subject),p=parse(local.progress),localValid=valid(p);
   if(local.error)return {status:"blocked",reason:"storage-unavailable"};
+  if(local.progress===null&&localStorage.getItem(key(subject)+"-retired-v3")==="yes")return {status:"empty",progress:null};
   const db=await openDB(),remote=await readDB(db,key(subject)),back=remote?.data;
   const backValid=valid(back);
   if(localValid){
@@ -110,5 +118,5 @@
    return {status:"blocked",reason:"checkpoint-restore-failed"};
   return {status:"recovered",progress:back,checkpoint:checkpointValid(cp,subject)?cp:null};
  }
- window.LigaPartida={save,readCheckpoint,clearCheckpoint,openDB,recover,valid,checkpointValid};
+ window.LigaPartida={save,readCheckpoint,clearCheckpoint,openDB,recover,retire,valid,checkpointValid};
 })();
