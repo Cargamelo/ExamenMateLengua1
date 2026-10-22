@@ -7,10 +7,10 @@ if(!D||!app){document.body.innerHTML="<p>No se han podido cargar los contenidos.
 const META=isMath?{brand:"Reino de los Números",subtitle:"MATEMÁTICAS · 3.º C",hero:"La aventura de los números",intro:"Quince fases llenas de números, acertijos y operaciones.",mascot:"🧙",exam:"Martes 27 de octubre"}:{brand:"Agencia de las Palabras",subtitle:"LENGUA · 3.º C",hero:"Detectives de las palabras",intro:"Quince fases para investigar, leer, escribir y descubrir palabras.",mascot:"🕵️",exam:"Del 26 al 30 de octubre"};
 const key="ligasaber-2026-"+subject;
 let progress={history:[],misses:[],badges:[],lastDate:""};
-try{const saved=JSON.parse(localStorage.getItem(key)||"null");if(saved&&Array.isArray(saved.history))progress={...progress,...saved};}catch(e){}
+let storageAlert="";
 let soundEnabled=!!window.AventuraFX?.isEnabled?.(), audioContext=null, view="home", topic="", mode="practice", difficulty=2, questionStep=0, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
-let voiceRequest=0;let voiceList=[];let memoryState=null;let dictationDraft="";let dictationChecked=false,dictationResult="",expressiveSaved=false,expressiveResult="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini, AV=window.AventuraFX, WORLD=window.AventuraMapas;const adaptive=AD.init(progress,modules.map(x=>x.id));const challengeSeq={};
-const ST=window.AventuraFases,journey=ST.init(progress,subject);
+let voiceRequest=0;let voiceList=[];let memoryState=null;let dictationDraft="";let dictationChecked=false,dictationResult="",expressiveSaved=false,expressiveResult="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini, AV=window.AventuraFX, WORLD=window.AventuraMapas;let adaptive=null;const challengeSeq={};
+const ST=window.AventuraFases;let journey=null;
 let selectedStageId=null,guideFrom=null,dictationWasCorrect=false,expressiveScore=0;
 function refreshVoices(){if("speechSynthesis" in window)voiceList=window.speechSynthesis.getVoices()||[];}
 refreshVoices();
@@ -21,8 +21,9 @@ function shuffle(a){let b=a.slice();for(let i=b.length-1;i>0;i--){const j=rand(i
 function unique(a){return [...new Set(a)]}function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 function fmt(n){return Number(n).toLocaleString("es-ES",{useGrouping:true,maximumFractionDigits:0})}
 function persist(){
- try{localStorage.setItem(key,JSON.stringify(progress))}catch(e){}
- window.LigaPartida?.save(subject,progress,view==="quiz"&&session?.stageId?snapshot():undefined);
+ const stored=window.LigaPartida?.save(subject,progress,view==="quiz"&&session?.stageId?snapshot():undefined);
+ if(stored!==true){storageAlert="No se han podido guardar los avances. Evita cerrar esta pestaña.";return false;}
+ storageAlert="";window.LigaSync?.queueSave?.();return true;
 }
 function snapshot(){
  if(!session?.stageId||view!=="quiz"||session.finished)return null;
@@ -30,7 +31,8 @@ function snapshot(){
   hintCount,response,miniState,session:{...session,seen:[...(session.seen||[])]},updated:Date.now()};
 }
 function saveCheckpoint(){
- if(view==="quiz"&&session?.stageId)window.LigaPartida?.save(subject,progress,snapshot());
+ if(view==="quiz"&&session?.stageId&&!window.LigaPartida?.save(subject,progress,snapshot()))
+  storageAlert="No se ha podido guardar esta pregunta. Conserva abierta la pestaña.";
 }
 function resumable(){
  const c=window.LigaPartida?.readCheckpoint(subject);
@@ -86,7 +88,7 @@ app.innerHTML='<main class="game-container"><header class="game-header">'+
 (soundEnabled?'<details class="sound-mixer"><summary title="Ajustar volumen" aria-label="Ajustar volumen de efectos">♫ Vol.</summary><label for="fx-volume">Volumen de efectos <output id="fx-volume-display">'+Math.round(AV.getVolume()*100)+' %</output></label><input type="range" id="fx-volume" min="0" max="100" step="5" value="'+Math.round(AV.getVolume()*100)+'" aria-label="Volumen de efectos sonoros"><small>Las lecturas en voz alta utilizan el volumen del dispositivo.</small></details>':"")+
 '<button type="button" class="icon-button" data-action="collection" aria-label="Abrir la colección de cartas mágicas">🃏 Colección</button>'+
 '<button type="button" class="icon-button" data-action="home" aria-label="Volver a la pantalla de '+subjectName+'">✦ '+subjectName+'</button></div>'+
-'</header>'+missionHud()+'<div id="view">'+inner+'</div></main>';
+'</header>'+(storageAlert?'<p role="alert" class="feedback bad">'+esc(storageAlert)+'</p>':'')+missionHud()+'<div id="view">'+inner+'</div></main>';
 }
 function button(action,text,extra="",klass="primary-btn"){return '<button type="button" class="'+klass+'" data-action="'+action+'" '+extra+'>'+text+'</button>';}
 function go(where){stopSpeak();view=where;answered=null;hintCount=0;response="";render();window.scrollTo({top:0,behavior:"instant"});}
@@ -454,6 +456,20 @@ if(outcome.done)grade(outcome.ok,-1,outcome.given);else{AV?.play?.(kind==="train
 });
 document.addEventListener("input",e=>{const el=e.target;if(el?.id==="fx-volume"){const value=AV.setVolume(Number(el.value)/100);const display=document.getElementById("fx-volume-display");if(display)display.textContent=Math.round(value*100)+" %";}});
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="response"){e.preventDefault();checkTyped();}});
-render();
-try{const requested=new URLSearchParams(location.search||"").get("view");if(requested==="progress")go("progress");else if(requested==="errors")errors();}catch(e){}
+async function boot(){
+ try{
+  const result=await window.LigaPartida.recover(subject);
+  if(result.status==="blocked"){
+   app.textContent="No se puede abrir la partida de forma segura ("+result.reason+"). Los datos no se han borrado. Conserva este navegador y solicita una revisión.";
+   return;
+  }
+  if(result.progress)progress={...progress,...result.progress};
+  adaptive=AD.init(progress,modules.map(x=>x.id));
+  journey=ST.init(progress,subject);
+  if(result.status==="recovered")storageAlert="Partida recuperada desde una copia local de seguridad.";
+  render();
+  try{const requested=new URLSearchParams(location.search||"").get("view");if(requested==="progress")go("progress");else if(requested==="errors")errors();}catch(e){}
+ }catch(err){app.textContent="No se ha podido verificar la partida. No se han modificado los datos almacenados.";}
+}
+void boot();
 })();
