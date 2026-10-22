@@ -1,0 +1,268 @@
+/* La Liga del Saber V5 · unificacion del bosque nocturno en todas las pantallas interiores.
+ * Se carga al final, despues de bloqueo.css. SOLO cambia presentacion.
+ * Los ejercicios, lecturas y campos de respuesta conservan fondo pergamino y contraste oscuro.
+ */
+:root{
+  --interior-noche:#071622;
+  --interior-azul:#142834;
+  --interior-oro:#d7ae73;
+  --interior-crema:#ffefd2;
+  --interior-madera:#503427;
+  --interior-turquesa:#71e0cc;
+  --interior-violeta:#cf9deb;
+}
+html{background:#071622;color-scheme:dark}
+body.game.pixel-game{
+  background-color:#071622;
+  background-image:
+    linear-gradient(180deg,rgba(4,12,27,.78),rgba(6,24,29,.88) 55%,rgba(5,13,29,.91)),
+    url("./assets/arte-v4/bosque-magico.webp");
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  color:var(--interior-crema);
+  min-height:100svh;
+}
+body.game.pixel-game.lang-game{
+  background-image:
+    linear-gradient(180deg,rgba(16,9,35,.82),rgba(24,19,42,.89) 55%,rgba(9,15,31,.93)),
+    url("./assets/arte-v4/bosque-magico.webp");
+}
+body.game.pixel-game #app{min-height:100svh;background:transparent}
+body.game.pixel-game #view{background:transparent;min-height:calc(100svh - 170px)}
+body.game.pixel-game .game-container{background:transparent;position:relative}
+body.game.pixel-game .game-header{
+  border:3px ridge #d3af79;
+  background:linear-gradient(110deg,#382920f7,#1c292ce8 55%,#4a2d36e8);
+  box-shadow:inset 0 1px 0 #ffdcaf72,0 6px 0 #231923,0 16px 33px #020911a6;
+}
+body.game.pixel-game .game-header .brand strong{color:#ffe5b4}
+body.game.pixel-game .game-header .brand small{color:#e5cfaa}
+body.game.pixel-game .game-header .header-main-menu,
+body.game.pixel-game .game-header .icon-button,
+body.game.pixel-game .game-header .pill-info,
+body.game.pixel-game .back-line .pill-info{
+  background:linear-gradient(145deg,#644536,#322a2b);
+  color:#fff0d0;
+  border:2px solid #b99260;
+  box-shadow:0 4px 0 #17141d;
+}
+body.game.pixel-game .game-header :is(a,button,summary):focus-visible{
+  outline:3px solid #ffebae;outline-offset:3px
+}
+body.game.pixel-game .quest-hero{
+  background-image:
+    linear-gradient(90deg,#071522ec,#10242aaa 65%,#07182572),
+    url("./assets/arte-v4/bosque-magico.webp");
+  border:5px ridge #d3aa73;
+  box-shadow:inset 0 0 0 2px #ffe9ae40,0 8px 0 #261d1e,0 20px 32px #0009;
+}
+body.game.lang-game.pixel-game .quest-hero{
+  background-image:
+    linear-gradient(90deg,#19162cea,#241934bd 66%,#170d2c72),
+    url("./assets/arte-v4/bosque-magico.webp");
+}
+body.game.pixel-game .quest-hero h1,
+body.game.pixel-game .hero-copy h1{
+  color:#ffebb8;text-shadow:0 3px #30201e,0 8px 14px #06101b
+}
+body.game.pixel-game .quest-hero p{color:#f8e8ca}
+body.game.pixel-game .quest-summary>span{
+  background:linear-gradient(140deg,#493729,#252d2e);
+  border:2px solid #d0ae72;
+  box-shadow:0 3px 0 #17191d;
+  color:#ffe9b9;
+}
+body.game.pixel-game .adventure-actions button{
+  border:4px ridge #c6a676;
+  border-radius:18px;
+  color:#fff0cc;
+  text-shadow:0 2px 3px #0009;
+  box-shadow:inset 0 0 0 2px #faeac727,0 7px 0 #241c1e,0 15px 28px #010a169c;
+}
+body.game.pixel-game .adventure-actions .adventure-launch{
+  background:linear-gradient(115deg,#17585cef,#174249eb 57%,#122a38f5)!important;
+  border-color:#85d3b7;
+  color:#f5ffec;
+}
+body.game.lang-game.pixel-game .adventure-actions .adventure-launch{
+  background:linear-gradient(120deg,#634681ef,#382e65ec 60%,#232645fa)!important;
+  border-color:#c09adf;
+}
+body.game.pixel-game .adventure-actions .adventure-repair{
+  background:linear-gradient(115deg,#754d39,#56392c 60%,#31262e)!important;
+  border-color:#d4b176;color:#fff1d6
+}
+body.game.pixel-game .adventure-actions .adventure-icon{
+  border:2px solid #cbb8908a;
+  background:linear-gradient(#ffe7b026,#ffffff0c);
+  box-shadow:inset 0 1px #f9e6b161,0 4px 0 #0003;
+}
+body.game.pixel-game .adventure-actions .launch-arrow{
+  background:#0b1d26bf;border:2px solid #e1bf7c;color:#fff3ce
+}
+body.game.pixel-game .adventure-footer,
+body.game.pixel-game .adventure-footer p,
+body.game.pixel-game .section-lead,
+body.game.pixel-game .small-note{color:#ecddc8}
+body.game.pixel-game .quest-text-button,
+body.game.pixel-game .secondary-btn{
+  background:linear-gradient(145deg,#e5bf85,#b9854e);
+  border:2px solid #f8df9e;color:#422d23;
+  box-shadow:0 4px 0 #644127;text-shadow:none
+}
+/* Pantallas de seleccion, repaso, resultados y logros: eliminar las cajas blancas. */
+body.game.pixel-game .menu-card,
+body.game.pixel-game .adventure-world,
+body.game.pixel-game .level-card,
+body.game.pixel-game .map-heading,
+body.game.pixel-game .map-voyage-intro,
+body.game.pixel-game .material-world,
+body.game.pixel-game .gameworld{
+  color:#ffebcb;
+  background:linear-gradient(145deg,#253f3b,#172a32 55%,#2e2835);
+  border:3px ridge #bc995e;
+  box-shadow:inset 0 0 0 2px #ffefbb1c,0 6px 0 #271e1c,0 14px 26px #0009;
+}
+body.game.lang-game.pixel-game .menu-card,
+body.game.lang-game.pixel-game .adventure-world,
+body.game.lang-game.pixel-game .level-card,
+body.game.lang-game.pixel-game .map-heading,
+body.game.lang-game.pixel-game .material-world,
+body.game.lang-game.pixel-game .gameworld{
+  background:linear-gradient(145deg,#42304c,#25243d 55%,#1b2c33);
+  border-color:#b799bd;
+}
+body.game.pixel-game .menu-card>strong,
+body.game.pixel-game .adventure-world strong,
+body.game.pixel-game .level-card strong,
+body.game.pixel-game .map-heading :is(h1,h2,h3),
+body.game.pixel-game .map-voyage-intro :is(h1,h2,h3){color:#ffdf9e}
+body.game.pixel-game .menu-card>span:last-child,
+body.game.pixel-game .adventure-world :is(small,p),
+body.game.pixel-game .level-card :is(small,p),
+body.game.pixel-game .map-heading p,
+body.game.pixel-game .map-voyage-intro p{
+  color:#efdfc6
+}
+body.game.pixel-game .menu-card .card-icon,
+body.game.pixel-game .level-card .level-icon{
+  background:linear-gradient(135deg,#4d765e60,#2a31517d);
+  border:2px solid #bbaa7c
+}
+body.game.pixel-game .menu-card:focus-visible,
+body.game.pixel-game .level-card:focus-visible{
+  outline:3px solid #ffe8a9;outline-offset:4px
+}
+/* Papel de lectura/pergaminos: nunca blanco plano, siempre tinta oscura legible. */
+body.game.pixel-game .paper,
+body.game.pixel-game .paper.narrow,
+body.game.pixel-game .lesson,
+body.game.pixel-game .mission-pane,
+body.game.pixel-game .mission-interaction,
+body.game.pixel-game .reading,
+body.game.pixel-game .question-visual{
+  background:linear-gradient(150deg,#fff0d2 0%,#e8ce9f 64%,#fae6c1 100%);
+  border:3px ridge #b28a58;
+  border-radius:15px;
+  color:#3b2c27;
+  box-shadow:inset 0 0 0 2px #fff9e4aa,0 6px 0 #65452b,0 14px 25px #0007
+}
+body.game.pixel-game .paper :is(h1,h2,h3,h4),
+body.game.pixel-game .lesson :is(h1,h2,h3),
+body.game.pixel-game .reading :is(h1,h2,h3){
+  color:#533829;text-shadow:none
+}
+body.game.pixel-game .paper :is(p,small,li),
+body.game.pixel-game .reading :is(p,small,li),
+body.game.pixel-game .mission-pane :is(p,small,li),
+body.game.pixel-game .mission-interaction :is(p,small,li){
+  color:#503a31
+}
+body.game.pixel-game .paper .section-title,
+body.game.pixel-game .stage-victory .section-title{
+  color:#60432e;text-shadow:none
+}
+body.game.pixel-game .recovery-hub{
+  background:linear-gradient(150deg,#f5e3bb,#dfbe8b)!important;
+  color:#513926
+}
+body.game.pixel-game .repair-item,
+body.game.pixel-game .result-item,
+body.game.pixel-game .quest-review,
+body.game.pixel-game .question-visual,
+body.game.pixel-game .reading{
+  background:linear-gradient(#fbebc9,#e8d4ad);
+  color:#493325;border:2px solid #ac8a5d;
+  box-shadow:0 3px 0 #74543366;
+}
+body.game.pixel-game .mission-stage{
+  color:#fff1d4;
+  background-image:
+    linear-gradient(160deg,#071827b3,#10202fda),
+    url("./assets/arte-v4/bosque-magico.webp");
+  background-color:#102735;background-position:center;background-size:cover;
+  border:5px ridge #c9a574;
+}
+body.game.lang-game.pixel-game .mission-stage{
+  background-image:linear-gradient(160deg,#180e29b8,#241e37dd),
+    url("./assets/arte-v4/bosque-magico.webp");
+}
+body.game.pixel-game .stage-gameworld{
+  background:linear-gradient(130deg,#3e3028,#1b2a30 60%,#342735);
+  border:5px ridge #d3ac76;
+}
+body.game.pixel-game .stage-gameworld .map-ground-art{
+  object-fit:contain;
+  background:#0a2331
+}
+body.game.pixel-game .stage-map-progress strong,
+body.game.pixel-game .stage-map-progress span,
+body.game.pixel-game .map-access-note,
+body.game.pixel-game .map-flag{
+  color:#ffedc7;background:#483229f4;
+  border:2px solid #b99660
+}
+body.game.pixel-game .stage-victory{
+  background:linear-gradient(150deg,#f7e6c4,#e5ca94 70%,#f4dfb5);
+  color:#4c3529
+}
+body.game.pixel-game .stage-victory :is(p,small,li){color:#583b2b}
+body.game.pixel-game .stat{
+  background:linear-gradient(130deg,#664b36,#40302b);
+  border:3px ridge #b7925b;color:#fff1ce
+}
+body.game.pixel-game .stat small{color:#eddbbd}
+body.game.pixel-game .progress-row{color:#543b2d}
+body.game.pixel-game .quest-place-scene{
+  background:linear-gradient(140deg,#285e64,#27364c 60%,#4e365c);
+  border:3px ridge #bd9765
+}
+body.game.pixel-game .quest-place-title{
+  background:#463029;color:#fff2d3;border-color:#af8d64
+}
+body.game.pixel-game .sound-mixer{
+  background:linear-gradient(#473529,#242b30);color:#fff1ce;border:2px solid #bb965f
+}
+/* El catalogo conserva sus modales oscuros y las tarjetas originales. */
+body.game.pixel-game .pixel-dialog,
+body.game.pixel-game .pixel-overlay-root .pixel-dialog{
+  background:linear-gradient(140deg,#29392f,#162a34 65%,#322538);
+  color:#ffedca;border:4px ridge #c1a06d
+}
+body.game.pixel-game .pixel-dialog .pixel-card-story,
+body.game.pixel-game .pixel-dialog .pixel-card-detail{color:#ffeac5}
+body.game.pixel-game :is(button,a,input,textarea,select):focus-visible{
+  outline:3px solid #ffe49c;outline-offset:2px
+}
+@media(max-width:700px){
+  body.game.pixel-game{background-position:center top;background-size:auto 100%;background-attachment:scroll}
+  body.game.pixel-game .menu-card{min-height:125px}
+  body.game.pixel-game .mission-pane,body.game.pixel-game .mission-interaction{padding:14px}
+  body.game.pixel-game .game-container{padding-left:9px;padding-right:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.game.pixel-game *,body.game.pixel-game *:before,body.game.pixel-game *:after{
+    scroll-behavior:auto
+  }
+}
