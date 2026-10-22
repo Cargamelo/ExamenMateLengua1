@@ -33,7 +33,7 @@ jobs:
           assert 'ligasaber-static-v7-20261022-redisenio-rpg' in (p/'sw.js').read_text()
           assert len(list((p/'assets/pixel/cartas').glob('c???.webp')))==24
           assert all(len(list((p/'assets/pixel/iconos').glob(prefix+'??.webp')))==15 for prefix in ('m','l'))
-          assert 'math-stage-' in (p/'fases.js').read_text() and 'lang' in (p/'fases.js').read_text()
+          assert 'type+"-stage-"' in (p/'fases.js').read_text() and 'lang:[' in (p/'fases.js').read_text()
           assert 'widescreenPositions' in (p/'mapas.js').read_text()
           for f in p.glob('datos/*.json'): json.loads(f.read_text())
           print("Recursos e interfaces sin cambios de esquema: OK")
