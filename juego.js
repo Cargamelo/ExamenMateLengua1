@@ -8,6 +8,12 @@ const META=isMath?{brand:"Reino de los Números",subtitle:"MATEMÁTICAS · 3.º 
 const key="ligasaber-2026-"+subject;
 let progress={history:[],misses:[],badges:[],lastDate:""};
 let storageAlert="";
+function eventId(){return typeof crypto!=="undefined"&&crypto.randomUUID?crypto.randomUUID():
+ String(Date.now())+"-"+Math.random().toString(36).slice(2);}
+function ledgerHas(id){return !!id&&Array.isArray(progress.confirmedEvents)&&progress.confirmedEvents.includes(id);}
+function ledgerAdd(id){if(!id)return;const a=Array.isArray(progress.confirmedEvents)?progress.confirmedEvents:[];
+ if(!a.includes(id))a.push(id);progress.confirmedEvents=a.slice(-3000);
+}
 let soundEnabled=!!window.AventuraFX?.isEnabled?.(), audioContext=null, view="home", topic="", mode="practice", difficulty=2, questionStep=0, session=null, questionIndex=0, answered=null, hintCount=0, response="", materialIndex=0, dictationShow=false;
 let voiceRequest=0;let voiceList=[];let memoryState=null;let dictationDraft="";let dictationChecked=false,dictationResult="",expressiveSaved=false,expressiveResult="";let miniState=null;const AD=window.AventuraAdaptive, MINI=window.AventuraMini, AV=window.AventuraFX, WORLD=window.AventuraMapas;let adaptive=null;const challengeSeq={};
 const ST=window.AventuraFases;let journey=null;
@@ -136,7 +142,7 @@ function startStage(id){
   expressiveSaved=false;expressiveResult="";dictationWasCorrect=false;expressiveScore=0;
   go("material");return;
  }
- session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,stage,topic:stage.topics[0],review:false,adaptive:true,target:15,items:[],results:[],seen:new Set()};
+ session={title:"Fase "+stage.number+" · "+stage.title,stageId:stage.id,attemptId:eventId(),stage,topic:stage.topics[0],review:false,adaptive:true,target:15,items:[],results:[],seen:new Set()};
  questionIndex=0;answered=null;hintCount=0;response="";miniState=null;
  session.items.push(nextStageChallenge());view="quiz";render();saveCheckpoint();
 }
@@ -146,13 +152,19 @@ function nextStageChallenge(){
 }
 function finishStage(score,total){
  if(!session?.stageId||session.stageOutcome)return;
+ const stageEvent="stage:"+(session.attemptId||(session.attemptId=eventId()));
+ if(ledgerHas(stageEvent)){
+  session.stageOutcome={first:false,next:ST.firstPending(subject,journey),justAwarded:false,
+   finalAwarded:journey.finalAwarded,completed:ST.completedCount(subject,journey)};
+  session.stageBonus=0;if(persist())window.LigaPartida?.clearCheckpoint(subject,progress);return;
+ }
  session.stageOutcome=ST.complete(subject,journey,session.stageId,score,total);
  if(!session.stageOutcome)return;
- window.LigaPartida?.clearCheckpoint(subject,progress);
  session.stageBonus=(session.stageOutcome.first?2:0)+(session.stageOutcome.justAwarded?15:0);
  if(session.stageBonus)adaptive.rewards.coins=(adaptive.rewards.coins||0)+session.stageBonus;
  guideFrom=session.stageId;
- persist();
+ ledgerAdd(stageEvent);
+ if(persist())window.LigaPartida?.clearCheckpoint(subject,progress);
 }
 function renderLesson(){const m=topicById(topic);if(!m){go("home");return;}shell(topBack("topics")+'<h1 class="section-title">'+graphicIcon(m.id)+' '+esc(m.title)+'</h1><article class="paper lesson narrow">'+m.lesson+'<div class="action-row">'+button("enter-world","Continuar aventura",'data-topic="'+topic+'"')+'</div></article>');}
 function renderSetup(){enterWorld(topic);}
@@ -165,14 +177,15 @@ function renderProgress(){const n=progress.history.length,correct=progress.histo
 const phases=ST.completedCount(subject,journey),totalStars=stars(),completed=adaptive.rewards?.completed||0,coins=adaptive.rewards?.coins||0;
 shell(topBack()+'<h1 class="section-title">🏆 Mi progreso</h1><div class="stat-grid"><div class="stat"><strong>'+phases+'/15</strong><small>Fases completadas</small></div><div class="stat"><strong>'+totalStars+'</strong><small>Estrellas reales</small></div><div class="stat"><strong>'+coins+'</strong><small>Monedas acumuladas</small></div><div class="stat"><strong>'+completed+'</strong><small>Misiones terminadas</small></div><div class="stat"><strong>'+n+'</strong><small>Intentos</small></div><div class="stat"><strong>'+pct+' %</strong><small>Aciertos</small></div><div class="stat"><strong>'+solid+'/'+modules.length+'</strong><small>Territorios dominados</small></div></div><div class="paper"><h2>Mis territorios</h2>'+modules.map(m=>{const s=master(m.id);return '<div style="margin:15px 0"><div class="progress-row"><strong>'+graphicIcon(m.id)+' '+esc(m.title)+'</strong><span>'+s.percent+' %</span></div><div class="meter"><span style="width:'+s.percent+'%"></span></div><small>'+(!s.tried?"Aún no practicado":s.solid?"¡Buen dominio!":"Continúa practicando")+'</small></div>'}).join("")+'<p class="small-note">Dominio orientativo: al menos 5 ejercicios y 80 % de aciertos recientes. No es una nota del colegio.</p>'+(journey.finalAwarded?'<p class="stage-final-badge">🏆 Insignia de las 15 fases conseguida</p>':"")+'</div><div class="action-row">'+button("errors","Repasar mis errores")+button("reset-confirm","Reiniciar mi progreso","","secondary-btn")+'</div>');}
 function renderSchedule(){const days=[["20–21 octubre","Descubre todos los contenidos y comprueba cuáles te cuestan."],["22–23 octubre","Practica los apartados en los que has cometido errores."],["24–25 octubre","Repaso general y simulacros de Matemáticas y teoría de Lengua."],["26 octubre","Preguntas de teoría de Lengua. Repaso breve de Matemáticas."],["27 octubre","Prueba escrita de Matemáticas. Actividades de Lengua."],["28 octubre","Lengua: comprensión lectora, escritura y puntuación."],["29 octubre","Comprensión lectora. Prepara el dictado."],["30 octubre","Dictado de Lengua."]];shell(topBack()+'<h1 class="section-title">🗓️ Plan de repaso</h1><div class="paper narrow"><p>Una propuesta para estudiar en sesiones cortas, sin agobios. Puedes jugar cualquier día a cualquier contenido.</p>'+days.map(([date,t])=>'<div class="result-item"><b>'+date+'</b>'+t+'</div>').join("")+'</div>');}
-function record(q,ok,usedHints){
+function record(q,ok,usedHints,id=null){
+if(ledgerHas(id)){persist();return {changed:0,step:AD.status(adaptive,q.topic).step,concept:AD.concept(q),needs:AD.pending(adaptive).length,duplicate:true};}
 const status=AD.status(adaptive,q.topic);
 const info=AD.track(adaptive,q,ok,usedHints);
 progress.history.push({topic:q.topic,variant:q.variant||"",concept:info.concept,step:status.step,ok:!!ok,hint:usedHints,fingerprint:String(q.fingerprint||q.prompt||"").slice(0,170),date:Date.now()});
 if(progress.history.length>500)progress.history=progress.history.slice(-500);
 if(!ok){progress.misses.push({topic:q.topic,variant:q.variant||"",concept:info.concept,time:Date.now()});if(progress.misses.length>120)progress.misses=progress.misses.slice(-120);}
 else{const i=progress.misses.findIndex(m=>m.topic===q.topic&&m.concept===info.concept);if(i>=0)progress.misses.splice(i,1);}
-persist();return info;
+ledgerAdd(id);persist();return info;
 }
 function exam(){if(isMath){difficulty=2;mode="test";const qs=[];for(const m of modules)qs.push(...generate(m.id,4));startQuiz(qs,"Simulacro de Matemáticas");return;}
 view="exam-lang";shell(topBack()+'<h1 class="section-title">📝 Evaluación de Lengua</h1><p class="section-lead">En clase se evaluarán contenidos distintos a lo largo de la semana. Elige el apartado que quieres preparar.</p><div class="menu-grid">'+card("Teoría","Sinónimos, antónimos y comunicación","🧠","lang-test",'data-kind="teoria"')+card("Actividades","Ejercicios variados y puntuación","✏️","lang-test",'data-kind="actividades"')+card("Comprensión","Lectura y seis preguntas","📚","lang-test",'data-kind="comprension"')+card("Dictado","Escucha y escribe","🎧","lang-test",'data-kind="dictado"')+card("Lectura expresiva","Practica la lectura en voz alta","🎭","lang-test",'data-kind="expresiva"')+'</div>');}
@@ -265,7 +278,7 @@ function grade(ok,choice,input){
  if(answered!==null)return;const q=session.items[questionIndex];
  answered={ok:!!ok,choice};response=input||"";
  session.results.push({question:q,ok:!!ok,hints:hintCount,given:q.mechanic?(input||"Respuesta interactiva"):q.choices?(q.choices[choice]??"Sin respuesta"):response});
- const info=record(q,ok,hintCount);fx(ok,q,info);renderQuiz();
+ const info=record(q,ok,hintCount,session?.stageId?(session.attemptId||(session.attemptId=eventId()))+":"+questionIndex:null);fx(ok,q,info);renderQuiz();
 }
 function checkTyped(){if(!session||answered!==null)return;const el=document.getElementById("response");if(!el)return;const v=el.value.trim(),q=session.items[questionIndex];if(!v){el.focus();return;}let ok=false;if(q.numeric){const norm=s=>String(s).replace(/[\s.]/g,"");ok=/^\d+$/.test(norm(v))&&Number(norm(v))===Number(norm(q.correct));}else if(q.exact){ok=v.normalize("NFC").replace(/\s+/g," ").trim()===String(q.correct).normalize("NFC").replace(/\s+/g," ").trim();}else{ok=v.toLocaleLowerCase("es").normalize("NFC").replace(/\s+/g," ")===String(q.correct).toLocaleLowerCase("es").normalize("NFC").replace(/\s+/g," ");}grade(ok,-1,v);}
 function next(){
@@ -273,7 +286,10 @@ function next(){
  const count=session.target||session.items.length;
  if(questionIndex>=count-1){
    if(session.finished)return;session.finished=true;
-   if(session.adaptive){AD.finishMission(adaptive,session.topic,session.results.filter(r=>r.ok).length);persist();}
+   if(session.adaptive){
+     const missionId="mission:"+(session.attemptId||(session.attemptId=eventId()));
+     if(!ledgerHas(missionId)){AD.finishMission(adaptive,session.topic,session.results.filter(r=>r.ok).length);ledgerAdd(missionId);persist();}
+    }
    finishStage(session.results.filter(r=>r.ok).length,session.results.length);
    AV?.play("mission");view="result";render();return;
  }
