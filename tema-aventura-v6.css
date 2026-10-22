@@ -370,3 +370,34 @@ body.game.pixel-game .stage-road.mobile-road{display:block}
  body.game.pixel-game .stage-territories{gap:5px}
  body.game.pixel-game .stage-territory{font-size:.67rem;min-height:32px;padding:5px 8px}
 }
+
+/* Álbum RPG: filtros auténticos, cuadrícula y carta seleccionada a la vista. */
+.pixel-dialog:has(.pixel-album-layout){width:min(1440px,100%);max-height:94dvh}
+.pixel-album-layout{display:grid;grid-template-columns:minmax(148px,175px) minmax(0,1fr) minmax(250px,325px);gap:16px;align-items:start;margin-top:16px;min-width:0}
+.pixel-album-layout > *{min-width:0}
+.pixel-album-sidebar,.pixel-album-main,.pixel-album-detail{border:3px ridge #b58c55;border-radius:15px;background:linear-gradient(145deg,#563c2f,#2a282a);box-shadow:inset 0 0 0 2px #fff4b11d,0 6px 0 #111921}
+.pixel-album-sidebar{padding:13px 10px}.pixel-album-sidebar h3{color:#ffe2a1;font:900 1.05rem Georgia,serif;margin:0 0 11px}
+.pixel-album-sidebar .pixel-album-actions{display:grid;gap:7px;margin:0}
+.pixel-album-sidebar .pixel-album-actions button{display:flex;justify-content:space-between;align-items:center;gap:5px;padding:9px 8px;font-size:.78rem;min-height:48px;text-align:left}
+.pixel-album-sidebar .pixel-album-actions small{display:grid;place-items:center;min-width:28px;min-height:28px;background:#231d21b9;color:#ffecbe;border:1px solid #d0aa68;border-radius:9px;font-size:.72rem}
+.pixel-album-sidebar .pixel-album-actions [aria-pressed=true] small{background:#7f5b32;color:#fff3ca}
+.pixel-album-sidebar .pixel-album-counter{margin:16px 3px 3px;font-size:.78rem;color:#f9dbad}
+.pixel-album-main{padding:13px;max-height:69dvh;overflow:auto;overscroll-behavior:contain}
+.pixel-album-main .pixel-album-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.pixel-album-main .pixel-card-tile{padding:6px;border-radius:10px;min-width:0;min-height:138px}
+.pixel-album-main .pixel-card-image{aspect-ratio:5/7}
+.pixel-album-main .pixel-card-title{font-size:.69rem}
+.pixel-album-detail{padding:14px;max-height:69dvh;overflow:auto;color:#36291f;background:linear-gradient(#fcf0d2,#dec397)}
+.pixel-album-detail .pixel-selected-title{font:900 clamp(1.1rem,1.45vw,1.5rem)/1.22 Georgia,serif;color:#3c2a1d;text-align:center;margin:2px 0 12px}
+.pixel-album-detail .pixel-card-detail{display:grid;grid-template-columns:1fr;gap:11px;margin:0;justify-items:center}
+.pixel-album-detail .pixel-card-flip{width:min(100%,245px);margin:0 auto;min-width:0}
+.pixel-album-detail .pixel-card-story{width:100%;background:#fff6e4;padding:12px;border-width:2px;box-shadow:none}
+.pixel-album-detail .pixel-card-story h3{font-size:1.03rem;margin:2px 0}
+.pixel-album-detail .pixel-card-story p{font-size:.82rem;line-height:1.45}
+.pixel-album-detail .pixel-card-story .pixel-power-disabled{font-size:.75rem;padding:10px;margin:4px 0}
+.pixel-album-detail .pixel-fantasy-btn{min-height:45px;padding:9px 11px;font-size:.8rem}
+.pixel-album-empty{display:grid;place-items:center;text-align:center;gap:10px;padding:36px 15px;min-height:280px;color:#483021}
+.pixel-album-empty>span{font-size:3rem;color:#b98834}.pixel-album-empty h3{font:900 1.3rem Georgia,serif}.pixel-album-empty p{line-height:1.5}
+@media(max-width:1000px){.pixel-album-layout{grid-template-columns:minmax(132px,170px) minmax(0,1fr)}.pixel-album-detail{grid-column:2;max-height:none}.pixel-album-main{max-height:60dvh}.pixel-album-main .pixel-album-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.pixel-album-layout{grid-template-columns:minmax(0,1fr);gap:10px}.pixel-album-sidebar{padding:9px}.pixel-album-sidebar .pixel-album-actions{display:flex;overflow-x:auto;scrollbar-width:thin;gap:5px}.pixel-album-sidebar .pixel-album-actions button{flex:0 0 auto;padding:7px 9px}.pixel-album-sidebar .pixel-album-counter{margin:6px 0 0}.pixel-album-main{max-height:52dvh;padding:8px}.pixel-album-main .pixel-album-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.pixel-album-detail{grid-column:auto;max-height:none}.pixel-album-detail .pixel-card-detail{grid-template-columns:1fr 1fr;align-items:start}.pixel-album-detail .pixel-card-flip{width:100%}.pixel-album-detail .pixel-card-story{padding:9px}}
+@media(max-width:420px){.pixel-album-main .pixel-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pixel-album-detail .pixel-card-detail{grid-template-columns:1fr}.pixel-album-detail .pixel-card-flip{max-width:220px}}
