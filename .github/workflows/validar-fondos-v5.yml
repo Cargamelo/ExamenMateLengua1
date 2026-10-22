@@ -1,0 +1,48 @@
+name: Revisar fondos de La Liga del Saber
+on:
+  push:
+    branches:
+      - unificar-fondos-interiores-2026-10-22
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Comprobar scripts y recursos
+        run: |
+          for file in *.js tests/*.cjs; do node --check "$file"; done
+          test -s tema-ambientes-v5.css
+          grep -q 'tema-ambientes-v5.css' matematicas-sda1.html
+          grep -q 'tema-ambientes-v5.css' lengua-sda1.html
+          grep -q 'ligasaber-static-v6-20261022-interiores' sw.js
+          python3 -m json.tool manifest.webmanifest >/dev/null
+      - name: Preparar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar aplicación
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/liga-fondos.log 2>&1 &
+          sleep 2
+      - name: Comprobar progresion y guardado
+        run: |
+          node tests/fases-secuenciales.cjs
+          node tests/guardar-y-bloquear.cjs
+      - name: Comprobar fondos y ventanas a tres resoluciones
+        run: node tests/tema-ambientes-v5.cjs
+      - name: Comprobar navegacion y seis resoluciones
+        run: node qa-pixel.js
+      - name: Guardar capturas de pantallas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-fondos-nuevos
+          path: |
+            qa-fondos/
+            qa-screenshots/
+          if-no-files-found: ignore
