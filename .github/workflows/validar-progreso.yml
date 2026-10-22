@@ -24,6 +24,8 @@ jobs:
         run: node tests/fases-secuenciales.cjs
       - name: Comprobar integridad y recuperación sintética
         run: node tests/integridad-b.cjs
+      - name: Comprobar validación remota de partidas
+        run: node tests/validacion-remota-b.cjs
       - name: Preparar navegador
         run: npm install --no-save playwright-core@1.58.2
       - name: Servir aplicación
