@@ -213,7 +213,6 @@ body.game.pixel-game .stage-gameworld{
   border:5px ridge #d3ac76;
 }
 body.game.pixel-game .stage-gameworld .map-ground-art{
-  object-fit:contain;
   background:#0a2331
 }
 body.game.pixel-game .stage-map-progress strong,
