@@ -22,8 +22,9 @@ function character(isMath){return '<img class="world-guide" src="./assets/arte-v
 // Las coordenadas panorámicas son visuales y nunca reemplazan IDs persistentes.
 const widescreenPositions=Array.from({length:15},(_,i)=>({x:[12,31,50,69,88][i<5?i:i<10?9-i:i-10],y:i<5?27:i<10?51:76}));
 const pixelArtByStage={
- math:["m01","m02","m03","m04","m05","m07","m08","m10","m11","m13","m14","m15","m06","m09","m15"],
- lang:["l01","l03","l02","l04","l05","l06","l07","l08","l09","l02","l06","l08","l12","l14","l11"]
+ // Equivalencias visuales por concepto, no por el título histórico del ZIP.
+ math:["m01","m03","m09","m06","m05","m07","m08","m10","m12","m13","m14","m15","m09","m07","m15"],
+ lang:["l02","l03","l01","l04","l05","l06","l08","l12","l09","l01","l05","l08","l13","l15","l09"]
 };
 function render(isMath,stages,journey,escape){
  const theme=isMath?"math":"lang",type=theme;
