@@ -1,0 +1,346 @@
+{
+  "version": 1,
+  "description": "Contrato explícito por posición. Los títulos y territorios artísticos son metadatos, no reglas ni nuevos desbloqueos.",
+  "entries": [
+    {
+      "artId": "M01",
+      "engineId": "math-stage-01",
+      "order": 1,
+      "artTitle": "El Umbral de las Cifras",
+      "engineTitle": "La puerta de los números",
+      "artTopic": "numeros",
+      "engineTopics": [
+        "numeros"
+      ]
+    },
+    {
+      "artId": "M02",
+      "engineId": "math-stage-02",
+      "order": 2,
+      "artTitle": "Las Luciérnagas de los Millares",
+      "engineTitle": "Las torres de las cifras",
+      "artTopic": "numeros",
+      "engineTopics": [
+        "numeros"
+      ]
+    },
+    {
+      "artId": "M03",
+      "engineId": "math-stage-03",
+      "order": 3,
+      "artTitle": "La Torre de los Ceros",
+      "engineTitle": "La caja fuerte secreta",
+      "artTopic": "numeros",
+      "engineTopics": [
+        "numeros"
+      ]
+    },
+    {
+      "artId": "M04",
+      "engineId": "math-stage-04",
+      "order": 4,
+      "artTitle": "El Río de los Bloques",
+      "engineTitle": "La montaña de los millares",
+      "artTopic": "descomponer",
+      "engineTopics": [
+        "descomponer"
+      ]
+    },
+    {
+      "artId": "M05",
+      "engineId": "math-stage-05",
+      "order": 5,
+      "artTitle": "Los Cristales de Posición",
+      "engineTitle": "Los cristales del cero",
+      "artTopic": "descomponer",
+      "engineTopics": [
+        "descomponer"
+      ]
+    },
+    {
+      "artId": "M06",
+      "engineId": "math-stage-06",
+      "order": 6,
+      "artTitle": "La Montaña de las Mil Piezas",
+      "engineTitle": "El puente de los gigantes",
+      "artTopic": "descomponer",
+      "engineTopics": [
+        "comparar"
+      ]
+    },
+    {
+      "artId": "M07",
+      "engineId": "math-stage-07",
+      "order": 7,
+      "artTitle": "El Puente de los Signos",
+      "engineTitle": "El camino ordenado",
+      "artTopic": "comparar",
+      "engineTopics": [
+        "comparar"
+      ]
+    },
+    {
+      "artId": "M08",
+      "engineId": "math-stage-08",
+      "order": 8,
+      "artTitle": "Los Vagones Perdidos",
+      "engineTitle": "El castillo de las posiciones",
+      "artTopic": "comparar",
+      "engineTopics": [
+        "ordinales"
+      ]
+    },
+    {
+      "artId": "M09",
+      "engineId": "math-stage-09",
+      "order": 9,
+      "artTitle": "Las Tres Llaves Numéricas",
+      "engineTitle": "La carrera del podio",
+      "artTopic": "comparar",
+      "engineTopics": [
+        "ordinales"
+      ]
+    },
+    {
+      "artId": "M10",
+      "engineId": "math-stage-10",
+      "order": 10,
+      "artTitle": "El Sendero de las Posiciones",
+      "engineTitle": "La fábrica de sumas",
+      "artTopic": "ordinales",
+      "engineTopics": [
+        "operaciones"
+      ]
+    },
+    {
+      "artId": "M11",
+      "engineId": "math-stage-11",
+      "order": 11,
+      "artTitle": "La Carrera de los Guardianes",
+      "engineTitle": "El taller de las restas",
+      "artTopic": "ordinales",
+      "engineTopics": [
+        "operaciones"
+      ]
+    },
+    {
+      "artId": "M12",
+      "engineId": "math-stage-12",
+      "order": 12,
+      "artTitle": "El Podio Encantado",
+      "engineTitle": "Los engranajes mágicos",
+      "artTopic": "ordinales",
+      "engineTopics": [
+        "operaciones"
+      ]
+    },
+    {
+      "artId": "M13",
+      "engineId": "math-stage-13",
+      "order": 13,
+      "artTitle": "El Taller de las Sumas",
+      "engineTitle": "La cámara de los enigmas",
+      "artTopic": "operaciones",
+      "engineTopics": [
+        "numeros",
+        "descomponer"
+      ]
+    },
+    {
+      "artId": "M14",
+      "engineId": "math-stage-14",
+      "order": 14,
+      "artTitle": "La Máquina de las Restas",
+      "engineTitle": "El gran desafío matemático",
+      "artTopic": "operaciones",
+      "engineTopics": [
+        "comparar",
+        "operaciones"
+      ]
+    },
+    {
+      "artId": "M15",
+      "engineId": "math-stage-15",
+      "order": 15,
+      "artTitle": "La Gran Forja Numérica",
+      "engineTitle": "El castillo de la gran estrella",
+      "artTopic": "operaciones",
+      "engineTopics": [
+        "numeros",
+        "descomponer",
+        "comparar",
+        "ordinales",
+        "operaciones"
+      ]
+    },
+    {
+      "artId": "L01",
+      "engineId": "lang-stage-01",
+      "order": 1,
+      "artTitle": "Los Cristales Hermanos",
+      "engineTitle": "El laboratorio de las palabras",
+      "artTopic": "sinonimos",
+      "engineTopics": [
+        "sinonimos"
+      ]
+    },
+    {
+      "artId": "L02",
+      "engineId": "lang-stage-02",
+      "order": 2,
+      "artTitle": "El Jardín de las Palabras Afines",
+      "engineTitle": "El bosque de los contrarios",
+      "artTopic": "sinonimos",
+      "engineTopics": [
+        "antonimos"
+      ]
+    },
+    {
+      "artId": "L03",
+      "engineId": "lang-stage-03",
+      "order": 3,
+      "artTitle": "El Espejo de los Contrarios",
+      "engineTitle": "Los cristales amigos",
+      "artTopic": "antonimos",
+      "engineTopics": [
+        "sinonimos"
+      ]
+    },
+    {
+      "artId": "L04",
+      "engineId": "lang-stage-04",
+      "order": 4,
+      "artTitle": "El Sendero Inverso",
+      "engineTitle": "El sendero de los opuestos",
+      "artTopic": "antonimos",
+      "engineTopics": [
+        "antonimos"
+      ]
+    },
+    {
+      "artId": "L05",
+      "engineId": "lang-stage-05",
+      "order": 5,
+      "artTitle": "El Mensajero del Bosque",
+      "engineTitle": "La agencia de mensajes",
+      "artTopic": "comunicacion",
+      "engineTopics": [
+        "comunicacion"
+      ]
+    },
+    {
+      "artId": "L06",
+      "engineId": "lang-stage-06",
+      "order": 6,
+      "artTitle": "La Radio de la Montaña",
+      "engineTitle": "El correo misterioso",
+      "artTopic": "comunicacion",
+      "engineTopics": [
+        "comunicacion"
+      ]
+    },
+    {
+      "artId": "L07",
+      "engineId": "lang-stage-07",
+      "order": 7,
+      "artTitle": "El Tintero Despierto",
+      "engineTitle": "El taller de las mayúsculas",
+      "artTopic": "puntuacion",
+      "engineTopics": [
+        "puntuacion"
+      ]
+    },
+    {
+      "artId": "L08",
+      "engineId": "lang-stage-08",
+      "order": 8,
+      "artTitle": "La Imprenta Encantada",
+      "engineTitle": "El pergamino de los puntos",
+      "artTopic": "puntuacion",
+      "engineTopics": [
+        "puntuacion"
+      ]
+    },
+    {
+      "artId": "L09",
+      "engineId": "lang-stage-09",
+      "order": 9,
+      "artTitle": "La Biblioteca de las Huellas",
+      "engineTitle": "La biblioteca secreta",
+      "artTopic": "comprension",
+      "engineTopics": [
+        "comprension"
+      ]
+    },
+    {
+      "artId": "L10",
+      "engineId": "lang-stage-10",
+      "order": 10,
+      "artTitle": "La Página Escondida",
+      "engineTitle": "El cofre de las palabras",
+      "artTopic": "comprension",
+      "engineTopics": [
+        "sinonimos",
+        "antonimos"
+      ]
+    },
+    {
+      "artId": "L11",
+      "engineId": "lang-stage-11",
+      "order": 11,
+      "artTitle": "El Misterio del Farol",
+      "engineTitle": "La central de comunicación",
+      "artTopic": "comprension",
+      "engineTopics": [
+        "comunicacion"
+      ]
+    },
+    {
+      "artId": "L12",
+      "engineId": "lang-stage-12",
+      "order": 12,
+      "artTitle": "El Eco de las Frases",
+      "engineTitle": "La imprenta encantada",
+      "artTopic": "dictado",
+      "engineTopics": [
+        "puntuacion"
+      ]
+    },
+    {
+      "artId": "L13",
+      "engineId": "lang-stage-13",
+      "order": 13,
+      "artTitle": "El Taller del Dictado",
+      "engineTitle": "La sala de los dictados",
+      "artTopic": "dictado",
+      "engineTopics": [
+        "dictado"
+      ]
+    },
+    {
+      "artId": "L14",
+      "engineId": "lang-stage-14",
+      "order": 14,
+      "artTitle": "El Teatro de las Pausas",
+      "engineTitle": "El teatro de las voces",
+      "artTopic": "expresiva",
+      "engineTopics": [
+        "expresiva"
+      ]
+    },
+    {
+      "artId": "L15",
+      "engineId": "lang-stage-15",
+      "order": 15,
+      "artTitle": "La Gran Función de las Voces",
+      "engineTitle": "El gran misterio final",
+      "artTopic": "expresiva",
+      "engineTopics": [
+        "sinonimos",
+        "antonimos",
+        "comunicacion",
+        "puntuacion"
+      ]
+    }
+  ]
+}
