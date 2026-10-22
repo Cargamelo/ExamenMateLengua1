@@ -99,6 +99,8 @@
   if(!allowed(subject))return {status:"blocked",reason:"invalid-subject"};
   const local=readLocal(subject),p=parse(local.progress),localValid=valid(p);
   if(local.error)return {status:"blocked",reason:"storage-unavailable"};
+  if(p&&((p.stageJourney&&p.stageJourney.version!==1)||(p.adaptive&&p.adaptive.version!==2)))
+   return {status:"blocked",reason:"unsupported-data-version"};
   if(local.progress===null&&localStorage.getItem(key(subject)+"-retired-v3")==="yes")return {status:"empty",progress:null};
   const db=await openDB(),remote=await readDB(db,key(subject)),back=remote?.data;
   const backValid=valid(back);
