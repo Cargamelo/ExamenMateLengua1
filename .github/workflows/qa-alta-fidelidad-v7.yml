@@ -30,7 +30,7 @@ jobs:
             ET.parse(f)
           for f in ("index.html","matematicas-sda1.html","lengua-sda1.html"):
             assert 'tema-aventura-v6.css' in (p/f).read_text(),f
-          assert 'ligasaber-static-v7-20261022-redisenio-rpg' in (p/'sw.js').read_text()
+          assert 'ligasaber-static-v8-20261023-arte-fidelidad' in (p/'sw.js').read_text()
           assert len(list((p/'assets/pixel/cartas').glob('c???.webp')))==24
           assert all(len(list((p/'assets/pixel/iconos').glob(prefix+'??.webp')))==15 for prefix in ('m','l'))
           assert 'type+"-stage-"' in (p/'fases.js').read_text() and 'lang:[' in (p/'fases.js').read_text()
