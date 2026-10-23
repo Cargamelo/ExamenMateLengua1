@@ -628,3 +628,96 @@ body.game.pixel-game .map-access-note{margin:10px auto 0;padding:9px 14px;font-s
  body.game.pixel-game .stage-artscape{height:2020px;min-height:2020px}
  body.game.pixel-game.lang-game .stage-artscape{height:2270px;min-height:2270px}
 }
+
+/* Alta fidelidad: pergaminos y sala de cartas, sin cambiar formularios educativos. */
+body.game.pixel-game .mission-stage{
+ padding:clamp(12px,2vw,28px);border:7px ridge #c49b64;border-radius:19px;
+ background-image:radial-gradient(ellipse at 80% 25%,#5d489c3f,transparent 60%),
+ linear-gradient(145deg,#101e2cd7,#18172bc3),url("./assets/arte-v4/bosque-magico.webp");
+ box-shadow:inset 0 0 0 3px #ffdb9554,0 13px 25px #0008
+}
+body.game.pixel-game .mission-toolbar{
+ border:3px ridge #c4a36e;border-radius:13px;margin:0 0 6px;padding:9px 14px;
+ background:linear-gradient(130deg,#62422ce8,#32272de9);
+}
+body.game.pixel-game .mission-layout{
+ display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);
+ gap:clamp(13px,2vw,25px);align-items:start
+}
+body.game.pixel-game .mission-pane{
+ border:6px ridge #b9915a;padding:clamp(13px,2vw,27px);
+ background:linear-gradient(145deg,#fff4d5,#ead0a6 70%,#fff2d6)
+}
+body.game.pixel-game .mission-interaction{
+ border:5px ridge #b9915a;min-height:270px;padding:clamp(12px,2vw,22px)
+}
+body.game.pixel-game .mission-pane::before{
+ content:"❧";position:absolute;top:9px;right:13px;color:#bc8750;font-size:1.6rem;pointer-events:none
+}
+body.game.pixel-game .mission-pane .q-title{
+ font:900 clamp(1.3rem,2vw,1.9rem)/1.4 Georgia,serif;color:#35251d
+}
+body.game.pixel-game .mission-pane .quest-place-scene{max-height:168px;overflow:hidden}
+body.game.pixel-game .mission-interaction .choice{
+ min-height:63px;border:4px ridge #bc945c;border-radius:11px;
+ background:linear-gradient(#fff9e9,#efdbb3);color:#442e20;
+ box-shadow:0 4px 0 #987447;text-shadow:none;
+ font:900 clamp(1.02rem,1.8vw,1.34rem)/1.3 Georgia,serif
+}
+body.game.pixel-game .mission-interaction .choice:hover:not(:disabled){
+ background:linear-gradient(#e6fff5,#a0e1c4);color:#20432f
+}
+body.game.pixel-game.lang-game .mission-interaction .choice:hover:not(:disabled){
+ background:linear-gradient(#f9eaff,#dfb9fc);color:#483058
+}
+.pixel-overlay-root{background:#061322e6}
+.pixel-dialog:has(.pixel-album-layout){
+ border:9px ridge #bd864d;border-radius:20px;
+ background:radial-gradient(ellipse at 52% 4%,#ce8e4c4e,transparent 60%),
+ linear-gradient(120deg,#21191f,#533625 40%,#392b26 80%,#241c23);
+ box-shadow:inset 0 0 0 5px #ffd88a79,0 13px 0 #2b1a16,0 28px 75px #000c
+}
+.pixel-dialog:has(.pixel-album-layout)::before,
+.pixel-dialog:has(.pixel-album-layout)::after{
+ content:"✦";position:absolute;top:7px;color:#ffd68f;font-size:1.6rem;
+ text-shadow:0 0 14px #d8b267;pointer-events:none
+}
+.pixel-dialog:has(.pixel-album-layout)::before{left:11px}
+.pixel-dialog:has(.pixel-album-layout)::after{right:11px}
+.pixel-dialog:has(.pixel-album-layout) .pixel-modal-head{
+ background:linear-gradient(#91613f,#4f3227);border:5px ridge #bc874b;
+ padding:12px 22px;border-radius:13px;box-shadow:0 5px 0 #271c1c
+}
+.pixel-dialog:has(.pixel-album-layout) .pixel-modal-head h2{
+ color:#ffdb9d;font:900 clamp(1.6rem,2.5vw,2.5rem) Georgia,serif
+}
+.pixel-album-sidebar{
+ background:linear-gradient(#745033,#34251f);border:5px ridge #ad7844
+}
+.pixel-album-main{
+ background-color:#231a1b;
+ background-image:repeating-linear-gradient(to bottom,transparent 0,
+ transparent 178px,#ab784c 180px,#d1a56a 186px,#634023 195px,#241b1b 204px,#130f15 218px);
+ border:10px ridge #9f703e;
+ box-shadow:inset 0 0 0 5px #ffdb9770,0 9px 0 #251817
+}
+.pixel-album-main .pixel-card-tile{
+ background:linear-gradient(#573625,#24212b);border:3px ridge #b27b4a;
+ box-shadow:0 4px 0 #120e17
+}
+.pixel-album-main .pixel-card-tile.pixel-rarity-legendaria{border-color:#ffdf83}
+.pixel-album-detail{
+ border:9px ridge #a57542;background:linear-gradient(#ffefc8,#e5c48e);
+ box-shadow:inset 0 0 0 3px #fff4d2aa,0 6px 0 #291d1d
+}
+.pixel-album-detail .pixel-card-story{background:#fff4d4}
+@media(max-width:700px){
+ body.game.pixel-game .mission-layout{grid-template-columns:1fr}
+ body.game.pixel-game .mission-interaction{min-height:140px}
+ .pixel-album-main{background-size:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ body.home-pixel *,body.game.pixel-game *,.pixel-overlay-root *{
+  animation:none!important;transition:none!important;scroll-behavior:auto!important
+ }
+}
