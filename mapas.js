@@ -20,7 +20,11 @@ const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
 function character(isMath){return '<img class="world-guide" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="311" height="341" loading="lazy" decoding="async">';}
 // Las coordenadas panorámicas son visuales y nunca reemplazan IDs persistentes.
-const widescreenPositions=Array.from({length:15},(_,i)=>({x:[12,31,50,69,88][i<5?i:i<10?9-i:i-10],y:i<5?27:i<10?51:76}));
+const widescreenPaths={
+ math:[[13,31],[26,23],[38,31],[52,22],[64,25],[77,33],[88,44],[85,58],[73,54],[61,66],[49,56],[37,70],[24,66],[35,83],[63,82]],
+ lang:[[11,29],[22,38],[34,26],[46,39],[57,28],[68,39],[80,27],[88,48],[78,59],[64,55],[52,71],[40,63],[29,78],[52,85],[76,81]]
+};
+const smoothPath=(points)=>{if(points.length<2)return "";let s="M"+(points[0][0]*10)+","+(points[0][1]*10);for(let i=1;i<points.length;i++){let prev=points[i-1],curr=points[i],mid=[(prev[0]+curr[0])*5,(prev[1]+curr[1])*5];s+=" Q"+(prev[0]*10)+","+(prev[1]*10)+" "+mid.join(",");}let last=points[points.length-1];return s+" T"+(last[0]*10)+","+(last[1]*10);};
 const pixelArtByStage={
  // Equivalencias visuales por concepto, no por el título histórico del ZIP.
  math:["m01","m03","m09","m06","m05","m07","m08","m10","m12","m13","m14","m15","m09","m07","m15"],
@@ -30,17 +34,20 @@ function render(isMath,stages,journey,escape){
  const theme=isMath?"math":"lang",type=theme;
  const active=window.AventuraFases.firstPending(type,journey)||stages[stages.length-1];
  const done=window.AventuraFases.completedCount(type,journey);
+ const widescreenPositions=widescreenPaths[theme].map(([x,y])=>({x,y}));
  const wideGuide=widescreenPositions[active.number-1];
  const landmarks=(isMath?["numeros","descomponer","comparar","ordinales","operaciones"]:["sinonimos","antonimos","comunicacion","puntuacion","comprension","dictado","expresiva"]).map(id=>{
   const p=places[id];return '<div class="stage-landmark" style="--lx:'+p.left+'%;--ly:'+p.top+'%" aria-hidden="true">'+artwork(id,"stage-landmark-art")+'</div>';
  }).join("");
  const routePoints=stages.map(s=>(s.x*10)+","+(s.y*10)).join(" ");
- const desktopPoints=stages.map(s=>(widescreenPositions[s.number-1].x*10)+","+(widescreenPositions[s.number-1].y*10)).join(" ");
+ const desktopPos=stages.map(s=>[widescreenPositions[s.number-1].x,widescreenPositions[s.number-1].y]);
  const firstPending=stages.findIndex(s=>!journey.completed[s.id]);
  const routeThrough=firstPending<0?stages.length:Math.max(1,firstPending+1);
  const completePoints=stages.slice(0,routeThrough).map(s=>(s.x*10)+","+(s.y*10)).join(" ");
- const completeDesktopPoints=stages.slice(0,routeThrough).map(s=>(widescreenPositions[s.number-1].x*10)+","+(widescreenPositions[s.number-1].y*10)).join(" ");
- const road=[["mobile-road",routePoints,completePoints],["desktop-road",desktopPoints,completeDesktopPoints]].map(([cls,all,done])=>'<svg class="stage-road '+cls+'" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><polyline class="stage-road-base" points="'+all+'"/><polyline class="stage-road-done" points="'+done+'"/></svg>').join("");
+ const donePos=desktopPos.slice(0,routeThrough);
+ const mobileRoad='<svg class="stage-road mobile-road" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><polyline class="stage-road-base" points="'+routePoints+'"/><polyline class="stage-road-done" points="'+completePoints+'"/></svg>';
+ const desktopRoad='<svg class="stage-road desktop-road" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><path class="stage-road-base" d="'+smoothPath(desktopPos)+'"/><path class="stage-road-done" d="'+smoothPath(donePos)+'"/></svg>';
+ const road=mobileRoad+desktopRoad;
  const nodes=stages.map(s=>{
   const iconId=pixelArtByStage[theme]?.[s.number-1]||"";
   const wide=widescreenPositions[s.number-1];
@@ -54,10 +61,10 @@ function render(isMath,stages,journey,escape){
  '<div class="stage-map-progress" role="status"><strong>✦ '+done+' de 15 fases completadas</strong><span>Fase activa: '+active.number+' · '+escape(active.title)+'</span>'+(journey.finalAwarded?'<span class="stage-final-unlocked">★ Insignia de las quince fases ★</span>':"")+'</div>'+
  '<div class="stage-territories" aria-label="Territorios del mapa">'+(isMath?["Números","Descomposición","Comparación","Ordinales","Operaciones"]:["Sinónimos","Antónimos","Comunicación","Puntuación","Comprensión","Dictado","Lectura expresiva"]).map(t=>'<span class="stage-territory">'+escape(t)+'</span>').join("")+'</div>'+
  '<div class="gameworld-sky" aria-hidden="true"><span class="sky-star sky-one">✧</span><span class="sky-star sky-two">✦</span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span></div>'+
- '<div class="map-artscape stage-artscape"><picture class="stage-map-picture"><source media="(min-width: 900px)" srcset="./assets/escenarios/mapa-rpg-'+(isMath?"matematicas":"lengua")+'.svg" type="image/svg+xml"><img class="map-ground-art" src="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" alt="" loading="eager" decoding="async" width="1200" height="1900"></picture>'+
- '<div class="stage-landmarks">'+landmarks+'</div>'+road+
+ '<div class="map-artscape stage-artscape"><picture class="stage-map-picture"><source media="(min-width: 900px)" srcset="./assets/escenarios/mapa-alta-fidelidad-'+(isMath?"matematicas":"lengua")+'.svg" type="image/svg+xml"><img class="map-ground-art" src="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" alt="" loading="eager" decoding="async" width="1200" height="1900"></picture>'+
+ '<div class="stage-landmarks">'+landmarks+'</div>'+road
  '<div class="stage-locations">'+nodes+'</div>'+
- '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%;--guide-desktop-x:'+wideGuide.x+'%;--guide-desktop-y:'+wideGuide.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/arte-v4/'+(isMath?"tiko":"nara")+'-sprite.webp" width="122" height="170" decoding="async" alt=""></div>'+
+ '<div class="stage-hero-portrait" aria-hidden="true"><img src="./assets/arte-v4/'+(isMath?"tiko":"nara")+'-retrato.webp" alt="" width="311" height="341" loading="lazy"></div><div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%;--guide-desktop-x:'+wideGuide.x+'%;--guide-desktop-y:'+wideGuide.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/arte-v4/'+(isMath?"tiko":"nara")+'-sprite.webp" width="122" height="170" decoding="async" alt=""></div>'+
  '</div><p class="map-access-note">Completa cada fase para abrir la siguiente. Puedes repetir las anteriores. Los candados señalan las fases bloqueadas.</p></section>';
 }
 function focusStage(id,previous=null){
