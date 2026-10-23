@@ -522,3 +522,109 @@ body.home-pixel .pixel-home-menu button:not(:disabled) span{font-size:1.14rem}
  body.home-pixel .pixel-home-menu{width:100%;margin:14px auto 8px}
  body.home-pixel .pixel-home-menu button:disabled{display:block}
 }
+
+/* Alta fidelidad: mapas con ruta sinuosa y paisaje panorámico ilustrado */
+body.game.pixel-game .stage-gameworld{
+ max-width:1560px;width:100%;padding:11px 13px 16px;
+ border:6px ridge #cc9b5e;border-radius:15px;background:#352a29e8
+}
+body.game.pixel-game .stage-map-progress{margin:0 0 8px}
+body.game.pixel-game .stage-artscape{
+ aspect-ratio:16/9;height:auto;min-height:0;border:5px ridge #cda16a;
+ border-radius:17px;box-shadow:inset 0 0 0 4px #fdd38c59,0 17px 28px #050b15d9
+}
+body.game.pixel-game .stage-map-picture .map-ground-art{object-fit:cover}
+body.game.pixel-game .stage-territories{margin:0 0 11px;gap:7px;z-index:7}
+body.game.pixel-game .stage-territory{
+ border:3px ridge #cd9c56;border-radius:9px;padding:6px 11px;
+ font:.8rem Georgia,serif;font-weight:900;
+ background:linear-gradient(#88603e,#513626);color:#ffe7b2
+}
+body.game.pixel-game.lang-game .stage-territory{
+ background:linear-gradient(#8864a3,#4d2c69);border-color:#d4acdf
+}
+body.game.pixel-game .stage-locations{z-index:9}
+body.game.pixel-game .stage-road.desktop-road path{
+ fill:none;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round
+}
+body.game.pixel-game .stage-road.desktop-road .stage-road-base{
+ stroke:#503a2b;stroke-width:19;stroke-dasharray:1 0;opacity:.82;
+ filter:drop-shadow(1px 3px 2px #090e1a)
+}
+body.game.pixel-game .stage-road.desktop-road .stage-road-done{
+ stroke:#fbe5a4;stroke-width:13;stroke-dasharray:3 15;opacity:.99;
+ filter:drop-shadow(0 0 6px #ebc06b)
+}
+body.game.pixel-game .stage-node{
+ width:clamp(65px,7%,105px);min-height:62px;padding:0;gap:3px
+}
+body.game.pixel-game .stage-node .stage-orb{
+ width:clamp(52px,5.5vw,74px);height:clamp(52px,5.5vw,74px);
+ border:4px ridge #ebc47c;border-radius:50%;
+ background:radial-gradient(circle at 28% 23%,#8ff6df,#27959b 55%,#164f5a);
+ box-shadow:inset 0 2px 3px #fffbd68e,0 5px 0 #3b3437,0 0 13px #4ceddec0
+}
+body.game.pixel-game.lang-game .stage-node .stage-orb{
+ background:radial-gradient(circle at 28% 23%,#eed0ff,#9c64d1 55%,#4e2a84);
+ box-shadow:inset 0 2px 3px #fffbd68e,0 5px 0 #3b2e4c,0 0 13px #d1a3f7ac
+}
+body.game.pixel-game .stage-node .stage-index{
+ background:#583723;color:#fff0aa;border:2px solid #ebce92;
+ border-radius:50%;min-width:26px;min-height:26px;font-size:.96rem
+}
+body.game.pixel-game .stage-node .stage-orb-icon{inset:12px}
+body.game.pixel-game .stage-node .stage-node-name{
+ display:none;position:absolute;top:calc(100% - 3px);left:50%;
+ transform:translateX(-50%);width:max-content;max-width:175px;min-width:96px;
+ border:3px ridge #d7aa73;border-radius:9px;
+ background:linear-gradient(#fff6dc,#e3c191);color:#493220;
+ font-size:.75rem;min-height:32px;padding:6px 9px;z-index:12;box-shadow:0 4px 9px #000b
+}
+body.game.pixel-game .stage-node.stage-active .stage-node-name,
+body.game.pixel-game .stage-node:hover .stage-node-name,
+body.game.pixel-game .stage-node:focus-visible .stage-node-name{display:flex}
+body.game.pixel-game .stage-lock-label{
+ position:absolute;top:-4px;right:0;z-index:5;font-size:1rem
+}
+body.game.pixel-game .stage-hero-portrait{
+ display:flex;position:absolute;left:0;bottom:0;width:clamp(110px,17%,230px);
+ height:53%;align-items:end;justify-content:start;pointer-events:none;z-index:6;
+ background:radial-gradient(ellipse at 45% 76%,#ffc9863d,transparent 57%)
+}
+body.game.pixel-game.lang-game .stage-hero-portrait{
+ background:radial-gradient(ellipse at 45% 76%,#c48efb54,transparent 57%)
+}
+body.game.pixel-game .stage-hero-portrait img{
+ display:block;width:100%;height:100%;object-fit:contain;object-position:bottom left;
+ filter:drop-shadow(0 14px 9px #030919dd) drop-shadow(0 0 12px #e7cf9b5c)
+}
+body.game.pixel-game .stage-guide{z-index:8;width:clamp(42px,5%,72px)}
+body.game.pixel-game .stage-guide img{image-rendering:auto}
+body.game.pixel-game .map-voyage-intro{padding:8px 15px;margin:4px auto 10px}
+body.game.pixel-game .map-voyage-intro .section-title{font-size:clamp(1.4rem,2.7vw,2.4rem)}
+body.game.pixel-game .map-access-note{margin:10px auto 0;padding:9px 14px;font-size:.82rem}
+@media(max-width:899px){
+ body.game.pixel-game .stage-artscape,
+ body.game.pixel-game.lang-game .stage-artscape{aspect-ratio:2/3;height:auto;min-height:0}
+ body.game.pixel-game .stage-node{width:clamp(117px,30%,165px);min-height:90px}
+ body.game.pixel-game .stage-node .stage-node-name{
+  display:flex;position:static;transform:none;min-width:0;width:100%;
+  max-width:175px;font-size:.78rem;min-height:34px
+ }
+ body.game.pixel-game .stage-hero-portrait{display:none}
+ body.game.pixel-game .stage-road.desktop-road{display:none}
+ body.game.pixel-game .stage-road.mobile-road{display:block}
+}
+@media(max-width:700px){
+ body.game.pixel-game .stage-artscape,
+ body.game.pixel-game.lang-game .stage-artscape{
+  height:1900px;min-height:1900px;aspect-ratio:auto
+ }
+ body.game.pixel-game.lang-game .stage-artscape{height:2140px;min-height:2140px}
+ body.game.pixel-game .stage-node{width:clamp(118px,36vw,155px)}
+ body.game.pixel-game .stage-node .stage-orb{width:62px;height:62px}
+}
+@media(max-width:390px){
+ body.game.pixel-game .stage-artscape{height:2020px;min-height:2020px}
+ body.game.pixel-game.lang-game .stage-artscape{height:2270px;min-height:2270px}
+}
