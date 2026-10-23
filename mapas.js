@@ -20,7 +20,7 @@ const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
 function character(isMath){return '<img class="world-guide" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="311" height="341" loading="lazy" decoding="async">';}
 // Las coordenadas panorámicas son visuales y nunca reemplazan IDs persistentes.
-const widescreenPositions=Array.from({length:15},(_,i)=>({x:[12,31,50,69,88][i<5?i:i<10?9-i:i-10],y:i<5?27:i<10?51:76}));
+const widescreenPositions=[{x:12,y:30},{x:28,y:24},{x:45,y:32},{x:65,y:25},{x:85,y:30},{x:86,y:47},{x:73,y:56},{x:54,y:49},{x:35,y:59},{x:17,y:52},{x:13,y:78},{x:31,y:84},{x:49,y:76},{x:69,y:84},{x:86,y:77}];
 const pixelArtByStage={
  // Equivalencias visuales por concepto, no por el título histórico del ZIP.
  math:["m01","m03","m09","m06","m05","m07","m08","m10","m12","m13","m14","m15","m09","m07","m15"],
