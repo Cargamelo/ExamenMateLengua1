@@ -721,3 +721,44 @@ body.game.pixel-game.lang-game .mission-interaction .choice:hover:not(:disabled)
   animation:none!important;transition:none!important;scroll-behavior:auto!important
  }
 }
+
+/* Personajes fuera de la composición de los portales: retratos aprobados */
+body.home-pixel .v4-portal-home .liga-hero-companions{
+ position:absolute;inset:0;pointer-events:none;z-index:7
+}
+body.home-pixel .v4-portal-home .liga-hero-guide{
+ display:block;position:absolute;bottom:clamp(30px,8vh,78px);
+ width:clamp(170px,19vw,330px);height:clamp(290px,55vh,490px);
+ object-fit:contain;object-position:bottom;image-rendering:auto;
+ filter:drop-shadow(0 16px 12px #020918eb) drop-shadow(0 0 18px #e1c07074)
+}
+body.home-pixel .v4-portal-home .liga-hero-guide.tiko{left:clamp(16px,4vw,110px)}
+body.home-pixel .v4-portal-home .liga-hero-guide.nara{right:clamp(16px,4vw,110px)}
+body.home-pixel .v4-portal-home .pixel-portal-art{display:none}
+body.game.pixel-game .game-container{max-width:1840px;width:100%}
+body.game.pixel-game .map-voyage-intro{
+ width:min(96%,950px);max-width:950px;padding:5px 12px;margin:2px auto 10px;
+ border-width:2px;background:linear-gradient(110deg,#603e2de8,#352824eb)
+}
+body.game.pixel-game .map-voyage-intro p{font-size:.79rem;margin:3px 0}
+body.game.pixel-game .map-voyage-intro .section-title{font-size:clamp(1.3rem,2.4vw,2rem)}
+@media(min-width:1280px){
+ body.game.pixel-game .stage-gameworld{max-width:1700px}
+ body.game.pixel-game .stage-map-progress strong,
+ body.game.pixel-game .stage-map-progress span{font-size:.83rem;padding:6px 10px}
+}
+@media(min-width:701px) and (max-width:1050px){
+ body.home-pixel .v4-portal-home .liga-hero-guide{width:160px;height:310px}
+ body.home-pixel .v4-portal-home .liga-hero-guide.tiko{left:5px}
+ body.home-pixel .v4-portal-home .liga-hero-guide.nara{right:5px}
+}
+@media(max-width:700px){
+ body.home-pixel .v4-portal-home .liga-hero-companions{display:none}
+ body.home-pixel .v4-portal-home .pixel-portal-art{
+  display:block;position:absolute;left:0;bottom:26px;z-index:8;
+  width:clamp(100px,31vw,165px);height:240px;max-height:240px;
+  filter:drop-shadow(0 8px 6px #0009)
+ }
+ body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-art{left:auto;right:0}
+ body.game.pixel-game .game-container{padding-inline:8px}
+}
