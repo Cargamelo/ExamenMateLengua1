@@ -762,3 +762,19 @@ body.game.pixel-game .map-voyage-intro .section-title{font-size:clamp(1.3rem,2.4
  body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-art{left:auto;right:0}
  body.game.pixel-game .game-container{padding-inline:8px}
 }
+
+/* Profundidad pictórica: arte existente aprobado combinado con escenografía SVG nueva. */
+@media(min-width:900px){
+ body.game.pixel-game .stage-artscape{
+  background-image:radial-gradient(ellipse at 50% 25%,#405c6d10,transparent 65%),url("./assets/arte-v4/mapa-numeros.webp");
+  background-color:#143c4f;background-size:cover;background-position:center
+ }
+ body.game.pixel-game.lang-game .stage-artscape{
+  background-image:radial-gradient(ellipse at 50% 25%,#56327417,transparent 65%),url("./assets/arte-v4/mapa-palabras.webp")
+ }
+ body.game.pixel-game .stage-map-picture{opacity:.78}
+ body.game.pixel-game .stage-hero-portrait img{
+  -webkit-mask-image:radial-gradient(ellipse at 48% 60%,#000 32%,transparent 76%);
+  mask-image:radial-gradient(ellipse at 48% 60%,#000 32%,transparent 76%)
+ }
+}
