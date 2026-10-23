@@ -1,0 +1,79 @@
+name: QA visual alta fidelidad RPG v7
+on:
+  push:
+    branches:
+      - redisenio-alta-fidelidad-2026-10-23
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-y-funcional:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar módulos JavaScript
+        run: |
+          for f in *.js tests/*.cjs; do node --check "$f"; done
+      - name: Verificar recursos e integración de estilos
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,xml.etree.ElementTree as ET
+          p=Path(".")
+          for f in ("tema-aventura-v6.css","assets/escenarios/mapa-alta-fidelidad-matematicas.svg","assets/escenarios/mapa-alta-fidelidad-lengua.svg"):
+            assert (p/f).stat().st_size>2500,f
+          for f in ("assets/escenarios/mapa-alta-fidelidad-matematicas.svg","assets/escenarios/mapa-alta-fidelidad-lengua.svg"):
+            ET.parse(f)
+          for f in ("index.html","matematicas-sda1.html","lengua-sda1.html"):
+            assert 'tema-aventura-v6.css' in (p/f).read_text(),f
+          assert 'ligasaber-static-v8-20261023-alta-fidelidad' in (p/'sw.js').read_text()
+          assert len(list((p/'assets/pixel/cartas').glob('c???.webp')))==24
+          assert all(len(list((p/'assets/pixel/iconos').glob(prefix+'??.webp')))==15 for prefix in ('m','l'))
+          assert 'type+"-stage-"' in (p/'fases.js').read_text() and 'lang:[' in (p/'fases.js').read_text()
+          assert 'widescreenPositions' in (p/'mapas.js').read_text()
+          for f in p.glob('datos/*.json'): json.loads(f.read_text())
+          print("Recursos e interfaces sin cambios de esquema: OK")
+          PY
+      - name: Instalar pruebas Chromium
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Levantar web de ensayo
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/ligasaber-v6.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/index.html >/dev/null
+      - name: Validar progresión secuencial y guardado
+        run: |
+          node tests/fases-secuenciales.cjs
+          node tests/guardar-y-bloquear.cjs
+      - name: Comprobar seis tamaños, álbum, mapas y ejercicios
+        run: node qa-pixel.js
+      - name: Miniaturas visuales para auditoría (solo capturas de prueba)
+        if: always()
+        run: |
+          python3 -m pip install --disable-pip-version-check Pillow==11.3.0 --quiet
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          from io import BytesIO
+          import base64
+          paths=["01-portada-1366.png","03-mapa-matematicas-1366.png","04-mapa-lengua-1366.png","05-ejercicio-matematicas.png","07-coleccion.png"]
+          for f in paths:
+            path=Path("qa-screenshots")/f
+            if not path.exists(): continue
+            im=Image.open(path).convert("RGB")
+            im.thumbnail((760,650))
+            buf=BytesIO(); im.save(buf,"JPEG",quality=58,optimize=True)
+            print("IMAGEN_AUDITORIA_"+f+"="+base64.b64encode(buf.getvalue()).decode())
+          PY
+      - name: Capturas e informe de pruebas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-alta-fidelidad-v7
+          path: qa-screenshots/
+          if-no-files-found: ignore
+          retention-days: 30
