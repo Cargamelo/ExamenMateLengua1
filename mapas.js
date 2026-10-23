@@ -20,7 +20,7 @@ const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
 function character(isMath){return '<img class="world-guide" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="311" height="341" loading="lazy" decoding="async">';}
 // Las coordenadas panorámicas son visuales y nunca reemplazan IDs persistentes.
-const widescreenPositions=[{x:9,y:30},{x:25,y:23},{x:43,y:32},{x:62,y:25},{x:84,y:29},{x:93,y:46},{x:75,y:56},{x:54,y:49},{x:35,y:59},{x:14,y:52},{x:8,y:78},{x:30,y:85},{x:50,y:75},{x:72,y:85},{x:91,y:76}];
+const widescreenPositions=[{x:12,y:30},{x:28,y:24},{x:45,y:32},{x:65,y:25},{x:85,y:30},{x:86,y:47},{x:73,y:56},{x:54,y:49},{x:35,y:59},{x:17,y:52},{x:13,y:78},{x:31,y:84},{x:49,y:76},{x:69,y:84},{x:86,y:77}];
 const pixelArtByStage={
  // Equivalencias visuales por concepto, no por el título histórico del ZIP.
  math:["m01","m03","m09","m06","m05","m07","m08","m10","m12","m13","m14","m15","m09","m07","m15"],
