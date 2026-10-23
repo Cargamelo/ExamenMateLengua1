@@ -421,3 +421,138 @@ body.home-pixel .v4-portal-home .pixel-portal.lang::before{
  body.home-pixel .v4-portal-home .pixel-portal.math::before,
  body.home-pixel .v4-portal-home .pixel-portal.lang::before{inset:17% 26% 15%;border-width:6px}
 }
+
+/* DIRECCIÓN ARTÍSTICA V7: tratamiento escenográfico sin otra hoja superpuesta.
+ * Personajes y controles existentes permanecen intactos y funcionales. */
+:root{--liga-art-border:#ead39a;--liga-art-ink:#33271c;--liga-art-glow:#ffdf96}
+body.home-pixel{
+ background-image:linear-gradient(#091426b5,#0e2536e8),url("./assets/escenarios/mapa-rpg-matematicas.svg");
+ background-size:cover;background-position:center top;
+}
+body.home-pixel .pixel-hero.v4-portal-home{
+ background-image:linear-gradient(180deg,#091b30a5 0%,#0a1a2c4b 52%,#0c1a24ec 100%),url("./assets/escenarios/mapa-rpg-matematicas.svg");
+ background-size:cover;background-position:center 53%;
+ border:7px ridge #e1bc82;box-shadow:inset 0 0 0 3px #fce9ba52,inset 0 0 120px #080c21a5,0 22px 50px #0009;
+}
+body.home-pixel .v4-portal-home .pixel-logo{
+ border:7px ridge #e7bf79;border-radius:42px 42px 18px 18px;
+ background:linear-gradient(160deg,#845839fa,#3d241efa 60%,#69412bee);
+ box-shadow:inset 0 0 0 2px #ffdea980,inset 0 0 20px #f8c77133,0 7px 0 #291911,0 12px 34px #020712;
+}
+body.home-pixel .v4-portal-home .pixel-logo h1{font-size:clamp(2.2rem,4.7vw,5rem);text-shadow:0 2px 0 #ba7139,0 5px 0 #39241a,0 9px 14px #000d}
+body.home-pixel .v4-portal-home .pixel-logo::before{
+ content:"✦   📖   ✦";display:block;color:#ffda7a;text-align:center;
+ font-size:clamp(1.2rem,2vw,2rem);line-height:1.1;text-shadow:0 0 18px #ffd263
+}
+body.home-pixel .v4-portal-home .pixel-world-header{margin:18px 0 12px}
+body.home-pixel .v4-portal-home .pixel-world-header h2{text-shadow:0 4px 6px #061525,0 0 18px #ffda8270}
+body.home-pixel .v4-portal-home .pixel-world-grid{gap:clamp(22px,3vw,45px);padding:5px clamp(16px,2vw,32px) 10px}
+body.home-pixel .v4-portal-home .pixel-portal{
+ position:relative;isolation:isolate;min-height:clamp(410px,39vw,515px);
+ border:11px ridge #c9b590;border-radius:45% 45% 14px 14px / 27% 27% 14px 14px;
+ background-image:linear-gradient(180deg,#0b293847,#0b29380b 52%,#091c2beb),url("./assets/escenarios/mapa-rpg-matematicas.svg");
+ background-position:center center;background-size:cover;
+ box-shadow:inset 0 0 0 5px #776346b0,inset 0 0 0 9px #fce3a653,inset 0 0 48px #1cf9cb82,0 0 25px #20e6d06b,0 14px 15px #06171e,0 23px 35px #000c;
+ overflow:visible;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang{
+ border-color:#c0a2cc;
+ background-image:linear-gradient(180deg,#35134878,#26143e18 48%,#110e2ce8),url("./assets/escenarios/mapa-rpg-lengua.svg");
+ box-shadow:inset 0 0 0 5px #715176c9,inset 0 0 0 9px #eaccff59,inset 0 0 43px #c66afb8a,0 0 24px #c581f87b,0 14px 15px #150c24,0 23px 35px #000b;
+}
+body.home-pixel .v4-portal-home .pixel-portal.math::before,
+body.home-pixel .v4-portal-home .pixel-portal.lang::before{
+ inset:7px;border-width:6px;border-radius:45% 45% 12px 12px / 27% 27% 12px 12px;
+ background:transparent;box-shadow:inset 0 0 0 2px #fff2c06e,inset 0 0 37px #7dfff363,0 0 16px #91f7e85d;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang::before{box-shadow:inset 0 0 0 2px #f7d6ff89,inset 0 0 45px #d19bfa8a,0 0 16px #cc85f878}
+body.home-pixel .v4-portal-home .pixel-portal::after{
+ content:"✦  ✧  ✦";position:absolute;left:36%;top:23%;font-size:clamp(1.5rem,2.3vw,2.9rem);
+ color:#90ffed;text-shadow:0 0 18px #34f7d9,0 0 24px #61f9e6;
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang::after{color:#e1a6ff;text-shadow:0 0 21px #b66bff}
+body.home-pixel .v4-portal-home .pixel-portal-label{
+ max-width:84%;margin-top:29px;border:3px solid #c99e69;border-radius:16px;
+ background:linear-gradient(#69462f,#392821);color:#ffe7b5;
+ box-shadow:inset 0 0 0 1px #ffecb03c,0 5px 8px #0006;
+}
+body.home-pixel .v4-portal-home .pixel-portal-art{
+ left:-5%;bottom:42px;width:clamp(140px,21vw,290px);height:clamp(225px,30vw,395px);max-height:none;
+ filter:drop-shadow(0 15px 17px #000c) drop-shadow(0 0 18px #47e8e164);
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-art{
+ right:-5%;left:auto;filter:drop-shadow(0 15px 17px #000c) drop-shadow(0 0 18px #d28afd77)
+}
+body.home-pixel .v4-portal-home .pixel-portal-footer,
+body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-footer{
+ z-index:5;width:min(61%,293px);min-height:160px;align-self:flex-end;padding:13px 11px;
+ border:5px ridge #c59b61;border-radius:17px;
+ background:linear-gradient(#fff5d8fb,#dabe91f5);box-shadow:inset 0 0 0 2px #fff8e496,0 5px 0 #65492a,0 13px 25px #000b
+}
+body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-footer{background:linear-gradient(#faf0e5f9,#dbc0e8f5);border-color:#bf99ca}
+body.home-pixel .v4-portal-home .pixel-portal-footer h3{color:#2e211a;font-size:clamp(1.07rem,1.8vw,1.48rem);text-shadow:none}
+body.home-pixel .v4-portal-home .pixel-portal-footer p{color:#463326}
+body.home-pixel .pixel-home-menu{max-width:1130px;margin-top:20px}
+body.home-pixel .pixel-home-menu button:not(:disabled){border:4px ridge #c99a58;box-shadow:inset 0 0 0 1px #ffe9ac80,0 5px 0 #24180d,0 10px 18px #0009}
+body.game.pixel-game .stage-map-picture::after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(90deg,#001b3066 0%,transparent 20%,transparent 80%,#08122b77),linear-gradient(0deg,#09142788,transparent 23%);
+}
+body.game.pixel-game .stage-map-progress strong{background:linear-gradient(#765334,#462e27);border:3px solid #dec185}
+body.game.pixel-game .stage-artscape{border:6px ridge #dab989;border-radius:20px;box-shadow:0 12px 35px #0009,inset 0 0 28px #ffdd7b3d}
+body.game.pixel-game .stage-node .stage-orb{
+ background:radial-gradient(circle at 31% 25%,#fdf0b7,#966e3d 52%,#4d3531);
+ border:5px ridge #e9cb93;box-shadow:inset 0 0 8px #fff2cf79,0 6px 0 #443124,0 0 18px #f3cc8559;
+}
+body.game.pixel-game .stage-completed .stage-orb{background:radial-gradient(circle at 30% 20%,#a3ffe9,#11896a 62%,#074f55);border-color:#fff0a9}
+body.game.lang-game.pixel-game .stage-completed .stage-orb{background:radial-gradient(circle at 30% 20%,#e7bfff,#8150bf 62%,#492879)}
+body.game.pixel-game .stage-active .stage-orb{background:radial-gradient(circle at 30% 20%,#d8fff1,#009f96 63%,#176173)}
+body.game.lang-game.pixel-game .stage-active .stage-orb{background:radial-gradient(circle at 30% 20%,#f6d7ff,#b660df 63%,#653a91)}
+body.game.pixel-game .stage-node-name{
+ border:3px ridge #c39e69;border-radius:10px;
+ background:linear-gradient(#fff7e1,#ebce99);color:#31261f;box-shadow:0 4px 0 #694a30,0 8px 13px #1015238c;
+}
+body.game.pixel-game .stage-road-base{stroke:#fcdb92;stroke-width:9;stroke-dasharray:3 15;opacity:.94;filter:drop-shadow(0 0 8px #efbe63)}
+body.game.pixel-game .stage-road-done{stroke:#fff8be;stroke-width:8;stroke-dasharray:4 15}
+body.game.pixel-game .mission-stage{
+ background-image:linear-gradient(115deg,#061529d4,#102839cc),url("./assets/escenarios/mapa-rpg-matematicas.svg");
+ border:6px ridge #c9a173;box-shadow:inset 0 0 0 2px #f7d99c52,0 14px 37px #0008
+}
+body.game.lang-game.pixel-game .mission-stage{
+ background-image:linear-gradient(115deg,#110f2bdd,#32224ac8),url("./assets/escenarios/mapa-rpg-lengua.svg")
+}
+body.game.pixel-game .mission-pane,
+body.game.pixel-game .mission-interaction{
+ border:5px ridge #d6ab74;
+ background:linear-gradient(145deg,#fff8e7,#f6e6c4 62%,#e8c999);
+ box-shadow:inset 0 0 0 3px #fff9ec,0 6px 0 #765235,0 17px 25px #0006
+}
+body.game.pixel-game .mission-pane .q-title{font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.34}
+.pixel-dialog:has(.pixel-album-layout){
+ background:linear-gradient(90deg,#1c2730ee,#231f2af0),repeating-linear-gradient(0deg,#5b392a 0 13px,#40271d 13px 19px,#76503b 19px 23px);
+ border:7px ridge #cfa368;
+}
+.pixel-dialog:has(.pixel-album-layout) .pixel-modal-head h2{text-shadow:0 2px 2px #35230e,0 0 15px #f2d18a55}
+.pixel-album-layout{background:linear-gradient(90deg,#0000,#d0ad6a0d,#0000);border-radius:12px}
+.pixel-album-sidebar,.pixel-album-main{background:repeating-linear-gradient(0deg,#38271f 0 13px,#503626 13px 17px,#342420 17px 24px);border-color:#c39a65}
+.pixel-album-main .pixel-card-tile{background:linear-gradient(#61482e,#1d2928);border-color:#d5b77d}
+.pixel-album-detail{background:linear-gradient(#fff0cc,#dbbd87);border:5px ridge #b88955}
+@media(max-width:900px){
+ body.home-pixel .v4-portal-home .pixel-world-grid{padding:5px 1px 12px;gap:14px}
+ body.home-pixel .v4-portal-home .pixel-portal{min-height:390px;border-width:7px}
+ body.home-pixel .v4-portal-home .pixel-portal-art{width:35%;left:0;height:250px;bottom:60px}
+ body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-art{right:0}
+}
+@media(max-width:700px){
+ body.home-pixel .pixel-hero.v4-portal-home{padding:16px 10px 20px}
+ body.home-pixel .v4-portal-home .pixel-portal{min-height:360px;border-width:6px}
+ body.home-pixel .v4-portal-home .pixel-portal-art{max-height:230px;width:36%;bottom:60px}
+ body.home-pixel .v4-portal-home .pixel-portal-footer,
+ body.home-pixel .v4-portal-home .pixel-portal.lang .pixel-portal-footer{min-height:152px;width:61%;padding:11px 9px}
+ body.home-pixel .v4-portal-home .pixel-portal-label{margin-top:12px}
+ body.game.pixel-game .stage-node-name{font-size:.74rem}
+ body.game.pixel-game .mission-stage{background-size:auto 100%}
+}
+@media(prefers-reduced-motion:reduce){
+ body.home-pixel .pixel-portal::before,body.game.pixel-game .stage-active .stage-orb{animation:none!important}
+}
