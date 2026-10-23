@@ -18,7 +18,7 @@ async function run(){
   p.on('response',resp=>{if(resp.status()===404&&resp.url().startsWith(root))errors.push('404 '+resp.url())});
   await p.goto(root+'/index.html',{waitUntil:'networkidle'});
   await pageCheck(p,'.pixel-portal.math');await pageCheck(p,'.pixel-portal.lang');await overflow(p,w,'inicio '+w);
-  if(w===390||w===1366)await p.screenshot({path:'qa-screenshots/01-portada-'+w+'.png',fullPage:true});
+  if([360,390,1366,1920,2560].includes(w))await p.screenshot({path:'qa-screenshots/01-portada-'+w+'.png',fullPage:true});
   await p.locator('[data-liga-open="collection"]').click();await pageCheck(p,'.pixel-card-tile');
   ok(await p.locator('.pixel-card-tile').count()===24,'Álbum de 24 cartas '+w);
   await p.locator('[data-pixel-action="filter"][data-filter="lengua"]').click();
@@ -27,7 +27,7 @@ async function run(){
   const front=await p.locator('.pixel-card-flip img').getAttribute('src');await p.locator('.pixel-card-flip').click();
   const back=await p.locator('.pixel-card-flip img').getAttribute('src');ok(front!==back&&back.includes('reversos'),'Reverso '+w);
   await p.keyboard.press('Escape');await p.keyboard.press('Escape');ok(await p.locator('.pixel-dialog').count()===0,'Escape cierra '+w);
-  if(w===1366){await p.locator('[data-liga-open="collection"]').click();await p.screenshot({path:'qa-screenshots/07-coleccion.png',fullPage:true});await p.locator('[data-pixel-action="close"]').last().click()}
+  if([360,390,1366,1920,2560].includes(w)){await p.locator('[data-liga-open="collection"]').click();await p.screenshot({path:'qa-screenshots/07-coleccion-'+w+'.png',fullPage:true});await p.locator('.pixel-card-tile').first().click();await p.screenshot({path:'qa-screenshots/07-detalle-'+w+'.png',fullPage:true});await p.locator('[data-pixel-action="close"]').last().click()}
   for(const [name,href,code] of [['matematicas','matematicas-sda1.html','03'],['lengua','lengua-sda1.html','04']]){
    await p.goto(root+'/'+href,{waitUntil:'networkidle'});await pageCheck(p,'.adventure-launch');
    await p.locator('[data-action="topics"]').click();await pageCheck(p,'.stage-node');
@@ -39,16 +39,16 @@ async function run(){
    ok(await p.locator('.stage-guide img').evaluate(n=>getComputedStyle(n).animationName==='none'),name+' movimiento reducido '+w);
    await p.emulateMedia({reducedMotion:'no-preference'});
    await overflow(p,w,'mapa '+name+' '+w);
-   if(w===1366||w===390)await p.screenshot({path:'qa-screenshots/'+code+'-mapa-'+name+'-'+w+'.png',fullPage:true});
+   if([360,390,1366,1920,2560].includes(w))await p.screenshot({path:'qa-screenshots/'+code+'-mapa-'+name+'-'+w+'.png',fullPage:true});
    await p.locator('.stage-node').first().click();await pageCheck(p,'.mission-stage');
    ok((await p.locator('.mission-count').innerText()).includes('15'),name+' reto 1/15 '+w);await overflow(p,w,'ejercicio '+name+' '+w);
-   if(w===1366)await p.screenshot({path:'qa-screenshots/'+(code==='03'?'05':'06')+'-ejercicio-'+name+'.png',fullPage:true});
+   if([360,390,1366,1920,2560].includes(w))await p.screenshot({path:'qa-screenshots/'+(code==='03'?'05':'06')+'-ejercicio-'+name+'-'+w+'.png',fullPage:true});
    await p.locator('[data-action="collection"]').click();await pageCheck(p,'.pixel-dialog');
    await p.locator('[data-pixel-action="close"]').last().click();
    await p.goto(root+'/'+href+'?view=errors',{waitUntil:'networkidle'});await pageCheck(p,'.recovery-hub');
-   if(w===1366&&code==='03')await p.screenshot({path:'qa-screenshots/08-mis-errores.png',fullPage:true});
+   if([390,1366].includes(w)&&code==='03')await p.screenshot({path:'qa-screenshots/08-mis-errores-'+w+'.png',fullPage:true});
    await p.goto(root+'/'+href+'?view=progress',{waitUntil:'networkidle'});await pageCheck(p,'.stat-grid');
-   if(w===1366&&code==='03')await p.screenshot({path:'qa-screenshots/09-mis-logros.png',fullPage:true});
+   if([390,1366].includes(w)&&code==='03')await p.screenshot({path:'qa-screenshots/09-mis-logros-'+w+'.png',fullPage:true});
   }
   for(const msg of runtime)errors.push('JS '+w+': '+msg);
   await p.close();

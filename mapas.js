@@ -20,7 +20,14 @@ const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
 function character(isMath){return '<img class="world-guide" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="311" height="341" loading="lazy" decoding="async">';}
 // Las coordenadas panorámicas son visuales y nunca reemplazan IDs persistentes.
-const widescreenPositions=Array.from({length:15},(_,i)=>({x:[12,31,50,69,88][i<5?i:i<10?9-i:i-10],y:i<5?27:i<10?51:76}));
+const wideRoutes={
+ math:[[13,25],[26,30],[40,22],[53,34],[68,25],[82,24],[89,43],[74,47],[59,53],[43,55],[25,50],[14,71],[32,77],[55,73],[82,78]],
+ lang:[[13,28],[27,23],[43,31],[58,26],[72,23],[86,34],[88,52],[71,48],[54,57],[37,52],[19,58],[14,77],[35,78],[59,73],[82,79]]
+};
+const territoryMarkers={
+ math:[["Números",13,13],["Descomposición",35,13],["Comparación",61,12],["Ordinales",84,13],["Operaciones",40,65]],
+ lang:[["Sinónimos",13,15],["Antónimos",41,13],["Comunicación",76,14],["Comprensión",53,43],["Puntuación",14,64],["Dictado",58,66],["Lectura expresiva",79,66]]
+};
 const pixelArtByStage={
  // Equivalencias visuales por concepto, no por el título histórico del ZIP.
  math:["m01","m03","m09","m06","m05","m07","m08","m10","m12","m13","m14","m15","m09","m07","m15"],
@@ -30,23 +37,23 @@ function render(isMath,stages,journey,escape){
  const theme=isMath?"math":"lang",type=theme;
  const active=window.AventuraFases.firstPending(type,journey)||stages[stages.length-1];
  const done=window.AventuraFases.completedCount(type,journey);
- const wideGuide=widescreenPositions[active.number-1];
+ const wideGuide=wideRoutes[theme][active.number-1];
  const landmarks=(isMath?["numeros","descomponer","comparar","ordinales","operaciones"]:["sinonimos","antonimos","comunicacion","puntuacion","comprension","dictado","expresiva"]).map(id=>{
   const p=places[id];return '<div class="stage-landmark" style="--lx:'+p.left+'%;--ly:'+p.top+'%" aria-hidden="true">'+artwork(id,"stage-landmark-art")+'</div>';
  }).join("");
  const routePoints=stages.map(s=>(s.x*10)+","+(s.y*10)).join(" ");
- const desktopPoints=stages.map(s=>(widescreenPositions[s.number-1].x*10)+","+(widescreenPositions[s.number-1].y*10)).join(" ");
+ const desktopPoints=stages.map(s=>(wideRoutes[theme][s.number-1][0]*10)+","+(wideRoutes[theme][s.number-1][1]*10)).join(" ");
  const firstPending=stages.findIndex(s=>!journey.completed[s.id]);
  const routeThrough=firstPending<0?stages.length:Math.max(1,firstPending+1);
  const completePoints=stages.slice(0,routeThrough).map(s=>(s.x*10)+","+(s.y*10)).join(" ");
- const completeDesktopPoints=stages.slice(0,routeThrough).map(s=>(widescreenPositions[s.number-1].x*10)+","+(widescreenPositions[s.number-1].y*10)).join(" ");
+ const completeDesktopPoints=stages.slice(0,routeThrough).map(s=>(wideRoutes[theme][s.number-1][0]*10)+","+(wideRoutes[theme][s.number-1][1]*10)).join(" ");
  const road=[["mobile-road",routePoints,completePoints],["desktop-road",desktopPoints,completeDesktopPoints]].map(([cls,all,done])=>'<svg class="stage-road '+cls+'" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><polyline class="stage-road-base" points="'+all+'"/><polyline class="stage-road-done" points="'+done+'"/></svg>').join("");
  const nodes=stages.map(s=>{
   const iconId=pixelArtByStage[theme]?.[s.number-1]||"";
-  const wide=widescreenPositions[s.number-1];
+  const wide=wideRoutes[theme][s.number-1];
   const stageArt=iconId?'<img src="./assets/pixel/iconos/'+iconId+'.webp" alt="" width="112" height="112" decoding="async" loading="lazy">':escape(s.icon);
   const complete=!!journey.completed[s.id],allowed=window.AventuraFases.canEnterStage(type,journey,s.id),selected=active.id===s.id&&!complete,cls=!allowed?"locked":selected?"active":complete?"completed":"pending";
-  return '<button type="button" class="stage-node stage-'+cls+'" style="--stage-x:'+s.x+'%;--stage-y:'+s.y+'%;--stage-desktop-x:'+wide.x+'%;--stage-desktop-y:'+wide.y+'%" data-action="start-stage" data-stage="'+s.id+'" data-stage-number="'+s.number+'" aria-label="Fase '+s.number+': '+escape(s.title)+'. '+(!allowed?"Bloqueada. Completa las fases anteriores.":complete?"Completada, puedes repetirla.":selected?"Fase activa.":"Disponible.")+'" aria-disabled="'+(!allowed)+'" '+(selected?'aria-current="step"':"")+'>'+
+  return '<button type="button" class="stage-node stage-'+cls+'" style="--stage-x:'+s.x+'%;--stage-y:'+s.y+'%;--stage-desktop-x:'+wide[0]+'%;--stage-desktop-y:'+wide[1]+'%" data-action="start-stage" data-stage="'+s.id+'" data-stage-number="'+s.number+'" aria-label="Fase '+s.number+': '+escape(s.title)+'. '+(!allowed?"Bloqueada. Completa las fases anteriores.":complete?"Completada, puedes repetirla.":selected?"Fase activa.":"Disponible.")+'" aria-disabled="'+(!allowed)+'" '+(selected?'aria-current="step"':"")+'>'+
    '<span class="stage-orb"><span class="stage-index">'+s.number+'</span><span class="stage-orb-icon" aria-hidden="true">'+stageArt+'</span><span class="stage-check" aria-hidden="true">'+(complete?"★":selected?"✦":"")+'</span></span>'+
    '<span class="stage-node-name">'+escape(s.title)+'</span>'+(allowed?'':'<span class="stage-lock-label" aria-hidden="true">🔒</span>')+'</button>';
  }).join("");
@@ -54,10 +61,11 @@ function render(isMath,stages,journey,escape){
  '<div class="stage-map-progress" role="status"><strong>✦ '+done+' de 15 fases completadas</strong><span>Fase activa: '+active.number+' · '+escape(active.title)+'</span>'+(journey.finalAwarded?'<span class="stage-final-unlocked">★ Insignia de las quince fases ★</span>':"")+'</div>'+
  '<div class="stage-territories" aria-label="Territorios del mapa">'+(isMath?["Números","Descomposición","Comparación","Ordinales","Operaciones"]:["Sinónimos","Antónimos","Comunicación","Puntuación","Comprensión","Dictado","Lectura expresiva"]).map(t=>'<span class="stage-territory">'+escape(t)+'</span>').join("")+'</div>'+
  '<div class="gameworld-sky" aria-hidden="true"><span class="sky-star sky-one">✧</span><span class="sky-star sky-two">✦</span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span></div>'+
- '<div class="map-artscape stage-artscape"><picture class="stage-map-picture"><source media="(min-width: 900px)" srcset="./assets/escenarios/mapa-rpg-'+(isMath?"matematicas":"lengua")+'.svg" type="image/svg+xml"><img class="map-ground-art" src="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" alt="" loading="eager" decoding="async" width="1200" height="1900"></picture>'+
+ '<div class="map-artscape stage-artscape"><picture class="stage-map-picture"><source media="(min-width: 900px)" srcset="./assets/escenarios/reino-'+(isMath?"numeros":"palabras")+'-v7.svg" type="image/svg+xml"><img class="map-ground-art" src="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" alt="" loading="eager" decoding="async" width="1200" height="1900"></picture>'+
+ '<div class="stage-realm-signs" aria-hidden="true">'+territoryMarkers[theme].map(([title,x,y])=>'<span class="stage-realm-sign" style="--sign-x:'+x+'%;--sign-y:'+y+'%">'+escape(title)+'</span>').join('')+'</div>'+
  '<div class="stage-landmarks">'+landmarks+'</div>'+road+
  '<div class="stage-locations">'+nodes+'</div>'+
- '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%;--guide-desktop-x:'+wideGuide.x+'%;--guide-desktop-y:'+wideGuide.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/arte-v4/'+(isMath?"tiko":"nara")+'-sprite.webp" width="122" height="170" decoding="async" alt=""></div>'+
+ '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%;--guide-desktop-x:'+wideGuide[0]+'%;--guide-desktop-y:'+wideGuide[1]+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/arte-v4/'+(isMath?"tiko":"nara")+'-retrato.webp" width="311" height="341" decoding="async" alt=""></div>'+
  '</div><p class="map-access-note">Completa cada fase para abrir la siguiente. Puedes repetir las anteriores. Los candados señalan las fases bloqueadas.</p></section>';
 }
 function focusStage(id,previous=null){
