@@ -23,9 +23,15 @@ async function run(){
   ok(await p.locator('.pixel-card-tile').count()===24,'Álbum de 24 cartas '+w);
   await p.locator('[data-pixel-action="filter"][data-filter="lengua"]').click();
   ok((await p.locator('.pixel-card-tile').count())>0 && (await p.locator('.pixel-card-tile').count())<24,'Filtro Lengua '+w);
-  await p.locator('.pixel-card-tile').first().click();await pageCheck(p,'.pixel-card-flip');
-  const front=await p.locator('.pixel-card-flip img').getAttribute('src');await p.locator('.pixel-card-flip').click();
-  const back=await p.locator('.pixel-card-flip img').getAttribute('src');ok(front!==back&&back.includes('reversos'),'Reverso '+w);
+  await p.locator('.pixel-card-tile').first().click();
+  if(await p.locator('.pixel-unowned-detail').count()){
+   ok(await p.locator('.pixel-card-flip').count()===0,'Carta pendiente no muestra anverso '+w);
+   ok((await p.locator('.pixel-unowned-detail img').getAttribute('src')).includes('reversos'),'Carta pendiente enseña reverso '+w);
+  }else{
+   await pageCheck(p,'.pixel-card-flip');
+   const front=await p.locator('.pixel-card-flip img').getAttribute('src');await p.locator('.pixel-card-flip').click();
+   const back=await p.locator('.pixel-card-flip img').getAttribute('src');ok(front!==back&&back.includes('reversos'),'Reverso '+w);
+  }
   await p.keyboard.press('Escape');await p.keyboard.press('Escape');ok(await p.locator('.pixel-dialog').count()===0,'Escape cierra '+w);
   if(w===1366){await p.locator('[data-liga-open="collection"]').click();await p.screenshot({path:'qa-screenshots/07-coleccion.png',fullPage:true});await p.locator('[data-pixel-action="close"]').last().click()}
   for(const [name,href,code] of [['matematicas','matematicas-sda1.html','03'],['lengua','lengua-sda1.html','04']]){

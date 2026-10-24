@@ -2,7 +2,7 @@ name: QA escalado portada responsive
 on:
   push:
     branches:
-      - fix-portada-escalado-responsive-20261024
+      - fix-portada-v10-compatible-cartas-20261024
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,6 +30,10 @@ jobs:
         run: node tests/qa-portada-v8.cjs
       - name: Verificar regresiones generales
         run: node qa-pixel.js
+      - name: Verificar inventario y premios de cartas persistentes
+        run: |
+          node tests/cartas-coleccionables.cjs
+          node tests/cartas-ui.cjs
       - name: Publicar capturas como artefactos de QA
         if: always()
         uses: actions/upload-artifact@v4
