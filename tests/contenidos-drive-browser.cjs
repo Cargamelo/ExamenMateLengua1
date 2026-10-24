@@ -27,24 +27,35 @@ if(!chrome)throw Error("Chrome or Chromium unavailable");
    if(subject==="math"){
     for(let i=0;i<4;i++)await page.locator('[data-action="mini"][data-mini="digit"][data-value="1"]').click();
     await page.locator('[data-action="mini"][data-mini="submit"]').click();
-    await page.locator('[data-action="next"]').click();
-    const question=await page.locator(".q-title").innerText();
-    const picked=await page.evaluate(prompt=>window.LigaBancoDrive.questions.find(q=>q.prompt===prompt),question);
-    assert.ok(picked,"The second challenge must come from the verified Drive bank");
-    assert.equal(picked.topic,"numeros");
-    const values=await page.locator('[data-action="mini"][data-mini="choose"]').allTextContents();
-    const idx=values.findIndex(v=>v.trim()===picked.correct);
-    assert.ok(idx>=0,"Correct answer must be displayed");
-    await page.locator('[data-action="mini"][data-mini="choose"]').nth(idx).click();
-    assert.equal(await page.locator(".feedback.ok").count(),1,"Correct grading must work");
-    await page.reload({waitUntil:"networkidle"});
-    assert.equal(await page.locator('[data-action="resume-stage"]').count(),1);
-    await page.locator('[data-action="resume-stage"]').click();
-    assert.equal(await page.locator(".q-title").innerText(),question);
+   }else{
+    const left=await page.locator('[data-action="mini"][data-mini="left"]').allTextContents();
+    const right=await page.locator('[data-action="mini"][data-mini="right"]').allTextContents();
+    const matching=await page.evaluate(left=>left.map(x=>window.EDU_DATA.synonyms.find(pair=>pair[0]===x.trim())?.[1]),left);
+    assert.equal(left.length,3,"Three synonym matches in basic level");
+    for(let i=0;i<left.length;i++){
+     const rightIndex=right.findIndex(v=>v.trim()===matching[i]);
+     assert.ok(rightIndex>=0,"Matching synonym must appear in second column");
+     await page.locator('[data-action="mini"][data-mini="left"]').nth(i).click();
+     await page.locator('[data-action="mini"][data-mini="right"]').nth(rightIndex).click();
+    }
    }
+   await page.locator('[data-action="next"]').click();
+   const question=await page.locator(".q-title").innerText();
+   const picked=await page.evaluate(prompt=>window.LigaBancoDrive.questions.find(q=>q.prompt===prompt),question);
+   assert.ok(picked,"The second challenge must come from the verified Drive bank: "+subject);
+   assert.equal(picked.topic,subject==="math"?"numeros":"sinonimos");
+   const values=await page.locator('[data-action="mini"][data-mini="choose"]').allTextContents();
+   const idx=values.findIndex(v=>v.trim()===picked.correct);
+   assert.ok(idx>=0,"Correct bank answer must be displayed");
+   await page.locator('[data-action="mini"][data-mini="choose"]').nth(idx).click();
+   assert.equal(await page.locator(".feedback.ok").count(),1,"Correct bank grading must work");
+   await page.reload({waitUntil:"networkidle"});
+   assert.equal(await page.locator('[data-action="resume-stage"]').count(),1,"Checkpoint must survive reload");
+   await page.locator('[data-action="resume-stage"]').click();
+   assert.equal(await page.locator(".q-title").innerText(),question,"Resume must preserve bank question");
    assert.deepEqual(errors,[],"No JavaScript page errors in "+subject);
    await context.close();
   }
-  console.log("OK: educational bank loaded in both worlds, 15 locked phases, correct answers, real math challenge and resume.");
+  console.log("OK: educational bank loaded in both worlds, 15 locked phases, correct answers, real Math/Language challenges and resume.");
  }finally{await browser.close()}
 })().catch(e=>{console.error(e.stack);process.exitCode=1});
