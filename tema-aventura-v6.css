@@ -606,3 +606,8 @@ body.home-cover-v8 #liga-sync-status,body.home-cover-v8 .pixel-home-footer{
   animation:none!important;transition:none!important;scroll-behavior:auto!important
  }
 }
+
+body.home-cover-v8 .cover-menu button img{display:block;width:2.7cqw;height:3.1cqw;flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 .1cqw .2cqw #150c08)}
+@media(max-width:850px) and (orientation:portrait){
+ body.home-cover-v8 .cover-menu button img{width:31px;height:35px;max-width:24%;object-fit:contain}
+}
