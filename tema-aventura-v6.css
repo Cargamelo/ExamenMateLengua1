@@ -635,3 +635,31 @@ body.home-cover-v8 .cover-menu button img{display:block;width:min(2.7cqw,5cqh);h
 @media(max-width:850px) and (orientation:portrait){
  body.home-cover-v8 .cover-menu button img{width:31px;height:35px;max-width:24%;object-fit:contain}
 }
+
+/* Alineación al arte real en paisaje panorámico. La ilustración de escenario
+   YA incluye protagonistas y portales: no deben dibujarse por duplicado.
+   La región HTML de cada enlace usa la misma geometría que background-size: cover. */
+@media (min-width:851px), (min-width:700px) and (orientation:landscape){
+ body.home-cover-v8 .fantasy-scene {
+   --background-w:max(100cqw,calc(100cqh * 824 / 477));
+   --background-h:max(100cqh,calc(100cqw * 477 / 824));
+   --background-x:calc((100cqw - var(--background-w)) / 2);
+   --background-y:calc((100cqh - var(--background-h)) / 2);
+ }
+ body.home-cover-v8 .cover-art-characters{display:none}
+ body.home-cover-v8 .cover-portal>img{visibility:hidden}
+ body.home-cover-v8 .cover-portal{
+   width:calc(var(--background-w) * .21);
+   height:calc(var(--background-h) * .535);
+   aspect-ratio:auto;
+ }
+ body.home-cover-v8 .cover-portal-math{
+   left:calc(var(--background-x) + var(--background-w) * .30);
+   top:calc(var(--background-y) + var(--background-h) * .283);
+ }
+ body.home-cover-v8 .cover-portal-lang{
+   left:calc(var(--background-x) + var(--background-w) * .5085);
+   top:calc(var(--background-y) + var(--background-h) * .283);
+ }
+ body.home-cover-v8 .cover-portal-title{font-size:min(1.79cqw,2.9cqh)}
+}
