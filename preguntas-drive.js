@@ -3103,6 +3103,8 @@
  "source": "LEN-CONTROL-1",
  "original": true
 };
+ for(const q of questions)if(q.check&&["add","subtract"].includes(q.check.kind))
+  q.visual=q.check.a+" "+(q.check.kind==="add"?"+":"−")+" "+q.check.b+" = ?";
  const byTopic=Object.groupBy?Object.groupBy(questions,q=>q.topic):
   questions.reduce((out,q)=>(out[q.topic]??=[]).push(q),{});
  window.LigaBancoDrive=Object.freeze({
