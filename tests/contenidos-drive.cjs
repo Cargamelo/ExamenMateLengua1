@@ -14,6 +14,7 @@ for(const q of all){
  assert.ok(validTopics[q.subject]?.has(q.topic),q.id+" invalid concept");
  assert.match(q.id,/^DRIVE-(MATH|LANG)-/);
  assert.equal(q.variant,"drive");
+ assert.ok(Number.isSafeInteger(q.minStep)&&q.minStep>=0&&q.minStep<=5,"Unexpected adaptive step: "+q.id);
  assert.ok(q.source&&q.explanation&&q.hint1&&q.hint2);
  assert.ok(q.choices?.includes(q.correct),q.id+" missing right answer");
  assert.equal(new Set(q.choices).size,q.choices.length,q.id+" choices collide");
@@ -55,7 +56,7 @@ for(const subject of ["math","lang"]){
  for(const stage of s.window.AventuraFases.getStages(subject)){
   for(const topic of stage.topics)if(validTopics[subject].has(topic)&&!["puntuacion","comprension","dictado","expresiva"].includes(topic)){
    const q=data.pick(topic,{stage:stage.number});
-   if(q){assert.equal(q.topic,topic);assert.equal(q.subject,subject)}
+   if(q){assert.equal(q.topic,topic);assert.equal(q.subject,subject);assert.ok(q.minStep<=0)}
   }
  }
 }
