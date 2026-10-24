@@ -292,7 +292,7 @@ function renderStageResult(){
  const prize=session.cardReward,assigned=window.LigaCartas?.getAssignment(session.stageId);
  const rewardCard=prize?.card||assigned?.card;
  const rarity=rewardCard?.rareza==="legendaria"?"Legendaria":rewardCard?.rareza==="rara"?"Rara":"Común";
- const rewardMarkup=result.first?
+ const rewardMarkup=result.first&&!prize?.alreadyGranted?
   (prize?.saved&&rewardCard?
    '<section class="stage-card-earned" aria-label="Nueva carta conseguida"><span class="stage-card-eyebrow">✦ CARTA CONSEGUIDA ✦</span>'+
    '<h2>'+(prize.duplicate?'¡Has conseguido otra copia de esta carta!':'¡Una nueva carta para tu colección!')+'</h2>'+
