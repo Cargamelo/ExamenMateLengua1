@@ -40,7 +40,7 @@ async function run(){
    ok(await p.locator('.stage-node').count()===15,name+' 15 fases '+w);
    const artwork=await p.locator('.map-ground-art').evaluate(async n=>{n.loading='eager';try{await n.decode();}catch(_){}return {loaded:n.complete&&n.naturalWidth>0,src:n.currentSrc};});
    ok(artwork.loaded,name+' mapa cargado '+w);
-   ok(artwork.src.endsWith(w>=900?'.svg':'.webp'),name+' mapa adaptable '+w+' '+artwork.src);
+   ok(artwork.src.includes('/assets/arte-v4/mapa-')&&artwork.src.endsWith('.webp'),name+' mapa pictórico adaptable '+w+' '+artwork.src);
    await p.emulateMedia({reducedMotion:'reduce'});
    ok(await p.locator('.stage-guide img').evaluate(n=>getComputedStyle(n).animationName==='none'),name+' movimiento reducido '+w);
    await p.emulateMedia({reducedMotion:'no-preference'});
