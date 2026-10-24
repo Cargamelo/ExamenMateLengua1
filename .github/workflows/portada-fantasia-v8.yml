@@ -1,0 +1,90 @@
+name: Portada ilustrada v8 — creación y QA
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - portada-fantasia-referencia-2026-10-24
+permissions:
+  contents: write
+jobs:
+  portada-real:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Código base en rama aislada
+        uses: actions/checkout@v4
+        with:
+          ref: portada-fantasia-referencia-2026-10-24
+          persist-credentials: true
+      - name: Preparación de ilustraciones
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet Pillow opencv-python-headless
+          curl --fail --location --retry 3 --silent --show-error \
+            "https://d2ol7oe51mr4n9.cloudfront.net/user_3Eqb9DprbRkWGw9rSTxOJ5QDfCf/1d49276e-285e-43ae-9091-dd83651b1d40.png" \
+            -o /tmp/portada-original.png
+          python3 tools/build_portada_reference.py
+          test "$(find assets/portada -maxdepth 1 -name '*.webp' | wc -l)" -eq 8
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          for p in Path("assets/portada").glob("*.webp"):
+            with Image.open(p) as im:
+              im.verify()
+              assert p.stat().st_size>1000,p
+          print("Ocho recursos visuales independientes y válidos")
+          PY
+      - name: Conservar recursos originales en la rama
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/portada/*.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(portada): ilustraciones derivadas de referencia aprobada"
+            git push origin HEAD:portada-fantasia-referencia-2026-10-24
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Instalar pruebas
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor de pruebas aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/portada-local.log 2>&1 &
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8765/index.html > /dev/null
+      - name: Progresión y guardado
+        run: |
+          node tests/fases-secuenciales.cjs
+          node tests/guardar-y-bloquear.cjs
+      - name: Regresión de los dos videojuegos y cartas
+        run: node qa-pixel.js
+      - name: Portada: siete tamaños, botones y capturas
+        run: node tests/qa-portada-v8.cjs
+      - name: Comparar con referencia aprobada
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageOps
+          from pathlib import Path
+          ref=Image.open('/tmp/portada-original.png').convert('RGB')
+          out=Path('qa-screenshots/portada-v8')
+          for w,h in [(1366,768),(1920,1080),(2560,1440),(390,844)]:
+            f=out/f'portada-{w}x{h}.png'
+            if not f.exists(): continue
+            cur=Image.open(f).convert('RGB')
+            thumb=ImageOps.fit(cur,ref.size,centering=(.5,0))
+            panel=Image.new('RGB',(ref.width*2,ref.height+36),'#101726')
+            panel.paste(ref,(0,36));panel.paste(thumb,(ref.width,36))
+            dr=ImageDraw.Draw(panel)
+            dr.text((8,10),'REFERENCIA APROBADA',fill='white')
+            dr.text((ref.width+8,10),f'WEB REAL {w}x{h}',fill='white')
+            panel.save(out/f'comparacion-{w}x{h}.jpg',quality=92)
+          PY
+      - name: Entregar capturas y diagnósticos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portada-v8-comparaciones
+          path: qa-screenshots/
+          if-no-files-found: warn
+          retention-days: 30
