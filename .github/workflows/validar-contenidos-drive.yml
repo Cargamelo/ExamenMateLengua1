@@ -1,0 +1,53 @@
+name: Integración educativa verificada de Google Drive
+on:
+  push:
+    branches:
+      - feat/contenidos-drive-liga-saber
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contenido-y-regresion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar sintaxis del videojuego
+        run: |
+          for file in *.js tests/*.cjs; do node --check "$file"; done
+      - name: Validar 124 preguntas y 6 respuestas de lectura
+        run: node tests/contenidos-drive.cjs
+      - name: Verificar desbloqueos de 30 fases
+        run: node tests/fases-secuenciales.cjs
+      - name: Verificar contenido cacheado para PWA
+        run: |
+          node - <<'JS'
+          const fs=require('fs'),s=fs.readFileSync('sw.js','utf8');
+          if(!s.includes('"./preguntas-drive.js"')||!s.includes('drive-educativo'))process.exit(1);
+          const math=fs.readFileSync('matematicas-sda1.html','utf8');
+          const lang=fs.readFileSync('lengua-sda1.html','utf8');
+          if(!math.includes('preguntas-drive.js')||!lang.includes('preguntas-drive.js'))process.exit(1);
+          console.log('Banco incluido en PWA y ambos juegos');
+          JS
+      - name: Instalar Playwright Core
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar servidor HTTP aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/liga-drive-http.log 2>&1 &
+          sleep 2
+      - name: Probar partidas y bloqueos tras recarga
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Probar navegadores y preguntas docentes
+        run: node tests/contenidos-drive-browser.cjs
+      - name: Revisar ocho tamaños y rutas
+        run: node qa-pixel.js
+      - name: Capturas de regresión
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pruebas-banco-drive
+          path: qa-screenshots/
+          if-no-files-found: ignore
