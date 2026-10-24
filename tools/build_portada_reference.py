@@ -11,8 +11,8 @@ rect(285,55,544,107) # large text inside wooden sign
 rect(300,99,512,127) # tagline strip content
 rect(84,28,184,66) # welcome text only
 rect(650,19,821,58) # fictional star/coin data
-rect(20,137,104,181) # left subject sign
-rect(739,134,818,180) # right subject sign
+ # The two hanging subject labels are approved illustrated signs; preserve their original painting.
+
 rect(275,288,396,333) # math parchment type
 rect(438,287,569,334) # language parchment type
 rect(308,317,367,381) # math fake play button
@@ -63,3 +63,16 @@ book=im.crop((380,8,470,66)).convert('RGBA');m=Image.new('L',book.size)
 ImageDraw.Draw(m).ellipse((0,0,90,57),fill=255);m=m.filter(ImageFilter.GaussianBlur(1));book.putalpha(m)
 book.resize((360,232),Image.Resampling.LANCZOS).save(out+'/libro-estrella.webp','WEBP',quality=92,method=6)
 print('ASSETS READY',[(f,os.path.getsize(out+'/'+f)) for f in os.listdir(out) if f.endswith('webp')])
+
+# Hand-painted wood-menu icons from the approved reference, not platform emojis.
+for name,box in [
+ ('icon-coleccion',(223,397,256,434)),
+ ('icon-errores',(330,396,362,434)),
+ ('icon-logros',(438,395,476,433)),
+ ('icon-ajustes',(544,395,582,436))]:
+ tile=im.crop(box).convert("RGBA")
+ alpha=Image.new("L",tile.size,0)
+ d=ImageDraw.Draw(alpha)
+ d.rounded_rectangle((1,1,tile.width-2,tile.height-2),radius=8,fill=255)
+ alpha=alpha.filter(ImageFilter.GaussianBlur(1.9));tile.putalpha(alpha)
+ tile.resize((tile.width*4,tile.height*4),Image.Resampling.LANCZOS).save(out+"/"+name+".webp","WEBP",quality=88,method=6)
