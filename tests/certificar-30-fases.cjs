@@ -14,10 +14,12 @@ async function reply(page,topic){
  }else if(await page.locator('[data-action="mini"][data-mini="left"]').count()){
   const left=(await page.locator('[data-action="mini"][data-mini="left"]').allTextContents()).map(x=>x.trim());
   const right=(await page.locator('[data-action="mini"][data-mini="right"]').allTextContents()).map(x=>x.trim());
-  const target=await page.evaluate(({left,topic})=>{
-   const pairs=topic==="antonimos"?window.EDU_DATA.antonyms:window.EDU_DATA.synonyms;
+  const prompt=await page.locator(".q-title").innerText();
+  const target=await page.evaluate(({left,topic,prompt})=>{
+   const variety=window.LigaVariedad?.questions?.find(q=>q.prompt===prompt&&q.type==="matching");
+   const pairs=variety?.pairs||(topic==="antonimos"?window.EDU_DATA.antonyms:window.EDU_DATA.synonyms);
    return left.map(t=>pairs.find(p=>p[0]===t)?.[1]);
-  },{left,topic});
+  },{left,topic,prompt});
   for(let i=0;i<left.length;i++){
    const index=right.indexOf(target[i]);assert.ok(index>=0,"Wrong original pair "+left[i]);
    await page.locator('[data-action="mini"][data-mini="left"]').nth(i).click();
@@ -28,6 +30,17 @@ async function reply(page,topic){
   for(let i=0;i<n;i++)await page.locator('[data-action="mini"][data-mini="pick"]').nth(i).click();
  }else if(await page.locator('[data-action="mini"][data-mini="verify"]').count()){
   await page.locator('[data-action="mini"][data-mini="verify"]').click();
+ }else if(await page.locator('[data-mini="submit-fields"]').count()){
+  for(const item of await page.locator("[data-varied-input]").all())await item.fill("0");
+  await page.locator('[data-mini="submit-fields"]').click();
+ }else if(await page.locator('[data-mini="verify-classification"]').count()){
+  const pairs=await page.locator('[data-mini="classify"]').evaluateAll(nodes=>nodes.map(n=>n.dataset.value));
+  for(const i of [...new Set(pairs.map(x=>x.split(":")[0]))])
+   await page.locator('[data-mini="classify"][data-value="'+i+':0"]').click();
+  await page.locator('[data-mini="verify-classification"]').click();
+ }else if(await page.locator('[data-mini="verify-writing"]').count()){
+  await page.locator("#varied-writing").fill("La niña escribe y revisa una oración.");
+  await page.locator('[data-mini="verify-writing"]').click();
  }else if(await page.locator('[data-action="mini"][data-mini="choose"]').count()){
   await page.locator('[data-action="mini"][data-mini="choose"]').first().click();
  }else if(await page.locator('[data-action="choose"]').count()){
