@@ -25,6 +25,8 @@ jobs:
           node tests/contenidos-drive.cjs
           node tests/alcanzabilidad-drive.cjs
           node tests/fases-secuenciales.cjs
+          node tests/integridad-b.cjs
+          node tests/validacion-remota-b.cjs
       - name: Preparar navegador
         run: npm install --no-save playwright-core@1.58.2
       - name: Iniciar servidor local
@@ -37,6 +39,8 @@ jobs:
         run: node tests/smoke-pixel.cjs
       - name: Preguntas de ambas asignaturas
         run: node tests/contenidos-drive-browser.cjs
+      - name: Regresión de dictados y lectura expresiva del PR #2
+        run: node tests/actividades-especiales-b.cjs
       - name: PWA y mapa visual
         run: node qa-pixel.js
       - name: Conservar capturas de regresión responsive
