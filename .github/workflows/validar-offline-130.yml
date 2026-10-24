@@ -1,0 +1,32 @@
+name: Verificación PWA offline educativa
+on:
+  push:
+    branches:
+      - test/integracion-b-130
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-real:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar Chromium
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servir web únicamente en el ordenador de pruebas
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/offline-liga-130.log 2>&1 &
+          sleep 2
+      - name: PWA offline, recuperación y retorno online
+        run: node tests/certificar-offline-pwa.cjs
+      - name: Guardar evidencia offline
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pwa-offline-evidencia
+          path: qa-certificacion/offline-pwa.json
+          if-no-files-found: warn
