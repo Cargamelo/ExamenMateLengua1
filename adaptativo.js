@@ -23,7 +23,20 @@ function concept(q){
 function entry(){return {step:0,answers:[],streak:0,wrong:0,sinceChange:0,concepts:{},needs:[],missions:0};}
 function init(progress,ids){
  let a=progress.adaptive;
- if(a&&a.version===VERSION&&a.topics){for(const id of ids)if(!a.topics[id])a.topics[id]=entry();return a;}
+ if(a){
+  if(a.version!==VERSION||!a.topics||typeof a.topics!=="object"||Array.isArray(a.topics)||
+     !a.rewards||!Number.isSafeInteger(a.rewards.coins)||a.rewards.coins<0||
+     !Number.isSafeInteger(a.rewards.completed)||a.rewards.completed<0)
+   throw new Error("Estado adaptativo incompatible: se conserva sin modificar");
+  for(const id of ids){
+   const t=a.topics[id];
+   if(!t){a.topics[id]=entry();continue;}
+   if(typeof t!=="object"||!Number.isSafeInteger(t.step)||t.step<0||t.step>MAX_STEP||
+     !Array.isArray(t.answers)||!Array.isArray(t.needs)||!t.concepts||typeof t.concepts!=="object")
+    throw new Error("Datos adaptativos incompletos: no se reinician automáticamente");
+  }
+  return a;
+ }
  a={version:VERSION,topics:{},rewards:{coins:0,completed:0},migratedAt:Date.now()};
  ids.forEach(id=>a.topics[id]=entry());
  const history=Array.isArray(progress.history)?progress.history:[];
@@ -32,7 +45,15 @@ function init(progress,ids){
  for(const m of miss.slice(-60)){const v=a.topics[m.topic];if(!v)continue;const c=concept(m);let exist=v.needs.find(e=>e.concept===c);if(exist)exist.total++;else v.needs.push({concept:c,variant:m.variant||"",total:1,solved:0,fingerprints:[],last:m.time||0});}
  progress.adaptive=a;return a;
 }
-function topic(a,id){if(!a.topics[id])a.topics[id]=entry();const x=a.topics[id];x.step=clamp(Number(x.step)||0);return x}
+function topic(a,id){
+ if(!a||!a.rewards||!Number.isSafeInteger(a.rewards.coins)||a.rewards.coins<0)
+  throw new Error("Monedas o recompensas no válidas");
+ if(!a.topics[id])a.topics[id]=entry();
+ const x=a.topics[id];
+ if(!Number.isSafeInteger(x.step)||x.step<0||x.step>MAX_STEP||!Array.isArray(x.answers)||!Array.isArray(x.needs))
+  throw new Error("Escalón adaptativo no válido");
+ return x;
+}
 function status(a,id){const t=topic(a,id),recent=t.answers.slice(-8),correct=recent.filter(x=>x.ok&&x.hints===0).length;
 return {step:t.step,tier:t.step>=3?3:2,name:t.step>=3?"Avanzado":"Intermedio",progress:t.step/5,answered:t.answers.length,recent:recent.length,accuracy:recent.length?Math.round(correct/recent.length*100):0,pending:t.needs.length,missions:t.missions,streak:t.streak};}
 function track(a,q,ok,hints=0){
