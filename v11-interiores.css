@@ -1,0 +1,348 @@
+/*
+ La Liga del Saber · V11 | Interiores de fantasía ilustrada
+ Diseño/presentación únicamente. No modifica contenidos, progreso ni eventos.
+ Aislado bajo body.game.pixel-game: la portada V10 no carga este fichero.
+*/
+body.game.pixel-game{
+ --v11-turquesa:#49e6d5;--v11-violeta:#d39aff;--v11-oro:#f9d68d;
+ --v11-hueso:#fff2d5;--v11-madera:#4d2c23;--v11-tinta:#35251f;
+ --v11-resplandor:#57fbe1;--v11-sombra:0 7px 0 #241922,0 19px 37px #050817a8;
+ --v11-ambiente:url("./assets/v11/reino-matematicas.webp");
+ background:#0b1830 linear-gradient(180deg,#09102377,#0c20359c 60%,#080e1aee),var(--v11-ambiente) center top/cover fixed;
+ color:var(--v11-hueso);
+}
+body.game.pixel-game.lang-game{--v11-ambiente:url("./assets/v11/reino-lengua.webp");--v11-resplandor:#d9a0ff}
+body.game.pixel-game #app,body.game.pixel-game #view,body.game.pixel-game .game-container{background:transparent}
+body.game.pixel-game .game-container{width:min(100%,1640px);max-width:1640px;margin-inline:auto}
+body.game.pixel-game .game-header{
+ position:relative;isolation:isolate;overflow:visible;
+ background:
+  linear-gradient(103deg,#2d1c1af5,#65412be8 48%,#2f212beb),
+  repeating-linear-gradient(6deg,#bb875d29 0 2px,transparent 3px 12px);
+ border:4px ridge #ecc17c;border-radius:17px;
+ box-shadow:inset 0 0 0 2px #fff0b05e,inset 0 12px 20px #fae09a13,var(--v11-sombra)
+}
+body.game.pixel-game .game-header::after{
+ content:"";pointer-events:none;position:absolute;inset:5px;border:1px solid #ffdd945e;border-radius:11px
+}
+body.game.pixel-game .game-header .brand strong{
+ color:#ffe2a2;font-family:Georgia,serif;font-weight:900;
+ text-shadow:0 2px #3a1f14,0 4px 7px #140a10
+}
+body.game.pixel-game .game-header .brand small{color:#f6e4bd}
+body.game.pixel-game .game-header .header-main-menu,
+body.game.pixel-game .game-header .icon-button,
+body.game.pixel-game .game-header .pill-info{
+ border:2px ridge #d7ad6f;border-radius:12px;
+ background:linear-gradient(155deg,#75513be8,#372622f5);
+ color:#fff1d2;box-shadow:inset 0 1px #ffe9b468,0 4px 0 #261a20
+}
+/* Las entradas de los dos reinos conservan sus fotografías y se integran en el mismo cuento. */
+body.game.pixel-game .quest-hero,
+body.game.pixel-game .hero-game{
+ position:relative;isolation:isolate;overflow:hidden;
+ background-image:
+ linear-gradient(100deg,#0b1723e8 0%,#0b1d25b8 52%,#090f2366 100%),
+ var(--v11-ambiente);
+ background-position:center center;background-size:cover;
+ border:5px ridge #e2b976;border-radius:24px;
+ box-shadow:inset 0 0 0 3px #ffe7a552,0 8px 0 #241c1e,0 25px 45px #030819bd
+}
+body.game.pixel-game .quest-hero::after{
+ content:"";position:absolute;inset:12px;pointer-events:none;border:1px solid #ffdb914d;
+ border-radius:14px;background:radial-gradient(ellipse at 76% 24%,#ffd88823,transparent 54%)
+}
+body.game.pixel-game .quest-hero .hero-copy{position:relative;z-index:2}
+body.game.pixel-game .quest-hero .hero-companion{
+ position:relative;z-index:2;width:clamp(120px,18vw,260px);height:auto;max-height:360px;
+ object-fit:contain;object-position:center bottom;
+ filter:drop-shadow(0 14px 9px #0009) drop-shadow(0 0 23px #ffdc8c3c)
+}
+body.game.pixel-game .quest-hero :is(h1,h2){font-family:Georgia,serif;color:#ffe4a2;text-shadow:0 3px 0 #60361b,0 6px 13px #000}
+body.game.pixel-game .adventure-actions .adventure-launch{
+ border:4px ridge #eed09b;min-height:84px;
+ background:linear-gradient(145deg,#1a6d62,#124b59 55%,#163344)!important;
+ box-shadow:inset 0 2px #ffffff37,inset 0 0 0 2px #d2fff34a,0 6px 0 #142b2b,0 12px 25px #07151baa
+}
+body.game.lang-game.pixel-game .adventure-actions .adventure-launch{
+ background:linear-gradient(145deg,#7752aa,#563578 65%,#312853)!important;
+ border-color:#eccafc;
+ box-shadow:inset 0 2px #fff8ff4b,0 6px 0 #332747,0 12px 25px #0b081baa
+}
+body.game.pixel-game :is(.adventure-world,.menu-card,.level-card,.map-heading,.map-voyage-intro,.material-world){
+ background:
+ radial-gradient(ellipse at 55% 0,#b78a5434,transparent 45%),
+ linear-gradient(160deg,#503628f2,#28272ce9 55%,#172b2dec);
+ color:#fff0d1;border:4px ridge #d4aa70;border-radius:18px;
+ box-shadow:inset 0 0 0 2px #ffdda547,0 6px 0 #2a1d1c,0 14px 27px #0008
+}
+body.game.lang-game.pixel-game :is(.adventure-world,.menu-card,.level-card,.map-heading,.map-voyage-intro,.material-world){
+ background:radial-gradient(ellipse at 50% 0,#cfa7df30,transparent 48%),linear-gradient(150deg,#583a5e,#312a46 62%,#192e3a)
+}
+/* Mapas V11: un único paisaje pintado en escritorio, mapas verticales originales en móvil. */
+body.game.pixel-game .stage-gameworld{
+ --v11-stage-color:var(--v11-turquesa);
+ background:
+ radial-gradient(ellipse at 52% 0,#d3b56c24,transparent 44%),
+ linear-gradient(180deg,#51382cf5,#192c36eb 60%,#101b2af7);
+ border:5px ridge #e2bc79;border-radius:23px;
+ padding:clamp(8px,1.4vw,19px);
+ box-shadow:inset 0 0 0 3px #fff0c34b,0 9px 0 #231e22,0 21px 46px #050918ac
+}
+body.game.lang-game.pixel-game .stage-gameworld{
+ --v11-stage-color:var(--v11-violeta);
+ background:radial-gradient(ellipse at 52% 0,#d3a8e12a,transparent 44%),linear-gradient(180deg,#50335cf2,#28263ef4 60%,#111b31f7)
+}
+body.game.pixel-game .stage-map-progress{
+ border:3px ridge #eac483;border-radius:18px;
+ background:linear-gradient(105deg,#583b27f5,#2e2928ef 62%,#36443bee);
+ padding:clamp(10px,1.3vw,19px);
+ box-shadow:inset 0 0 0 2px #ffe6ab39,0 6px 15px #0007
+}
+body.game.pixel-game .stage-map-progress strong{
+ color:#fff1bc;font-family:Georgia,serif;font-size:clamp(1rem,1.55vw,1.35rem);
+ text-shadow:0 2px 3px #000
+}
+body.game.pixel-game .stage-map-progress span{background:#432d2aed;color:#ffebcf}
+body.game.pixel-game .stage-territories{gap:8px;margin:14px auto 18px}
+body.game.pixel-game .stage-territory{
+ min-height:38px;padding:8px 13px;white-space:normal;
+ background:linear-gradient(160deg,#754a31,#342321);
+ border:2px ridge #efd08b;border-radius:12px;box-shadow:0 4px 0 #1d1619,0 6px 13px #0007;
+ color:#fff0ca;text-shadow:0 1px #2f201f;font-size:clamp(.7rem,1vw,.89rem)
+}
+body.game.lang-game.pixel-game .stage-territory{background:linear-gradient(145deg,#795089,#392847);border-color:#ecc5fa}
+body.game.pixel-game .stage-artscape{
+ position:relative;isolation:isolate;
+ border:5px ridge #dcb976;border-radius:18px;overflow:hidden;
+ background:#11293a;
+ box-shadow:inset 0 0 0 4px #ffebbb6b,0 13px 29px #0009
+}
+body.game.pixel-game .stage-artscape::before{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+ background:
+ radial-gradient(circle at 10% 13%,#fddd7240,transparent 19%),
+ radial-gradient(circle at 84% 46%,var(--v11-resplandor),transparent 35%),
+ linear-gradient(180deg,#060e2511 0%,transparent 43%,#050b2380 100%);
+ mix-blend-mode:screen;opacity:.31
+}
+body.game.pixel-game .stage-artscape::after{
+ content:"";position:absolute;inset:8px;z-index:2;pointer-events:none;border:1px solid #f8dba557;border-radius:11px;
+ box-shadow:inset 0 0 38px #050b2399
+}
+body.game.pixel-game .stage-map-picture,
+body.game.pixel-game .stage-map-picture .map-ground-art{object-fit:cover;object-position:center 50%;image-rendering:auto}
+body.game.pixel-game .stage-road{opacity:.82;filter:drop-shadow(0 2px 3px #052333)}
+body.game.pixel-game .stage-road-base{stroke:#d9c28b;stroke-width:9;stroke-dasharray:2 17;opacity:.75}
+body.game.pixel-game .stage-road-done{stroke:#fbf4b2;stroke-width:7;filter:drop-shadow(0 0 8px var(--v11-resplandor))}
+body.game.pixel-game .stage-node{z-index:4;transform:translate(-50%,-50%);cursor:pointer}
+body.game.pixel-game .stage-orb{
+ position:relative;border:4px ridge #f4cf83;border-radius:50%;
+ background:radial-gradient(circle at 33% 23%,#b9ffef,#177f86 55%,#143d58 92%);
+ box-shadow:inset 0 2px 4px #fff9da7e,inset 0 -6px 11px #060c2259,0 5px 0 #48382b,0 7px 15px #000b,0 0 18px #53eeda6b
+}
+body.game.lang-game.pixel-game .stage-orb{
+ background:radial-gradient(circle at 33% 23%,#e5ceff,#934eb3 55%,#44255c 92%);
+ box-shadow:inset 0 2px 4px #fff9da7e,inset 0 -6px 11px #060c2259,0 5px 0 #48382b,0 7px 15px #000b,0 0 18px #d4a2ff77
+}
+body.game.pixel-game .stage-locked .stage-orb{background:linear-gradient(145deg,#77828d,#343f4d);border-color:#9296a0;box-shadow:0 5px 0 #32313a,0 7px 14px #0009}
+body.game.pixel-game .stage-active .stage-orb{box-shadow:0 0 0 5px #ffedaf99,0 0 25px var(--v11-resplandor),0 6px 0 #342b31;filter:brightness(1.12)}
+body.game.pixel-game .stage-completed .stage-orb{border-color:#fff0bd}
+body.game.pixel-game .stage-index{font-weight:1000;color:#fff4d3;text-shadow:0 2px 2px #000}
+body.game.pixel-game .stage-node-name{
+ color:#3b271e;background:linear-gradient(165deg,#fff2ce 0%,#e8c48b 73%,#c99864);
+ border:3px ridge #c18c4e;border-radius:14px;
+ font-family:Georgia,serif;font-weight:900;
+ box-shadow:inset 0 1px 2px #fffbe6,0 4px 0 #4d3023,0 8px 14px #000a
+}
+body.game.pixel-game .stage-guide{z-index:3;pointer-events:none}
+body.game.pixel-game .stage-guide img{
+ width:100%;height:100%;object-fit:contain;object-position:center bottom;
+ filter:drop-shadow(0 6px 5px #000b) drop-shadow(0 0 9px #ffeaa14f)
+}
+body.game.pixel-game .map-access-note{
+ background:linear-gradient(160deg,#4d3528,#26282a);color:#f9e7c4;
+ border:2px ridge #e6bb7b;border-radius:12px;line-height:1.45
+}
+/* Zonas de ejercicios: escenario pintado y pergamino nítido en primer plano. */
+body.game.pixel-game .mission-stage{
+ position:relative;isolation:isolate;
+ background-image:linear-gradient(100deg,#0b1328d8,#102b34ae 62%,#141b2bac),var(--v11-ambiente);
+ background-size:cover;background-position:center 43%;
+ border:5px ridge #e1b779;border-radius:23px;
+ box-shadow:inset 0 0 0 3px #ffedbf45,0 9px 0 #282023,0 19px 32px #000a
+}
+body.game.pixel-game .mission-stage::before{
+ content:"";position:absolute;inset:9px;border:1px solid #f1d49b5b;border-radius:14px;pointer-events:none;z-index:0
+}
+body.game.pixel-game .mission-stage>*{position:relative;z-index:1}
+body.game.pixel-game .mission-toolbar{
+ background:linear-gradient(100deg,#593924ef,#29282bee);border:3px ridge #d7b176;
+ border-radius:13px;padding:10px 15px;color:#ffead0;box-shadow:0 5px 0 #291d1d
+}
+body.game.pixel-game .mission-toolbar p{color:#fff1d8}
+body.game.pixel-game .mission-count{background:linear-gradient(#e4bb74,#9e6038);color:#251c18;border:2px ridge #ffdfa4;font-weight:900}
+body.game.pixel-game .meter{border:2px solid #d9b37b;box-shadow:0 2px 8px #0008;background:#181c25}
+body.game.pixel-game .meter>span{background:linear-gradient(90deg,#3ab9a6,#d4f7c0,#ffe4a1)}
+body.game.lang-game.pixel-game .meter>span{background:linear-gradient(90deg,#8050c2,#e4b2ff,#ffe4a1)}
+body.game.pixel-game :is(.mission-pane,.mission-interaction,.paper,.lesson,.reading,.question-visual){
+ position:relative;background:
+ radial-gradient(ellipse at 40% 0,#fffdf0d9,transparent 58%),
+ repeating-linear-gradient(0deg,#f4e3bf23 0 1px,transparent 2px 12px),
+ linear-gradient(140deg,#fff1d2,#e5c994 63%,#f8e4be);
+ border:4px ridge #c79756;border-radius:16px;color:var(--v11-tinta);
+ box-shadow:inset 0 0 0 3px #fff9e2bb,inset 0 0 24px #926b3a26,0 7px 0 #735130,0 13px 22px #0007
+}
+body.game.pixel-game :is(.mission-pane,.mission-interaction) :is(p,li,label,strong,small,h1,h2,h3){color:#38281f}
+body.game.pixel-game .mission-pane .q-title{color:#39271d;font:900 clamp(1.3rem,2.4vw,2.12rem)/1.28 Georgia,serif;text-shadow:none;overflow-wrap:anywhere}
+body.game.pixel-game .quest-place-scene{
+ position:relative;overflow:hidden;border:2px solid #b68c55;border-radius:14px;
+ background:linear-gradient(110deg,#09252f6a,#14253621),var(--v11-ambiente) center center/cover;
+ min-height:clamp(135px,16vw,215px);
+ box-shadow:inset 0 0 24px #07121aa8,0 5px 13px #0003
+}
+body.game.pixel-game .quest-place-scene .quest-guide-art{
+ object-fit:contain;object-position:center bottom;filter:drop-shadow(0 6px 9px #070c1bb4);
+ max-height:98%;width:clamp(85px,12vw,155px)
+}
+body.game.pixel-game :is(.mission-guide-expression,.hint-guide-expression){
+ object-fit:contain;object-position:center bottom;border-radius:0;
+ filter:drop-shadow(0 4px 5px #140e0b9a)
+}
+body.game.pixel-game .quest-guide-reaction{background:#472e22e8;color:#fff1cc;border:2px solid #dfbb78}
+body.game.pixel-game .mission-interaction :is(input,textarea,select,.field){
+ min-height:48px;background:#fffdf5;color:#2d211b;border:2px solid #9c7749;border-radius:10px;font-size:1rem
+}
+body.game.pixel-game .mission-interaction .choice{
+ min-height:54px;background:linear-gradient(160deg,#fdf1c8,#d6b47d);
+ border:3px ridge #ad814f;border-radius:12px;color:#35281e;
+ text-shadow:none;box-shadow:inset 0 1px #fff,0 5px 0 #80603d;
+ font-weight:850;white-space:normal;overflow-wrap:anywhere
+}
+body.game.pixel-game .mission-interaction .choice:is(:hover,:focus-visible){filter:brightness(1.04);border-color:#fff0a4}
+body.game.pixel-game :is(.primary-btn,.quest-artifact-button,.adventure-launch):not(.choice){
+ min-height:48px;border:3px ridge #d6c488;border-radius:13px;
+ color:#fff8dd;background:linear-gradient(160deg,#3bc3a4,#087e79);
+ text-shadow:0 1px 3px #0008;box-shadow:0 5px 0 #165454,0 10px 18px #0006
+}
+body.game.lang-game.pixel-game :is(.primary-btn,.quest-artifact-button):not(.choice){
+ background:linear-gradient(160deg,#b88de0,#6c42b3);box-shadow:0 5px 0 #3c2961,0 10px 18px #0006
+}
+body.game.pixel-game :is(.secondary-btn,.tag-btn,.quest-text-button){
+ min-height:46px;border:3px ridge #d5a866;background:linear-gradient(#fff0c6,#d3ab73);color:#3d2b21;
+ border-radius:12px;text-shadow:none;box-shadow:0 4px 0 #75502e
+}
+body.game.pixel-game .feedback{background:linear-gradient(#fff8e3,#e7cf9b);color:#37291f;border:3px ridge #c7995b}
+body.game.pixel-game .stage-card-earned,.game.pixel-game .stage-finish,.game.pixel-game .mission-result{
+ background:
+ radial-gradient(ellipse at 50% 3%,#fff1ad44,transparent 50%),
+ linear-gradient(145deg,#513725,#16363a 62%,#382b4c);
+ border:5px ridge #f1cc7c;color:#fff0cc;border-radius:23px;
+ box-shadow:inset 0 0 0 3px #fff3c050,0 9px 0 #211d22,0 20px 35px #000a
+}
+body.game.pixel-game :is(.victory-guide,.stage-card-earned img){
+ object-fit:contain;filter:drop-shadow(0 8px 12px #0008)
+}
+body.game.pixel-game .stage-card-earned h2{color:#ffdf9d}
+body.game.pixel-game .stage-card-earned .stage-card-rarity{color:#ffdf9d}
+/* Biblioteca, repaso, logros y configuración dentro de un mismo panel de madera */
+body.game.pixel-game .pixel-overlay-root{background:#050b20d6;backdrop-filter:blur(5px)}
+body.game.pixel-game .pixel-dialog{
+ background:
+ radial-gradient(ellipse at 52% 4%,#e5b97626,transparent 47%),
+ linear-gradient(158deg,#573726,#2c272c 58%,#172c3c);
+ border:5px ridge #e5ba78;border-radius:20px;
+ box-shadow:inset 0 0 0 3px #ffeba65c,0 14px 0 #271b1e,0 24px 65px #000d;
+ color:#f9edce
+}
+body.game.pixel-game .pixel-modal-head{
+ position:relative;border-bottom:3px double #d6a56c;padding:13px 18px 17px;
+ background:linear-gradient(110deg,#533120ac,#422c2478);
+ border-radius:12px 12px 4px 4px
+}
+body.game.pixel-game .pixel-modal-head h2{color:#ffdb94;text-shadow:0 3px 0 #4a271d,0 5px 12px #000;font-family:Georgia,serif}
+body.game.pixel-game .pixel-album-layout{
+ position:relative;isolation:isolate;
+ background:linear-gradient(#1e1725b4,#130f1acb),url("./assets/arte-v4/bosque-magico.webp") center/cover;
+ padding:clamp(8px,1.4vw,20px);border:3px ridge #a78150;border-radius:18px;
+ box-shadow:inset 0 0 24px #0008
+}
+body.game.pixel-game .pixel-album-sidebar,
+body.game.pixel-game .pixel-album-main{
+ background:linear-gradient(150deg,#66462ef2,#352820fa 54%,#2b292ae9);
+ border:3px ridge #d5ad6c;border-radius:14px;
+ box-shadow:inset 0 0 0 2px #fff4c039,0 6px 0 #1c161a
+}
+body.game.pixel-game .pixel-album-detail{
+ background:linear-gradient(160deg,#fff1cd,#d8b77d);
+ color:#3b291f;border:4px ridge #d3a669;box-shadow:inset 0 0 0 3px #fff8d0,0 6px 0 #2c201d
+}
+body.game.pixel-game .pixel-card-tile{
+ background:linear-gradient(135deg,#4a5d53,#272936);border:3px ridge #d2a267;
+ border-radius:12px;box-shadow:0 4px 0 #211b20,0 9px 14px #0007
+}
+body.game.pixel-game .pixel-card-tile.pixel-card-pending{background:linear-gradient(140deg,#31333a,#1f252e)}
+body.game.pixel-game .pixel-card-story{
+ background:linear-gradient(#fff6db,#ecd1a2);color:#3a291e;border:3px ridge #c09557
+}
+body.game.pixel-game .pixel-album-actions button{
+ min-height:48px;background:linear-gradient(150deg,#76513c,#3d2a2b);
+ color:#fff1cc;border:2px ridge #cba56d;border-radius:11px
+}
+body.game.pixel-game .pixel-album-actions button[aria-pressed=true]{
+ background:linear-gradient(145deg,#fff0c2,#bc9151);color:#34241e
+}
+body.game.pixel-game .pixel-settings{
+ color:#f4e2c4;background:linear-gradient(140deg,#503828,#2e2a2b);
+ border:3px ridge #b9915b;border-radius:15px;padding:18px
+}
+body.game.pixel-game .pixel-dialog :is(button,a,input,summary):focus-visible,
+body.game.pixel-game :is(.stage-node,.choice,.primary-btn,button,a,input,textarea,select):focus-visible{
+ outline:3px solid #fff0aa;outline-offset:4px;scroll-margin:16px
+}
+@media(min-width:900px){
+ body.game.pixel-game .stage-artscape{aspect-ratio:16/9}
+ body.game.pixel-game .stage-map-picture .map-ground-art{object-fit:cover;object-position:center center}
+ body.game.pixel-game .stage-guide{width:clamp(75px,8vw,123px)}
+ body.game.pixel-game .stage-node{width:clamp(100px,10.5%,159px)}
+ body.game.pixel-game .stage-node-name{font-size:clamp(.73rem,1vw,.95rem)}
+}
+@media(max-width:899px){
+ body.game.pixel-game .stage-map-picture .map-ground-art{object-fit:cover}
+ body.game.pixel-game .stage-artscape{aspect-ratio:2/3}
+ body.game.pixel-game .stage-node{width:clamp(104px,27vw,160px)}
+ body.game.pixel-game .stage-guide{width:clamp(74px,18vw,120px)}
+ body.game.pixel-game .pixel-album-layout{padding:8px}
+}
+@media(max-width:700px){
+ body.game.pixel-game{background-attachment:scroll}
+ body.game.pixel-game .game-container{padding-inline:8px}
+ body.game.pixel-game .game-header{border-width:3px;border-radius:13px}
+ body.game.pixel-game .quest-hero{min-height:0}
+ body.game.pixel-game .quest-hero .hero-companion{max-width:34vw;max-height:230px}
+ body.game.pixel-game .stage-gameworld{padding:7px 5px 12px;border-width:3px}
+ body.game.pixel-game .stage-map-progress{padding:9px;border-width:2px}
+ body.game.pixel-game .stage-territory{min-height:36px;font-size:.69rem;padding:6px 9px}
+ body.game.pixel-game .stage-artscape{height:1900px;min-height:1900px;aspect-ratio:auto;border-width:3px}
+ body.game.lang-game.pixel-game .stage-artscape{height:2140px;min-height:2140px;aspect-ratio:auto}
+ body.game.pixel-game .stage-node{width:clamp(114px,34vw,160px)}
+ body.game.pixel-game .stage-node-name{font-size:clamp(.73rem,2.6vw,.85rem)}
+ body.game.pixel-game .mission-stage{padding:12px 8px;border-width:3px}
+ body.game.pixel-game .mission-toolbar{padding:9px;gap:8px}
+ body.game.pixel-game :is(.mission-pane,.mission-interaction,.paper,.lesson,.reading,.question-visual){border-width:3px;padding:13px 10px}
+ body.game.pixel-game .quest-place-scene{min-height:130px}
+ body.game.pixel-game .pixel-album-layout{display:block}
+ body.game.pixel-game .pixel-album-sidebar,.game.pixel-game .pixel-album-main,.game.pixel-game .pixel-album-detail{margin-bottom:10px}
+ body.game.pixel-game .pixel-modal-head{padding:11px 9px}
+ body.game.pixel-game :is(button,a){touch-action:manipulation}
+}
+@media(max-width:390px){
+ body.game.pixel-game .stage-artscape{height:2020px;min-height:2020px}
+ body.game.lang-game.pixel-game .stage-artscape{height:2270px;min-height:2270px}
+ body.game.pixel-game .stage-node{width:118px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.game.pixel-game *,body.game.pixel-game *::before,body.game.pixel-game *::after{
+  animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important
+ }
+}
