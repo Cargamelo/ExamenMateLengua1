@@ -1,6 +1,7 @@
 "use strict";
 (function(){
 const D=window.EDU_DATA, subject=document.body.dataset.subject, isMath=subject==="math";
+window.LigaBancoDrive?.installReading?.(D);
 const modules=isMath?D.math:D.lang;
 const app=document.getElementById("app");
 if(!D||!app){document.body.innerHTML="<p>No se han podido cargar los contenidos.</p>";return;}
@@ -202,7 +203,10 @@ const arr=(allowedVariants?.length?allowedVariants:map[id])||["a"];let n=challen
 let force=arr[n%arr.length];
 if(review){const needs=AD.pending(adaptive).filter(x=>x.topic===id);if(needs.length&&n%2===0){const v=needs[n%needs.length].variant;if(arr.includes(v))force=v;}}
 challengeSeq[id]=n+1;
-let source=(id==="operaciones"&&st.step>=4&&n%3===2&&!requiredSign)?advancedTwoStep():makeQuestion(id,force);
+/* Una de cada tres preguntas procede del banco docente, con respuesta y procedencia verificadas.
+   Se conservan las preguntas generativas actuales para variedad y mecánicas interactivas. */
+const fromDrive=!review&&n%3===1?window.LigaBancoDrive?.pick?.(id,{stage:session?.stage?.number||0,step:st.step,requiredSign}):null;
+let source=fromDrive||((id==="operaciones"&&st.step>=4&&n%3===2&&!requiredSign)?advancedTwoStep():makeQuestion(id,force));
 if(requiredSign){let tries=0;while(tries++<120&&!String(source.visual).includes(requiredSign))source=makeQuestion(id,force);if(!String(source.visual).includes(requiredSign))throw Error("No se pudo generar operación de signo "+requiredSign);}
 if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
 let tries=0;while(tries++<40&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
