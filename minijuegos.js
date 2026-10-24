@@ -2,6 +2,17 @@
 const rnd=n=>Math.floor(Math.random()*n),shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a},esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 function enrich(q,D,step=0){
  q={...q};const t=q.topic,v=q.variant;let m=null;
+ if(v==="variedad"){
+  if(q.type==="text"){q.choices=null;q.mechanic=null;return q;}
+  if(q.type==="fill")m={type:"fill",fields:q.fields,answers:q.answers,numeric:!!q.numeric};
+  else if(q.type==="classification")m={type:"classification",groups:q.groups,items:q.items};
+  else if(q.type==="guided")m={type:"guided",words:q.words};
+  else if(q.type==="ordering")m={type:"train",values:q.values,correct:q.correct.split(" → ")};
+  else if(q.type==="matching"){const pairs=q.pairs;m={type:"links",pairs,left:pairs.map(p=>p[0]),right:shuffle(pairs.map(p=>p[1]))};}
+  else if(q.type==="choice")m={type:"scene",values:q.choices};
+  if(!m)throw Error("Mecánica no reconocida: "+q.type);
+  q.mechanic=m;return q;
+ }
  if((t==="numeros"||t==="descomponer")&&v==="a"){m={type:"digits",target:q.correct.replace(/[.\s]/g,"").padStart(4,"0"),labels:["UM","C","D","U"]};q.concept=t==="numeros"?"escribir-cifras":m.target.includes("0")?"valor-posicional-ceros":"valor-posicional";q.prompt=t==="numeros"?"Abre la caja fuerte. "+q.prompt+" Introduce sus cuatro cifras, de millares a unidades.":"Construye el número con los bloques. "+q.prompt+" Coloca las cuatro cifras en sus columnas.";}
  else if(t==="comparar"&&v==="b"){const a=q.visual.split(" · ");if(a.length===4)m={type:"train",values:a,correct:q.correct.split(" → ")};}
  else if(t==="ordinales"&&v==="c"){const a=q.visual.match(/(?:^|\s)\d+\.\s*([^\s]+)/gu)?.map(x=>x.replace(/^\s*\d+\.\s*/,""))||[];if(a.length===10)m={type:"race",values:a};}
@@ -14,11 +25,26 @@ function enrich(q,D,step=0){
  else if(t==="comunicacion"||t==="comprension")m={type:"scene",values:q.choices||[]};
  q.mechanic=m;return q;
 }
-const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[],pickedIndex:null});
+const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[],pickedIndex:null,fields:[],groups:{},text:""});
 function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(["pick","left"].includes(act)?' draggable="true" data-drag-kind="'+(act==="pick"?"train":"links")+'" data-drag-index="'+esc(val)+'"':"")+(act==="right"?' data-drop-kind="links" data-drop-index="'+esc(val)+'"':"")+(disabled?" disabled":"")+(cls.includes("active")||cls.includes("selected")?' aria-pressed="true"':(["left","toggle"].includes(act)?' aria-pressed="false"':""))+'>'+esc(label)+'</button>';}
 function render(q,s,complete=false){
- const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+'<img class="quest-mini-art" src="./assets/objeto-'+m.type+'.svg" alt="" width="240" height="200" decoding="async">'+'</div>';
- if(["digits","machine"].includes(m.type)){
+ const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+'<img class="quest-mini-art" src="./assets/objeto-'+(["fill","classification","guided"].includes(m.type)?"scene":m.type)+'.svg" alt="" width="240" height="200" decoding="async">'+'</div>';
+ if(m.type==="fill"){
+  out+='<p class="quest-instruction">Completa cada casilla y después comprueba.</p><div class="varied-fields">';
+  m.fields.forEach((name,i)=>{out+='<label class="varied-label">'+esc(name)+
+   '<input class="field" type="text" data-varied-input="'+i+'" inputmode="'+(m.numeric?"numeric":"text")+'" value="'+esc(s.fields?.[i]||"")+'"'+(complete?" disabled":"")+'></label>';});
+  out+='</div>'+btn("submit-fields",0,"Comprobar los huecos","primary-btn quest-verify");
+ }else if(m.type==="classification"){
+  out+='<p class="quest-instruction">Pulsa una categoría para cada situación.</p><div class="varied-classification">';
+  m.items.forEach(([word],i)=>{out+='<div class="varied-class-item"><strong>'+esc(word)+'</strong><div role="group" aria-label="Clasifica '+esc(word)+'">'+
+   m.groups.map((g,j)=>btn("classify",i+":"+j,g,"quest-piece"+(s.groups?.[i]===j?" selected":""))).join("")+'</div></div>';});
+  out+='</div>'+btn("verify-classification",0,"Comprobar clasificación","primary-btn quest-verify");
+ }else if(m.type==="guided"){
+  out+='<label class="mini-label" for="varied-writing">Escribe tu propia oración. No se compara con un único modelo.</label>'+
+   '<textarea class="field long" id="varied-writing" rows="3" spellcheck="true"'+(complete?" disabled":"")+'>'+esc(s.text||"")+'</textarea>'+
+   '<p class="quest-instruction">Revisa que aparezcan las tres palabras, una mayúscula inicial y un punto final. Relee tu oración: el juego no puede evaluar automáticamente todo su sentido.</p>'+
+   btn("verify-writing",0,"He escrito y revisado mi oración","primary-btn quest-verify");
+ }else if(["digits","machine"].includes(m.type)){
  const n=m.type==="digits"?4:m.target.length;
  out+='<div class="quest-slot-row">'+Array.from({length:n},(_,i)=>'<div class="quest-slot'+(s.digits[i]?" filled":"")+'"><small>'+esc(m.labels?.[i]||"")+'</small><span>'+esc(s.digits[i]||"·")+'</span></div>').join("")+'</div><div class="quest-keypad">';
  for(const x of ["1","2","3","4","5","6","7","8","9","⌫","0","✓"])out+=btn(x==="⌫"?"erase":x==="✓"?"submit":"digit",x,x,"quest-key");
@@ -41,7 +67,33 @@ function render(q,s,complete=false){
 }
 function act(q,s,action,value){
  const m=q.mechanic;if(!m)return {state:s};
- if(m.type==="digits"||m.type==="machine"){
+ if(m.type==="fill"){
+  if(action==="submit-fields"){
+   let fields;try{fields=JSON.parse(value);}catch(e){return {state:s};}
+   if(!Array.isArray(fields)||fields.length!==m.answers.length)return {state:s};
+   s.fields=fields.map(x=>String(x||""));
+   if(s.fields.some(x=>!x.trim()))return {state:s};
+   const norm=x=>m.numeric?String(x).replace(/[.\\s]/g,""):String(x).normalize("NFC").trim().toLocaleLowerCase("es").replace(/\\s+/g," ");
+   const ok=s.fields.every((x,i)=>norm(x)===norm(m.answers[i]));
+   return {state:s,done:true,ok,given:s.fields.join(" / ")};
+  }
+ }else if(m.type==="classification"){
+  if(action==="classify"){const [i,j]=value.split(":").map(Number);
+   if(Number.isInteger(i)&&Number.isInteger(j)&&m.items[i]&&m.groups[j])s.groups[i]=j;}
+  if(action==="verify-classification"&&Object.keys(s.groups).length===m.items.length){
+   const ok=m.items.every(([word,category],i)=>m.groups[s.groups[i]]===category);
+   return {state:s,done:true,ok,given:m.items.map(([word],i)=>word+": "+m.groups[s.groups[i]]).join("; ")};
+  }
+ }else if(m.type==="guided"){
+  if(action==="verify-writing"){
+   s.text=String(value||s.text||"");
+   const text=s.text.trim(),lower=text.toLocaleLowerCase("es");
+   const words=m.words.every(w=>new RegExp("(^|[^\\\\p{L}])"+w+"([^\\\\p{L}]|$)","iu").test(lower));
+   const ok=text.length>=15&&words&&/^[A-ZÁÉÍÓÚÜÑ]/u.test(text)&&/[.!?]$/u.test(text);
+   if(!text)return {state:s};
+   return {state:s,done:true,ok,given:text};
+  }
+ }else if(m.type==="digits"||m.type==="machine"){
   const n=m.type==="digits"?4:m.target.length;
   if(action==="erase")s.digits=s.digits.slice(0,-1);
   if(action==="digit"&&s.digits.length<n)s.digits+=value;
