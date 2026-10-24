@@ -21,7 +21,7 @@ if(!chrome)throw Error("No Chromium");
    const names=[];
    for(const key of keys){
     const cache=await caches.open(key);
-    for(const path of ["./preguntas-drive.js","./juego.js","./contenidos.js"]){
+    for(const path of ["./preguntas-drive.js","./lengua-temario.js","./juego.js","./contenidos.js"]){
      if(await cache.match(new URL(path,location.href)))names.push(path);
     }
    }
