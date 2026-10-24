@@ -109,7 +109,7 @@ async function completeFirstStage(page,subject){
   await old.locator('[data-liga-open="collection"]').click();
   assert.match(await old.locator(".pixel-inventory-progress").innerText(),/24 \/ 24/);
   assert.match(await old.locator(".pixel-inventory-progress").innerText(),/30 \/ 30/);
-  assert.match(await old.locator(".pixel-inventory-progress").innerText(),/6 copias repetidas/);
+  assert.match(await old.locator(".pixel-inventory-progress").innerText(),/6\s+copias repetidas/);
   assert.equal(await old.locator(".pixel-card-owned").count(),24);
   await old.locator('[data-filter="pendientes"]').click();
   assert.equal(await old.locator(".pixel-card-tile").count(),0);
