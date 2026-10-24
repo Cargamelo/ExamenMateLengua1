@@ -3103,8 +3103,20 @@
  "source": "LEN-CONTROL-1",
  "original": true
 };
- for(const q of questions)if(q.check&&["add","subtract"].includes(q.check.kind))
-  q.visual=q.check.a+" "+(q.check.kind==="add"?"+":"−")+" "+q.check.b+" = ?";
+ for(const q of questions){
+  if(q.check&&["add","subtract"].includes(q.check.kind))
+   q.visual=q.check.a+" "+(q.check.kind==="add"?"+":"−")+" "+q.check.b+" = ?";
+  // Escalón mínimo del contenido, distinto del algoritmo adaptativo existente.
+  // Los retos difíciles no aparecen al comienzo: el generador clásico cubre los huecos.
+  const k=q.check?.kind;
+  q.minStep=k==="round"?(q.check.place===1000?2:q.check.place===100?1:0):
+    k==="ordinal"?(q.check.value>16?3:q.check.value>10?2:0):
+    k==="sort"?1:
+    k==="compare"?(Math.abs(q.check.a-q.check.b)<100?1:0):
+    k==="decomposition"||k==="digit"?(q.check.value%100===0?1:0):
+    k==="add"||k==="subtract"?(Math.max(q.check.a,q.check.b)>700?2:1):
+    k==="lexical"?(q.id.includes("SIN-")&&q.check.to.length>9?1:0):0;
+ }
  const byTopic=Object.groupBy?Object.groupBy(questions,q=>q.topic):
   questions.reduce((out,q)=>(out[q.topic]??=[]).push(q),{});
  window.LigaBancoDrive=Object.freeze({
@@ -3112,6 +3124,7 @@
   reading:Object.freeze(reading),
   pick(topic,options={}){
    const pool=(byTopic[topic]||[]).filter(q=>
+    q.minStep<=(Number.isInteger(options.step)?options.step:0)&&
     !(options.stage===5&&topic==="descomponer")&&
     !([5,6].includes(options.stage)&&topic==="comunicacion")&&
     !(options.requiredSign&&topic==="operaciones"));
