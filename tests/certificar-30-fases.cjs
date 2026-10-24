@@ -16,7 +16,7 @@ async function reply(page,topic){
   const right=(await page.locator('[data-action="mini"][data-mini="right"]').allTextContents()).map(x=>x.trim());
   const prompt=await page.locator(".q-title").innerText();
   const target=await page.evaluate(({left,topic,prompt})=>{
-   const variety=window.LigaTemarioLengua?.questions?.find(q=>q.prompt===prompt&&q.type==="matching")||
+   const variety=window.LigaTemarioLengua?.questions?.find(q=>q.type==="matching"&&left.every(t=>q.pairs.some(p=>p[0]===t)))||
      window.LigaVariedad?.questions?.find(q=>q.prompt===prompt&&q.type==="matching");
    const pairs=variety?.pairs||(topic==="antonimos"?window.EDU_DATA.antonyms:window.EDU_DATA.synonyms);
    return left.map(t=>pairs.find(p=>p[0]===t)?.[1]);
