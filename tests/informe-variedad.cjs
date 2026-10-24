@@ -3,7 +3,7 @@ const fs=require("node:fs"),vm=require("node:vm"),path=require("node:path");
 const c={window:{}};vm.runInNewContext(fs.readFileSync("actividades-variadas.js","utf8"),c);
 const questions=c.window.LigaVariedad.questions,seen=new Map(),unexpected=[];
 const root=process.argv[2]||"qa-variedad";
-const files=fs.existsSync(root)?fs.readdirSync(root).filter(x=>/^grupo-\\d+\\.json$/.test(x)):[];
+const files=fs.existsSync(root)?fs.readdirSync(root).filter(x=>/^grupo-\d+\.json$/.test(x)):[];
 for(const file of files){
  const data=JSON.parse(fs.readFileSync(path.join(root,file),"utf8"));
  for(const row of data.records||[]){
