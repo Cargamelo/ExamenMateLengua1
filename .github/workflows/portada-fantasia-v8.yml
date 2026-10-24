@@ -23,7 +23,7 @@ jobs:
             "https://d2ol7oe51mr4n9.cloudfront.net/user_3Eqb9DprbRkWGw9rSTxOJ5QDfCf/1d49276e-285e-43ae-9091-dd83651b1d40.png" \
             -o /tmp/portada-original.png
           python3 tools/build_portada_reference.py
-          test "$(find assets/portada -maxdepth 1 -name '*.webp' | wc -l)" -eq 8
+          test "$(find assets/portada -maxdepth 1 -name '*.webp' | wc -l)" -eq 12
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
@@ -31,7 +31,7 @@ jobs:
             with Image.open(p) as im:
               im.verify()
               assert p.stat().st_size>1000,p
-          print("Ocho recursos visuales independientes y válidos")
+          print("Doce recursos visuales independientes y válidos")
           PY
       - name: Conservar recursos originales en la rama
         run: |
