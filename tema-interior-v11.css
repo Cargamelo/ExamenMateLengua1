@@ -232,3 +232,6 @@ body.game.pixel-game .stage-artscape :is(.stage-map-picture,.map-ground-art,.sta
 body.game.pixel-game .stage-artscape::before,body.game.pixel-game .stage-artscape::after{pointer-events:none!important}
 body.game.pixel-game .stage-locations{position:absolute;inset:0;z-index:30;pointer-events:none}
 body.game.pixel-game .stage-locations .stage-node{position:absolute;z-index:31;pointer-events:auto!important;touch-action:manipulation;cursor:pointer}
+
+/* No desplazar hitboxes bajo el cursor al hacer hover; evita pulsaciones perdidas por reflujo en mapas. */
+body.game.pixel-game .stage-locations .stage-node:hover,body.game.pixel-game .stage-locations .stage-node:active,body.game.pixel-game .stage-locations .stage-node.is-pressed{transform:translate(-50%,-50%)!important}
