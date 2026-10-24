@@ -1,0 +1,50 @@
+name: Visual V11 interiores
+on:
+  push:
+    branches:
+      - feat/v11-unificacion-visual-20261024
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  v11:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validar sintaxis de archivos y prueba V11
+        run: |
+          node --check mapas.js
+          node --check juego.js
+          node --check tests/qa-interiores-v11.cjs
+          node --check sw.js
+      - name: Instalar Playwright
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar servidor
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/v11.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/index.html >/dev/null
+      - name: Mapas y misiones V11 en nueve tamaños reales
+        run: node tests/qa-interiores-v11.cjs
+      - name: Comprobar persistencia de cartas
+        run: node tests/cartas-coleccionables.cjs
+      - name: Comprobar cartas en Chromium
+        run: node tests/cartas-ui.cjs
+      - name: Verificar fases secuenciales
+        run: node tests/fases-secuenciales.cjs
+      - name: QA funcional y visual completo
+        run: node qa-pixel.js
+      - name: Guardar capturas y resultados
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v11-interiores-capturas
+          path: |
+            qa-screenshots/interiores-v11/
+            qa-screenshots/portada*
+          retention-days: 20
+          if-no-files-found: ignore
