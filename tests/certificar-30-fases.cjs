@@ -77,7 +77,7 @@ const get=async(page,subject)=>page.evaluate(s=>JSON.parse(localStorage.getItem(
     const context=await browser.newContext({viewport:{width:i%2?390:1366,height:i%2?844:768}});
     const page=await context.newPage();page.setDefaultTimeout(7000);
     const phase=subject+"-stage-"+String(i).padStart(2,"0");
-    const evidence={subject,phase,finished:false,replay:false,locked:true,questions:0,fail:null};
+    const evidence={subject,phase,finished:false,replay:false,locked:true,questions:0,mechanics:[],fail:null};
     const exceptions=[];page.on("pageerror",e=>exceptions.push(e.message));
     try{
      await page.addInitScript(({subject,index})=>{
@@ -110,12 +110,20 @@ const get=async(page,subject)=>page.evaluate(s=>JSON.parse(localStorage.getItem(
        await page.locator('[data-action="finish-special"]').click();
       }
      }else for(let n=0;n<15;n++){
+      const mechanic=await page.evaluate(()=>{
+       const el=document.querySelector(".quest-scene");
+       return el?.className?.replace("quest-scene quest-","")|| (document.querySelector("#response")?"text":"unknown");
+      });
+      evidence.mechanics.push(mechanic);
       const topic=stage.topics[n%stage.topics.length];
       if(n%5===0&&await page.locator('[data-action="hint"]').count())await page.locator('[data-action="hint"]').click();
       await reply(page,topic);
       await page.locator('[data-action="next"]').click();
      }
      assert.equal(await page.locator(".stage-victory").count(),1,"Victory missing "+phase);
+     if(subject==="lang"&&[1,2,3,4,5,6,10,11,15].includes(i)){
+      assert.ok(new Set(evidence.mechanics).size>=3,"Variedad insuficiente en "+phase+": "+evidence.mechanics.join(","));
+     }
      const state=await get(page,subject);
      assert.equal(Object.keys(state.stageJourney.completed).length,i);
      assert.equal(state.stageJourney.completed[phase].plays,1);
