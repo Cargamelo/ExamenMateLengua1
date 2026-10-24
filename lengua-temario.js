@@ -102,7 +102,7 @@ const antPairs=[
 ];
 for(const [topic,pairsSet] of [["sinonimos",synPairs],["antonimos",antPairs]])pairsSet.forEach((pairs,i)=>add(
  "lang",topic,"matching","Relaciona cada palabra con su "+(topic==="sinonimos"?"sinónimo.":"antónimo."),
- pairs.length+" parejas conectadas",{pairs,source:src.PAR,concept:topic+"-parejas",
+ pairs.map(p=>p.join(" ↔ ")).join("; "),{pairs,source:src.PAR,concept:topic+"-parejas",
  explanation:"Las parejas significan "+(topic==="sinonimos"?"algo igual o parecido.":"lo contrario."),hint1:"Empieza por las palabras que conoces mejor."}));
 const synContexts=[
  ["El paisaje es muy hermoso.","hermoso","bonito",["bonito","precioso","bello"]],
@@ -155,7 +155,7 @@ const pairClasses=[
  [["enorme - grande","Sinónimos"],["ancho - estrecho","Antónimos"],["terminar - acabar","Sinónimos"],["abrir - cerrar","Antónimos"]]
 ];
 pairClasses.forEach((pairs,i)=>add("lang",i%2?"antonimos":"sinonimos","classification",
- "Clasifica cada pareja como sinónimos o antónimos.","Clasificación correcta",
+ "Clasifica cada pareja como sinónimos o antónimos.",pairs.map(p=>p[0]+": "+p[1]).join("; "),
  {items:pairs,groups:["Sinónimos","Antónimos"],source:src.DOB,concept:"clasificar-parejas",
  explanation:"Los sinónimos son parecidos; los antónimos son contrarios."}));
 const guided=[
@@ -196,7 +196,7 @@ const typeSets=[
  [["Explicar oralmente un juego","Verbal oral"],["Un texto en el periódico","Verbal escrita"],["Una luz roja de semáforo","No verbal"]]
 ];
 typeSets.forEach(items=>add("lang","comunicacion","classification",
- "Clasifica las situaciones según cómo se comunica el mensaje.","Clasificación correcta",
+ "Clasifica las situaciones según cómo se comunica el mensaje.",items.map(p=>p[0]+": "+p[1]).join("; "),
  {items,groups:["Verbal oral","Verbal escrita","No verbal"],source:src.COM,
  concept:"clasificar-comunicacion",phases:[5,6,11,15],
  explanation:"El lenguaje puede ser oral o escrito; los gestos y señales sin palabras son comunicación no verbal."}));
@@ -245,7 +245,7 @@ const multi=[
  {p:"Marca los medios que sirven como canal.",values:["Altavoces","Español escrito","Correo electrónico","Palabras en castellano"],correct:[0,2]},
  {p:"Marca los ejemplos de comunicación verbal oral.",values:["Conversar en clase","Hablar por teléfono","Mostrar una flecha sin palabras","Escribir una nota"],correct:[0,1]}
 ];
-multi.forEach((v,i)=>add("lang","comunicacion","multi",v.p,"Selección correcta",
+multi.forEach((v,i)=>add("lang","comunicacion","multi",v.p,v.correct.map(i=>v.values[i]).join("; "),
  {options:v.values,correctIndexes:v.correct,source:i<2?src.TIP:src.DEF,
  concept:"seleccion-multiple-comunicacion",minStep:1,phases:[5,6,11,15],
  explanation:"Cada opción correcta cumple la definición indicada. Las otras pertenecen a otra categoría.",
