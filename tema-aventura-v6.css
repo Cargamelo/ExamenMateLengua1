@@ -663,3 +663,10 @@ body.home-cover-v8 .cover-menu button img{display:block;width:min(2.7cqw,5cqh);h
  }
  body.home-cover-v8 .cover-portal-title{font-size:min(1.79cqw,2.9cqh)}
 }
+
+/* En ultrapanorámico, la parte inferior de la fotografía se recorta.
+   Adelantar las etiquetas y los botones evita que el menú los tape. */
+@media (min-width:1100px) and (min-aspect-ratio:21/10) {
+ body.home-cover-v8 .cover-portal-title{top:51%;height:13%}
+ body.home-cover-v8 .cover-portal-play{bottom:18%;width:26%;left:37%}
+}
