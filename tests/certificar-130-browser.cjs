@@ -14,7 +14,7 @@ assert.equal(questions.length,124);
 assert.equal(reading.qa.length,6);
 const shard=Number(process.env.CERT_SHARD||0),totalShards=Number(process.env.CERT_SHARDS||8);
 if(!Number.isInteger(shard)||shard<0||shard>=totalShards)throw Error("Invalid shard");
-const selected=questions.filter((_,i)=>i%totalShards===shard);
+const selected=questions.filter((q,i)=>i%totalShards===shard&&(!process.env.CERT_CASE_ID||q.id===process.env.CERT_CASE_ID));
 const base="http://127.0.0.1:8765/";
 const outDir="qa-certificacion";fs.mkdirSync(outDir,{recursive:true});
 const records=[];
@@ -237,7 +237,9 @@ async function caseReading(browser,ok){
 (async()=>{
  const browser=await chromium.launch({executablePath:chrome,headless:true,args:["--no-sandbox"]});
  try{
-  for(const q of selected){
+  const repeats=Number(process.env.CERT_REPEATS||1);
+  if(!Number.isInteger(repeats)||repeats<1||repeats>30)throw Error("Invalid repeat count");
+  for(let repetition=0;repetition<repeats;repetition++)for(const q of selected){
    for(const ok of [true,false])await caseBank(browser,q,ok);
    const last=records.slice(-2);
    console.log(q.id+" "+last.map(r=>r.status).join("/"));
