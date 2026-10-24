@@ -1,0 +1,239 @@
+{
+  "version": 1,
+  "total": 38,
+  "bySubject": {
+    "math": 16,
+    "lang": 22
+  },
+  "notes": "Inventario sin URL ni IDs privados; presentaciones con medios audiovisuales no verificadas por completo. No se publica material fuente.",
+  "files": [
+    {
+      "subject": "lang",
+      "folder": "CONTROLES DE REPASO",
+      "file": "CONTROL DE REPASO 1.pdf",
+      "status": "text-or-visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "CONTROLES DE REPASO",
+      "file": "CONTROL DE REPASO 2.png",
+      "status": "text-or-visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "CONTROLES DE REPASO",
+      "file": "CONTROL DE REPASO 3 CON SOLUCIONARIO.png",
+      "status": "text-or-visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "CONTROLES DE REPASO",
+      "file": "SOLUCIONARIO CONTROL DE REPASO 1.pdf",
+      "status": "text-or-visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "CONTROLES DE REPASO",
+      "file": "SOLUCIONARIO CONTROL DE REPASO 2.png",
+      "status": "text-or-visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 1 La comunicación.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 1 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 2 La comunicación.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 2 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 3 La comunicación.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 3 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 4 La comunicación.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 4 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 4 Sinónimos y antónimos.png",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 5 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 6 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 7 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Act. 8 Sinónimos y antónimos.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Ejercicios de elementos de la comunicación (Del revés).pdf",
+      "status": "text-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Ej. Lengua (Comunicación verbal y no verbal).pptx",
+      "status": "slide-text-only-video-unverified"
+    },
+    {
+      "subject": "lang",
+      "folder": "ACTIVIDADES",
+      "file": "Elementos de la comunicación .pptx",
+      "status": "slide-text-only-video-unverified"
+    },
+    {
+      "subject": "math",
+      "folder": "RAIZ",
+      "file": "DÉCIMO DE LOTERÍA.jpg",
+      "status": "visual-reviewed"
+    },
+    {
+      "subject": "math",
+      "folder": "RAIZ",
+      "file": "Lolo_jkyci7_MAT_ConversationHistory.html",
+      "status": "excluded-private-history"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 1 COMPARACIÓN DE NÚMEROS.pdf",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 1 LECTURA DE NÚMEROS.pdf",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 1 NÚMEROS ORDINALES Y CARDINALES.pdf",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 2 COMPARACIÓN DE NÚMEROS.jpg",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 3 COMPARACIÓN DE NÚMEROS.jpg",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 3 LECTURA DE NÚMEROS.pdf",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 4 COMPARACIÓN DE NÚMEROS.png",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 4LECTURA DE NÚMEROS.pdf",
+      "status": "visually-reviewed-pdf-or-image"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "Act. 2 LECTURA DE NÚMEROS.pdf",
+      "status": "text-reviewed"
+    },
+    {
+      "subject": "math",
+      "folder": "ACTIVIDADES DE REPASO",
+      "file": "FICHAS SUMAS Y RESTAS.pdf",
+      "status": "text-partially-extracted"
+    },
+    {
+      "subject": "math",
+      "folder": "CONTROLES DE REPASO",
+      "file": "CONTROL DE REPASO 1.pdf",
+      "status": "text-reviewed"
+    },
+    {
+      "subject": "math",
+      "folder": "CONTROLES DE REPASO",
+      "file": "CONTROL DE REPASO 2.pdf",
+      "status": "text-reviewed"
+    },
+    {
+      "subject": "math",
+      "folder": "CONTROLES DE REPASO",
+      "file": "SOLCUIONARIO CONTROL DE REPASO 2.pdf",
+      "status": "text-reviewed"
+    },
+    {
+      "subject": "math",
+      "folder": "CONTROLES DE REPASO",
+      "file": "SOLUCIONARIO CONTROL DE REPASO SDA 1.pdf",
+      "status": "text-reviewed"
+    }
+  ]
+}
