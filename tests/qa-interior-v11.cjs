@@ -55,7 +55,7 @@ async function main(){
    check(first===(game==="math"?"math-stage-01":"lang-stage-01"),"Identificador persistente conservado "+game+" "+width);
    await overflow(p,width,"mapa "+game+" "+width);
    if([1920,768,390].includes(width))await screenshot(p,tag+"-mapa-"+game+"-"+width);
-   await p.locator(".stage-node").first().click();await p.locator(".mission-stage").waitFor();
+   await p.locator(".stage-node").first().click();try{await p.locator(".mission-stage").waitFor({timeout:8000})}catch(e){const hit=await p.evaluate(()=>{const n=document.querySelector(".stage-node"),r=n?.getBoundingClientRect();const t=r?document.elementFromPoint(r.left+r.width/2,r.top+r.height/2):null;return {hit:t?.className,action:t?.closest?.("[data-action]")?.getAttribute("data-action"),nodePointer:n&&getComputedStyle(n).pointerEvents,layerPointer:n?.parentElement&&getComputedStyle(n.parentElement).pointerEvents}});throw Error("Etapa no abre "+game+" "+width+" "+JSON.stringify(hit))}
    const mission=await p.locator(".mission-stage").evaluate(n=>({bg:getComputedStyle(n).backgroundImage}));
    check(mission.bg.includes(game==="math"?"portal-numeros.webp":"portal-palabras.webp"),"Escenario de misión pintado "+game+" "+width);
    const ink=await p.locator(".mission-pane,.mission-interaction").first().evaluate(n=>getComputedStyle(n).color);
@@ -69,4 +69,4 @@ async function main(){
  await browser.close();
  const result={checks,failures:errors,sizes};fs.writeFileSync(root+"/resultado.json",JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));if(errors.length)process.exitCode=1;
 }
-main().catch(e=>{console.error(e.stack);process.exitCode=1});
+main().catch(e=>{console.error(e.stack);process.exit(1)});
