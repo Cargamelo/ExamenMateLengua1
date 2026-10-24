@@ -1,0 +1,148 @@
+/* V11 — SALAS INTERIORES DE LA PORTADA, ALBUM Y AJUSTES
+ * Presentacion compartida en las tres paginas sin alterar las reglas.
+ * El escenario V10 y su distribucion NO son modificados.
+ */
+.pixel-overlay-root .pixel-modal-backdrop{background:#050b1ad9;backdrop-filter:blur(5px)}
+.pixel-overlay-root .pixel-dialog{
+ position:relative;isolation:isolate;overflow:auto;
+ border:6px ridge #cda465;border-radius:22px;
+ box-shadow:inset 0 0 0 3px #f0c77c40,0 12px 0 #251a1b,0 26px 70px #000e;
+ background:
+ radial-gradient(ellipse at 14% 4%,#e9bc7330,transparent 43%),
+ linear-gradient(135deg,#2e211edc,#1b2e31ec 43%,#392638e9),
+ url("./assets/arte-v4/bosque-magico.webp") center/cover;
+ color:#fff0d2;
+}
+.pixel-overlay-root .pixel-dialog::before{
+ content:"";position:absolute;pointer-events:none;inset:8px;border:1px solid #eed2a15e;border-radius:13px;z-index:0
+}
+.pixel-overlay-root .pixel-dialog > *{position:relative;z-index:1}
+.pixel-overlay-root .pixel-modal-head {
+ background:linear-gradient(160deg,#725037d9,#36221fd9 75%);
+ border:3px ridge #d0a56b;border-radius:15px;
+ box-shadow:inset 0 0 0 2px #ffe5ac53,0 6px 0 #281b1c,0 11px 20px #050915a0;
+ padding:14px 18px;margin-bottom:14px
+}
+.pixel-overlay-root .pixel-modal-head h2{
+ margin:2px 0 7px;font:900 clamp(1.65rem,3vw,2.7rem)/1.1 Georgia,serif;
+ color:#ffe5a1;text-shadow:0 2px #7b4926,0 5px 11px #0b0d1a
+}
+.pixel-overlay-root .pixel-modal-head p{color:#fff0d4;line-height:1.45}
+.pixel-overlay-root .pixel-dialog-close{
+ width:48px;min-width:48px;height:48px;min-height:48px;
+ border:3px ridge #e5c088;border-radius:50%;
+ background:radial-gradient(circle at 30% 15%,#88593c,#43221c);
+ color:#ffe2aa;box-shadow:0 4px 0 #211518;cursor:pointer
+}
+.pixel-overlay-root .pixel-inventory-progress {
+ border:3px ridge #d3a464;border-radius:14px;
+ background:linear-gradient(140deg,#553628ed,#2c3538ee);box-shadow:0 5px 0 #15141b;
+ color:#fff2cd
+}
+.pixel-overlay-root .pixel-inventory-progress span {
+ background:linear-gradient(155deg,#674632,#2e3432);border:1px solid #d1ad6a;color:#fff2cf
+}
+.pixel-overlay-root .pixel-album-layout {gap:clamp(8px,1.1vw,16px)}
+.pixel-overlay-root :is(.pixel-album-sidebar,.pixel-album-main,.pixel-album-detail) {
+ border:4px ridge #d0a56a;border-radius:15px;
+ box-shadow:inset 0 0 0 2px #f5d4a044,0 6px 0 #1f1518,0 15px 25px #050914a6
+}
+.pixel-overlay-root .pixel-album-sidebar {
+ background:linear-gradient(155deg,#75452e,#342326 75%);
+}
+.pixel-overlay-root .pixel-album-main {
+ background-image:
+ linear-gradient(180deg,#2e241bc7,#142734c7),
+ repeating-linear-gradient(0deg,transparent 0 220px,#cda36952 220px 229px,#30221e 229px 239px),
+ url("./assets/arte-v4/bosque-magico.webp");
+ background-size:cover,auto,cover;background-position:center;scrollbar-color:#bb8851 #281d21
+}
+.pixel-overlay-root .pixel-album-detail {
+ background:radial-gradient(ellipse at 50% 0,#fff7e6,#e4c797 80%);
+ color:#3d2b1d
+}
+.pixel-overlay-root .pixel-album-sidebar h3{color:#ffe6ac;font:900 1.08rem Georgia,serif}
+.pixel-overlay-root .pixel-album-actions button{
+ border:3px ridge #bd935f;border-radius:10px;
+ background:linear-gradient(#895b3a,#46291f);
+ color:#ffedc7;box-shadow:0 3px 0 #291b17;min-height:48px
+}
+.pixel-overlay-root .pixel-album-actions button[aria-pressed=true]{
+ background:linear-gradient(#ffedbb,#c99b55);color:#36271e
+}
+.pixel-overlay-root .pixel-card-tile {
+ border:3px ridge #c39c67;border-radius:12px;
+ background:linear-gradient(145deg,#47352e,#203336);
+ box-shadow:inset 0 0 0 1px #ffdeab4a,0 4px 0 #181717;
+ min-height:145px
+}
+.pixel-overlay-root .pixel-card-tile.pixel-card-pending{
+ background:linear-gradient(#34403b,#1e292f);border-style:solid
+}
+.pixel-overlay-root .pixel-card-tile:focus-visible{
+ outline:4px solid #fff2b7;outline-offset:3px
+}
+.pixel-overlay-root .pixel-album-detail .pixel-card-story{
+ border:3px ridge #bb9257;border-radius:14px;
+ background:linear-gradient(#fff8e6,#ebd3a9);box-shadow:inset 0 0 0 2px #fff9ed;
+ color:#3b2b22
+}
+.pixel-overlay-root .pixel-album-detail .pixel-card-flip{
+ border:4px ridge #ddbd85;border-radius:13px;
+ box-shadow:0 7px 13px #38251782;overflow:hidden
+}
+.pixel-overlay-root .pixel-album-empty{color:#3e2a20}
+.pixel-overlay-root .pixel-hub-choices {
+ border:3px ridge #c9a16a;padding:clamp(15px,3vw,36px);
+ border-radius:17px;background:
+ radial-gradient(ellipse at center,#fff0c71d,transparent 58%),
+ linear-gradient(145deg,#543329e8,#232834f5);
+ box-shadow:0 6px 0 #291b1c
+}
+.pixel-overlay-root .pixel-hub-choices a{
+ min-height:54px;border:3px ridge #d7b782;
+ background:linear-gradient(#69d5b2,#137a67);box-shadow:0 5px 0 #144a3d;
+ color:#fffcee;text-shadow:0 2px #13483f
+}
+.pixel-overlay-root .pixel-hub-choices .pixel-portal-purple{
+ background:linear-gradient(#d5b1ff,#7f4ea9);box-shadow:0 5px 0 #3b2555
+}
+.pixel-overlay-root .pixel-settings{
+ padding:clamp(16px,3vw,35px);border:3px ridge #cc9f68;border-radius:17px;
+ background:linear-gradient(155deg,#f9e9c8,#e6c694);color:#34251c;
+ box-shadow:inset 0 0 0 3px #fff4d1a2,0 6px 0 #4e3528;
+}
+.pixel-overlay-root .pixel-settings label{color:#38261a}
+.pixel-overlay-root .pixel-settings input[type=range]{accent-color:#276e68}
+.pixel-overlay-root .pixel-fantasy-btn{
+ border:3px ridge #d4b17d;border-radius:12px;
+ background:linear-gradient(145deg,#69d8bb,#0c796c);
+ color:#fffce9;min-height:48px;box-shadow:0 4px 0 #164842;
+}
+.pixel-overlay-root .pixel-fantasy-btn.pixel-btn-secondary{
+ background:linear-gradient(140deg,#fcdeaa,#c79558);color:#38291c;box-shadow:0 4px 0 #69452b
+}
+.pixel-overlay-root :is(a,button,input,summary):focus-visible{
+ outline:4px solid #fff5ad;outline-offset:4px
+}
+@media (max-width:950px){
+ .pixel-overlay-root .pixel-album-layout{grid-template-columns:minmax(145px,170px) minmax(0,1fr)}
+ .pixel-overlay-root .pixel-album-detail{grid-column:2}
+}
+@media (max-width:700px){
+ .pixel-overlay-root .pixel-dialog {border-width:3px;border-radius:14px;padding:9px}
+ .pixel-overlay-root .pixel-modal-head {padding:11px;border-width:2px}
+ .pixel-overlay-root .pixel-album-layout{grid-template-columns:minmax(0,1fr);gap:9px}
+ .pixel-overlay-root .pixel-album-sidebar,.pixel-overlay-root .pixel-album-main,.pixel-overlay-root .pixel-album-detail{grid-column:1}
+ .pixel-overlay-root .pixel-album-sidebar{padding:10px}
+ .pixel-overlay-root .pixel-album-sidebar .pixel-album-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pixel-overlay-root .pixel-album-main{max-height:65dvh;overflow:auto}
+ .pixel-overlay-root .pixel-album-main .pixel-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pixel-overlay-root .pixel-inventory-progress{gap:6px}
+ .pixel-overlay-root .pixel-inventory-progress span{flex:1 1 120px;padding:7px}
+}
+@media (prefers-reduced-motion:reduce){
+ .pixel-overlay-root *, .pixel-overlay-root *::before,.pixel-overlay-root *::after{
+ transition:none!important;animation:none!important
+ }
+}

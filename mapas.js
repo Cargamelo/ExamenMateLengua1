@@ -18,7 +18,7 @@ const places={
 };
 const pathFor=id=>"./assets/lugar-"+id+".svg";
 function artwork(id,cls=""){return '<img class="'+cls+'" src="'+pathFor(id)+'" alt="" width="240" height="210" loading="lazy" decoding="async">';}
-function character(isMath){return '<img class="world-guide" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="311" height="341" loading="lazy" decoding="async">';}
+function character(isMath){return '<img class="world-guide" src="./assets/portada/'+(isMath?"tiko-portada":"nara-portada")+'.webp" alt="" width="311" height="341" loading="lazy" decoding="async">';}
 // Las coordenadas panorámicas son visuales y nunca reemplazan IDs persistentes.
 const widescreenPositions=Array.from({length:15},(_,i)=>({x:[12,31,50,69,88][i<5?i:i<10?9-i:i-10],y:i<5?27:i<10?51:76}));
 const pixelArtByStage={
@@ -54,7 +54,7 @@ function render(isMath,stages,journey,escape){
  '<div class="stage-map-progress" role="status"><strong>✦ '+done+' de 15 fases completadas</strong><span>Fase activa: '+active.number+' · '+escape(active.title)+'</span>'+(journey.finalAwarded?'<span class="stage-final-unlocked">★ Insignia de las quince fases ★</span>':"")+'</div>'+
  '<div class="stage-territories" aria-label="Territorios del mapa">'+(isMath?["Números","Descomposición","Comparación","Ordinales","Operaciones"]:["Sinónimos","Antónimos","Comunicación","Puntuación","Comprensión","Dictado","Lectura expresiva"]).map(t=>'<span class="stage-territory">'+escape(t)+'</span>').join("")+'</div>'+
  '<div class="gameworld-sky" aria-hidden="true"><span class="sky-star sky-one">✧</span><span class="sky-star sky-two">✦</span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span></div>'+
- '<div class="map-artscape stage-artscape"><picture class="stage-map-picture"><source media="(min-width: 900px)" srcset="./assets/escenarios/mapa-rpg-'+(isMath?"matematicas":"lengua")+'.svg" type="image/svg+xml"><img class="map-ground-art" src="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" alt="" loading="eager" decoding="async" width="1200" height="1900"></picture>'+
+ '<div class="map-artscape stage-artscape"><picture class="stage-map-picture"><source media="(min-width: 900px)" srcset="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" type="image/webp"><img class="map-ground-art" src="./assets/arte-v4/mapa-'+(isMath?"numeros":"palabras")+'.webp" alt="" loading="eager" decoding="async" width="1200" height="1900"></picture>'+
  '<div class="stage-landmarks">'+landmarks+'</div>'+road+
  '<div class="stage-locations">'+nodes+'</div>'+
  '<div class="stage-guide" style="--guide-x:'+active.x+'%;--guide-y:'+active.y+'%;--guide-desktop-x:'+wideGuide.x+'%;--guide-desktop-y:'+wideGuide.y+'%" data-active-stage="'+active.id+'" aria-hidden="true"><img src="./assets/arte-v4/'+(isMath?"tiko":"nara")+'-sprite.webp" width="122" height="170" decoding="async" alt=""></div>'+
@@ -80,7 +80,7 @@ function scene(topic,isMath,won=null){
 const p=places[topic],name=p?.name||"Misión de aventura";
 return '<div class="quest-place-scene" aria-hidden="true"><span class="quest-place-halo"></span>'+
   '<img class="quest-place-art" src="./assets/pixel/iconos/'+({numeros:"m03",descomponer:"m05",comparar:"m07",ordinales:"m10",operaciones:"m13",sinonimos:"l01",antonimos:"l03",comunicacion:"l05",puntuacion:"l07",comprension:"l09",dictado:"l12",expresiva:"l14"}[topic]||"m01")+'.webp" alt="" width="112" height="112" decoding="async">'+
-  '<img class="quest-guide-art" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="311" height="341" decoding="async">'+
+  '<img class="quest-guide-art" src="./assets/portada/'+(isMath?"tiko-portada":"nara-portada")+'.webp" alt="" width="311" height="341" decoding="async">'+
   '<span class="quest-place-title">'+name+'</span>'+(won===null?'':'<span class="quest-guide-reaction '+(won?'guide-win':'guide-hint')+'" role="status">'+(won?'¡Misión resuelta! ✦':'¡Vamos a buscar otra pista!')+'</span>')+'</div>';
 }
 window.AventuraMapas={render,scene,artwork,places,character,focusStage};

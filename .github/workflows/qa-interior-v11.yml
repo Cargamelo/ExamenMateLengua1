@@ -1,0 +1,48 @@
+name: Liga del Saber V11 — arte y regresión
+on:
+  push:
+    branches: [feat/unificacion-visual-v11-20261024]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa-v11:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Revisar sintaxis del motor y pruebas
+        run: |
+          for f in *.js tests/*.cjs; do node --check "$f"; done
+      - name: Instalar Playwright
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar servidor estático
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ligasaber-v11.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/index.html >/dev/null
+      - name: Pruebas visuales V11 y capturas responsive
+        run: node tests/qa-interior-v11.cjs
+      - name: Pruebas de regresión visual y mecánica
+        run: node qa-pixel.js
+      - name: Integridad de las 30 fases
+        run: node tests/fases-secuenciales.cjs
+      - name: Persistencia y asignación de las cartas
+        run: node tests/cartas-coleccionables.cjs
+      - name: Inventario real en navegador
+        run: node tests/cartas-ui.cjs
+      - name: Guardado y bloqueo
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Conservar capturas e informes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: liga-saber-v11-capturas-qa
+          path: |
+            qa-screenshots/
+            test-screenshots/
+          retention-days: 20
+          if-no-files-found: ignore
