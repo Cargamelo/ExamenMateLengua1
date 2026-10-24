@@ -42,6 +42,9 @@ jobs:
         run: node tests/guardar-y-bloquear.cjs
       - name: Probar navegadores y preguntas docentes
         run: node tests/contenidos-drive-browser.cjs
+      - name: Smoke completo de respuestas y colección
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium)" node tests/smoke-pixel.cjs
       - name: Revisar ocho tamaños y rutas
         run: node qa-pixel.js
       - name: Capturas de regresión
