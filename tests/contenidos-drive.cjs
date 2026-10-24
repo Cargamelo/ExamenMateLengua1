@@ -41,7 +41,7 @@ for(const q of all){
  }
 }
 const MINI={window:{}};vm.runInNewContext(fs.readFileSync("minijuegos.js","utf8"),MINI);
-const source=data.questions.find(q=>q.topic==="sinonimos");
+const source=data.pick("sinonimos",{step:0});
 const fixture={synonyms:[["casa","hogar"],["bonito","hermoso"],["rápido","veloz"],["alto","elevado"]],antonyms:[["alto","bajo"],["lleno","vacío"],["fácil","difícil"],["frío","caliente"]]};
 const sourced=MINI.window.AventuraMini.enrich({...source},fixture,0);
 assert.equal(sourced.prompt,source.prompt,"Do not replace sourced question with legacy matching prompt");
