@@ -23,7 +23,7 @@ async function test() {
    page.on("console",m=>{if(m.type()==="error"&&!m.text().includes("fonts.googleapis")) errors.push(vp.width+" console: "+m.text())});page.on("response",resp=>{if(resp.status()===404)errors.push(vp.width+" 404: "+resp.url())});
    await page.goto(base+"/index.html",{waitUntil:"networkidle"});
    assert(await page.getByRole("heading",{name:/LA LIGA/i}).count()>0);
-   assert.equal(await page.locator(".pixel-portal").count(),2);
+   assert.equal(await page.locator(".cover-portal").count(),2);
    await page.screenshot({path:screenshots+"/portada-"+vp.width+".png",fullPage:true});
    await inspect(page,"Portada");
    await page.locator('[data-liga-open="collection"]').click();
