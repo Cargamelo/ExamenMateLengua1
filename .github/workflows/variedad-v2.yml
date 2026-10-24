@@ -1,0 +1,130 @@
+name: Mecánicas educativas variadas V2
+on:
+  push:
+    branches:
+      - feat/mecanicas-educativas-variadas-v2
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  banco-y-regresiones:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Sintaxis y exactitud de bancos antiguos y nuevos
+        run: |
+          node --check actividades-variadas.js
+          node --check minijuegos.js
+          node --check juego.js
+          node --check tests/variedad-educativa.cjs
+          node --check tests/variedad-browser.cjs
+          node tests/variedad-educativa.cjs
+          node tests/contenidos-drive.cjs
+          node tests/alcanzabilidad-drive.cjs
+          node tests/fases-secuenciales.cjs
+          node tests/integridad-b.cjs
+          node tests/validacion-remota-b.cjs
+      - name: Instalar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/variedad-http.log 2>&1 &
+          sleep 1
+      - name: Regresión de contenido original
+        run: node tests/contenidos-drive-browser.cjs
+      - name: Regresión de minijuegos y cartas
+        run: node tests/smoke-pixel.cjs
+      - name: Regresión responsive existente
+        run: node qa-pixel.js
+      - name: Guardado y protección de fases
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Regresión de dictados y expresiva
+        run: node tests/actividades-especiales-b.cjs
+      - name: Capturas responsive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-v2
+          path: qa-screenshots/
+          if-no-files-found: ignore
+  retos-individuales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      VAR_SHARD: ${{ matrix.shard }}
+      VAR_SHARDS: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/variedad-browser-http.log 2>&1 &
+          sleep 1
+      - name: Ejecutar respuestas correctas e incorrectas de cada reto
+        run: node tests/variedad-browser.cjs
+      - name: Conservar evidencias
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: variedad-individual-${{ matrix.shard }}
+          path: qa-variedad/
+          if-no-files-found: warn
+  fases-y-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 29
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/variedad-fases-http.log 2>&1 &
+          sleep 1
+      - name: Fases completas y recompensas
+        run: node tests/certificar-30-fases.cjs
+      - name: PWA offline
+        run: node tests/certificar-offline-pwa.cjs
+      - name: Evidencia
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: variedad-fases-offline
+          path: qa-certificacion/
+          if-no-files-found: ignore
+
+  matriz-final:
+    needs: [banco-y-regresiones, retos-individuales, fases-y-offline]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: variedad-individual-*
+          path: qa-variedad/
+          merge-multiple: true
+      - name: Rechazar matrices incompletas
+        run: node tests/informe-variedad.cjs
+      - name: Publicar matriz individual verificable
+        uses: actions/upload-artifact@v4
+        with:
+          name: variedad-certificacion-final
+          path: qa-variedad/matriz-final.json
