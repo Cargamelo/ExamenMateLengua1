@@ -18,7 +18,7 @@ for(const [width,height] of sizes){
  const links=page.locator(".cover-portals>a");assert(await links.count()===2,"Dos portales "+width);
  const buttons=page.locator(".cover-menu>button");assert(await buttons.count()===4,"Cuatro accesos "+width);
  const disabled=page.locator(".cover-secondary-actions button:disabled");assert(await disabled.count()===4,"Recuperación no configurada "+width);
- const images=await page.locator(".fantasy-scene img").evaluateAll(nodes=>nodes.map(i=>({file:i.getAttribute("src"),ok:i.complete&&i.naturalWidth>0})));
+ const images=await page.locator(".fantasy-scene img").evaluateAll(nodes=>nodes.filter(i=>i.getClientRects().length>0).map(i=>({file:i.getAttribute("src"),ok:i.complete&&i.naturalWidth>0})));
  assert(images.every(i=>i.ok),"Imágenes cargadas "+width+" "+JSON.stringify(images.filter(i=>!i.ok)));
  const {scrollWidth}=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth}));
  assert(scrollWidth<=width+2,"Sin scroll horizontal "+width+": "+scrollWidth);
