@@ -38,6 +38,31 @@ jobs:
         run: node tests/contenidos-drive-browser.cjs
       - name: PWA y mapa visual
         run: node qa-pixel.js
+  fases-y-pwa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor de pruebas aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/liga-30-fases.log 2>&1 &
+          sleep 1
+      - name: Ejecutar treinta fases y recompensas únicas
+        run: node tests/certificar-30-fases.cjs
+      - name: Verificar PWA realmente desconectada
+        run: node tests/certificar-offline-pwa.cjs
+      - name: Publicar evidencias de fases y PWA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: certificacion-fases-y-pwa
+          path: qa-certificacion/
+          if-no-files-found: warn
   actividad-individual:
     runs-on: ubuntu-latest
     timeout-minutes: 24
@@ -71,7 +96,7 @@ jobs:
   matriz-final:
     runs-on: ubuntu-latest
     if: always()
-    needs: [banco-y-regresion, actividad-individual]
+    needs: [banco-y-regresion, actividad-individual, fases-y-pwa]
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
