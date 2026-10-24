@@ -11,3 +11,9 @@
 .quest-scene .quest-verify{min-height:48px;margin-top:.8rem}
 .quest-scene button:focus-visible,.varied-fields input:focus-visible,#varied-writing:focus-visible{outline:3px solid #175baf;outline-offset:3px}
 @media(max-width:390px){.varied-fields{grid-template-columns:1fr}.varied-class-item [role=group] button{flex:1;min-height:48px}}
+
+.varied-review{display:flex;gap:.7rem;align-items:flex-start;margin:.9rem 0;line-height:1.45}
+.varied-review input{width:22px;height:22px;flex:0 0 auto;accent-color:#18683e}
+.varied-classification button[aria-pressed=true],.quest-multi button.selected{outline:3px solid #175baf;outline-offset:2px}
+.varied-field-feedback{font-weight:600;padding:.65rem;background:#fff6de;border-radius:.7rem;line-height:1.4}
+.quest-rewrite #varied-writing{width:100%;max-width:100%;min-height:112px;box-sizing:border-box;font-size:1.15rem}
