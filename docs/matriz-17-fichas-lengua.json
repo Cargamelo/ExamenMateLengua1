@@ -1,0 +1,3321 @@
+{
+  "schema": 1,
+  "total": 157,
+  "sourceFiles": 17,
+  "notes": "Las fuentes sustentan competencia y formato. Los ejercicios son originales, sin copiar imágenes editoriales. Los medios audiovisuales no accesibles no se utilizan para inferir respuestas.",
+  "items": [
+    {
+      "id": "TEM-L-001",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "contento",
+      "variantes": [
+        "contento",
+        "feliz"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-002",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "veloz",
+      "variantes": [
+        "veloz",
+        "ligero"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-003",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "acabar",
+      "variantes": [
+        "acabar",
+        "finalizar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-004",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "regalo",
+      "variantes": [
+        "regalo"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-005",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "complicado",
+      "variantes": [
+        "complicado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-006",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "contestar",
+      "variantes": [
+        "contestar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-007",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "coche",
+      "variantes": [
+        "coche",
+        "auto"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-008",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "pelo",
+      "variantes": [
+        "pelo"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-009",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "casa",
+      "variantes": [
+        "casa",
+        "vivienda"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-010",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "clase",
+      "variantes": [
+        "clase"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-011",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "bonito",
+      "variantes": [
+        "bonito",
+        "bello",
+        "precioso"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-012",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "empezar",
+      "variantes": [
+        "empezar",
+        "iniciar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-013",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "enojado",
+      "variantes": [
+        "enojado",
+        "molesto"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-014",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "delgado",
+      "variantes": [
+        "delgado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-015",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "sosegado",
+      "variantes": [
+        "sosegado",
+        "calmado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-016",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "fácil",
+      "variantes": [
+        "fácil"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-017",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "gigante",
+      "variantes": [
+        "gigante",
+        "muy grande"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-018",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "contar",
+      "variantes": [
+        "contar",
+        "narrar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-019",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "fatigado",
+      "variantes": [
+        "fatigado",
+        "agotado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-020",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "conversar",
+      "variantes": [
+        "conversar",
+        "charlar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-021",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "libreta",
+      "variantes": [
+        "libreta"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-022",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "tarta",
+      "variantes": [
+        "tarta"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-023",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "vidrio",
+      "variantes": [
+        "vidrio"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-024",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 3",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "cordial",
+      "variantes": [
+        "cordial",
+        "atento"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-025",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "estrecho",
+      "variantes": [
+        "estrecho"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-026",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "vacío",
+      "variantes": [
+        "vacío"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-027",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "apagado",
+      "variantes": [
+        "apagado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-028",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "triste",
+      "variantes": [
+        "triste"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-029",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "difícil",
+      "variantes": [
+        "difícil"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-030",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "corto",
+      "variantes": [
+        "corto"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-031",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "oscuro",
+      "variantes": [
+        "oscuro"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-032",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "bajar",
+      "variantes": [
+        "bajar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-033",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "rápido",
+      "variantes": [
+        "rápido"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-034",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "lejos",
+      "variantes": [
+        "lejos"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-035",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "cerrar",
+      "variantes": [
+        "cerrar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-036",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "pequeño",
+      "variantes": [
+        "pequeño"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-037",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "caliente",
+      "variantes": [
+        "caliente"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-038",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "desagradable",
+      "variantes": [
+        "desagradable"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-039",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "ruidoso",
+      "variantes": [
+        "ruidoso"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-040",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "debajo",
+      "variantes": [
+        "debajo"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-041",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "tarde",
+      "variantes": [
+        "tarde"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-042",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "juntar",
+      "variantes": [
+        "juntar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-043",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "desconocido",
+      "variantes": [
+        "desconocido"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-044",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "torcido",
+      "variantes": [
+        "torcido"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-045",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "limpio",
+      "variantes": [
+        "limpio"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-046",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "desordenado",
+      "variantes": [
+        "desordenado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-047",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "cobarde",
+      "variantes": [
+        "cobarde"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-048",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "fuerte",
+      "variantes": [
+        "fuerte"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-049",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "triste",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-050",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "empezar",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-051",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "escuela",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-052",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "lento",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-053",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "horrible",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-054",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "dormir",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-055",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "difícil",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-056",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "pequeño",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-057",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "oscuro",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-058",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "estrecho",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-059",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "frío",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-060",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "triste",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-061",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "bajo",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-062",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-intruso",
+      "fuente": "Act. 7 Sinónimos y antónimos.jpg, ejercicio 1, palabra intrusa",
+      "modalidad": "choice",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "sucio",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-063",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-064",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-065",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-066",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-067",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-068",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-069",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-070",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-071",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-072",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.jpg, ejercicio 2, relacionar",
+      "modalidad": "matching",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "3 parejas conectadas",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-073",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "bonito",
+      "variantes": [
+        "bonito",
+        "precioso",
+        "bello"
+      ],
+      "dificultad": 1,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-074",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "acabar",
+      "variantes": [
+        "acabar",
+        "finalizar"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-075",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "alegre",
+      "variantes": [
+        "alegre",
+        "feliz"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-076",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Contesta",
+      "variantes": [
+        "contesta"
+      ],
+      "dificultad": 1,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-077",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "complicado",
+      "variantes": [
+        "complicado"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-078",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "rápido",
+      "variantes": [
+        "rápido"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-079",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "comenzó",
+      "variantes": [
+        "comenzó",
+        "inició"
+      ],
+      "dificultad": 1,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-080",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "sinonimos-contextual",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "text",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "regalo",
+      "variantes": [
+        "regalo"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-081",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "vacía",
+      "variantes": [
+        "vacía"
+      ],
+      "dificultad": 1,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-082",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Apagaron",
+      "variantes": [
+        "apagaron"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-083",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "estrecho",
+      "variantes": [
+        "estrecho"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-084",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "sucia",
+      "variantes": [
+        "sucia"
+      ],
+      "dificultad": 1,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-085",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "rápida",
+      "variantes": [
+        "rápida"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-086",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "cerrada",
+      "variantes": [
+        "cerrada"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-087",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "clara",
+      "variantes": [
+        "clara",
+        "luminosa"
+      ],
+      "dificultad": 1,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-088",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos-contextual",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "text",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "grande",
+      "variantes": [
+        "grande"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-089",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "doble-relacion",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "fill",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "contento / triste",
+      "variantes": [
+        [
+          "contento"
+        ],
+        [
+          "triste"
+        ]
+      ],
+      "dificultad": 1,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-090",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "doble-relacion",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "fill",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "veloz / lento",
+      "variantes": [
+        [
+          "veloz"
+        ],
+        [
+          "lento"
+        ]
+      ],
+      "dificultad": 1,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-091",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "doble-relacion",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "fill",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "sencillo / difícil",
+      "variantes": [
+        [
+          "sencillo"
+        ],
+        [
+          "difícil"
+        ]
+      ],
+      "dificultad": 1,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-092",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "doble-relacion",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "fill",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "aseado / sucio",
+      "variantes": [
+        [
+          "aseado"
+        ],
+        [
+          "sucio"
+        ]
+      ],
+      "dificultad": 1,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-093",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "doble-relacion",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "fill",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "enorme / pequeño",
+      "variantes": [
+        [
+          "enorme"
+        ],
+        [
+          "pequeño"
+        ]
+      ],
+      "dificultad": 1,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-094",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "doble-relacion",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "fill",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "cálido / frío",
+      "variantes": [
+        [
+          "cálido"
+        ],
+        [
+          "frío"
+        ]
+      ],
+      "dificultad": 1,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-095",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 8 Sinónimos y antónimos.jpg, relato con huecos de antónimos",
+      "modalidad": "fill",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "blando",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-096",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 8 Sinónimos y antónimos.jpg, relato con huecos de antónimos",
+      "modalidad": "fill",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "abierta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-097",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 8 Sinónimos y antónimos.jpg, relato con huecos de antónimos",
+      "modalidad": "fill",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "sucio",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-098",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 8 Sinónimos y antónimos.jpg, relato con huecos de antónimos",
+      "modalidad": "fill",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "fría",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-099",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 8 Sinónimos y antónimos.jpg, relato con huecos de antónimos",
+      "modalidad": "fill",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "estrecho",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-100",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "antonimos",
+      "fuente": "Act. 8 Sinónimos y antónimos.jpg, relato con huecos de antónimos",
+      "modalidad": "fill",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "llena",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-101",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "clasificar-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "classification",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-102",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "clasificar-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "classification",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-103",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "clasificar-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "classification",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-104",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "clasificar-parejas",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 3, doble relación",
+      "modalidad": "classification",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-105",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "reescritura-guiada",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "rewrite",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Revisión guiada",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Revisión guiada (objetiva + autoevaluación)",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-106",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "reescritura-guiada",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "rewrite",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Revisión guiada",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Revisión guiada (objetiva + autoevaluación)",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-107",
+      "asignatura": "Lengua",
+      "tema": "sinonimos",
+      "concepto": "reescritura-guiada",
+      "fuente": "Act. 3 Sinónimos y antónimos.jpg, ejercicio 1, grupos de significado",
+      "modalidad": "rewrite",
+      "fases": [
+        1,
+        3,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Revisión guiada",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Revisión guiada (objetiva + autoevaluación)",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-108",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "reescritura-guiada",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "rewrite",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Revisión guiada",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Revisión guiada (objetiva + autoevaluación)",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-109",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "reescritura-guiada",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "rewrite",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Revisión guiada",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Revisión guiada (objetiva + autoevaluación)",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-110",
+      "asignatura": "Lengua",
+      "tema": "antonimos",
+      "concepto": "reescritura-guiada",
+      "fuente": "Act. 4 Sinónimos y antónimos.png, ejercicio 2, antónimos en contexto",
+      "modalidad": "rewrite",
+      "fases": [
+        2,
+        4,
+        10,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Revisión guiada",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Revisión guiada (objetiva + autoevaluación)",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-111",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Verbal oral",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-112",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Verbal escrita",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-113",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "No verbal: gesto",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-114",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "No verbal: imagen o señal",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-115",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "No verbal: sonido",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-116",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Verbal escrita",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-117",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "No verbal: gesto",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-118",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Verbal escrita",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-119",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "No verbal: gesto",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-120",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Verbal oral",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-121",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "No verbal: sonido",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-122",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "tipos-de-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "choice",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Verbal escrita",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-123",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "clasificar-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "classification",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-124",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "clasificar-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "classification",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-125",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "clasificar-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "classification",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-126",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "clasificar-comunicacion",
+      "fuente": "Act. 2 La comunicación.jpg, clasificación verbal/no verbal",
+      "modalidad": "classification",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clasificación correcta",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-127",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-definiciones",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Emisor",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-128",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-definiciones",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Receptor",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-129",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-definiciones",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Mensaje",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-130",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-definiciones",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Código",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-131",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-definiciones",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Canal",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-132",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-definiciones",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Contexto",
+      "variantes": null,
+      "dificultad": 0,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-133",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf, página 2, diez escenas originales",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "Clara / su abuelo / Mañana iremos al parque / español oral / la voz a través del teléfono / una llamada familiar",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-134",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-emisor",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        5,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Clara",
+      "variantes": [
+        "Clara"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-135",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "el profesor / la clase / Hoy aprenderemos sobre los planetas / español oral / el aire, mediante la voz / una clase de Ciencias",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-136",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-receptor",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        5,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "la clase",
+      "variantes": [
+        "la clase"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-137",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf, página 2, diez escenas originales",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "Lucía / su amiga / Te espero a las seis / español escrito / un correo electrónico / una invitación entre amigas",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-138",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-mensaje",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Te espero a las seis",
+      "variantes": [
+        "Te espero a las seis"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-139",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "el entrenador / el equipo / Comenzamos el entrenamiento / español oral / la voz en el campo / un entrenamiento deportivo",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-140",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-código",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "español oral",
+      "variantes": [
+        "español oral"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-141",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf, página 2, diez escenas originales",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "la bibliotecaria / los lectores / Silencio, por favor / español escrito / un cartel impreso / la sala de lectura",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-142",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-canal",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "un cartel impreso",
+      "variantes": [
+        "un cartel impreso"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-143",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "la jefa de estación / los viajeros / El tren sale por la vía dos / español oral / los altavoces de megafonía / la estación de tren",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-144",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-contexto",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "la estación de tren",
+      "variantes": [
+        "la estación de tren"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-145",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf, página 2, diez escenas originales",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "Marta / su hermano / Saca al perro / español escrito / una nota de papel / un recordatorio en casa",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-146",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-emisor",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        5,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "Marta",
+      "variantes": [
+        "Marta"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-147",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-tabla",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "fill",
+      "fases": [
+        11,
+        15
+      ],
+      "escalon": 2,
+      "respuesta": "el médico / el paciente / Toma este jarabe por la mañana / español oral / la voz en la consulta / una consulta médica",
+      "variantes": null,
+      "dificultad": 2,
+      "validacion": "Determinista por campo; revisión antes de respuesta final",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-148",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "elementos-receptor",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "text",
+      "fases": [
+        5,
+        11,
+        15
+      ],
+      "escalon": 0,
+      "respuesta": "el paciente",
+      "variantes": [
+        "el paciente"
+      ],
+      "dificultad": 0,
+      "validacion": "Igualdad con variantes explícitas y normalización",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-149",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "seleccion-multiple-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "multi",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Selección correcta",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-150",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "seleccion-multiple-comunicacion",
+      "fuente": "Ej. Lengua (Comunicación verbal y no verbal).pptx, diapositivas 3-12",
+      "modalidad": "multi",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Selección correcta",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-151",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "seleccion-multiple-comunicacion",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "multi",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Selección correcta",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-152",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "seleccion-multiple-comunicacion",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "multi",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Selección correcta",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-153",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "seleccion-multiple-comunicacion",
+      "fuente": "Act. 3 La comunicación.jpg, definiciones de elementos",
+      "modalidad": "multi",
+      "fases": [
+        5,
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Selección correcta",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-154",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "reparar-comunicacion",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Receptor",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-155",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "reparar-comunicacion",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Código",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-156",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "reparar-comunicacion",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "Canal",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    },
+    {
+      "id": "TEM-L-157",
+      "asignatura": "Lengua",
+      "tema": "comunicacion",
+      "concepto": "reparar-comunicacion",
+      "fuente": "Ejercicios de elementos de la comunicación (Del revés).pdf, páginas 1-6",
+      "modalidad": "choice",
+      "fases": [
+        6,
+        11,
+        15
+      ],
+      "escalon": 1,
+      "respuesta": "No verbal",
+      "variantes": null,
+      "dificultad": 1,
+      "validacion": "Determinista exacta",
+      "estado": "Pendiente de certificación Actions en último SHA"
+    }
+  ]
+}
