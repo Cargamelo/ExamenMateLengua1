@@ -1,6 +1,6 @@
 import cv2, numpy as np, os
 from PIL import Image,ImageDraw,ImageFilter,ImageEnhance
-src="/home/user/portada-original.png";out="/home/user/portada-art";os.makedirs(out,exist_ok=True)
+src="/tmp/portada-original.png";out="assets/portada";os.makedirs(out,exist_ok=True)
 im=Image.open(src).convert("RGB");w,h=im.size
 cv=cv2.cvtColor(np.array(im),cv2.COLOR_RGB2BGR)
 # Remove all raster text and fictional counters, leaving the illustrated architecture.
