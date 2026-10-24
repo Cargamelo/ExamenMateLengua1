@@ -225,3 +225,10 @@ body.game.pixel-game .loading {
 @media(prefers-reduced-motion:reduce){
  body.game.pixel-game *,body.game.pixel-game *::before,body.game.pixel-game *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* El fondo ilustrado, caminos y pseudo-elementos nunca capturan pulsaciones.
+   Los 15 nodos permanecen por encima y conservan su clic y foco nativos. */
+body.game.pixel-game .stage-artscape :is(.stage-map-picture,.map-ground-art,.stage-landmarks,.stage-landmark,.stage-road,.stage-guide){pointer-events:none!important}
+body.game.pixel-game .stage-artscape::before,body.game.pixel-game .stage-artscape::after{pointer-events:none!important}
+body.game.pixel-game .stage-locations{position:absolute;inset:0;z-index:30;pointer-events:none}
+body.game.pixel-game .stage-locations .stage-node{position:absolute;z-index:31;pointer-events:auto!important;touch-action:manipulation;cursor:pointer}
