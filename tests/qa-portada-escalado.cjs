@@ -27,7 +27,7 @@ async function test(){
       bodyBg,sceneBg,scrollWidth:document.documentElement.scrollWidth};
   });
   const ratio=m.scene.width/m.scene.height;
-  check(Math.abs(ratio-824/477)<.012,"Proporción deformada "+width+": "+ratio);
+  if(width<=850 && height>width){check(m.scene.height>=1000,"Diseño vertical móvil sin altura suficiente "+width+": "+m.scene.height);}else{check(Math.abs(ratio-824/477)<.012,"Proporción de lienzo escritorio deformada "+width+": "+ratio);}
   check(m.scrollWidth<=width+2,"Desplazamiento horizontal "+width+": "+m.scrollWidth);
   check(!m.bodyBg.includes("escenario.webp"),"Escenario duplicado fuera del lienzo "+width);
   check(m.sceneBg.includes("escenario.webp"),"Escenario no presente "+width);
