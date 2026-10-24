@@ -1,0 +1,13 @@
+.varied-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));gap:1rem;margin:1rem 0}
+.varied-label{display:flex;flex-direction:column;gap:.4rem;font-weight:700;min-width:0}
+.varied-fields .field{width:100%;max-width:100%;font-size:1.2rem;min-height:50px;box-sizing:border-box}
+.varied-classification{display:grid;gap:.85rem;margin:1rem 0}
+.varied-class-item{border:2px solid rgba(120,90,45,.22);border-radius:14px;padding:.85rem;min-width:0}
+.varied-class-item strong{display:block;margin-bottom:.55rem;overflow-wrap:anywhere}
+.varied-class-item [role=group]{display:flex;gap:.5rem;flex-wrap:wrap}
+.varied-class-item button.selected{outline:3px solid #286343;outline-offset:2px;box-shadow:inset 0 0 0 2px #286343}
+.quest-guided #varied-writing{width:100%;min-height:120px;max-width:100%;font-size:1.1rem;box-sizing:border-box}
+.quest-guided .quest-instruction{line-height:1.5}
+.quest-scene .quest-verify{min-height:48px;margin-top:.8rem}
+.quest-scene button:focus-visible,.varied-fields input:focus-visible,#varied-writing:focus-visible{outline:3px solid #175baf;outline-offset:3px}
+@media(max-width:390px){.varied-fields{grid-template-columns:1fr}.varied-class-item [role=group] button{flex:1;min-height:48px}}
