@@ -23,21 +23,17 @@ const stageFor=q=>{
  if(q.subject==="math")return {numeros:1,descomponer:4,comparar:6,ordinales:8,operaciones:12}[q.topic];
  return {sinonimos:1,antonimos:2,comunicacion:11}[q.topic];
 };
-function seed(target,step) {
- const stages=target.subject==="math"?"math":"lang",phase=target.stage;
- const completed={};
- for(let n=1;n<phase;n++)completed[stages+"-stage-"+String(n).padStart(2,"0")]={plays:1,best:1,lastScore:1,lastTotal:15};
- const p={history:[],misses:[],badges:[],lastDate:"",
- stageJourney:{version:1,active:stages+"-stage-"+String(phase).padStart(2,"0"),completed,finalAwarded:false,previous:null},
- adaptive:{version:2,rewards:{coins:0,completed:0},topics:{
-  [target.topic]:{step,answers:[],streak:0,wrong:0,sinceChange:0,concepts:{},needs:[],missions:0}
- }}};
- if(!localStorage.getItem("ligasaber-2026-"+stages))localStorage.setItem("ligasaber-2026-"+stages,JSON.stringify(p));
-}
 function inject({q,readingMode}){
  // Runs BEFORE normal application scripts; never shipped in application source.
  const phase=q.stage,subject=q.subject;
- seed({subject,stage:phase,topic:q.topic},q.minStep);
+ const completed={};
+ for(let n=1;n<phase;n++)completed[subject+"-stage-"+String(n).padStart(2,"0")]={plays:1,best:1,lastScore:1,lastTotal:15};
+ const p={history:[],misses:[],badges:[],lastDate:"",
+  stageJourney:{version:1,active:subject+"-stage-"+String(phase).padStart(2,"0"),completed,finalAwarded:false,previous:null},
+  adaptive:{version:2,rewards:{coins:0,completed:0},topics:{
+   [q.topic]:{step:q.minStep,answers:[],streak:0,wrong:0,sinceChange:0,concepts:{},needs:[],missions:0}
+  }}};
+ if(!localStorage.getItem("ligasaber-2026-"+subject))localStorage.setItem("ligasaber-2026-"+subject,JSON.stringify(p));
  if(!readingMode){
  Object.defineProperty(window,"LigaBancoDrive",{configurable:true,set(real){
    const actualPick=real.pick.bind(real);
