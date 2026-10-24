@@ -9,8 +9,11 @@ if(!chrome)throw Error("No Chromium");
  const evidence={cache:false,mathOffline:false,langOffline:false,mathSaved:false,langSaved:false,restored:false,exceptions:[]};
  try{
   for(const subject of ["math","lang"]){
-   await page.goto("http://127.0.0.1:8765/"+(subject==="math"?"matematicas-sda1.html":"lengua-sda1.html"),{waitUntil:"networkidle"});
-   await page.evaluate(()=>navigator.serviceWorker.ready);
+   await page.goto("http://localhost:8765/"+(subject==="math"?"matematicas-sda1.html":"lengua-sda1.html"),{waitUntil:"networkidle"});
+   await page.evaluate(()=>Promise.race([
+    navigator.serviceWorker.ready,
+    new Promise((_,reject)=>setTimeout(()=>reject(Error("SW registration timed out")),15000))
+   ]));
   }
   await page.reload({waitUntil:"networkidle"});
   const stored=await page.evaluate(async()=>{
@@ -28,7 +31,7 @@ if(!chrome)throw Error("No Chromium");
   evidence.cache=true;
   await context.setOffline(true);
   for(const subject of ["math","lang"]){
-   await page.goto("http://127.0.0.1:8765/"+(subject==="math"?"matematicas-sda1.html":"lengua-sda1.html"),{waitUntil:"domcontentloaded"});
+   await page.goto("http://localhost:8765/"+(subject==="math"?"matematicas-sda1.html":"lengua-sda1.html"),{waitUntil:"domcontentloaded"});
    await page.locator('[data-action="topics"]').first().click();
    await page.locator('[data-action="start-stage"][data-stage="'+subject+'-stage-01"]').click();
    const prompt=await page.locator(".q-title").innerText();
