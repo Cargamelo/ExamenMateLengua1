@@ -17,7 +17,7 @@ async function run(){
   p.on('pageerror',e=>runtime.push(e.message));
   p.on('response',resp=>{if(resp.status()===404&&resp.url().startsWith(root))errors.push('404 '+resp.url())});
   await p.goto(root+'/index.html',{waitUntil:'networkidle'});
-  await pageCheck(p,'.pixel-portal.math');await pageCheck(p,'.pixel-portal.lang');await overflow(p,w,'inicio '+w);
+  await pageCheck(p,'.cover-portal-math');await pageCheck(p,'.cover-portal-lang');await overflow(p,w,'inicio '+w);
   if(w===390||w===1366)await p.screenshot({path:'qa-screenshots/01-portada-'+w+'.png',fullPage:true});
   await p.locator('[data-liga-open="collection"]').click();await pageCheck(p,'.pixel-card-tile');
   ok(await p.locator('.pixel-card-tile').count()===24,'Álbum de 24 cartas '+w);
@@ -32,7 +32,7 @@ async function run(){
    await p.goto(root+'/'+href,{waitUntil:'networkidle'});await pageCheck(p,'.adventure-launch');
    await p.locator('[data-action="topics"]').click();await pageCheck(p,'.stage-node');
    ok(await p.locator('.stage-node').count()===15,name+' 15 fases '+w);
-   const artwork=await p.locator('.map-ground-art').evaluate(n=>({loaded:n.complete&&n.naturalWidth>0,src:n.currentSrc}));
+   const artwork=await p.locator('.map-ground-art').evaluate(async n=>{n.loading='eager';try{await n.decode();}catch(_){}return {loaded:n.complete&&n.naturalWidth>0,src:n.currentSrc};});
    ok(artwork.loaded,name+' mapa cargado '+w);
    ok(artwork.src.endsWith(w>=900?'.svg':'.webp'),name+' mapa adaptable '+w+' '+artwork.src);
    await p.emulateMedia({reducedMotion:'reduce'});
