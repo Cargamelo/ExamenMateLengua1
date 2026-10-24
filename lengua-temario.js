@@ -77,9 +77,9 @@ sinIntr.forEach(([words,wrong,why],i)=>add("lang","sinonimos","choice",
 const antIntr=[
  [["claro","luminoso","brillante","oscuro"],"oscuro"],
  [["ancho","amplio","espacioso","estrecho"],"estrecho"],
- [["caliente","cálido","templado","frío"],"frío"],
+ [["caliente","cálido","ardiente","frío"],"frío"],
  [["alegre","contento","feliz","triste"],"triste"],
- [["alto","elevado","grande","bajo"],"bajo"],
+ [["alto","elevado","de gran altura","bajo"],"bajo"],
  [["limpio","aseado","pulcro","sucio"],"sucio"]
 ];
 antIntr.forEach(([words,wrong],i)=>add("lang","antonimos","choice",
@@ -119,7 +119,7 @@ const antContexts=[
  ["Encendieron la lámpara.","Encendieron","Apagaron",["apagaron"]],
  ["El sendero era ancho.","ancho","estrecho",["estrecho"]],
  ["La camiseta estaba limpia.","limpia","sucia",["sucia"]],
- ["La tortuga caminaba lenta.","lenta","rápida",["rápida"]],
+ ["La tortuga era lenta.","lenta","rápida",["rápida"]],
  ["La puerta quedó abierta.","abierta","cerrada",["cerrada"]],
  ["La habitación era oscura.","oscura","clara",["clara","luminosa"]],
  ["El árbol era pequeño.","pequeño","grande",["grande"]]
@@ -178,7 +178,7 @@ const types=[
  ["Un semáforo muestra una luz roja, sin ningún texto.","No verbal: imagen o señal","La luz de color transmite una señal."],
  ["Una ambulancia utiliza únicamente una sirena para avisar.","No verbal: sonido","Una sirena no pronuncia palabras."],
  ["Una niña lee las palabras escritas de un cartel que dice «Biblioteca».","Verbal escrita","El cartel contiene palabras escritas."],
- ["Un árbitro enseña una tarjeta roja sin hablar.","No verbal: gesto","La tarjeta es una señal visual reglamentaria."],
+ ["Un árbitro enseña una tarjeta roja sin hablar.","No verbal: imagen o señal","La tarjeta es una señal visual reglamentaria."],
  ["Un niño envía un correo electrónico con una frase.","Verbal escrita","Las palabras enviadas son lenguaje escrito."],
  ["Una persona hace una señal de silencio con un dedo ante los labios.","No verbal: gesto","El gesto transmite el mensaje."],
  ["Una profesora explica en voz alta cómo jugar.","Verbal oral","Utiliza lenguaje hablado."],
