@@ -106,3 +106,25 @@ jobs:
           name: variedad-fases-offline
           path: qa-certificacion/
           if-no-files-found: ignore
+
+  matriz-final:
+    needs: [banco-y-regresiones, retos-individuales, fases-y-offline]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: variedad-individual-*
+          path: qa-variedad/
+          merge-multiple: true
+      - name: Rechazar matrices incompletas
+        run: node tests/informe-variedad.cjs
+      - name: Publicar matriz individual verificable
+        uses: actions/upload-artifact@v4
+        with:
+          name: variedad-certificacion-final
+          path: qa-variedad/matriz-final.json
