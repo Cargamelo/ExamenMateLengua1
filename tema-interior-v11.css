@@ -1,0 +1,227 @@
+/* LA LIGA DEL SABER V11 — UNIFICACION ARTISTICA INTERIOR
+ * Solo presentacion. Los nodos, preguntas, premios y datos siguen viviendo
+ * en el HTML y la logica existentes. La portada V10 no recibe estos estilos.
+ * Arte original reutilizado: escenarios pintados arte-v4, personajes portada V10.
+ */
+:root {
+ --v11-ink:#382519;--v11-parchment:#f8e8c1;--v11-parchment-edge:#b98a50;
+ --v11-walnut:#45261f;--v11-walnut-deep:#271716;
+ --v11-bronze:#b7824b;--v11-gold:#eac17d;--v11-shimmer:#fbeab5;
+ --v11-teal:#49e1d0;--v11-violet:#b88df6;
+ --v11-wood-frame:inset 0 0 0 2px #fce2ad52,inset 0 5px 10px #1e110e88,0 6px 0 #291819,0 14px 29px #050910a3;
+ --v11-paper-frame:inset 0 0 0 3px #fffaf3bf,inset 0 0 20px #a3732a15,0 5px 0 #66452c,0 13px 22px #0006;
+ --v11-bg-glass:linear-gradient(165deg,#694129ed 0%,#402820ef 56%,#2a1d21f6 100%);
+}
+body.game.pixel-game {
+ background-image:linear-gradient(180deg,#071a2788 0%,#061525a8 60%,#0b1721ee 100%),url("./assets/arte-v4/bosque-magico.webp");
+ background-size:cover;background-position:center top;
+ --v11-accent:var(--v11-teal);--v11-accent-dark:#12665e;
+}
+body.game.pixel-game.lang-game {--v11-accent:var(--v11-violet);--v11-accent-dark:#5c3c88}
+body.game.pixel-game .game-container {max-width:1500px;isolation:isolate}
+body.game.pixel-game .game-header {
+ position:relative;overflow:visible;
+ border:4px ridge #d2ab68;border-radius:19px;
+ background:radial-gradient(ellipse at 50% 0,#93683a86,transparent 75%),var(--v11-bg-glass);
+ box-shadow:var(--v11-wood-frame);padding-block:clamp(9px,1.5vw,17px)
+}
+body.game.pixel-game .game-header::after {
+ content:"✦";position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+ color:#ffdf85;font-size:25px;text-shadow:0 0 18px #fff1af;
+ pointer-events:none
+}
+body.game.pixel-game .game-header :is(h1,h2,.brand-logo){font-family:Georgia,serif;color:#ffe5ac;text-shadow:0 2px 1px #57341c,0 5px 6px #21110d}
+body.game.pixel-game :is(.header-main-menu,.icon-button,.pill-info,.map-flag) {
+ border:2px ridge #d8b37a;border-radius:11px;
+ background:linear-gradient(160deg,#785131,#3e2821 75%);
+ color:#fff2d0;box-shadow:inset 0 0 0 1px #fff2c340,0 3px 0 #261617
+}
+body.game.pixel-game :is(.quest-hero,.mission-stage,.stage-gameworld,.stage-victory) {
+ position:relative;isolation:isolate;
+ border:5px ridge #cfa769;border-radius:20px;
+ box-shadow:var(--v11-wood-frame);
+}
+body.game.pixel-game .quest-hero {
+ min-height:clamp(350px,33vw,520px);
+ background-image:linear-gradient(90deg,#112328ec 0%,#193937b8 42%,#141b34ae 100%),url("./assets/arte-v4/portal-numeros.webp");
+ background-position:center;background-size:cover;
+}
+body.game.pixel-game.lang-game .quest-hero {
+ background-image:linear-gradient(90deg,#241935ed,#31214cb1 45%,#131d3ab9 100%),url("./assets/arte-v4/portal-palabras.webp")
+}
+body.game.pixel-game .quest-hero::before,body.game.pixel-game .stage-victory::before {
+ content:"";inset:8px;position:absolute;pointer-events:none;border:1px solid #f3d7a087;border-radius:13px;
+ box-shadow:inset 0 0 20px #ffe7a11d
+}
+body.game.pixel-game .quest-hero .hero-companion {
+ max-height:clamp(245px,29vw,440px);width:auto;max-width:39%;object-fit:contain;object-position:center bottom;
+ filter:drop-shadow(0 12px 9px #060c17c6) drop-shadow(0 0 16px #ffe89c36);
+ image-rendering:auto
+}
+body.game.pixel-game .quest-hero .hero-copy {position:relative;z-index:2}
+body.game.pixel-game .quest-hero :is(h1,h2,.section-title) {color:#ffe9b5;text-shadow:0 3px 1px #40231a,0 7px 16px #040f23}
+body.game.pixel-game :is(.map-voyage-intro,.mission-hud,.stage-map-progress,.stage-territories) {
+ border-color:#cfaa71
+}
+body.game.pixel-game .stage-gameworld {
+ max-width:1400px;padding:clamp(9px,1.4vw,19px);
+ background:
+ radial-gradient(ellipse at 48% -40%,#9b744445,transparent 62%),
+ linear-gradient(150deg,#573b30,#192c36 50%,#34253b);
+}
+body.game.pixel-game .stage-artscape {
+ position:relative;overflow:hidden;border:5px ridge #d4ad70;border-radius:20px;
+ box-shadow:inset 0 0 0 2px #ffe2a058,0 15px 28px #080c19c9;
+ background:#112f38;
+}
+body.game.pixel-game .stage-artscape::after{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+ box-shadow:inset 0 0 55px #09111d99;
+ background:linear-gradient(0deg,#0b152a3c 0%,transparent 28%,#ffdfa212 80%,#11193520);
+}
+body.game.pixel-game .stage-artscape .map-ground-art {object-fit:cover;object-position:center 45%;image-rendering:auto;filter:saturate(1.08) contrast(1.045)}
+body.game.pixel-game.lang-game .stage-artscape .map-ground-art {filter:saturate(1.1) contrast(1.04) hue-rotate(2deg)}
+body.game.pixel-game .stage-road{pointer-events:none;z-index:2}
+body.game.pixel-game .stage-road-base{stroke:#ffdf9d;stroke-width:8;stroke-linecap:round;stroke-dasharray:2 17;opacity:.83;filter:drop-shadow(0 0 7px #ffe59a)}
+body.game.pixel-game .stage-road-done{stroke:#fff6bf;stroke-width:5;stroke-linecap:round;stroke-dasharray:3 16}
+body.game.pixel-game .stage-locations {z-index:4}
+body.game.pixel-game .stage-node{min-height:54px;transition:filter .15s ease}
+body.game.pixel-game .stage-node .stage-orb {
+ width:clamp(58px,5.4vw,83px);height:clamp(58px,5.4vw,83px);
+ border:4px ridge #e7b86c;background:radial-gradient(circle at 28% 19%,#96774b,#543b2d 70%,#29242c);
+ box-shadow:inset 0 2px 5px #fff2bd85,0 5px 0 #251b1c,0 0 16px #ffe1a64c
+}
+body.game.pixel-game .stage-completed .stage-orb {background:radial-gradient(circle at 35% 15%,#99ffe7,#0f897e 70%,#134b54)}
+body.game.pixel-game.lang-game .stage-completed .stage-orb {background:radial-gradient(circle at 35% 15%,#f0d1ff,#8049be 70%,#453366)}
+body.game.pixel-game .stage-active .stage-orb {box-shadow:0 0 0 4px #ffe7afaa,0 0 28px var(--v11-accent),0 5px 0 #292226}
+body.game.pixel-game .stage-node-name {
+ font:800 clamp(.75rem,.98vw,.99rem)/1.15 Georgia,serif;color:#3b251b;
+ border:3px ridge #c99c5e;background:linear-gradient(155deg,#fff1cd,#e3c38f);
+ box-shadow:inset 0 0 0 2px #fffdedbf,0 5px 0 #482e22,0 9px 16px #0009;
+ text-wrap:balance
+}
+body.game.pixel-game .stage-node:focus-visible {outline:4px solid #fff3a2;outline-offset:5px}
+body.game.pixel-game .stage-guide {pointer-events:none;z-index:3}
+body.game.pixel-game .stage-guide img{filter:drop-shadow(0 7px 9px #0c1520c9)}
+body.game.pixel-game .stage-map-progress {gap:10px;align-items:stretch}
+body.game.pixel-game .stage-map-progress :is(strong,span) {
+ border:2px ridge #d6ac73;border-radius:12px;
+ background:linear-gradient(155deg,#65412e,#3b2828);
+ color:#fff0c9;box-shadow:inset 0 0 0 1px #ffe3ab3b,0 3px 0 #211e1f;
+}
+body.game.pixel-game .stage-territory{
+ border:2px ridge #b99462;box-shadow:inset 0 0 0 1px #ffe0aa33,0 4px 0 #28191a;
+ color:#fff0cb;background:linear-gradient(145deg,#6a4735,#352326)
+}
+body.game.pixel-game .map-access-note{
+ max-width:100%;background:linear-gradient(130deg,#65412ee5,#362629ef);color:#ffeccc;border:2px ridge #d1a36b;
+}
+body.game.pixel-game .mission-stage {
+ background-image:linear-gradient(135deg,#101c2cb8,#112b36bd 60%,#122536ac),url("./assets/arte-v4/portal-numeros.webp");
+ background-size:cover;background-position:center 48%;
+ padding:clamp(12px,2.3vw,28px)
+}
+body.game.pixel-game.lang-game .mission-stage {
+ background-image:linear-gradient(135deg,#21152dbb,#33214ac6 60%,#211731bb),url("./assets/arte-v4/portal-palabras.webp")
+}
+body.game.pixel-game .mission-stage::before {
+ content:"";position:absolute;inset:8px;z-index:-1;pointer-events:none;
+ border:1px solid #ffe3ac67;border-radius:13px;box-shadow:inset 0 0 32px #ffe2ac20
+}
+body.game.pixel-game .mission-toolbar {
+ position:relative;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+ padding:10px 14px;border:3px ridge #d9b17b;border-radius:13px;
+ background:linear-gradient(135deg,#714c34e8,#2d292eec);color:#fff1d0;box-shadow:var(--v11-wood-frame)
+}
+body.game.pixel-game .mission-toolbar p{margin:5px 0;color:#ffeccc}
+body.game.pixel-game .mission-count{
+ border:2px ridge #e0ba83;border-radius:11px;padding:9px 13px;
+ background:#42332b;color:#fff5de;box-shadow:0 3px 0 #24191b
+}
+body.game.pixel-game :is(.mission-pane,.mission-interaction,.paper,.lesson,.reading,.question-visual){
+ background-color:var(--v11-parchment);
+ background-image:radial-gradient(ellipse at 50% 0%,#fff9e6,#f5e6c4 56%,#e5c18e);
+ border:4px ridge #b98c53;border-radius:17px;color:var(--v11-ink);
+ box-shadow:var(--v11-paper-frame);
+}
+body.game.pixel-game :is(.mission-pane,.mission-interaction,.paper,.lesson,.reading,.question-visual) :is(input,textarea,select){
+ color:#32251e;background:#fffbef;border:2px solid #9e7849;border-radius:9px
+}
+body.game.pixel-game :is(.mission-pane,.mission-interaction,.paper,.lesson,.reading,.question-visual) :is(h1,h2,h3,p,li,label,strong,small) {text-shadow:none}
+body.game.pixel-game .q-title{font:800 clamp(1.24rem,2.65vw,2rem)/1.3 Georgia,serif;color:#38271c}
+body.game.pixel-game :is(.choice,.quest-artifact-button,.primary-btn,.adventure-launch,.continue-btn){
+ min-height:48px;border:3px ridge #d5c08a;border-radius:13px;
+ background:linear-gradient(165deg,#55d5b1,#188f74 62%,#075d55);
+ color:#fffce9;box-shadow:inset 0 2px 3px #ffffff61,0 5px 0 #12463a,0 10px 19px #0006;
+ text-shadow:0 2px 3px #1e2b21;font-weight:800;
+}
+body.game.pixel-game.lang-game :is(.choice,.quest-artifact-button,.primary-btn,.adventure-launch,.continue-btn){
+ background:linear-gradient(165deg,#d5b3ff,#955acb 60%,#613690);
+ box-shadow:inset 0 2px 3px #fff8,0 5px 0 #513672,0 10px 19px #0006
+}
+body.game.pixel-game :is(.secondary-btn,.tag-btn,.quest-text-button){
+ min-height:48px;border:3px ridge #bf965e;border-radius:12px;
+ background:linear-gradient(#fff0cc,#c99f63);color:#423021;
+ box-shadow:inset 0 2px 2px #fff7,0 4px 0 #694b2b
+}
+body.game.pixel-game :is(.feedback,.result-item){
+ border:3px ridge #bc9056;border-radius:15px;
+ background:linear-gradient(#fff7e0,#e8cf9e);color:#31251d;box-shadow:var(--v11-paper-frame)
+}
+body.game.pixel-game :is(.stage-victory,.stage-final-badge){
+ background-image:radial-gradient(ellipse at 50% 20%,#d6b15d51,transparent 65%),
+ linear-gradient(140deg,#614430df,#1b3442ed 54%,#472d3de8),
+ url("./assets/arte-v4/bosque-magico.webp");
+ background-size:cover;background-position:center;box-shadow:var(--v11-wood-frame)
+}
+body.game.pixel-game .victory-guide{
+ width:clamp(130px,28vw,255px);height:auto;max-height:330px;object-fit:contain;
+ filter:drop-shadow(0 10px 12px #060b16b3)
+}
+body.game.pixel-game .stage-card-earned{
+ background:radial-gradient(circle at 50% 0,#c4a25556,transparent 60%),linear-gradient(145deg,#593b2c,#213746 54%,#493648);
+ border:5px ridge #d9ad60;box-shadow:var(--v11-wood-frame)
+}
+body.game.pixel-game .stage-card-earned img {filter:drop-shadow(0 12px 13px #000b)}
+body.game.pixel-game .quest-place-scene {
+ background:radial-gradient(ellipse at center,#d6be6c39,transparent 70%),url("./assets/arte-v4/bosque-magico.webp") center/cover;
+ border:3px ridge #d0aa6f;border-radius:17px;overflow:hidden
+}
+body.game.pixel-game :is(.quest-guide-art,.hint-guide-expression){object-fit:contain;image-rendering:auto}
+body.game.pixel-game :is(.level-card,.stat,.menu-card,.recovery-hub){
+ border:3px ridge #c4a172;border-radius:14px;
+ background:linear-gradient(150deg,#654631,#332628);box-shadow:var(--v11-wood-frame)
+}
+body.game.pixel-game .loading {
+ color:#ffe9b5;text-shadow:0 0 15px #ffdb8c;
+ font:800 clamp(1.1rem,2.6vw,1.7rem)/1.3 Georgia,serif
+}
+@media (min-width:900px){
+ body.game.pixel-game .stage-artscape{aspect-ratio:16/10;min-height:0;height:auto}
+ body.game.pixel-game .stage-artscape .map-ground-art{object-fit:cover;object-position:center 43%}
+ body.game.pixel-game .stage-orb{width:clamp(54px,5.6vw,80px);height:clamp(54px,5.6vw,80px)}
+}
+@media (max-width:899px){
+ body.game.pixel-game .stage-artscape{aspect-ratio:2/3}
+ body.game.pixel-game .stage-artscape .map-ground-art{object-fit:cover;object-position:center}
+}
+@media(max-width:700px){
+ body.game.pixel-game .game-container{padding-inline:9px}
+ body.game.pixel-game .quest-hero{min-height:0}
+ body.game.pixel-game .quest-hero .hero-companion{max-width:40%;max-height:240px}
+ body.game.pixel-game .stage-gameworld{padding:8px 6px 14px}
+ body.game.pixel-game .stage-artscape{height:1900px;min-height:1900px;aspect-ratio:auto}
+ body.game.pixel-game.lang-game .stage-artscape{height:2140px;min-height:2140px}
+ body.game.pixel-game .stage-node{width:clamp(115px,36vw,160px)}
+ body.game.pixel-game .stage-node-name{font-size:clamp(.72rem,2.7vw,.89rem)}
+ body.game.pixel-game :is(.mission-stage,.mission-pane,.mission-interaction){padding:12px 10px}
+ body.game.pixel-game .mission-toolbar{padding:9px}
+ body.game.pixel-game .q-title{font-size:clamp(1.22rem,5vw,1.6rem)}
+}
+@media(max-width:390px){
+ body.game.pixel-game .stage-artscape{height:2020px;min-height:2020px}
+ body.game.pixel-game.lang-game .stage-artscape{height:2270px;min-height:2270px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.game.pixel-game *,body.game.pixel-game *::before,body.game.pixel-game *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
