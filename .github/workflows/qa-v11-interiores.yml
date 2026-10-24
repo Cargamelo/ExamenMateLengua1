@@ -1,0 +1,40 @@
+name: QA V11 interiores ilustrados
+on:
+  push:
+    branches: [feat/visual-v11-interiores-20261024]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar sintaxis y contenido preservado
+        run: |
+          for f in *.js tests/*.cjs; do node --check "$f"; done
+          node tests/cartas-coleccionables.cjs
+          node tests/fases-secuenciales.cjs
+      - name: Instalar Playwright
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar servidor local
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/qa-v11.log 2>&1 &
+          sleep 2
+      - name: Pruebas de regresion y mapas
+        run: node qa-pixel.js
+      - name: Inventario persistente y UI de cartas
+        run: node tests/cartas-ui.cjs
+      - name: Verificar accesibilidad y capturas de V11
+        run: node tests/qa-v11-interiores.cjs
+      - name: Capturas para revision
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-v11-interiores
+          path: qa-screenshots/v11/
+          if-no-files-found: ignore
