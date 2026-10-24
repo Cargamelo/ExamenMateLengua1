@@ -17,7 +17,7 @@ async function run(){
   p.on('pageerror',e=>runtime.push(e.message));
   p.on('response',resp=>{if(resp.status()===404&&resp.url().startsWith(root))errors.push('404 '+resp.url())});
   await p.goto(root+'/index.html',{waitUntil:'networkidle'});
-  await pageCheck(p,'.pixel-portal.math');await pageCheck(p,'.pixel-portal.lang');await overflow(p,w,'inicio '+w);
+  await pageCheck(p,'.cover-portal-math');await pageCheck(p,'.cover-portal-lang');await overflow(p,w,'inicio '+w);
   if(w===390||w===1366)await p.screenshot({path:'qa-screenshots/01-portada-'+w+'.png',fullPage:true});
   await p.locator('[data-liga-open="collection"]').click();await pageCheck(p,'.pixel-card-tile');
   ok(await p.locator('.pixel-card-tile').count()===24,'Álbum de 24 cartas '+w);
