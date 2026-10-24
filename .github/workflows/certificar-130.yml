@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - test/certificacion-130-actividades
+      - test/integracion-b-130
   workflow_dispatch:
 permissions:
   contents: read

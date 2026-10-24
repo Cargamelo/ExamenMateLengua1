@@ -8,8 +8,11 @@
  async function storage(action,value){
   const db=await openAuth();return new Promise((resolve,reject)=>{
    const tx=db.transaction("tokens",action==="get"?"readonly":"readwrite"),store=tx.objectStore("tokens");
-   const r=action==="get"?store.get("current"):action==="set"?store.put(value,"current"):store.delete("current");
-   r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+   const req=action==="get"?store.get("current"):action==="set"?store.put(value,"current"):store.delete("current");
+   let readValue=null;
+   req.onsuccess=()=>{readValue=req.result};req.onerror=()=>reject(req.error);
+   tx.oncomplete=()=>resolve(readValue);tx.onabort=()=>reject(tx.error||new Error("Transacción cancelada"));
+   tx.onerror=()=>reject(tx.error||new Error("Error de almacenamiento"));
   });
  }
  async function auth(){if(!enabled)return null;if(cachedAuth)return cachedAuth;return cachedAuth=await storage("get")||null}
@@ -97,7 +100,9 @@
   if(action==="cancel"){try{const a=await auth();await send({action:"cancel",id:a.id},a.deviceToken);say("Código anulado");}catch(e){say(e.message)}return}
   if(action==="logout"){
    if(!confirm("¿Cerrar sesión en este dispositivo? Se conservará la partida remota, pero necesitarás su código de recuperación para volver a acceder. Los datos locales se guardarán primero en una copia."))return;
+   if(!await save()){say("No se confirmó la copia remota; se conserva el progreso local.");return;}
    localStorage.setItem("liga-copia-previa-transferencia",JSON.stringify({date:Date.now(),data:snapshot()}));
+   for(const t of ["math","lang"])if(!window.LigaPartida?.retire(t))throw new Error("No se pudo proteger el cierre; no se borran datos");
    await storage("delete");cachedAuth=null;
    for(const t of ["math","lang"]){localStorage.removeItem("ligasaber-2026-"+t);localStorage.removeItem("ligasaber-2026-"+t+"-checkpoint-v2")}
    location.href="./index.html";return;
@@ -112,7 +117,12 @@
   if(!enabled)return;
   try{const a=await auth();if(a){
    const r=await send({action:"read",id:a.id},a.deviceToken);
-   a.revision=r.revision;await storage("set",a);signal("Sincronizado");
+   if(r.revision!==a.revision){
+     signal("Conflicto de revisión entre dispositivos. El progreso local sigue intacto.");
+    }else{
+     signal("Partida vinculada. Guardado local comprobado.");
+     if(JSON.stringify(snapshot())!==JSON.stringify(r.progress))queueSave();
+    }
   }else signal("Partida local disponible");
   }catch(e){signal(e.status===403?"Control activo en otro dispositivo":"No se pudo comprobar la sincronización; datos locales conservados")}
  });

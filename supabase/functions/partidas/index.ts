@@ -1,6 +1,7 @@
 /* La Liga del Saber · Transferencia anónima con control exclusivo.
    Requiere migración SQL y secretos de Supabase. No desplegar sin pruebas de rate limiting. */
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { safeProgress } from "./validate-progress.mjs";
 const site="https://cargamelo.github.io";
 const url=Deno.env.get("SUPABASE_URL");
 const secret=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -20,13 +21,18 @@ async function digest(value:string){
 }
 const uuid=/^[\da-f]{8}-[\da-f]{4}-[1-8][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i;
 async function rpc(name:string,args:Record<string,unknown>){const {data,error}=await db!.rpc(name,args);if(error){console.error("liga_rpc",name,error.code);throw new Error("Error de almacenamiento remoto")}return data}
-function safeProgress(value:unknown){
- if(!value||typeof value!=="object"||Array.isArray(value))throw new Error("Formato de progreso inválido");
- const p=value as Record<string,unknown>;
- if(!Object.hasOwn(p,"math")||!Object.hasOwn(p,"lang"))throw new Error("Faltan las asignaturas");
- const json=JSON.stringify({math:p.math,lang:p.lang});
- if(json.length>220000)throw new Error("Progreso demasiado grande");
- return JSON.parse(json);
+async function limitedBody(req:Request){
+ const reader=req.body?.getReader();if(!reader)return null;
+ const chunks:Uint8Array[]=[];let total=0;
+ while(true){
+  const {done,value}=await reader.read();if(done)break;
+  total+=value.byteLength;
+  if(total>250000){await reader.cancel().catch(()=>{});throw new Error("Solicitud demasiado grande")}
+  chunks.push(value);
+ }
+ const data=new Uint8Array(total);let offset=0;
+ for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.byteLength}
+ return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(data));
 }
 async function authenticate(body:Record<string,unknown>,req:Request){
  const id=String(body.id||""),raw=req.headers.get("x-liga-token")||"";
@@ -34,7 +40,12 @@ async function authenticate(body:Record<string,unknown>,req:Request){
  return {id,hash:await digest("device:"+raw)};
 }
 async function allowed(req:Request,kind:string,limit:number,windowSeconds:number){
- const addr=req.headers.get("cf-connecting-ip")||req.headers.get("x-real-ip")||req.headers.get("x-forwarded-for")?.split(",")[0]?.trim()||"unknown";
+ // Fail closed until the ingress contract is explicitly verified by an operator.
+ // Merely naming a header is not proof it cannot be supplied by an external caller.
+ const name=Deno.env.get("TRUSTED_CLIENT_IP_HEADER");
+ if(!name||!["cf-connecting-ip","x-real-ip","x-forwarded-for"].includes(name))return false;
+ const addr=req.headers.get(name)?.split(",")[0]?.trim();
+ if(!addr||addr.length>64||!/^[0-9a-f:.]+$/i.test(addr))return false;
  const bucket=await digest("limit:"+kind+":"+addr);
  return await rpc("liga_rate",{p_bucket:bucket,p_max:limit,p_window_seconds:windowSeconds})===true;
 }
@@ -44,9 +55,9 @@ Deno.serve(async(req)=>{
  if(req.headers.get("origin")&&req.headers.get("origin")!==site)return reply({error:"Origen no autorizado"},403);
  if(!ready)return reply({error:"Servidor no configurado"},503);
  try{
-  if(Number(req.headers.get("content-length")||0)>250000)return reply({error:"Solicitud demasiado grande"},413);
   let body:Record<string,unknown>;
-  try{body=await req.json()}catch{return reply({error:"JSON incorrecto"},400)}
+  try{body=await limitedBody(req) as Record<string,unknown>}
+  catch(e){return reply({error:e instanceof Error&&e.message==="Solicitud demasiado grande"?"Solicitud demasiado grande":"JSON incorrecto"},e instanceof Error&&e.message==="Solicitud demasiado grande"?413:400)}
   if(!body||typeof body!=="object"||Array.isArray(body))return reply({error:"Datos incorrectos"},400);
   const action=String(body.action||"");
   if(action==="create"){
