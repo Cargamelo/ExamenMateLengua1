@@ -57,9 +57,20 @@ async function start(page,q){
  else if(await page.locator("#response").count()){await page.locator("#response").fill("0");await page.locator('[data-action="check"]').click();}
  else throw Error("First challenge unavailable");
  await page.locator('[data-action="next"]').click();
- // Segundo ejercicio certificado (banco antiguo).
- const button=page.locator('[data-mini="choose"],[data-action="choose"]');
- await button.first().click();await page.locator('[data-action="next"]').click();
+ // Segundo ejercicio del banco antiguo, que puede conservar un minijuego de cifras.
+ if(await page.locator('[data-mini="digit"]').count()){
+  const slots=await page.locator(".quest-slot").count();
+  for(let i=0;i<slots;i++)await page.locator('[data-mini="digit"][data-value="0"]').first().click();
+  await page.locator('[data-mini="submit"]').click();
+ }else if(await page.locator('[data-mini="choose"],[data-action="choose"]').count()){
+  await page.locator('[data-mini="choose"],[data-action="choose"]').first().click();
+ }else if(await page.locator("#response").count()){
+  await page.locator("#response").fill("0");await page.locator('[data-action="check"]').click();
+ }else if(await page.locator('[data-mini="pick"]').count()){
+  const n=await page.locator('[data-mini="pick"]').count();
+  for(let i=0;i<n;i++)await page.locator('[data-mini="pick"]').nth(i).click();
+ }else throw Error("Second legacy challenge unavailable");
+ await page.locator('[data-action="next"]').click();
  assert.equal(await page.evaluate(()=>window.__varietySelected),1,"New bank not selected in real gameplay");
  assert.equal(await page.locator(".q-title").innerText(),q.prompt,q.id+" prompt changed");
 }
