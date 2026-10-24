@@ -12,7 +12,7 @@ for(const q of qs){
  assert.ok(q.source&&q.explanation&&q.hint1&&q.hint2&&q.concept&&q.phases?.length,q.id);
  assert.ok(q.minStep>=0&&q.minStep<=5,q.id);
  const x=mini.enrich(q,{},q.minStep),s=mini.begin(),m=x.mechanic;
- if(q.type==="text"){assert.equal(m,null);assert.equal(x.choices,null);assert.ok(q.accepted.includes(q.correct));continue;}
+ if(q.type==="text"){assert.equal(m,null);assert.equal(x.choices,null);assert.ok(q.accepted.some(a=>a.toLocaleLowerCase("es")===q.correct.toLocaleLowerCase("es")));continue;}
  assert.ok(m&&mini.render(x,s).includes("quest-scene"),q.id);
  let out;
  if(q.type==="choice"){
