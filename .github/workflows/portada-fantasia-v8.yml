@@ -58,7 +58,7 @@ jobs:
           node tests/guardar-y-bloquear.cjs
       - name: Regresión de los dos videojuegos y cartas
         run: node qa-pixel.js
-      - name: Portada: siete tamaños, botones y capturas
+      - name: 'Portada: siete tamaños, botones y capturas'
         run: node tests/qa-portada-v8.cjs
       - name: Comparar con referencia aprobada
         if: always()
