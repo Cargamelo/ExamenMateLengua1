@@ -23,6 +23,7 @@ jobs:
           node --check preguntas-drive.js
           node --check tests/certificar-130-browser.cjs
           node tests/contenidos-drive.cjs
+          node tests/alcanzabilidad-drive.cjs
           node tests/fases-secuenciales.cjs
       - name: Preparar navegador
         run: npm install --no-save playwright-core@1.58.2
