@@ -41,10 +41,10 @@ async function start(page,q){
   await page.locator('[data-mini="submit"]').click();
  }else if(await page.locator('[data-mini="left"]').count()){
   const left=await page.locator('[data-mini="left"]').allTextContents(),right=await page.locator('[data-mini="right"]').allTextContents();
-  const values=await page.evaluate((words,topic)=>{
+  const values=await page.evaluate(({words,topic})=>{
    const pairs=topic==="antonimos"?window.EDU_DATA.antonyms:window.EDU_DATA.synonyms;
    return words.map(x=>pairs.find(pair=>pair[0]===x.trim())?.[1]);
-  },left,q.topic);
+  },{words:left,topic:q.topic});
   for(let i=0;i<left.length;i++){
    const j=right.findIndex(x=>x.trim()===values[i]);assert.ok(j>=0);
    await page.locator('[data-mini="left"]').nth(i).click();await page.locator('[data-mini="right"]').nth(j).click();
