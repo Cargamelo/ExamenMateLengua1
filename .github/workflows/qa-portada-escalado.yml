@@ -1,0 +1,40 @@
+name: QA escalado portada responsive
+on:
+  push:
+    branches:
+      - fix-portada-escalado-responsive-20261024
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  escalado:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Sintaxis de pruebas
+        run: node --check tests/qa-portada-escalado.cjs
+      - name: Instalar navegador automatizado
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Arrancar la app de prueba
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/portada-escalado.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/index.html > /dev/null
+      - name: Validar rótulo, imagen y controles en 9 resoluciones
+        run: node tests/qa-portada-escalado.cjs
+      - name: Confirmar funcionalidad de la portada y ambos juegos
+        run: node tests/qa-portada-v8.cjs
+      - name: Verificar regresiones generales
+        run: node qa-pixel.js
+      - name: Publicar capturas como artefactos de QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-escalado-portada
+          path: qa-screenshots/
+          retention-days: 20
+          if-no-files-found: ignore
