@@ -1,0 +1,125 @@
+name: Certificacion temario Lengua 17 fichas
+on:
+  push:
+    branches:
+      - feat/temario-lengua-fichas-17-20261024
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exactitud:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Sintaxis de juegos y pruebas
+        run: |
+          for f in lengua-temario.js minijuegos.js juego.js tests/temario-lengua.cjs tests/temario-browser.cjs; do node --check "$f"; done
+      - name: Correccion pedagógica y mecanismos
+        run: node tests/temario-lengua.cjs
+      - name: Regresion de banco Drive y persistencia
+        run: |
+          node tests/contenidos-drive.cjs
+          node tests/variedad-educativa.cjs
+          node tests/fases-secuenciales.cjs
+          node tests/alcanzabilidad-drive.cjs
+          node tests/integridad-b.cjs
+          node tests/validacion-remota-b.cjs
+      - name: Instalar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor web aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/temario-unit.log 2>&1 &
+          sleep 1
+      - name: Interacciones originales, mapas y cartas
+        run: node tests/smoke-pixel.cjs
+      - name: Responsive en ocho tamaños
+        run: node qa-pixel.js
+      - name: Comprobar guardado y bloqueo
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Material didáctico especial
+        run: node tests/actividades-especiales-b.cjs
+      - name: Capturas de regresion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: temario-regresion-pantallas
+          path: |
+            test-screenshots/
+            qa-screenshots/
+          if-no-files-found: ignore
+  individuales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 29
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11]
+    env:
+      TEM_SHARD: ${{ matrix.shard }}
+      TEM_SHARDS: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Instalar Chromium driver
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor web aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/temario-playwright.log 2>&1 &
+          sleep 1
+      - name: Ejecutar respuestas correctas e incorrectas en videojuego real
+        run: node tests/temario-browser.cjs
+      - name: Evidencias por ID
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: temario-evidencias-${{ matrix.shard }}
+          path: qa-temario/
+          if-no-files-found: warn
+  fases-pwa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 29
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor web aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/temario-fases.log 2>&1 &
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/temario-fases-fallback.log 2>&1 &
+          sleep 1
+      - name: Recorrer 30 fases, medir variedad y recompensas
+        run: node tests/certificar-30-fases.cjs
+      - name: Certificar PWA offline con el temario nuevo
+        run: node tests/certificar-offline-pwa.cjs
+      - name: Evidencias de 30 fases y PWA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: temario-fases-pwa
+          path: qa-certificacion/
+          if-no-files-found: ignore
+  matriz-final:
+    needs: [exactitud, individuales, fases-pwa]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: temario-evidencias-*
+          path: qa-temario/
+          merge-multiple: true
+      - name: Matriz obligatoria 157 x 2
+        run: node tests/certificar-temario.cjs
+      - name: Publicar certificación final
+        uses: actions/upload-artifact@v4
+        with:
+          name: temario-matriz-certificada
+          path: qa-temario/matriz-final.json

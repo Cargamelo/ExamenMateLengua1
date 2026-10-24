@@ -72,6 +72,7 @@ async function test() {
      }else if(await page.locator('[data-mini="submit-fields"]').count()){
       for(const input of await page.locator("[data-varied-input]").all())await input.fill("0");
       await page.locator('[data-mini="submit-fields"]').click();
+      if(await page.locator(".varied-field-feedback").count())await page.locator('[data-mini="submit-fields"]').click();
      }else if(await page.locator('[data-mini="verify-classification"]').count()){
       const groupButtons=page.locator('[data-mini="classify"]');for(const i of [...new Set((await groupButtons.evaluateAll(nodes=>nodes.map(n=>n.dataset.value.split(":")[0]))))]){
        await page.locator('[data-mini="classify"][data-value="'+i+':0"]').click();}
@@ -82,6 +83,15 @@ async function test() {
      }else if(await page.locator('[data-mini="pick"]').count()){
       const n=await page.locator('[data-mini="pick"]').count();
       for(let k=0;k<n;k++)await page.locator('[data-mini="pick"]').nth(k).click();
+     }else if(await page.locator('[data-mini="verify-rewrite"]').count()){
+      const text=await page.locator(".q-title").innerText();
+      const replacement=await page.evaluate(text=>{const q=window.LigaTemarioLengua?.questions?.find(x=>x.prompt===text);return q?.original?.replace(q.from,q.to)||"La niña aprende palabras nuevas.";},text);
+      await page.locator("#varied-writing").fill(replacement);
+      await page.locator("#varied-review").check();
+      await page.locator('[data-mini="verify-rewrite"]').click();
+     }else if(await page.locator('[data-mini="verify-multi"]').count()){
+      await page.locator('[data-mini="toggle-multi"]').first().click();
+      await page.locator('[data-mini="verify-multi"]').click();
      }else if(await page.locator('[data-mini="choose"]').count()){
       await page.locator('[data-mini="choose"]').first().click();
      }else if(await page.locator('[data-action="choose"]').count()){

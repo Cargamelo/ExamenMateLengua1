@@ -4,12 +4,14 @@ function enrich(q,D,step=0){
  q={...q};const t=q.topic,v=q.variant;let m=null;
  if(v==="variedad"){
   if(q.type==="text"){q.choices=null;q.mechanic=null;return q;}
-  if(q.type==="fill")m={type:"fill",fields:q.fields,answers:q.answers,numeric:!!q.numeric};
+  if(q.type==="fill")m={type:"fill",fields:q.fields,answers:q.answers,acceptedFields:q.acceptedFields||null,numeric:!!q.numeric,allowCorrection:!!q.allowCorrection};
   else if(q.type==="classification")m={type:"classification",groups:q.groups,items:q.items};
   else if(q.type==="guided")m={type:"guided",words:q.words};
   else if(q.type==="ordering")m={type:"train",values:q.values,correct:q.correct.split(" → ")};
   else if(q.type==="matching"){const pairs=q.pairs;m={type:"links",pairs,left:pairs.map(p=>p[0]),right:shuffle(pairs.map(p=>p[1]))};}
   else if(q.type==="choice")m={type:"scene",values:q.choices};
+  else if(q.type==="multi")m={type:"multi",options:q.options,correctIndexes:q.correctIndexes};
+  else if(q.type==="rewrite")m={type:"rewrite",original:q.original,from:q.from,to:q.to};
   if(!m)throw Error("Mecánica no reconocida: "+q.type);
   q.mechanic=m;return q;
  }
@@ -25,7 +27,7 @@ function enrich(q,D,step=0){
  else if(t==="comunicacion"||t==="comprension")m={type:"scene",values:q.choices||[]};
  q.mechanic=m;return q;
 }
-const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[],pickedIndex:null,fields:[],groups:{},text:""});
+const begin=()=>({digits:"",chosen:[],left:null,linked:[],mistakes:0,repaired:[],pickedIndex:null,fields:[],groups:{},text:"",selected:[],attempts:0,fieldErrors:[],reviewed:false});
 function btn(act,val,label,cls="quest-piece",disabled=false){return '<button type="button" class="'+cls+'" data-action="mini" data-mini="'+act+'" data-value="'+esc(val)+'"'+(["pick","left"].includes(act)?' draggable="true" data-drag-kind="'+(act==="pick"?"train":"links")+'" data-drag-index="'+esc(val)+'"':"")+(act==="right"?' data-drop-kind="links" data-drop-index="'+esc(val)+'"':"")+(disabled?" disabled":"")+(cls.includes("active")||cls.includes("selected")?' aria-pressed="true"':(["left","toggle"].includes(act)?' aria-pressed="false"':""))+'>'+esc(label)+'</button>';}
 function render(q,s,complete=false){
  const m=q.mechanic;if(!m)return "";let out='<div class="quest-scene quest-'+m.type+'"><div class="quest-artifact" aria-hidden="true">'+'<img class="quest-mini-art" src="./assets/objeto-'+(["fill","classification","guided"].includes(m.type)?"scene":m.type)+'.svg" alt="" width="240" height="200" decoding="async">'+'</div>';
@@ -33,7 +35,18 @@ function render(q,s,complete=false){
   out+='<p class="quest-instruction">Completa cada casilla y después comprueba.</p><div class="varied-fields">';
   m.fields.forEach((name,i)=>{out+='<label class="varied-label">'+esc(name)+
    '<input class="field" type="text" data-varied-input="'+i+'" inputmode="'+(m.numeric?"numeric":"text")+'" value="'+esc(s.fields?.[i]||"")+'"'+(complete?" disabled":"")+'></label>';});
-  out+='</div>'+btn("submit-fields",0,"Comprobar los huecos","primary-btn quest-verify");
+  out+='</div>'+(s.fieldErrors?.length?'<p class="varied-field-feedback" role="status">'+s.fieldErrors.map((ok,i)=>'<span>'+esc(m.fields[i])+': '+(ok?'✓ bien':'revisa esta respuesta')+'</span>').join(' · ')+'</p>':'')+btn("submit-fields",0,"Comprobar los huecos","primary-btn quest-verify");
+  }else if(m.type==="multi"){
+  out+='<p class="quest-instruction">Puede haber varias respuestas. Selecciona todas las correctas.</p><div class="varied-classification" role="group" aria-label="Selecciona todas las respuestas">';
+  m.options.forEach((value,i)=>{out+=btn("toggle-multi",i,value,"quest-piece"+(s.selected?.includes(i)?" selected":""),complete);});
+  out+='</div>'+btn("verify-multi",0,"Comprobar selección","primary-btn quest-verify",complete);
+ }else if(m.type==="rewrite"){
+  out+='<p class="quest-instruction">Oración de partida: <strong>'+esc(m.original)+'</strong></p>'+
+  '<label class="mini-label" for="varied-writing">Reescribe con «'+esc(m.to)+'» en lugar de «'+esc(m.from)+'».</label>'+
+  '<textarea class="field long" id="varied-writing" rows="3" spellcheck="true"'+(complete?" disabled":"")+'>'+esc(s.text||"")+'</textarea>'+
+  '<label class="varied-review"><input id="varied-review" type="checkbox"'+(s.reviewed?" checked":"")+(complete?" disabled":"")+'><span>He leído mi oración y he comprobado que conserva el sentido.</span></label>'+
+  '<p class="quest-instruction">Se revisan las palabras indicadas, mayúscula y puntuación. Solo tú o una persona adulta podéis valorar todo el significado.</p>'+
+  btn("verify-rewrite",0,"Revisar oración","primary-btn quest-verify",complete);
  }else if(m.type==="classification"){
   out+='<p class="quest-instruction">Pulsa una categoría para cada situación.</p><div class="varied-classification">';
   m.items.forEach(([word],i)=>{out+='<div class="varied-class-item"><strong>'+esc(word)+'</strong><div role="group" aria-label="Clasifica '+esc(word)+'">'+
@@ -74,8 +87,30 @@ function act(q,s,action,value){
    s.fields=fields.map(x=>String(x||""));
    if(s.fields.some(x=>!x.trim()))return {state:s};
    const norm=x=>m.numeric?String(x).replace(/[.\s]/g,""):String(x).normalize("NFC").trim().toLocaleLowerCase("es").replace(/\s+/g," ");
-   const ok=s.fields.every((x,i)=>norm(x)===norm(m.answers[i]));
+   const correct=s.fields.map((x,i)=>[m.answers[i],...(m.acceptedFields?.[i]||[])].some(y=>norm(x)===norm(y)));
+   const ok=correct.every(Boolean);
+   if(m.allowCorrection&&!ok&&s.attempts<1){s.attempts++;s.fieldErrors=correct;return {state:s,checked:true,ok:false};}
    return {state:s,done:true,ok,given:s.fields.join(" / ")};
+  }
+  }else if(m.type==="multi"){
+  if(action==="toggle-multi"){const i=Number(value);if(Number.isInteger(i)&&i>=0&&i<m.options.length){
+   const j=s.selected.indexOf(i);j<0?s.selected.push(i):s.selected.splice(j,1);}}
+  if(action==="verify-multi"&&s.selected.length){
+   const selected=[...s.selected].sort((a,b)=>a-b).join(",");
+   const target=[...m.correctIndexes].sort((a,b)=>a-b).join(",");
+   return {state:s,done:true,ok:selected===target,given:s.selected.map(i=>m.options[i]).join("; ")};
+  }
+ }else if(m.type==="rewrite"){
+  if(action==="verify-rewrite"){
+   let data;try{data=JSON.parse(value);}catch(e){return {state:s};}
+   s.text=String(data.text||"");s.reviewed=!!data.reviewed;
+   const norm=x=>String(x).toLocaleLowerCase("es").normalize("NFC").trim();
+   const words=norm(s.text),to=norm(m.to),from=norm(m.from);
+   const exactWord=(w)=>new RegExp("(^|[^\\p{L}])"+w+"([^\\p{L}]|$)","iu");
+   const ok=s.reviewed&&s.text.trim().length>=12&&exactWord(to).test(words)&&!exactWord(from).test(words)
+    &&/^[A-ZÁÉÍÓÚÜÑ]/u.test(s.text.trim())&&/[.!?]$/.test(s.text.trim());
+   if(!s.text.trim())return {state:s};
+   return {state:s,done:true,ok,given:s.text};
   }
  }else if(m.type==="classification"){
   if(action==="classify"){const [i,j]=value.split(":").map(Number);

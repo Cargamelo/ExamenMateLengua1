@@ -16,7 +16,8 @@ async function reply(page,topic){
   const right=(await page.locator('[data-action="mini"][data-mini="right"]').allTextContents()).map(x=>x.trim());
   const prompt=await page.locator(".q-title").innerText();
   const target=await page.evaluate(({left,topic,prompt})=>{
-   const variety=window.LigaVariedad?.questions?.find(q=>q.prompt===prompt&&q.type==="matching");
+   const variety=window.LigaTemarioLengua?.questions?.find(q=>q.type==="matching"&&left.every(t=>q.pairs.some(p=>p[0]===t)))||
+     window.LigaVariedad?.questions?.find(q=>q.prompt===prompt&&q.type==="matching");
    const pairs=variety?.pairs||(topic==="antonimos"?window.EDU_DATA.antonyms:window.EDU_DATA.synonyms);
    return left.map(t=>pairs.find(p=>p[0]===t)?.[1]);
   },{left,topic,prompt});
@@ -33,6 +34,7 @@ async function reply(page,topic){
  }else if(await page.locator('[data-mini="submit-fields"]').count()){
   for(const item of await page.locator("[data-varied-input]").all())await item.fill("0");
   await page.locator('[data-mini="submit-fields"]').click();
+  if(await page.locator(".varied-field-feedback").count())await page.locator('[data-mini="submit-fields"]').click();
  }else if(await page.locator('[data-mini="verify-classification"]').count()){
   const pairs=await page.locator('[data-mini="classify"]').evaluateAll(nodes=>nodes.map(n=>n.dataset.value));
   for(const i of [...new Set(pairs.map(x=>x.split(":")[0]))])
@@ -41,6 +43,15 @@ async function reply(page,topic){
  }else if(await page.locator('[data-mini="verify-writing"]').count()){
   await page.locator("#varied-writing").fill("La niña escribe y revisa una oración.");
   await page.locator('[data-mini="verify-writing"]').click();
+ }else if(await page.locator('[data-mini="verify-rewrite"]').count()){
+  const prompt=await page.locator(".q-title").innerText();
+  const sentence=await page.evaluate(prompt=>{const q=window.LigaTemarioLengua.questions.find(x=>x.prompt===prompt);return q.original.replace(q.from,q.to);},prompt);
+  await page.locator("#varied-writing").fill(sentence);
+  await page.locator("#varied-review").check();
+  await page.locator('[data-mini="verify-rewrite"]').click();
+ }else if(await page.locator('[data-mini="verify-multi"]').count()){
+  await page.locator('[data-mini="toggle-multi"]').first().click();
+  await page.locator('[data-mini="verify-multi"]').click();
  }else if(await page.locator('[data-action="mini"][data-mini="choose"]').count()){
   await page.locator('[data-action="mini"][data-mini="choose"]').first().click();
  }else if(await page.locator('[data-action="choose"]').count()){
@@ -66,7 +77,7 @@ const get=async(page,subject)=>page.evaluate(s=>JSON.parse(localStorage.getItem(
     const context=await browser.newContext({viewport:{width:i%2?390:1366,height:i%2?844:768}});
     const page=await context.newPage();page.setDefaultTimeout(7000);
     const phase=subject+"-stage-"+String(i).padStart(2,"0");
-    const evidence={subject,phase,finished:false,replay:false,locked:true,questions:0,fail:null};
+    const evidence={subject,phase,finished:false,replay:false,locked:true,questions:0,mechanics:[],fail:null};
     const exceptions=[];page.on("pageerror",e=>exceptions.push(e.message));
     try{
      await page.addInitScript(({subject,index})=>{
@@ -99,12 +110,20 @@ const get=async(page,subject)=>page.evaluate(s=>JSON.parse(localStorage.getItem(
        await page.locator('[data-action="finish-special"]').click();
       }
      }else for(let n=0;n<15;n++){
+      const mechanic=await page.evaluate(()=>{
+       const el=document.querySelector(".quest-scene");
+       return el?.className?.replace("quest-scene quest-","")|| (document.querySelector("#response")?"text":"unknown");
+      });
+      evidence.mechanics.push(mechanic);
       const topic=stage.topics[n%stage.topics.length];
       if(n%5===0&&await page.locator('[data-action="hint"]').count())await page.locator('[data-action="hint"]').click();
       await reply(page,topic);
       await page.locator('[data-action="next"]').click();
      }
      assert.equal(await page.locator(".stage-victory").count(),1,"Victory missing "+phase);
+     if(subject==="lang"&&[1,2,3,4,5,6,10,11,15].includes(i)){
+      assert.ok(new Set(evidence.mechanics).size>=3,"Variedad insuficiente en "+phase+": "+evidence.mechanics.join(","));
+     }
      const state=await get(page,subject);
      assert.equal(Object.keys(state.stageJourney.completed).length,i);
      assert.equal(state.stageJourney.completed[phase].plays,1);
