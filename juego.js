@@ -151,6 +151,7 @@ function finishStage(score,total){
  if(session.stageBonus)adaptive.rewards.coins=(adaptive.rewards.coins||0)+session.stageBonus;
  guideFrom=session.stageId;
  persist();
+ session.cardReward=window.LigaCartas?.award(subject,session.stageId)||null;
 }
 function renderLesson(){const m=topicById(topic);if(!m){go("home");return;}shell(topBack("topics")+'<h1 class="section-title">'+graphicIcon(m.id)+' '+esc(m.title)+'</h1><article class="paper lesson narrow">'+m.lesson+'<div class="action-row">'+button("enter-world","Continuar aventura",'data-topic="'+topic+'"')+'</div></article>');}
 function renderSetup(){enterWorld(topic);}
@@ -288,6 +289,19 @@ function renderStageResult(){
  const message=ST.message(subject,stage.number,perfect,result.completed);
  const nextButton=result.next?button("next-stage","▶ IR A LA SIGUIENTE FASE",'data-stage="'+result.next.id+'"',"primary-btn"):"";
  const extra=session.special?'<p class="small-note">'+esc(session.specialSummary||"Actividad realizada y guardada.")+'</p>':"";
+ const prize=session.cardReward,assigned=window.LigaCartas?.getAssignment(session.stageId);
+ const rewardCard=prize?.card||assigned?.card;
+ const rarity=rewardCard?.rareza==="legendaria"?"Legendaria":rewardCard?.rareza==="rara"?"Rara":"Común";
+ const rewardMarkup=result.first&&!prize?.alreadyGranted?
+  (prize?.saved&&rewardCard?
+   '<section class="stage-card-earned" aria-label="Nueva carta conseguida"><span class="stage-card-eyebrow">✦ CARTA CONSEGUIDA ✦</span>'+
+   '<h2>'+(prize.duplicate?'¡Has conseguido otra copia de esta carta!':'¡Una nueva carta para tu colección!')+'</h2>'+
+   '<img src="./assets/pixel/cartas/'+esc(rewardCard.id.toLowerCase())+'.webp" alt="'+esc(rewardCard.texto_alternativo)+'" width="300" height="420" decoding="async">'+
+   '<h3>'+esc(rewardCard.nombre)+'</h3><p class="stage-card-rarity">✦ '+rarity+' · '+esc(rewardCard.id)+' · '+prize.copies+' '+(prize.copies===1?'copia':'copias')+'</p>'+
+   '<p>'+esc(rewardCard.descripcion)+'</p><p class="stage-card-power-note">Su poder todavía no está activo en el juego.</p>'+
+   button("collection","🃏 VER MI COLECCIÓN","","secondary-btn")+'</section>':
+   '<p class="stage-card-warning" role="alert">No se ha podido confirmar el guardado de esta recompensa. Evita cerrar el juego y comprueba que tu navegador permite guardar datos.</p>'):
+  (rewardCard?'<p class="stage-card-repeat">Esta fase ya entregó su carta: '+esc(rewardCard.nombre)+'. Puedes verla en tu colección.</p>':"");
  const score=session.special?
   '<p class="stage-score-special">'+esc(session.special==="dictado"?"1 dictado revisado":"1 lectura expresiva practicada")+'</p>':
   '<div class="score-big">'+ok+' / '+count+'</div><p>'+count+' retos realizados · '+ok+' respuestas correctas</p>';
@@ -297,7 +311,7 @@ function renderStageResult(){
  '<img class="victory-guide" src="./assets/arte-v4/'+(isMath?"tiko-retrato":"nara-retrato")+'.webp" alt="" width="240" height="270" decoding="async">'+
  '<span class="stage-finish-medal" aria-hidden="true">★</span><span class="pixel-chest" aria-hidden="true">✧ ◆ ✧</span>'+
  '<p class="stage-victory-message">'+esc(message)+'</p>'+
- score+extra+
+ score+extra+rewardMarkup+
  '<div class="quest-summary victory-rewards"><span>⭐ '+(session.special?"Actividad completada":ok+" estrellas conseguidas")+'</span>'+
  '<span>🪙 '+(adaptive.rewards?.coins||0)+' monedas acumuladas'+(session.stageBonus?' · +'+session.stageBonus+' por nueva fase/logro':'')+'</span>'+
  '<span>✦ '+result.completed+' / 15 fases</span></div>'+

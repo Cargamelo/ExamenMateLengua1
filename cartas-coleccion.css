@@ -1,0 +1,34 @@
+/* Complemento para la obtención de cartas. Respeta la estética visual existente. */
+.pixel-inventory-progress{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:16px 0;padding:10px;border:2px solid #ad9059;border-radius:14px;background:#162d31;color:#f7e5b4}
+.pixel-inventory-progress span{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;background:#2e4340;font-size:.9rem;font-weight:800}
+.pixel-inventory-progress strong{font-size:1.15rem;color:#ffdc88}
+.pixel-card-tile.pixel-card-pending{border-style:dashed;background:linear-gradient(150deg,#273136,#19242b);color:#d2dacd}
+.pixel-card-tile.pixel-card-pending .pixel-card-image{position:relative}
+.pixel-card-tile.pixel-card-pending .pixel-card-image img{filter:grayscale(1) brightness(.7)}
+.pixel-card-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(1.35rem,3vw,2.2rem);text-shadow:0 3px 8px #000}
+.pixel-card-tile.pixel-card-pending .pixel-card-title{color:#d2d7d3}
+.pixel-card-tile.pixel-card-owned .pixel-card-image{box-shadow:inset 0 0 0 2px #ecd498}
+.pixel-unowned-detail img{width:min(190px,65%);height:auto;display:block;margin:12px auto;border-radius:9px}
+.pixel-inventory-warning{color:#fff1be;background:#6b3831;padding:11px 14px;border-radius:9px}
+.game .stage-card-earned{display:grid;justify-items:center;gap:9px;max-width:530px;margin:20px auto;padding:21px 18px;border:3px solid #d6a84f;border-radius:24px;background:linear-gradient(165deg,#123732,#1b3344 63%,#4a3645);box-shadow:0 8px 0 #1c2d2e,0 15px 29px #0004;color:#f9f0d4;animation:liga-card-reveal .65s cubic-bezier(.18,.82,.26,1.2) both}
+.game .stage-card-earned h2{margin:4px 0;font-family:Georgia,serif;font-size:clamp(1.22rem,3.1vw,1.7rem);color:#ffe8a0}
+.game .stage-card-earned h3{margin:0;font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.6rem);color:#ffe8a0}
+.game .stage-card-earned img{display:block;width:clamp(145px,38vw,240px);height:auto;max-height:340px;object-fit:contain;border-radius:12px;filter:drop-shadow(0 10px 12px #0008);animation:liga-card-rise .85s ease-out both}
+.game .stage-card-earned p{font-size:.95rem;line-height:1.55;margin:1px 0;color:#f2ecd7;max-width:390px}
+.game .stage-card-earned .stage-card-rarity{font-weight:900;color:#ffda77}
+.game .stage-card-earned .stage-card-power-note{font-size:.82rem;color:#d7dddc}
+.game .stage-card-eyebrow{font-size:.85rem;font-weight:1000;letter-spacing:.12em;color:#fbe8a7}
+.game .stage-card-earned button{margin-top:9px;min-height:46px}
+.game .stage-card-warning{max-width:600px;margin:12px auto;padding:12px;border:2px solid #c85a49;border-radius:12px;background:#fff0de;color:#8b3128;font-weight:850}
+.game .stage-card-repeat{max-width:550px;margin:12px auto;font-weight:800}
+@keyframes liga-card-reveal{from{opacity:0;transform:translateY(18px) scale(.93)}to{opacity:1;transform:none}}
+@keyframes liga-card-rise{from{opacity:0;transform:translateY(22px) rotate(-5deg)}to{opacity:1;transform:none}}
+@media(max-width:700px){
+ .pixel-inventory-progress{justify-content:stretch;gap:6px}
+ .pixel-inventory-progress span{flex:1 1 130px;justify-content:center;font-size:.78rem;padding:8px}
+ .game .stage-card-earned{padding:16px 9px;margin:15px 2px}
+}
+@media(prefers-reduced-motion:reduce){
+ .game .stage-card-earned,.game .stage-card-earned img{animation:none!important}
+ .pixel-card-tile{transition:none!important}
+}

@@ -26,6 +26,13 @@ async function test() {
    assert.equal(await page.locator(".cover-portal").count(),2);
    await page.screenshot({path:screenshots+"/portada-"+vp.width+".png",fullPage:true});
    await inspect(page,"Portada");
+   // La colección solo permite girar cartas realmente conseguidas.
+   // Preparamos una partida desechable con la primera fase ya completada.
+   await page.evaluate(()=>{
+    localStorage.setItem("ligasaber-2026-math",JSON.stringify({history:[],misses:[],badges:[],stageJourney:{
+     version:1,active:"math-stage-02",completed:{"math-stage-01":{plays:1,best:10}},finalAwarded:false
+    }}));
+   });
    await page.locator('[data-liga-open="collection"]').click();
    assert.equal(await page.locator(".pixel-card-tile").count(),24);
    await page.locator('[data-filter="matematicas"]').click();
