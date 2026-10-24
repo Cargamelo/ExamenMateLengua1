@@ -43,10 +43,16 @@ async function metrics(p){
      check(errors.length===0,"Errores navegador "+subject+" "+w+": "+errors.join(","));
      await p.screenshot({path:"qa-screenshots/interiores-v11/"+subject+"-mapa-"+w+"x"+h+".png",fullPage:true});
      await p.locator('[data-action="start-stage"]').first().click();
-     check(await p.locator(".mission-stage").count()===1,"Misión abierta "+subject+" "+w);
-     const bg=await p.locator(".mission-stage").evaluate(e=>getComputedStyle(e).backgroundImage);
+     const opened=await p.locator(".mission-stage").count();
+     if(!opened){
+       const diagnostic=await p.evaluate(()=>({stageLock:document.querySelector("#stage-locked-message")?.textContent||null,view:document.querySelector("#view")?.textContent?.slice(0,300)||null,app:document.querySelector("#app")?.innerText?.slice(0,450)||null,mission:document.querySelectorAll(".mission-stage").length}));
+       console.log("NO_MISSION "+subject+" "+w+" "+JSON.stringify(diagnostic));
+       await p.screenshot({path:"qa-screenshots/interiores-v11/"+subject+"-sin-mision-"+w+".png",fullPage:true});
+     }
+     check(opened===1,"Misión abierta "+subject+" "+w);
+     const bg=opened?await p.locator(".mission-stage").evaluate(e=>getComputedStyle(e).backgroundImage):"";
      check(bg.includes("assets/v11/reino-"),"Fondo de misión V11 "+subject+" "+w);
-     check((await p.locator(".quest-guide-art").first().getAttribute("src")).includes("assets/portada/"),"Guía de ejercicio V10 "+subject+" "+w);
+     check(opened&&(await p.locator(".quest-guide-art").first().getAttribute("src")).includes("assets/portada/"),"Guía de ejercicio V10 "+subject+" "+w);
      const q=await metrics(p);check(q.width<=w+3,"Desbordamiento de ejercicio "+subject+" "+w);
      if([1366,390,360].includes(w))await p.screenshot({path:"qa-screenshots/interiores-v11/"+subject+"-ejercicio-"+w+"x"+h+".png",fullPage:true});
    }
