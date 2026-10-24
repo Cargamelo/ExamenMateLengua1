@@ -53,7 +53,7 @@ function inject({q,readingMode}){
  }});
  }
 }
-async function completeCurrent(page) {
+async function completeCurrent(page,topic) {
  if(await page.locator('[data-action="mini"][data-mini="digit"]').count()){
   const n=await page.locator(".quest-slot").count();
   for(let i=0;i<n;i++)await page.locator('[data-action="mini"][data-mini="digit"][data-value="0"]').first().click();
@@ -61,12 +61,10 @@ async function completeCurrent(page) {
  }else if(await page.locator('[data-action="mini"][data-mini="left"]').count()){
   const left=await page.locator('[data-action="mini"][data-mini="left"]').allTextContents();
   const right=await page.locator('[data-action="mini"][data-mini="right"]').allTextContents();
-  const matching=await page.evaluate(({words})=>{
-   const q=document.body.dataset.subject;
-   const pairs=window.EDU_DATA[q==="math"?"synonyms":"synonyms"];
-   return words.map(x=>pairs.find(p=>p[0]===x.trim())?.[1]||
-    window.EDU_DATA.antonyms.find(p=>p[0]===x.trim())?.[1]);
-  },{words:left});
+  const matching=await page.evaluate(({words,topic})=>{
+   const pairs=topic==="antonimos"?window.EDU_DATA.antonyms:window.EDU_DATA.synonyms;
+   return words.map(x=>pairs.find(p=>p[0]===x.trim())?.[1]);
+  },{words:left,topic});
   for(let i=0;i<left.length;i++){
    const j=right.findIndex(v=>v.trim()===matching[i]);
    assert.ok(j>=0,"Original matching choice not found: "+left[i]);
@@ -119,7 +117,7 @@ async function caseBank(browser,q,ok){
   await page.goto(base+(q.subject==="math"?"matematicas-sda1.html":"lengua-sda1.html"),{waitUntil:"domcontentloaded"});
   await page.locator('[data-action="topics"]').first().click();
   await page.locator('[data-action="start-stage"][data-stage="'+q.subject+'-stage-'+String(stage).padStart(2,"0")+'"]').click();
-  await completeCurrent(page);
+  await completeCurrent(page,q.topic);
   await page.locator('[data-action="next"]').click();
   await page.locator(".q-title").waitFor();
   assert.equal(await page.locator(".q-title").innerText(),q.prompt,"Not original Drive prompt");
