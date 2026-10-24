@@ -40,6 +40,15 @@ for(const q of all){
   default:throw Error("Unhandled validation "+q.id+" "+m.kind);
  }
 }
+const MINI={window:{}};vm.runInNewContext(fs.readFileSync("minijuegos.js","utf8"),MINI);
+const source=data.questions.find(q=>q.topic==="sinonimos");
+const fixture={synonyms:[["casa","hogar"],["bonito","hermoso"],["rápido","veloz"],["alto","elevado"]],antonyms:[["alto","bajo"],["lleno","vacío"],["fácil","difícil"],["frío","caliente"]]};
+const sourced=MINI.window.AventuraMini.enrich({...source},fixture,0);
+assert.equal(sourced.prompt,source.prompt,"Do not replace sourced question with legacy matching prompt");
+assert.equal(sourced.correct,source.correct,"Do not replace verified answer");
+assert.equal(sourced.fingerprint,source.id,"Preserve stable source fingerprint");
+const legacy=MINI.window.AventuraMini.enrich({topic:"sinonimos",variant:"a",correct:"hogar",prompt:"Test"},fixture,0);
+assert.equal(legacy.mechanic.type,"links","Legacy matching mini-game must still work");
 assert.equal(data.reading.qa.length,6);
 assert.equal(new Set(data.reading.qa.map(q=>q[0])).size,6);
 assert.ok(data.reading.qa.every(q=>q.length===2&&q[0]&&q[1]));
