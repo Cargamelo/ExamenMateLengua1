@@ -38,6 +38,13 @@ jobs:
         run: node tests/contenidos-drive-browser.cjs
       - name: PWA y mapa visual
         run: node qa-pixel.js
+      - name: Conservar capturas de regresión responsive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-certificacion-${{ github.run_id }}
+          path: qa-screenshots/
+          if-no-files-found: ignore
   actividad-individual:
     runs-on: ubuntu-latest
     timeout-minutes: 24
