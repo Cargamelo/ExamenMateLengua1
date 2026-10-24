@@ -35,7 +35,7 @@ for(const q of all){
  }else if(q.type==="choice"){
   result=mini.act(enriched,s,"choose",String(q.choices.indexOf(q.correct)));
   assert.equal(result.ok,true,q.id);
-  assert.equal(mini.act(enriched,mini.begin(),"choose",String(1-q.choices.indexOf(q.correct))).ok,false,q.id);
+  assert.equal(mini.act(enriched,mini.begin(),"choose",String(q.choices.findIndex(v=>v!==q.correct))).ok,false,q.id);
  }else if(q.type==="ordering"){
   for(const value of m.correct)result=mini.act(enriched,s,"pick",String(m.values.indexOf(value)));
   assert.equal(result.ok,true,q.id);
