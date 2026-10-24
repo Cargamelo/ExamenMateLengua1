@@ -71,7 +71,7 @@ async function answer(page,q,correct){
  }else if(q.type==="choice"){
   const texts=(await choose.allTextContents()).map(s=>s.trim());
   const ix=texts.indexOf(q.correct);
-  await choose.nth(correct?ix:1-ix).click();
+  await choose.nth(correct?ix:texts.findIndex((_,i)=>i!==ix)).click();
  }else if(q.type==="fill"){
   for(let i=0;i<q.answers.length;i++)
    await page.locator("[data-varied-input]").nth(i).fill(!correct&&i===0?"999999":q.answers[i]);
