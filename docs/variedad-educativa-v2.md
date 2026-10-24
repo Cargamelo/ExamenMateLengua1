@@ -3,7 +3,7 @@
 ## Línea base y alcance
 
 - Carpeta Lengua: 22 recursos (5 controles + 17 actividades).
-- Carpeta Matemáticas: 16 recursos pedagógicos (4 controles + 10 actividades y un recurso visual no curricular en raíz, según inventario global de 38 que incluye además un historial privado excluido).
+- Carpeta Matemáticas: 16 archivos: 4 controles, 10 actividades de repaso, 1 recurso visual no curricular y 1 historial privado excluido.
 - Total enumerado en ambas carpetas: **38 archivos** (22 Lengua + 16 Matemáticas). Los dos elementos del directorio raíz de Matemáticas incluyen el historial de conversaciones, que se **excluye**, y el décimo visual, que no se utiliza para construir soluciones curriculares.
 - Material previamente analizado: controles de repaso, hojas de numeración/valor posicional, comparación/ordenación/aproximación, ordinales, operaciones, imágenes de sinónimos/antónimos y comunicación, presentaciones sobre verbal/no verbal y elementos de la comunicación.
 - No se ha reproducido material editorial ni se han publicado imágenes privadas. Las respuestas y enunciados nuevos son originales y los números se resuelven independientemente.
