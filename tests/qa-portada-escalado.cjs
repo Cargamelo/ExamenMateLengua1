@@ -15,7 +15,8 @@ async function metrics(page){
     backgroundSize:getComputedStyle(scene).backgroundSize,
     portalFit:links.map(x=>getComputedStyle(x.querySelector("img")).objectFit),
     ratios:links.map(x=>{let r=x.getBoundingClientRect();return r.width/r.height}),
-    assets:[...scene.querySelectorAll("img")].map(i=>({src:i.getAttribute("src"),ok:i.complete&&i.naturalWidth>0})),
+    assets:[...scene.querySelectorAll("img")].filter(i=>i.getClientRects().length>0).map(i=>({src:i.getAttribute("src"),ok:i.complete&&i.naturalWidth>0})),
+    play:[...document.querySelectorAll(".cover-portal-play")].map(box),
     scrollWidth:document.documentElement.scrollWidth
   };
  });
@@ -41,6 +42,9 @@ async function run(){
   verify(m.links.length===2&&m.links.every(r=>inside(r,m.cover,5)),"portales fuera del marco "+width);
   verify(m.menus.length===4&&m.menus.every(r=>inside(r,m.cover,5)),"menú fuera del marco "+width);
   verify(m.menus.every(r=>r.height>=44),"botones inferiores pequeños "+width);
+  if(width>=1100 && width/height>=2.1){
+    verify(m.play.every(r=>r.bottom<m.menus[0].top-2),"botones de jugar tapados por menú "+width);
+  }
   if(!portrait){
    verify(m.portalFit.every(f=>f==="contain"),"imagen de portal deformable "+width);
    verify(m.ratios.every(r=>Math.abs(r-519/765)<.05),"proporción de portal deformada "+width+": "+m.ratios.join(","));
