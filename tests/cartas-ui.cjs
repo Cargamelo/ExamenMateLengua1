@@ -111,6 +111,28 @@ async function completeFirstStage(page,subject){
   assert.match(await old.locator(".pixel-inventory-progress").innerText(),/30 \/ 30/);
   assert.match(await old.locator(".pixel-inventory-progress").innerText(),/6\s+copias repetidas/);
   assert.equal(await old.locator(".pixel-card-owned").count(),24);
+  // Verificar que el respaldo IndexedDB es recuperable, no solo que existe localStorage.
+  await old.waitForFunction(async()=>{
+   const db=await window.LigaPartida.openDB();
+   if(!db)return false;
+   return new Promise(resolve=>{
+    const request=db.transaction("snapshots","readonly").objectStore("snapshots").get("ligasaber-carta-v1-lang-stage-15");
+    request.onsuccess=()=>resolve(request.result?.cardId==="C024");
+    request.onerror=()=>resolve(false);
+   });
+  });
+  await old.evaluate(()=>{
+   for(const subject of ["math","lang"]){
+    localStorage.removeItem("ligasaber-2026-"+subject);
+    for(let n=1;n<=15;n++)localStorage.removeItem("ligasaber-carta-v1-"+subject+"-stage-"+String(n).padStart(2,"0"));
+   }
+  });
+  await old.reload({waitUntil:"networkidle"});
+  await old.waitForFunction(()=>window.LigaCartas?.inventory().rewarded===30);
+  await old.locator('[data-liga-open="collection"]').click();
+  assert.match(await old.locator(".pixel-inventory-progress").innerText(),/24 \/ 24/);
+  assert.match(await old.locator(".pixel-inventory-progress").innerText(),/30 \/ 30/);
+
   await old.locator('[data-filter="pendientes"]').click();
   assert.equal(await old.locator(".pixel-card-tile").count(),0);
   assert.deepEqual(errors,[],"Errores de JavaScript en navegador");
