@@ -98,7 +98,17 @@ async function checkAnswer(page,q,ok,mode){
  if(mode==="tap")await elements.nth(pick).tap();
  else await elements.nth(pick).click();
  const feedback=page.locator(".feedback[role=status]");
- await feedback.waitFor();
+ try{await feedback.waitFor({timeout:6500})}
+ catch(e){
+  const diagnostic=await page.evaluate(subject=>{
+   const p=JSON.parse(localStorage.getItem("ligasaber-2026-"+subject)||"null");
+   return {visibleQuestion:document.querySelector(".q-title")?.textContent,
+    feedbackNodes:document.querySelectorAll(".feedback").length,
+    activeOptions:[...document.querySelectorAll('[data-mini="choose"],[data-action="choose"]')].map(x=>({text:x.textContent,disabled:x.disabled})),
+    lastHistory:p?.history?.slice(-2),checkpoint:localStorage.getItem("ligasaber-2026-"+subject+"-checkpoint-v2")?.slice(0,250)};
+  },q.subject);
+  throw Error("No feedback after click; browser state="+JSON.stringify(diagnostic)+"; pageErrors="+JSON.stringify(await page.evaluate(()=>window.__certErrors||[]))+"; original="+String(e.message));
+ }
  assert.equal(await feedback.locator("p").first().innerText(),fmt(q.explanation),"Wrong explanation for "+q.id);
  assert.equal(await feedback.evaluate((el)=>el.classList.contains("ok")),ok,"Incorrect grading for "+q.id);
 }
@@ -109,7 +119,7 @@ async function caseBank(browser,q,ok){
  const context=await browser.newContext({viewport:isMobile?{width:390,height:844}:{width:1366,height:768},
   hasTouch:isMobile,isMobile:isMobile});
  const page=await context.newPage();page.setDefaultTimeout(7000);
- const errors=[];page.on("pageerror",e=>errors.push(e.message));
+ const errors=[];page.on("pageerror",e=>{errors.push(e.message);page.evaluate(s=>(window.__certErrors??=[]).push(s),e.message).catch(()=>{});});
  const evidence={id:q.id,subject:q.subject,topic:q.topic,source:q.source,stage,step:q.minStep,
   scenario:ok?"correct":"incorrect",checks:{},error:null};
  try{
