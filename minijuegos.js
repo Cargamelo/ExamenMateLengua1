@@ -107,7 +107,7 @@ function act(q,s,action,value){
    const norm=x=>String(x).toLocaleLowerCase("es").normalize("NFC").trim();
    const words=norm(s.text),to=norm(m.to),from=norm(m.from);
    const exactWord=(w)=>new RegExp("(^|[^\\p{L}])"+w+"([^\\p{L}]|$)","iu");
-   const ok=s.reviewed&&s.text.trim().length>=20&&exactWord(to).test(words)&&!exactWord(from).test(words)
+   const ok=s.reviewed&&s.text.trim().length>=12&&exactWord(to).test(words)&&!exactWord(from).test(words)
     &&/^[A-ZÁÉÍÓÚÜÑ]/u.test(s.text.trim())&&/[.!?]$/.test(s.text.trim());
    if(!s.text.trim())return {state:s};
    return {state:s,done:true,ok,given:s.text};
