@@ -8,7 +8,9 @@ body.game.pixel-game{
  --v11-hueso:#fff2d5;--v11-madera:#4d2c23;--v11-tinta:#35251f;
  --v11-resplandor:#57fbe1;--v11-sombra:0 7px 0 #241922,0 19px 37px #050817a8;
  --v11-ambiente:url("./assets/v11/reino-matematicas.webp");
- background:#0b1830 linear-gradient(180deg,#09102377,#0c20359c 60%,#080e1aee),var(--v11-ambiente) center top/cover fixed;
+ background-color:#0b1830;
+ background-image:linear-gradient(180deg,#09102377,#0c20359c 60%,#080e1aee),var(--v11-ambiente);
+ background-position:center top;background-size:cover;background-repeat:no-repeat;background-attachment:fixed;
  color:var(--v11-hueso);
 }
 body.game.pixel-game.lang-game{--v11-ambiente:url("./assets/v11/reino-lengua.webp");--v11-resplandor:#d9a0ff}
