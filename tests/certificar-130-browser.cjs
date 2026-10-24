@@ -192,12 +192,10 @@ async function caseReading(browser,ok){
     assert.equal(new Set(labels).size,labels.length,"Duplicate comprehension alternatives");
     await page.locator('[data-action="hint"]').click();
     assert.ok(await page.locator(".help-text").count());target.checks.hints=true;
-    if(i===0){
-      await page.reload({waitUntil:"domcontentloaded"});
-      await page.locator('[data-action="resume-stage"]').click();
-      assert.equal(await page.locator(".q-title").innerText(),prompt);
-      target.checks.preAnswerResume=true;
-    }else target.checks.preAnswerResume="NO APLICA: verified first reading question";
+    await page.reload({waitUntil:"domcontentloaded"});
+    await page.locator('[data-action="resume-stage"]').click();
+    assert.equal(await page.locator(".q-title").innerText(),prompt);
+    target.checks.preAnswerResume=true;
     const before=await progressOf(page,"lang");
     const choose=ok?index:labels.findIndex((_,k)=>k!==index);
     await questionButtons(page).nth(choose).click();
@@ -206,13 +204,16 @@ async function caseReading(browser,ok){
     const p=await progressOf(page,"lang");assert.equal(p.history.length,before.history.length+1);
     assert.equal(p.history.at(-1).ok,ok);
     target.checks.saved=true;
-    if(i===0){
-     await page.reload({waitUntil:"domcontentloaded"});
-     await page.locator('[data-action="resume-stage"]').click();
-     assert.equal(await page.locator(".feedback").evaluate(x=>x.classList.contains("ok")),ok);
-     const after=await progressOf(page,"lang");assert.equal(after.history.length,p.history.length);
-     target.checks.postAnswerResume=true;
-    }else target.checks.postAnswerResume="NO APLICA: verified first reading question";
+    await page.evaluate(()=>document.querySelector('[data-action="mini"][data-mini="choose"],[data-action="choose"]')?.click());
+    const once=await progressOf(page,"lang");
+    assert.equal(once.history.length,p.history.length,"Double-click duplicated comprehension history");
+    await page.reload({waitUntil:"domcontentloaded"});
+    await page.locator('[data-action="resume-stage"]').click();
+    assert.equal(await page.locator(".feedback").evaluate(x=>x.classList.contains("ok")),ok);
+    const after=await progressOf(page,"lang");
+    assert.equal(after.history.length,p.history.length);
+    target.checks.postAnswerResume=true;
+    target.checks.idempotentClick=true;
     await page.locator('[data-action="next"]').click();
     target.checks.next=true;
     target.status="VALIDADA";
