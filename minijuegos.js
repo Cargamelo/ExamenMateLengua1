@@ -73,7 +73,7 @@ function act(q,s,action,value){
    if(!Array.isArray(fields)||fields.length!==m.answers.length)return {state:s};
    s.fields=fields.map(x=>String(x||""));
    if(s.fields.some(x=>!x.trim()))return {state:s};
-   const norm=x=>m.numeric?String(x).replace(/[.\\s]/g,""):String(x).normalize("NFC").trim().toLocaleLowerCase("es").replace(/\\s+/g," ");
+   const norm=x=>m.numeric?String(x).replace(/[.\s]/g,""):String(x).normalize("NFC").trim().toLocaleLowerCase("es").replace(/\s+/g," ");
    const ok=s.fields.every((x,i)=>norm(x)===norm(m.answers[i]));
    return {state:s,done:true,ok,given:s.fields.join(" / ")};
   }
@@ -88,7 +88,7 @@ function act(q,s,action,value){
   if(action==="verify-writing"){
    s.text=String(value||s.text||"");
    const text=s.text.trim(),lower=text.toLocaleLowerCase("es");
-   const words=m.words.every(w=>new RegExp("(^|[^\\\\p{L}])"+w+"([^\\\\p{L}]|$)","iu").test(lower));
+   const words=m.words.every(w=>new RegExp("(^|[^\\\p{L}])"+w+"([^\\\p{L}]|$)","iu").test(lower));
    const ok=text.length>=15&&words&&/^[A-ZÁÉÍÓÚÜÑ]/u.test(text)&&/[.!?]$/u.test(text);
    if(!text)return {state:s};
    return {state:s,done:true,ok,given:text};
