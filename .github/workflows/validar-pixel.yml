@@ -24,6 +24,8 @@ jobs:
           for file in *.js tests/*.cjs; do node --check "$file"; done
       - name: Validar concesión de cartas, migración y dos pestañas
         run: node tests/cartas-coleccionables.cjs
+      - name: Verificar desbloqueo secuencial de todas las fases
+        run: node tests/fases-secuenciales.cjs
       - name: Comprobar los archivos del paquete visual
         run: |
           python3 - <<'PY'
@@ -49,6 +51,8 @@ jobs:
         run: |
           command -v google-chrome || command -v chromium || command -v chromium-browser
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)" node tests/smoke-pixel.cjs
+      - name: Verificar guardado y candados en Chrome
+        run: node tests/guardar-y-bloquear.cjs
       - name: Validar álbum real, premio y recuperación en Chrome
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)" node tests/cartas-ui.cjs
