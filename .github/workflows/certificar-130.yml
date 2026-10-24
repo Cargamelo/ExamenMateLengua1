@@ -1,0 +1,129 @@
+name: Certificación individual de 130 actividades
+on:
+  push:
+    branches:
+      - test/certificacion-130-actividades
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  banco-y-regresion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar banco y reglas existentes
+        run: |
+          node --check juego.js
+          node --check minijuegos.js
+          node --check preguntas-drive.js
+          node --check tests/certificar-130-browser.cjs
+          node tests/contenidos-drive.cjs
+          node tests/alcanzabilidad-drive.cjs
+          node tests/fases-secuenciales.cjs
+      - name: Preparar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Iniciar servidor local
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/liga-130-regression.log 2>&1 &
+          sleep 1
+      - name: Progreso y recuperación
+        run: node tests/guardar-y-bloquear.cjs
+      - name: Prueba completa de minijuegos y cartas
+        run: node tests/smoke-pixel.cjs
+      - name: Preguntas de ambas asignaturas
+        run: node tests/contenidos-drive-browser.cjs
+      - name: PWA y mapa visual
+        run: node qa-pixel.js
+      - name: Conservar capturas de regresión responsive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-certificacion-${{ github.run_id }}
+          path: qa-screenshots/
+          if-no-files-found: ignore
+  repeticion-ordenacion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CERT_SHARD: 4
+      CERT_SHARDS: 8
+      CERT_CASE_ID: DRIVE-MATH-ORD-02
+      CERT_REPEATS: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar navegador
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor HTTP aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/stress-ordinal.log 2>&1 &
+          sleep 1
+      - name: Repetir 12 veces ambos resultados de la actividad ORD-02
+        run: node tests/certificar-130-browser.cjs
+      - name: Conservar evidencia de fallos intermitentes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostico-ord02
+          path: qa-certificacion/
+          if-no-files-found: warn
+  actividad-individual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      CERT_SHARDS: 8
+      CERT_SHARD: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar Playwright Core
+        run: npm install --no-save playwright-core@1.58.2
+      - name: Servidor HTTP aislado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/liga-130-http.log 2>&1 &
+          sleep 1
+      - name: Ejecutar cada actividad, ambos resultados, pistas y recargas
+        run: node tests/certificar-130-browser.cjs
+      - name: Subir matriz y capturas de este grupo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: certificacion-130-shard-${{ matrix.shard }}
+          path: qa-certificacion/
+          if-no-files-found: warn
+  matriz-final:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [banco-y-regresion, actividad-individual, repeticion-ordenacion]
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: certificacion-130-shard-*
+          path: qa-certificacion/grupos
+          merge-multiple: false
+      - name: Rechazar certificación incompleta
+        run: node tests/informe-certificacion-130.cjs
+      - name: Publicar matriz de certificación
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-final-certificacion-130
+          path: qa-certificacion/
+          if-no-files-found: warn
