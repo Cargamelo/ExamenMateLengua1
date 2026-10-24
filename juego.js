@@ -229,11 +229,17 @@ let force=arr[n%arr.length];
 if(review){const needs=AD.pending(adaptive).filter(x=>x.topic===id);if(needs.length&&n%2===0){const v=needs[n%needs.length].variant;if(arr.includes(v))force=v;}}
 challengeSeq[id]=n+1;
 /* Banco de ejercicios docentes: selección verificada sin cambiar el motor adaptativo. */
-const fromDrive=!review&&n%3===1?window.LigaBancoDrive?.pick?.(id,{stage:session?.stage?.number||0,step:st.step,requiredSign}):null;
-const fromVariety=!review&&n%3===2?window.LigaVariedad?.pick?.(id,{
+const thematic=!review&&subject==="lang"&&["sinonimos","antonimos","comunicacion"].includes(id);
+const fromTemario=thematic?window.LigaTemarioLengua?.pick?.(id,{
+ stage:session?.stage?.number||0,step:st.step,
+ seen:[...(session?.seen||[])],
+ recentTypes:(session?.items||[]).slice(-2).map(q=>q.type||q.mechanic?.type||"choice")
+}):null;
+const fromDrive=!fromTemario&&!thematic&&!review&&n%3===1?window.LigaBancoDrive?.pick?.(id,{stage:session?.stage?.number||0,step:st.step,requiredSign}):null;
+const fromVariety=!fromTemario&&!thematic&&!review&&n%3===2?window.LigaVariedad?.pick?.(id,{
  stage:session?.stage?.number||0,step:st.step,requiredSign,seen:[...(session?.seen||[])]
 }):null;
-let source=(fromDrive||fromVariety)||((id==="operaciones"&&st.step>=4&&n%3===2&&!requiredSign)?advancedTwoStep():makeQuestion(id,force));
+let source=(fromTemario||fromDrive||fromVariety)||((id==="operaciones"&&st.step>=4&&n%3===2&&!requiredSign)?advancedTwoStep():makeQuestion(id,force));
 if(requiredSign){let tries=0;while(tries++<120&&!String(source.visual).includes(requiredSign))source=makeQuestion(id,force);if(!String(source.visual).includes(requiredSign))throw Error("No se pudo generar operación de signo "+requiredSign);}
 if(review&&id==="descomponer"&&AD.pending(adaptive).some(x=>x.topic===id&&x.concept==="valor-posicional-ceros")){
 let tries=0;while(tries++<40&&!(String(source.correct)+" "+String(source.visual)).includes("0"))source=makeQuestion(id,"a");
@@ -246,6 +252,7 @@ function relevantToStage(exercise){
   const value=String(exercise.correct).replace(/[.\s]/g,"");
   return exercise.variant==="c"?value==="0":value.includes("0");
  }
+ if(subject==="lang"&&id==="comunicacion"&&exercise.id?.startsWith("TEM-L-"))return exercise.phases?.includes(phase)===true;
  if(subject==="lang"&&id==="comunicacion"&&phase===5)return /el (emisor|receptor)\?/i.test(exercise.prompt);
  if(subject==="lang"&&id==="comunicacion"&&phase===6)return /el (mensaje|código|canal)\?/i.test(exercise.prompt);
  return true;
@@ -471,6 +478,7 @@ if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterW
    val=JSON.stringify([...document.querySelectorAll("[data-varied-input]")].map(input=>input.value));
  }
  if(act==="verify-writing")val=document.getElementById("varied-writing")?.value||"";
+ if(act==="verify-rewrite")val=JSON.stringify({text:document.getElementById("varied-writing")?.value||"",reviewed:!!document.getElementById("varied-review")?.checked});
  const prior={digits:miniState.digits,chosen:miniState.chosen.length,linked:miniState.linked.length},out=MINI.act(q,miniState,act,val);miniState=out.state;if(out.done){grade(out.ok,-1,out.given);}else{AV?.onMini?.(act,out,q,prior);renderQuiz();try{const next=document.querySelector('[data-action="mini"][data-mini="'+act+'"][data-value="'+val+'"]');next?.focus?.({preventScroll:true});}catch(e){}}return;}if(a==="choose"){if(!session||answered!==null)return;const ix=Number(el.dataset.choice),q=session.items[questionIndex];grade(String(q.choices[ix])===String(q.correct),ix,"");return;}if(a==="next"){next();return;}if(a==="hint"){
  response=document.getElementById("response")?.value||response;
  if(miniState){
@@ -478,6 +486,8 @@ if(a==="enter-world"){enterWorld(t||topic);return;}if(a==="review-world"){enterW
   if(fields.length)miniState.fields=[...fields].map(input=>input.value);
   const writing=document.getElementById("varied-writing");
   if(writing)miniState.text=writing.value;
+  const reviewed=document.getElementById("varied-review");
+  if(reviewed)miniState.reviewed=reviewed.checked;
  }
  hintCount=Math.min(2,hintCount+1);renderQuiz();return;}if(a==="speak-question"){sayQuestion(session.items[questionIndex]);return;}if(a==="exam"){exam();return;}if(a==="lang-test"){startLangTest(el.dataset.kind);return;}if(a==="errors"){errors();return;}if(a==="progress"){go("progress");return;}if(a==="schedule"){go("schedule");return;}if(a==="reset-confirm"){if(confirm("¿Seguro que quieres borrar todo el progreso de esta asignatura en este dispositivo?")){progress.history=[];progress.misses=[];progress.badges=[];AD.reset(adaptive);Object.assign(journey,{version:1,active:ST.getStages(subject)[0].id,completed:{},finalAwarded:false,previous:null});selectedStageId=null;window.LigaPartida?.clearCheckpoint(subject,progress);persist();renderProgress();}return;}if(a==="dictate-sentence"){speak(sentences(D.dictations[materialIndex].text)[Number(el.dataset.index)]||"");return;}if(a==="dictate-all"){speak(D.dictations[materialIndex].text.replace(/\n\n/g,". "));return;}if(a==="adult-toggle"){dictationDraft=document.getElementById("dict-response")?.value||"";dictationShow=!dictationShow;renderDictation();saveSpecial();return;}if(a==="dict-check"){dictCheck();return;}if(a==="expressive-speak"){speak(D.expressive[materialIndex].text);return;}if(a==="expressive-save"){saveExpressive();el.disabled=true;return;}if(a==="memory-start"){startMemory();return;}if(a==="memory-flip"){flipMemory(Number(el.dataset.index));return;}if(a==="memory-clear"){memoryState.open=[];memoryState.message="";renderMemory();return;}});
 /* Arrastrar y soltar opcional: todas las mecánicas mantienen la alternativa táctil por pulsaciones. */
@@ -512,6 +522,7 @@ document.addEventListener("input",e=>{const el=e.target;
    saveCheckpoint();return;
   }
   if(el?.id==="varied-writing"&&miniState){miniState.text=el.value;saveCheckpoint();return;}
+  if(el?.id==="varied-review"&&miniState){miniState.reviewed=el.checked;saveCheckpoint();return;}
  }
  if(el?.id==="dict-response"){dictationDraft=el.value;saveSpecial();return;}if(el?.id==="fx-volume"){const value=AV.setVolume(Number(el.value)/100);const display=document.getElementById("fx-volume-display");if(display)display.textContent=Math.round(value*100)+" %";}});
 document.addEventListener("change",e=>{if(e.target?.classList?.contains("self-check")){expressiveChecks=[...document.querySelectorAll(".self-check")].filter(x=>x.checked).map(x=>Number(x.value));saveSpecial();}});
