@@ -1369,7 +1369,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "terminar ↔ acabar; regalo ↔ obsequio; libreta ↔ cuaderno",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1389,7 +1389,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "casa ↔ hogar; veloz ↔ rápido; pelo ↔ cabello",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1409,7 +1409,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "contestar ↔ responder; fácil ↔ sencillo; tarta ↔ pastel",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1429,7 +1429,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "feliz ↔ alegre; vidrio ↔ cristal; comenzar ↔ empezar",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1449,7 +1449,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "conversar ↔ charlar; grande ↔ enorme; coche ↔ automóvil",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1469,7 +1469,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "frío ↔ caliente; largo ↔ corto; alto ↔ bajo",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1489,7 +1489,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "limpio ↔ sucio; fuerte ↔ débil; lleno ↔ vacío",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1509,7 +1509,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "cerca ↔ lejos; ancho ↔ estrecho; claro ↔ oscuro",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1529,7 +1529,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "abrir ↔ cerrar; rápido ↔ lento; ordenado ↔ desordenado",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -1549,7 +1549,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "3 parejas conectadas",
+      "respuesta": "valiente ↔ cobarde; pronto ↔ tarde; subir ↔ bajar",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2209,7 +2209,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "contento - feliz: Sinónimos; alto - bajo: Antónimos; rápido - veloz: Sinónimos; sucio - limpio: Antónimos",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2229,7 +2229,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "libreta - cuaderno: Sinónimos; cerca - lejos: Antónimos; regalo - obsequio: Sinónimos; lleno - vacío: Antónimos",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2249,7 +2249,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "bello - bonito: Sinónimos; lento - rápido: Antónimos; coche - automóvil: Sinónimos; frío - caliente: Antónimos",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2269,7 +2269,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "enorme - grande: Sinónimos; ancho - estrecho: Antónimos; terminar - acabar: Sinónimos; abrir - cerrar: Antónimos",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2649,7 +2649,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "Decir algo en voz alta: Verbal oral; Escribir una nota: Verbal escrita; Mostrar una tarjeta roja sin hablar: No verbal",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2669,7 +2669,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "Llamar y conversar: Verbal oral; Leer una carta: Verbal escrita; Hacer un gesto de silencio: No verbal",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2689,7 +2689,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "Contar una noticia hablando: Verbal oral; Enviar un correo con palabras: Verbal escrita; Una sirena sin voz: No verbal",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -2709,7 +2709,7 @@
         15
       ],
       "escalon": 0,
-      "respuesta": "Clasificación correcta",
+      "respuesta": "Explicar oralmente un juego: Verbal oral; Un texto en el periódico: Verbal escrita; Una luz roja de semáforo: No verbal",
       "variantes": null,
       "dificultad": 0,
       "validacion": "Determinista exacta",
@@ -3155,7 +3155,7 @@
         15
       ],
       "escalon": 1,
-      "respuesta": "Selección correcta",
+      "respuesta": "Escribir una carta; Leer una noticia",
       "variantes": null,
       "dificultad": 1,
       "validacion": "Determinista exacta",
@@ -3175,7 +3175,7 @@
         15
       ],
       "escalon": 1,
-      "respuesta": "Selección correcta",
+      "respuesta": "Enseñar una tarjeta roja sin hablar; Señalar con un dedo",
       "variantes": null,
       "dificultad": 1,
       "validacion": "Determinista exacta",
@@ -3195,7 +3195,7 @@
         15
       ],
       "escalon": 1,
-      "respuesta": "Selección correcta",
+      "respuesta": "Emisor; Receptor",
       "variantes": null,
       "dificultad": 1,
       "validacion": "Determinista exacta",
@@ -3215,7 +3215,7 @@
         15
       ],
       "escalon": 1,
-      "respuesta": "Selección correcta",
+      "respuesta": "Altavoces; Correo electrónico",
       "variantes": null,
       "dificultad": 1,
       "validacion": "Determinista exacta",
@@ -3235,7 +3235,7 @@
         15
       ],
       "escalon": 1,
-      "respuesta": "Selección correcta",
+      "respuesta": "Conversar en clase; Hablar por teléfono",
       "variantes": null,
       "dificultad": 1,
       "validacion": "Determinista exacta",
