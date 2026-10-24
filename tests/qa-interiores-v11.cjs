@@ -46,9 +46,10 @@ async function metrics(p){
      const opened=await p.locator(".mission-stage").count();
      if(!opened){
        const diagnostic=await p.evaluate(()=>({stageLock:document.querySelector("#stage-locked-message")?.textContent||null,view:document.querySelector("#view")?.textContent?.slice(0,300)||null,app:document.querySelector("#app")?.innerText?.slice(0,450)||null,mission:document.querySelectorAll(".mission-stage").length}));
-       console.log("NO_MISSION "+subject+" "+w+" "+JSON.stringify(diagnostic));
+       console.log("NO_MISSION "+subject+" "+w+" "+JSON.stringify({diagnostic,errors}));
        await p.screenshot({path:"qa-screenshots/interiores-v11/"+subject+"-sin-mision-"+w+".png",fullPage:true});
      }
+     if(!opened && w===1366 && subject==="matematicas")throw Error("Fallo al abrir primera misión: "+JSON.stringify(errors));
      check(opened===1,"Misión abierta "+subject+" "+w);
      const bg=opened?await p.locator(".mission-stage").evaluate(e=>getComputedStyle(e).backgroundImage):"";
      check(bg.includes("assets/v11/reino-"),"Fondo de misión V11 "+subject+" "+w);
