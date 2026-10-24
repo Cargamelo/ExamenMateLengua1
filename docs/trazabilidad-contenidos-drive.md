@@ -8,10 +8,10 @@
 
 Se accedió a:
 - Lengua / REPASO SDA 1-LENGUAS POR EL MUNDO- / CONTROLES DE REPASO (5 ficheros) y ACTIVIDADES (17 ficheros).
-- Matemáticas / REPASO SDA 1 -¡MOLA MIL!- / CONTROLES DE REPASO (4 ficheros) y ACTIVIDADES DE REPASO (11 ficheros).
+- Matemáticas / REPASO SDA 1 -¡MOLA MIL!- / CONTROLES DE REPASO (4 ficheros) y ACTIVIDADES DE REPASO (10 ficheros).
 - Raíz Matemáticas: DÉCIMO DE LOTERÍA.jpg y un HTML de historial de conversación (2 ficheros).
 
-**39 archivos enumerados en total, en 6 subcarpetas internas más dos carpetas raíz.** No todas las imágenes y páginas están transcritas; el inventario no equivale a una lectura exhaustiva. El archivo de historial de conversación se excluye intencionadamente por privacidad y por no ser un material escolar verificable.
+**38 archivos enumerados en total (22 de Lengua y 16 de Matemáticas), en seis carpetas internas bajo las dos carpetas principales.** El registro completo, sin IDs ni datos personales, figura en `docs/inventario-drive-sda1.json`. Los archivos audiovisuales de las diapositivas no están interpretados. El archivo de historial de conversación se excluye intencionadamente por privacidad y por no ser un material escolar verificable.
 
 ### Matemáticas — contenidos que sustentan las preguntas
 
@@ -24,7 +24,7 @@ Se accedió a:
 | MAT-COMPARACION-4 | ACTIVIDADES DE REPASO / Act. 4 COMPARACIÓN DE NÚMEROS.png | Anterior/posterior de números de cuatro cifras | Imagen revisada visualmente |
 | MAT-SUMAS-RESTAS | ACTIVIDADES DE REPASO / FICHAS SUMAS Y RESTAS.pdf | Sumas y restas; ejercicios originales construidos y verificados aritméticamente | Los operandos no fueron legibles en el texto extraído; no se atribuyen ejercicios concretos al PDF |
 
-Otros archivos identificados: Act. 1, 3 y 4 LECTURA DE NÚMEROS.pdf (sin texto legible en extracción); Act. 1 COMPARACIÓN DE NÚMEROS.pdf (sin texto legible); Act. 1 NÚMEROS ORDINALES Y CARDINALES.pdf (sin texto legible); Act. 3 COMPARACIÓN DE NÚMEROS.jpg (inspección visual); los dos controles de Matemáticas y sus dos solucionarios (4). DÉCIMO DE LOTERÍA.jpg se examinó visualmente, pero no se reprodujo por sus componentes gráficos originales.
+Otros archivos identificados: Act. 1, 3 y 4 LECTURA DE NÚMEROS.pdf (sin texto extraíble, revisadas como imágenes en sus 2, 4 y 7 páginas); Act. 1 COMPARACIÓN DE NÚMEROS.pdf y Act. 1 NÚMEROS ORDINALES Y CARDINALES.pdf (sin texto extraíble, inspeccionadas visualmente); Act. 3 COMPARACIÓN DE NÚMEROS.jpg (inspección visual); los dos controles de Matemáticas y sus dos solucionarios (4). DÉCIMO DE LOTERÍA.jpg se examinó visualmente, pero no se reprodujo por sus componentes gráficos originales.
 
 ### Lengua — contenidos que sustentan las preguntas
 
@@ -37,7 +37,7 @@ Otros archivos identificados: Act. 1, 3 y 4 LECTURA DE NÚMEROS.pdf (sin texto l
 | LEN-SINONIMOS-8 | ACTIVIDADES / Act. 8 Sinónimos y antónimos.jpg | Equivalencias de vocabulario | Imagen revisada |
 | LEN-COMUNICACION-2 | ACTIVIDADES / Act. 2 La comunicación.jpg | Emisor, receptor, mensaje, código, canal, comunicación verbal/no verbal | Imagen revisada |
 
-Otros materiales revisados visualmente: Act. 1, 3 y 4 La comunicación.jpg; Act. 2, 3, 5, 6 y 7 Sinónimos y antónimos.jpg. También se inventariaron y se intentó consultar CONTROL DE REPASO 2.png, su solucionario, la ficha Act. 4 Sinónimos y antónimos.png y Ejercicios de elementos de la comunicación (Del revés).pdf. EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf no devolvió texto; las presentaciones Ej. Lengua (Comunicación verbal y no verbal).pptx y Elementos de la comunicación .pptx requieren inspección completa adicional, especialmente la última, de gran tamaño.
+Otros materiales revisados visualmente: Act. 1, 3 y 4 La comunicación.jpg; Act. 2, 3, 5, 6 y 7 Sinónimos y antónimos.jpg. También se inventariaron y se intentó consultar CONTROL DE REPASO 2.png, su solucionario, la ficha Act. 4 Sinónimos y antónimos.png y Ejercicios de elementos de la comunicación (Del revés).pdf. EJERCICIOS ELEMENTOS DE LA COMUNICACIÓN.pdf no devolvió texto pero sus 2 páginas se leyeron visualmente. Se abrieron ambas presentaciones: la primera contiene 12 diapositivas sobre comunicación verbal/no verbal; la segunda, 17 sobre emisor/receptor/canal/código. **Los vídeos y recursos multimedia de las diapositivas no se han verificado**, y sus ejemplos no se incorporaron como preguntas específicas.
 
 ### Incidencias documentales
 
@@ -81,5 +81,5 @@ No se modifica el esquema de progreso, las recompensas, `adaptativo.js`, `fases.
 ## D. Limitaciones para revisión
 
 - La exactitud semántica de pares léxicos la sustenta el análisis pedagógico de las fichas, pero no un demostrador formal: requiere revisión independiente docente.
-- Las páginas o imágenes no legibles, las diapositivas muy grandes y el historial HTML no se trasladaron al banco.
+- Los vídeos incrustados en presentaciones, las imágenes con ejercicios ambiguos y el historial HTML (excluido por privacidad) no se trasladaron al banco.
 - Antes de fusionar, revisar en la ejecución más reciente de CI las pruebas de escritorio/móvil, recarga y ruta PWA. La cobertura del nuevo banco no sustituye una auditoría de persistencia de Chat B.
