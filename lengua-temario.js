@@ -18,7 +18,7 @@ const src={
 };
 function add(subject,topic,type,prompt,correct,extra={}){
  const id="TEM-L-"+String(items.length+1).padStart(3,"0");
- const q={id,subject:"lang",topic,type,variant:"variedad",prompt,correct:String(correct),
+ const q={id,subject:"lang",topic,type,variant:"variedad",prompt,correct:String(correct),allowCorrection:type==="fill",
   source:extra.source||src[topic==="sinonimos"?"SIN":topic==="antonimos"?"ANT":"ELEM"],
   difficulty:extra.minStep||0, minStep:extra.minStep||0,
   concept:extra.concept||topic,
