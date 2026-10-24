@@ -33,8 +33,8 @@ async function main(){
    await p.keyboard.press("Escape");
    await p.locator('[data-liga-open="errors"]').click();await screenshot(p,"07-errores-"+width);
    await p.keyboard.press("Escape");
-   await p.locator('[data-liga-open="achievements"]').count().then(async count=>{
-    if(count){await p.locator('[data-liga-open="achievements"]').first().click();await screenshot(p,"08-logros-"+width);await p.keyboard.press("Escape")}
+   await p.locator('[data-liga-open="progress"]').count().then(async count=>{
+    if(count){await p.locator('[data-liga-open="progress"]').first().click();await screenshot(p,"08-logros-"+width);await p.keyboard.press("Escape")}
    });
    await p.locator('[data-liga-open="settings"]').click();await screenshot(p,"09-ajustes-"+width);
    await p.keyboard.press("Escape");
